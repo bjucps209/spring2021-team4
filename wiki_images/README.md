@@ -1,0 +1,3 @@
+```
+Store wiki images here
+```
