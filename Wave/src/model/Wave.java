@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-
+import java.io.*;
 import model.Enums.*;
 import model.GameObjects.EnemyObject;
 import model.GameObjects.GameObject;
@@ -123,5 +123,22 @@ public class Wave {
 
     public void setCurrentLevel(Level currentLevel) {
         this.currentLevel = currentLevel;
+    }
+
+    public void save(String userName){
+        // Note: userName will be uses as the fileName follow by ".dat"
+        try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
+            // load data here
+        }catch(IOException e){
+            
+        }
+    }
+    public void load(String userName){
+        // Note: userName will be uses as the fileName follow by ".dat"
+        try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
+
+        }catch(IOException e){
+
+        }
     }
 }
