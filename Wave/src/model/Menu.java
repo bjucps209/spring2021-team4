@@ -16,8 +16,8 @@ public class Menu {
     }
 
     // Initializes main screen info and prepares game
-    public User initialize() {
-        return new User(); // create empty user. Not included in user list
+    public void initialize() {
+        currentUser = new User(""); // create empty user. Not included in user list
     }
 
     public static Menu getInstance() {

@@ -1,5 +1,6 @@
 package model.Enums;
 
-public class ShipSkins {
+public enum ShipSkins {
     // Enum for each skin in customization
+    SHIP1
 }
