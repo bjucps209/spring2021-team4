@@ -91,10 +91,10 @@ public class Wave {
     public void setCurrentShip(ShipSkins currentShip) {
         this.currentShip = currentShip;
     }
-<<<<<<< HEAD
+    <<<<<<< HEAD
 =======
-
-    public Player getPlayer() {
+    
+public Player getPlayer() {
         return this.player;
     }
 
@@ -126,5 +126,5 @@ public class Wave {
 
         }
     }
->>>>>>> 3fdc15b3857d4b861859777f9fca815552ea199b
+    >>>>>>> 3fdc15b3857d4b861859777f9fca815552ea199b
 }
