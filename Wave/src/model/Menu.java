@@ -18,6 +18,7 @@ public class Menu {
     // Initializes main screen info and prepares game
     public void initialize() {
         currentUser = new User(""); // create empty user. Not included in user list
+        coins = currentUser.getCoins();
     }
 
     public static Menu getInstance() {
