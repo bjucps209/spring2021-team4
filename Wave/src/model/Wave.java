@@ -24,6 +24,7 @@ public class Wave {
 
     // Menu variables
     private Menu mainMenu = Menu.getInstance();
+    private Game game;
 
     // Shop variables
     private ShipSkins currentShip;
@@ -35,7 +36,8 @@ public class Wave {
 
     // Starts the game, does all calculations and initializes lists
     public void gameStart() {
-
+        game = new Game(100, 100);
+        game.initializeLevel();
     }
 
     // Ends the game and clears variables
