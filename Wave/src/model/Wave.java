@@ -45,6 +45,16 @@ public class Wave {
 
     }
 
+    // Loads user to instance variables
+    public void loadUser() {
+
+    }
+
+    // Saves user
+    public void saveUser() {
+
+    }
+
     // Singleton get instance method
     public static Wave getInstance() {
         if (wave == null) {
@@ -94,7 +104,7 @@ public class Wave {
         this.currentShip = currentShip;
     }
 
-    public void save(String userName){
+    private void save(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
         try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
             // load data here
@@ -102,7 +112,8 @@ public class Wave {
             
         }
     }
-    public void load(String userName){
+    
+    private void load(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
         try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
 
