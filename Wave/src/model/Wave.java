@@ -16,24 +16,17 @@ public class Wave {
     // Constant variables
     private final int windowWidth = 0;
     private final int windowHeight = 0;
-    private final int gameWidth = 0;
-    private final int gameHeight = 0;
 
     // Data variables
     private ArrayList<User> users = new ArrayList<User>();
     private ArrayList<HighScore> highScores = new ArrayList<HighScore>();
     private ArrayList<ShipSkins> skins = new ArrayList<ShipSkins>();
-    private ArrayList<Level> levels = new ArrayList<Level>();
 
     // Menu variables
     private Menu mainMenu = Menu.getInstance();
 
     // Shop variables
     private ShipSkins currentShip;
-
-    // Gameplay variables
-    private Player player;
-    private Level currentLevel;
 
     // Singleton constructor
     private Wave() {
@@ -47,7 +40,7 @@ public class Wave {
 
     // Ends the game and clears variables
     public void endGame() {
-        
+
     }
 
     // Singleton get instance method
@@ -65,14 +58,6 @@ public class Wave {
 
     public int getWindowHeight() {
         return this.windowHeight;
-    }
-
-    public int getGameWidth() {
-        return this.gameWidth;
-    }
-
-    public int getGameHeight() {
-        return this.gameHeight;
     }
 
     public ArrayList<User> getUsers() {
@@ -99,35 +84,11 @@ public class Wave {
         this.skins = skins;
     }
 
-    public ArrayList<Level> getLevels() {
-        return this.levels;
-    }
-
-    public void setLevels(ArrayList<Level> levels) {
-        this.levels = levels;
-    }
-
     public ShipSkins getCurrentShip() {
         return this.currentShip;
     }
 
     public void setCurrentShip(ShipSkins currentShip) {
         this.currentShip = currentShip;
-    }
-
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Level getCurrentLevel() {
-        return this.currentLevel;
-    }
-
-    public void setCurrentLevel(Level currentLevel) {
-        this.currentLevel = currentLevel;
     }
 }
