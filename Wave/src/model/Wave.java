@@ -91,22 +91,6 @@ public class Wave {
     public void setCurrentShip(ShipSkins currentShip) {
         this.currentShip = currentShip;
     }
-    
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Level getCurrentLevel() {
-        return this.currentLevel;
-    }
-
-    public void setCurrentLevel(Level currentLevel) {
-        this.currentLevel = currentLevel;
-    }
 
     public void save(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
