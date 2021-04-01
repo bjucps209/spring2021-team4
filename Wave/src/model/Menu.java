@@ -15,9 +15,18 @@ public class Menu {
 
     }
 
-    // Initializes main screen info and prepares game
+    /**
+    * Returns void. 
+    * <p>
+    * This method starts the menu with an empty User (name = ""). 
+    */
     public void initialize() {
         currentUser = new User(""); // create empty user. Not included in user list
+    }
+
+    // Load User and set as current user
+    public void loadUser() {
+        coins = currentUser.getCoins();
     }
 
     public static Menu getInstance() {

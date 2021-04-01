@@ -40,6 +40,16 @@ public class Wave {
         mainMenu.initialize(); // construct main menu info
     }
 
+    // Starts the game, does all calculations and initializes lists
+    public void gameStart() {
+
+    }
+
+    // Ends the game and clears variables
+    public void endGame() {
+        
+    }
+
     // Singleton get instance method
     public static Wave getInstance() {
         if (wave == null) {
@@ -53,21 +63,17 @@ public class Wave {
         return this.windowWidth;
     }
 
-
     public int getWindowHeight() {
         return this.windowHeight;
     }
-
 
     public int getGameWidth() {
         return this.gameWidth;
     }
 
-
     public int getGameHeight() {
         return this.gameHeight;
     }
-
 
     public ArrayList<User> getUsers() {
         return this.users;
