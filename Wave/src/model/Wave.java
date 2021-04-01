@@ -3,7 +3,9 @@ package model;
 import java.util.ArrayList;
 
 import model.Enums.*;
+import model.GameObjects.EnemyObject;
 import model.GameObjects.GameObject;
+import model.GameObjects.Obstacle;
 import model.GameObjects.Player;
 
 public class Wave {
@@ -21,21 +23,21 @@ public class Wave {
     private ArrayList<User> users = new ArrayList<User>();
     private ArrayList<HighScore> highScores = new ArrayList<HighScore>();
     private ArrayList<ShipSkins> skins = new ArrayList<ShipSkins>();
+    private ArrayList<Level> levels = new ArrayList<Level>();
 
     // Menu variables
-    private User currentUser;
-    private int coins;
+    private Menu mainMenu = Menu.getInstance();
 
     // Shop variables
     private ShipSkins currentShip;
 
     // Gameplay variables
-    private ArrayList<GameObject> allObjects = new ArrayList<GameObject>();
     private Player player;
+    private Level currentLevel;
 
     // Singleton constructor
     private Wave() {
-
+        mainMenu.initialize(); // construct main menu info
     }
 
     // Singleton get instance method
@@ -45,5 +47,81 @@ public class Wave {
         }
 
         return wave;
+    }
+
+    public int getWindowWidth() {
+        return this.windowWidth;
+    }
+
+
+    public int getWindowHeight() {
+        return this.windowHeight;
+    }
+
+
+    public int getGameWidth() {
+        return this.gameWidth;
+    }
+
+
+    public int getGameHeight() {
+        return this.gameHeight;
+    }
+
+
+    public ArrayList<User> getUsers() {
+        return this.users;
+    }
+
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
+    }
+
+    public ArrayList<HighScore> getHighScores() {
+        return this.highScores;
+    }
+
+    public void setHighScores(ArrayList<HighScore> highScores) {
+        this.highScores = highScores;
+    }
+
+    public ArrayList<ShipSkins> getSkins() {
+        return this.skins;
+    }
+
+    public void setSkins(ArrayList<ShipSkins> skins) {
+        this.skins = skins;
+    }
+
+    public ArrayList<Level> getLevels() {
+        return this.levels;
+    }
+
+    public void setLevels(ArrayList<Level> levels) {
+        this.levels = levels;
+    }
+
+    public ShipSkins getCurrentShip() {
+        return this.currentShip;
+    }
+
+    public void setCurrentShip(ShipSkins currentShip) {
+        this.currentShip = currentShip;
+    }
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Level getCurrentLevel() {
+        return this.currentLevel;
+    }
+
+    public void setCurrentLevel(Level currentLevel) {
+        this.currentLevel = currentLevel;
     }
 }
