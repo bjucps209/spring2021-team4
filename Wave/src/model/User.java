@@ -51,4 +51,12 @@ public class User {
     public void setIsValidUser(boolean isValidUser) {
         this.isValidUser = isValidUser;
     }
+
+    public String serialize(){
+        return "";
+    }
+    public void deserialize(String info){
+
+    }
+
 }
