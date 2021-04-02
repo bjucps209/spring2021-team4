@@ -2,9 +2,9 @@ package model.GameObjects;
 
 public class Player extends GameObject {
     // contains info for a Player during the game
-
-
-
+    
+    // instance variables
+    private int health;
 
     @Override
     public String serialize() {

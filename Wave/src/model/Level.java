@@ -49,4 +49,9 @@ public class Level {
     public void stop() {
 
     }
+
+    // opens wall at the end for player to progress to the next level through
+    public void openWall() {
+
+    }
 }

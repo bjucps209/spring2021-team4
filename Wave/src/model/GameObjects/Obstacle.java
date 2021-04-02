@@ -1,6 +1,8 @@
 package model.GameObjects;
 
 public class Obstacle extends GameObject {
+    // class for each Obstacle instance during the game
+
 
     @Override
     public String serialize() {
@@ -12,7 +14,5 @@ public class Obstacle extends GameObject {
     public void deserialize(String info) {
         // TODO Auto-generated method stub
         
-    }
-    // class for each Obstacle instance during the game
-    
+    }  
 }

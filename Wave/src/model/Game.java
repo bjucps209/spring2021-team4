@@ -35,7 +35,7 @@ public class Game {
 
     }
 
-    // creates all levels and stores in arraylist
+    // creates all hard-coded levels and stores in arraylist
     public void createLevels() {
 
     }
