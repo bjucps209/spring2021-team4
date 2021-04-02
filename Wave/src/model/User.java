@@ -52,11 +52,6 @@ public class User {
         this.isValidUser = isValidUser;
     }
 
-    public String serialize(){
-        return "";
-    }
-    public void deserialize(String info){
 
-    }
 
 }
