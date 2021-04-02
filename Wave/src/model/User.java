@@ -51,7 +51,4 @@ public class User {
     public void setIsValidUser(boolean isValidUser) {
         this.isValidUser = isValidUser;
     }
-
-
-
 }
