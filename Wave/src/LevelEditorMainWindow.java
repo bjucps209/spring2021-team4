@@ -84,21 +84,15 @@ public class LevelEditorMainWindow {
     void onMouseReleased(MouseEvent e) {
         int x = (int) e.getX();
         int y = (int) e.getY();
-        // if (x >= 775) {
-        //     x = 775;
-        // }
-        // if (x <= 25) {
-        //     x = 25;
-        // }
-        // if (y >= 475) {
-        //     y = 475;
-        // }
-        // if (y <= 25) {
-        //     y = 25;
-        // }
+        
         
         
         setLabels();
+    }
+    
+    @FXML
+    void onSaveLevelClicked() {
+
     }
 
     
