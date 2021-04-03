@@ -4,8 +4,8 @@ public abstract class GameObject {
     // abstract class for all game objects
     protected int x;
     protected int y;
-    protected int dx; // delta X
-    protected int dy; // delta y
+    protected int dx; // delta X (added to x every update (speed))
+    protected int dy; // delta y (added to y every update (speed))
 
     public abstract String serialize();
     public abstract void deserialize(String info);
