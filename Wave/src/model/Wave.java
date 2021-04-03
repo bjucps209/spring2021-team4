@@ -63,6 +63,10 @@ public class Wave {
         return wave;
     }
 
+    public Game getGame(){
+        return this.game;
+    }
+
     public int getWindowWidth() {
         return this.windowWidth;
     }
@@ -103,7 +107,7 @@ public class Wave {
         this.currentShip = currentShip;
     }
 
-    private void save(String userName){
+    public void save(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
         try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
             // load data here
@@ -112,7 +116,7 @@ public class Wave {
         }
     }
     
-    private void load(String userName){
+    public void load(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
         try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
 
@@ -120,4 +124,10 @@ public class Wave {
 
         }
     }
+
+    public Menu getMainMenu() {
+        return mainMenu;
+    }
+
+
 }

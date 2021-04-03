@@ -21,6 +21,9 @@ public class Level {
     // Gameplay variables
     private Player player;
 
+
+    private int remainingTime;  // possible connect to TimeLine() with data binding technique
+
     public Level() {
 
     }
@@ -53,5 +56,53 @@ public class Level {
     // opens wall at the end for player to progress to the next level through
     public void openWall() {
 
+    }
+
+    public ArrayList<GameObject> getAllObjects() {
+        return allObjects;
+    }
+
+    public void setAllObjects(ArrayList<GameObject> allObjects) {
+        this.allObjects = allObjects;
+    }
+
+    public ArrayList<EnemyObject> getEnemies() {
+        return enemies;
+    }
+
+    public void setEnemies(ArrayList<EnemyObject> enemies) {
+        this.enemies = enemies;
+    }
+
+    public ArrayList<Obstacle> getObstacles() {
+        return obstacles;
+    }
+
+    public void setObstacles(ArrayList<Obstacle> obstacles) {
+        this.obstacles = obstacles;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public int getRemainingTime() {
+        return remainingTime;
+    }
+
+    public void setRemainingTime(int remainingTime) {
+        this.remainingTime = remainingTime;
     }
 }
