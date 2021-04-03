@@ -107,21 +107,22 @@ public class Wave {
         this.currentShip = currentShip;
     }
 
-    public void save(String userName){
+    public boolean save(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
         try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
             // load data here
+            return true;
         }catch(IOException e){
-            
+            return false;
         }
     }
     
-    public void load(String userName){
+    public boolean load(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
         try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
-
+            return true;
         }catch(IOException e){
-
+            return false;
         }
     }
 
