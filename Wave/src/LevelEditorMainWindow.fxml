@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="10" stylesheets="@MainWindow.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="MainWindow">
+
+    <HBox>
+    <!-- Possibly needed textfields to select certain attributes about an object being inserted -->
+        <TextField fx:id="txtF1"/>
+        <TextField fx:id="txtF2"/>
+        <TextField fx:id="txtF3"/>
+    </HBox>
+    <HBox spacing="10">
+        <VBox spacing="10">
+            <Button styleClass="leftbutton" onAction="#onCreateWandererClicked"></Button>
+            <Button styleClass="leftbutton" onAction="#onCreateTrackerClicked"></Button>
+            <Button styleClass="leftbutton" onAction="#onDeleteClicked"></Button>
+            <Button styleClass="leftbutton" onAction="#onUndoClicked"></Button>
+        </VBox>
+        <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray" />
+        <HBox spacing="10" styleClass="propview">
+            <VBox spacing="10">
+                <Label text="Id:" />
+                <Label text="Position:" />
+                <Label text="Heading:" />
+                <Label text="Speed:" />
+                <Label text="State:" />
+            </VBox>
+            <VBox spacing="10" minWidth="50">
+                <Label fx:id="lblId" text="" />
+                <Label fx:id="lblLoc" text="" />
+                <Label fx:id="lblHeading" text="" />
+                <Label fx:id="lblSpeed" text="" />
+                <Label fx:id="lblState" text="" />
+            </VBox>
+        </HBox>
+    </HBox>
+
+    
+</VBox>
