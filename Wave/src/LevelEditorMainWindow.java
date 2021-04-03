@@ -17,16 +17,11 @@ public class LevelEditorMainWindow {
     Pane pane;
 
     @FXML
-    Label lblId;
-
-    @FXML
     Label lblLoc;
 
     @FXML
     Label lblHeading;
 
-    @FXML
-    Label lblState;
 
     @FXML
     Label lblSpeed;
@@ -45,46 +40,40 @@ public class LevelEditorMainWindow {
     @FXML
     ImageView currentImage;
 
-    Level level;
+    Level level = new Level();
+    
+    
+    
     
     @FXML
-    void initialize() {
-        
-    }
-    
-    
-    // creates am instance of wanderer and a representing ImageView
-    @FXML
-    void onCreateWandererClicked() {
+    void onCreateObstacleClicked() {
         
     }
 
-    // creates an instance of tracker and a representing ImageView
+    
     @FXML
-    void onCreateTrackerClicked() {
+    void onCreateEnemyObjectClicked() {
         
     }
 
-    // removes the current image from the pane, removes the critter from the world list of critters, sets the current critter to null, and updates the labels
-    @FXML
-    void onDeleteClicked() {
-        
+    @FXML 
+    void onCreatePowerupClicked() {
+
     }
-    // gets the last command added to the undo list and undoes it
+
     @FXML
-    void onUndoClicked() {
-        
+    void onSubmitValuesClicked() {
         
     }
 
-    // what happens when the user clicks on an actual image to select it
+    
     @FXML
     void onImageClicked(MouseEvent e) {
         setLabels();
         
     }
 
-    // sets the current image and critter so onMouseReleased can work with them
+    
     @FXML
     void onMousePressed(MouseEvent e) {
         
@@ -112,6 +101,7 @@ public class LevelEditorMainWindow {
         setLabels();
     }
 
+    
     // method to set the labels on the side of the pane
     @FXML
     void setLabels() {
