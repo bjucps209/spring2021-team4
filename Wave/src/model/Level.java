@@ -25,7 +25,13 @@ public class Level {
     private int remainingTime;  // possible connect to TimeLine() with data binding technique
 
     public Level() {
+        initialize();
+    }
 
+    // start all info necessary for level
+    public void initialize() {
+        spawnPlayer();
+        spawnEnemies();
     }
 
     // creates obstacles
@@ -35,12 +41,13 @@ public class Level {
 
     // spawns player
     public void spawnPlayer() {
-
+        player = new Player();
+        allObjects.add(player);
     }
 
     // spawns enemies
     public void spawnEnemies() {
-
+        
     }
 
     // starts enemy movements

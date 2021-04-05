@@ -43,12 +43,7 @@ public class Wave {
 
     // Starts the game, does all calculations and initializes lists
     public void gameStart() {
-        game = new Game(100, 100);
-    }
-
-    // Ends the game and clears variables
-    public void endGame() {
-
+        game = new Game(500, 500);
     }
 
     // Saves user
