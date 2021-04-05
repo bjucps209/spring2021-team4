@@ -23,30 +23,27 @@ public class Wave {
     private ArrayList<ShipSkins> skins = new ArrayList<ShipSkins>();
 
     // Menu variables
-    private Menu mainMenu = Menu.getInstance();
     private Game game;
+
+    // User variables
+    private User currentUser;
+    private int coins;
 
     // Shop variables
     private ShipSkins currentShip;
 
     // Singleton constructor
     private Wave() {
-        mainMenu.initialize(); // construct main menu info
+        
+    }
+
+    public void loadUser() {
+        coins = currentUser.getCoins();
     }
 
     // Starts the game, does all calculations and initializes lists
     public void gameStart() {
-        game = new Game(100, 100);
-    }
-
-    // Ends the game and clears variables
-    public void endGame() {
-
-    }
-
-    // Loads user to instance variables
-    public void loadUser() {
-
+        game = new Game(500, 500);
     }
 
     // Saves user
@@ -107,27 +104,22 @@ public class Wave {
         this.currentShip = currentShip;
     }
 
-    public void save(String userName){
+    public boolean save(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
         try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
             // load data here
+            return true;
         }catch(IOException e){
-            
+            return false;
         }
     }
     
-    public void load(String userName){
+    public boolean load(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
         try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
-
+            return true;
         }catch(IOException e){
-
+            return false;
         }
     }
-
-    public Menu getMainMenu() {
-        return mainMenu;
-    }
-
-
 }

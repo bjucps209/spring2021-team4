@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.Enums.EnemyTypes;
 import model.GameObjects.EnemyObject;
+import model.GameObjects.GameObject;
 import model.GameObjects.Player;
 
 public class Game {
@@ -17,7 +18,6 @@ public class Game {
     private ArrayList<Level> levels = new ArrayList<Level>();
 
     // Gameplay variables
-    private Player player;
     private Level currentLevel;
     private int levelNum = 0;
 
@@ -25,9 +25,17 @@ public class Game {
     public Game(int width, int height) {
         gameWidth = width;
         gameHeight = height;
+        createLevels();
         currentLevel = levels.get(levelNum);
-        levelNum = 0;
         initializeLevel(currentLevel);
+    }
+
+
+    // Main game update function for updating each object
+    public void update() {
+        for (GameObject g : levels.get(levelNum).getAllObjects()) {
+            g.update();
+        }
     }
 
     // initializes game with current level
@@ -37,7 +45,8 @@ public class Game {
 
     // creates all hard-coded levels and stores in arraylist
     public void createLevels() {
-
+        Level l = new Level();
+        levels.add(l);
     }
 
     // progresses to next level information
@@ -63,11 +72,28 @@ public class Game {
         this.levelNum = levelNum;
     }
 
-    public Player getPlayer() {
-        return player;
+    public int getGameWidth() {
+        return this.gameWidth;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setGameWidth(int gameWidth) {
+        this.gameWidth = gameWidth;
     }
+
+    public int getGameHeight() {
+        return this.gameHeight;
+    }
+
+    public void setGameHeight(int gameHeight) {
+        this.gameHeight = gameHeight;
+    }
+
+    public ArrayList<Level> getLevels() {
+        return this.levels;
+    }
+
+    public void setLevels(ArrayList<Level> levels) {
+        this.levels = levels;
+    }
+
 }
