@@ -23,15 +23,22 @@ public class Wave {
     private ArrayList<ShipSkins> skins = new ArrayList<ShipSkins>();
 
     // Menu variables
-    private Menu mainMenu = Menu.getInstance();
     private Game game;
+
+    // User variables
+    private User currentUser;
+    private int coins;
 
     // Shop variables
     private ShipSkins currentShip;
 
     // Singleton constructor
     private Wave() {
-        mainMenu.initialize(); // construct main menu info
+        
+    }
+
+    public void loadUser() {
+        coins = currentUser.getCoins();
     }
 
     // Starts the game, does all calculations and initializes lists
@@ -41,11 +48,6 @@ public class Wave {
 
     // Ends the game and clears variables
     public void endGame() {
-
-    }
-
-    // Loads user to instance variables
-    public void loadUser() {
 
     }
 
@@ -125,10 +127,4 @@ public class Wave {
             return false;
         }
     }
-
-    public Menu getMainMenu() {
-        return mainMenu;
-    }
-
-
 }
