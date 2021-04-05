@@ -6,31 +6,31 @@
 
 <VBox alignment="CENTER" spacing="10" stylesheets="@MainWindow.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="MainWindow">
 
-    <HBox>
+    <HBox spacing="20">
     <!-- Possibly needed textfields to select certain attributes about an object being inserted -->
         <VBox>
-            <Label text=""/>
-            <TextField fx:id="txtF1"/>
+            <Label text="type"/>
+            <ComboBox fx:id="typeBox"/>
         </VBox>
 
         <VBox>
-            <Label text=""/>
+            <Label text="x val:"/>
             <TextField fx:id="txtF2"/>
         </VBox>
 
         <VBox>
-            <Label text=""/>
+            <Label text="y val:"/>
             <TextField fx:id="txtF3"/>
         </VBox>
 
     </HBox>
     <HBox spacing="10">
         <VBox spacing="10">
-            <Button styleClass="leftbutton" onAction="#onCreateObstacleClicked"></Button>
-            <Button styleClass="leftbutton" onAction="#onCreateEnemyObjectClicked"></Button>
-            <Button styleClass="leftbutton" onAction="#onCreatePowerupClicked"></Button>
-            <Button styleClass="leftbutton" onAction="#onSubmitValuesClicked"></Button>
-            <Button styleClass="leftbutton" onAction="#onSaveLevelClicked"></Button>
+            <Button text="obs" styleClass="leftbutton" onAction="#onCreateObstacleClicked"></Button>
+            <Button text="nme" styleClass="leftbutton" onAction="#onCreateEnemyObjectClicked"></Button>
+            <Button text="pwr" styleClass="leftbutton" onAction="#onCreatePowerupClicked"></Button>
+            <Button text="sbt" styleClass="leftbutton" onAction="#onSubmitValuesClicked"></Button>
+            
             
 
         </VBox>
@@ -40,6 +40,7 @@
                 <Label text="Position:" />
                 <Label text="Heading:" />
                 <Label text="Speed:" />
+                <Button text="sve" styleClass="leftbutton" onAction="#onSaveLevelClicked"></Button>
             </VBox>
             <VBox spacing="10" minWidth="50">
                 <Label fx:id="lblLoc" text="" />
