@@ -13,6 +13,7 @@ public class User {
                                                                               // user owned
     private boolean isValidUser;
 
+    // This constructor should only be called in Load / Save user profile.
     public User(){
 
     }
@@ -93,6 +94,9 @@ public class User {
     }
 
     public void setIsValidUser(boolean isValidUser) {
+        this.isValidUser = isValidUser;
+    }
+    public void setValidUser(boolean isValidUser) {
         this.isValidUser = isValidUser;
     }
 

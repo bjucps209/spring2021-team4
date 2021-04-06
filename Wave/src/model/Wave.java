@@ -125,6 +125,26 @@ public class Wave {
         }
     }
     /**
+     * The method should only be called for the usage of unit testing
+     * In order to prevent the overid of userInfo.txt
+     * @param fileName
+     * @return
+     */
+    public boolean saveAllUsersTest(String fileName) {
+        saveCurrentUser();  // First load the current login user into the data file
+        try(PrintWriter wd = new PrintWriter(new FileWriter(fileName))){
+
+            wd.println(this.users.size());
+            for(User existUser : this.users){
+                wd.println(existUser.serialization());
+            }
+            return true;
+        }catch (IOException e){
+            return false;
+        }
+    }
+
+    /**
      * This function will try to load information from userInfo.txt into this.user
      * @return - True if successfully load all information
      *          - False if error occurs during loading informations.
@@ -160,7 +180,46 @@ public class Wave {
             // means error in file
             return false;
         }
+    }   
+
+    /**
+     * This method should only be called and use in case of unit testing!
+     * @param fileName
+     * @return
+     */
+    public boolean loadAllUsersTest(String fileName) {
+        try (BufferedReader rd = new BufferedReader(new FileReader(fileName))) {
+            int numberUser = Integer.parseInt(rd.readLine());
+            users = new ArrayList<User>();
+            for (int i = 0; i < numberUser; i++) {
+
+                String[] information = rd.readLine().split(";");
+                User currentUser = new User();
+
+                if (information.length != 4) {
+                    // means an error in the information
+                    throw new IOException("error in converting file");
+                }
+                
+                else if(currentUser.deserialization(information) == false){
+                    // means have error in data
+                    throw new IOException("error in converting file");
+                }
+                else{
+                    users.add(currentUser);
+                }
+
+            }
+            return true;
+        } catch (IOException e) {
+            // means failed in loading the file
+            return false;
+        } catch (Exception e) {
+            // means error in file
+            return false;
+        }
     }
+
 
     // --- getters ---
     public ArrayList<User> getUsers() {
