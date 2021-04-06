@@ -75,7 +75,7 @@ public class GameTest {
 
 
     // Example 2 data
-    Wave.getInstance().load("Andrew.dat");
+    Wave.getInstance().getGame().load("Andrew.dat");
     game = Wave.getInstance().getGame();
 
     assertTrue(game.getCurrentLevel().getRemainingTime() == 60);
@@ -84,7 +84,7 @@ public class GameTest {
     // has not implement multiple player feature yet
     
     // hard coding, need to change later, assuming for only 1 user
-    user = Wave.getInstance().getMainMenu().getCurrentUser();
+    user = Wave.getInstance().getCurrentUser();
     player = game.getPlayer();
 
     assertTrue(user.getName().equals("Andrew"));

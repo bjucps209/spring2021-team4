@@ -100,7 +100,7 @@ public class Game {
     // Methods for serialization
     public boolean save(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
-        try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
+        try(BufferedReader rd = new BufferedReader( new FileReader(userName + ".dat") )){
             // load data here
             return true;
         }catch(IOException e){
@@ -110,7 +110,7 @@ public class Game {
     
     public boolean load(String userName){
         // Note: userName will be uses as the fileName follow by ".dat"
-        try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
+        try(PrintWriter rd = new PrintWriter( new FileWriter( userName+".dat"))){
             return true;
         }catch(IOException e){
             return false;
