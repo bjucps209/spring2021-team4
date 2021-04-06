@@ -35,6 +35,7 @@ public class WaveTest {
 
   }
 
+  @Test
   public void testSaveAllUser_sampleExample_correctResult(){
     
     Wave.getInstance().loadAllUsersTest("sampleUserInfo.txt");
@@ -49,14 +50,15 @@ public class WaveTest {
     newUSer.setCoins(20);
     newUSer.setShip(ShipSkins.SHIP1);
     newUSer.getOwnedShipSkins().add(ShipSkins.SHIP1);
+    Wave.getInstance().setCurrentUser(newUSer);
 
     Wave.getInstance().getUsers().add(newUSer);
 
-    Wave.getInstance().saveAllUsersTest("sampleSaveUserInfo.txt");
+    assertTrue(Wave.getInstance().saveAllUsersTest("sampleSaveUserInfo.txt"));
 
     // now load back again and see
 
-    Wave.getInstance().loadAllUsersTest("sampleSaveUserInfo.txt");
+    assertTrue(Wave.getInstance().loadAllUsersTest("sampleSaveUserInfo.txt"));
 
     assertTrue(Wave.getInstance().getUsers().size() == 3);
 

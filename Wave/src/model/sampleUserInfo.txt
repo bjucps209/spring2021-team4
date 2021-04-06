@@ -1,0 +1,4 @@
+Example
+2
+Jack;10;SHIP2;SHIP1,SHIP2
+David;200;SHIP1;SHIP1

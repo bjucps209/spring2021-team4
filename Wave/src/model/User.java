@@ -25,7 +25,7 @@ public class User {
     }
 
     public String serialization(){
-        return name+";"+coins+";"+ship.toString()+";"+ownedShipSkins.toString().replace("[", "").replace("]", "");
+        return name+";"+coins+";"+ship.toString()+";"+ ownedShipSkins.toString().replace("[", "").replace("]", "").replaceAll(" ", "");
     }
     public boolean deserialization(String [] information){
         try {
