@@ -67,6 +67,9 @@ public class Wave {
         return this.windowHeight;
     }
 
+
+
+    
     /**
      * This function take a String userName, check and return User() in this.users that has the same user name
      * @param userName - String indicate user name
@@ -102,7 +105,14 @@ public class Wave {
         }
     }
 
+    /**
+     * This function will load and save all User() in this.users into a file
+     * named "userInfo.txt"
+     * @return - True if successfully save all User() in this.users into txt file
+     *         - False otherwise
+     */
     public boolean saveAllUsers() {
+        saveCurrentUser();  // First load the current login user into the data file
         try(PrintWriter wd = new PrintWriter(new FileWriter("userInfo.txt"))){
 
             wd.println(this.users.size());
@@ -114,7 +124,11 @@ public class Wave {
             return false;
         }
     }
-
+    /**
+     * This function will try to load information from userInfo.txt into this.user
+     * @return - True if successfully load all information
+     *          - False if error occurs during loading informations.
+     */
     public boolean loadAllUsers() {
         try (BufferedReader rd = new BufferedReader(new FileReader("userInfo.txt"))) {
             int numberUser = Integer.parseInt(rd.readLine());
