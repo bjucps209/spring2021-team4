@@ -9,7 +9,7 @@ import model.Enums.ShipSkins;
 import static org.junit.Assert.*;
 import java.util.*;
 
-public class WaveTest {
+public class GameTest {
 
   @Test
   public void testSave_correctInput_expectResult() {
@@ -25,8 +25,8 @@ public class WaveTest {
      * speed by5, and for 20 seconds ENDL#
      * 
      */
-    User currentUser = Wave.getInstance().getMainMenu().getCurrentUser();
-    Wave.getInstance().save(currentUser.getName());
+    User currentUser = Wave.getInstance().getCurrentUser();
+    Wave.getInstance().getGame().save(currentUser.getName());
     File location = new File(currentUser.getName()+".dat");
 
     assertTrue(location.exists());  // means saved the file successfully
@@ -36,12 +36,12 @@ public class WaveTest {
   @Test
   public void testLoad_correctInput_expectResult() {
     // Example data1
-    Wave.getInstance().load("Jack.dat");
+    Wave.getInstance().getGame().load("Jack.dat");
     assertEquals(Wave.getInstance().getGame().getCurrentLevel().getRemainingTime(), 15);   
     assertEquals(Wave.getInstance().getGame().getCurrentLevel(), 2);
     // assertTrue(x, easy); // difficulty level of game has not been implemented yet
     // assertEqual(x,1) //  allowing multiple player part has not been implemented, so now assume 1 player
-    var user = Wave.getInstance().getMainMenu().getCurrentUser();
+    var user = Wave.getInstance().getCurrentUser();
     assertTrue(user.getName().equals("Jack"));
     assertTrue(user.getShip() == ShipSkins.SHIP1);
     assertTrue(user.getCoins() == 100);

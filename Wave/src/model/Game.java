@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-
+import java.io.*;
 import model.Enums.EnemyTypes;
 import model.GameObjects.EnemyObject;
 import model.GameObjects.GameObject;
@@ -94,6 +94,27 @@ public class Game {
 
     public void setLevels(ArrayList<Level> levels) {
         this.levels = levels;
+    }
+
+
+    // Methods for serialization
+    public boolean save(String userName){
+        // Note: userName will be uses as the fileName follow by ".dat"
+        try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
+            // load data here
+            return true;
+        }catch(IOException e){
+            return false;
+        }
+    }
+    
+    public boolean load(String userName){
+        // Note: userName will be uses as the fileName follow by ".dat"
+        try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
+            return true;
+        }catch(IOException e){
+            return false;
+        }
     }
 
 }

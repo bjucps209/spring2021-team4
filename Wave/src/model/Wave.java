@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.io.*;
+
 import model.Enums.*;
 import model.GameObjects.EnemyObject;
 import model.GameObjects.GameObject;
@@ -18,7 +18,7 @@ public class Wave {
     private final int windowHeight = 0;
 
     // Data variables
-    private ArrayList<User> users = new ArrayList<User>();
+    private ArrayList<User> users = new ArrayList<User>();  // A list of exist user
     private ArrayList<HighScore> highScores = new ArrayList<HighScore>();
     private ArrayList<ShipSkins> skins = new ArrayList<ShipSkins>();
 
@@ -104,22 +104,13 @@ public class Wave {
         this.currentShip = currentShip;
     }
 
-    public boolean save(String userName){
-        // Note: userName will be uses as the fileName follow by ".dat"
-        try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
-            // load data here
-            return true;
-        }catch(IOException e){
-            return false;
-        }
+    public User getCurrentUser() {
+        return currentUser;
     }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
     
-    public boolean load(String userName){
-        // Note: userName will be uses as the fileName follow by ".dat"
-        try(DataInputStream rd = new DataInputStream(new FileInputStream(userName+".dat"))){
-            return true;
-        }catch(IOException e){
-            return false;
-        }
-    }
 }
