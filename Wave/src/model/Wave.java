@@ -90,7 +90,7 @@ public class Wave {
     // Saves user
     /**
      * The function will add this.currentUser into this.users if does not exist in the list.
-     * If exist, will replace that User() to this.user's reference
+     * If exist, will connect the reference of that User() to this.currentUser
      * Condition for exist: one of User() in this.users has the same Name as this.currentUser
      */
     public void saveCurrentUser() {
@@ -98,7 +98,7 @@ public class Wave {
         User existUser = userExist(currentUser.getName());
         if(existUser != null){
             // now just change the reference
-            existUser = this.currentUser;
+            this.currentUser = existUser;
         }else{
             // means this is a new user that does not exist in the ArrayList
             this.users.add(this.currentUser);
