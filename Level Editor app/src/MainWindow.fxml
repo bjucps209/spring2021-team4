@@ -8,28 +8,40 @@
 
     <HBox spacing="20">
     <!-- Possibly needed textfields to select certain attributes about an object being inserted -->
-        <VBox>
+        <VBox fx:id="vbox">
             <Label text="type"/>
-            <ComboBox fx:id="typeBox"/>
+            
         </VBox>
+
 
         <VBox>
             <Label text="x val:"/>
-            <TextField fx:id="txtF2"/>
+            <TextField fx:id="txtF1"/>
         </VBox>
 
         <VBox>
             <Label text="y val:"/>
+            <TextField fx:id="txtF2"/>
+        </VBox>
+
+         <VBox>
+            <Label text="Heading(for entities only)"/>
             <TextField fx:id="txtF3"/>
+        </VBox>
+
+        <VBox>
+            <Label text="Appearance Time(for powerups only)"/>
+            <TextField fx:id="txtF4"/>
         </VBox>
 
     </HBox>
     <HBox spacing="10">
         <VBox spacing="10">
-            <Button text="obs" styleClass="leftbutton" onAction="#onCreateObstacleClicked"></Button>
+            <!-- <Button text="obs" styleClass="leftbutton" onAction="#onCreateObstacleClicked"></Button>
             <Button text="nme" styleClass="leftbutton" onAction="#onCreateEnemyObjectClicked"></Button>
-            <Button text="pwr" styleClass="leftbutton" onAction="#onCreatePowerupClicked"></Button>
-            <Button text="sbt" styleClass="leftbutton" onAction="#onSubmitValuesClicked"></Button>
+            <Button text="pwr" styleClass="leftbutton" onAction="#onCreatePowerupClicked"></Button> -->
+            <Button text="update" styleClass="leftbutton" onAction="#onUpdateValuesClicked"></Button>
+            <Button text="create" styleClass="leftbutton" onAction="#onCreateNewClicked"></Button>
             
             
 
@@ -40,7 +52,7 @@
                 <Label text="Position:" />
                 <Label text="Heading:" />
                 <Label text="Speed:" />
-                <Button text="sve" styleClass="leftbutton" onAction="#onSaveLevelClicked"></Button>
+                <Button text="save level" styleClass="leftbutton" onAction="#onSaveLevelClicked"></Button>
             </VBox>
             <VBox spacing="10" minWidth="50">
                 <Label fx:id="lblLoc" text="" />
