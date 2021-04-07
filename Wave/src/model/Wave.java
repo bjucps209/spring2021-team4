@@ -112,7 +112,7 @@ public class Wave {
      *         - False otherwise
      */
     public boolean saveAllUsers() {
-        saveCurrentUser();  // First load the current login user into the data file
+        saveCurrentUser();  // First load the current login user into  this.users ArrayList
         try(PrintWriter wd = new PrintWriter(new FileWriter("userInfo.txt"))){
 
             wd.println(this.users.size());
