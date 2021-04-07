@@ -4,12 +4,8 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
-    spacing="10" alignment="CENTER">
+    spacing="10" prefWidth="600" prefHeight="400" alignment="CENTER">
 
-    <Label text="Wave" id="title"/>
-
-    <Button text="NEW GAME" onAction="#onNewGameClicked"/>
-
-    <Button onAction="#onDisplayInfo" text="display info"  />
+    <Pane />
 
 </VBox>
