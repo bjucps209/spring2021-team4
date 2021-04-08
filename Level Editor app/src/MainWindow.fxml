@@ -16,21 +16,25 @@
 
         <VBox>
             <Label text="x val:"/>
+            <Label text="int value 0-800"/>
             <TextField fx:id="txtFXValue"/>
         </VBox>
 
         <VBox>
             <Label text="y val:"/>
+            <Label text="int value 0-500"/>
             <TextField fx:id="txtFYValue"/>
         </VBox>
 
          <VBox>
             <Label text="Heading(for entities only)"/>
+            <Label text="int value 0-359?"/>
             <TextField fx:id="txtFHeading"/>
         </VBox>
 
         <VBox>
             <Label text="Appearance Time(for powerups only)"/>
+            <Label text="int value 0-60?"/>
             <TextField fx:id="txtFAppearanceTime"/>
         </VBox>
 
@@ -51,13 +55,13 @@
             <VBox spacing="10">
                 <Label text="Position:" />
                 <Label text="Heading:" />
-                <Label text="Speed:" />
+                <Label text="Appearance Time:" />
                 <Button text="save level" styleClass="leftbutton" onAction="#onSaveLevelClicked"></Button>
             </VBox>
             <VBox spacing="10" minWidth="50">
                 <Label fx:id="lblLoc" text="" />
                 <Label fx:id="lblHeading" text="" />
-                <Label fx:id="lblSpeed" text="" />
+                <Label fx:id="lblTime" text="" />
             </VBox>
         </HBox>
     </HBox>
