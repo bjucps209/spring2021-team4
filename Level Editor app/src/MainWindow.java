@@ -7,17 +7,10 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.*;
 
-// import model.Level;
+import model.Level;
+import model.GameObjects.*;
+import model.Enums.*;
 
-
-
-// how will user begin adding elements of a level?
-// click a button so that the user can create a basic entity, then change the entity using the drop down box?
-
-
-// make the one combo box have everytiype of entity in the game so that the user can directyl create whatever he wants
-
-// i dont need buttons to create every type of entity, just the one submit value button. I need to have textFields for time to appear attribute. angle?
 // need to discuss with team the PNG images we will be using. 
 // import the model so it will be easier to save
 public class MainWindow {
@@ -44,16 +37,16 @@ public class MainWindow {
     ComboBox<String> typeBox = new ComboBox<>();
 
     @FXML
-    TextField txtF1;
+    TextField txtFXValue;
 
     @FXML
-    TextField txtF2;
+    TextField txtFYValue;
 
     @FXML
-    TextField txtF3;
+    TextField txtFHeading;
 
     @FXML
-    TextField txtF4;
+    TextField txtFAppearanceTime;
 
 
     
@@ -61,10 +54,12 @@ public class MainWindow {
     @FXML
     ImageView currentImage;
 
+    GameObject currentObject;
+
     String fileName = "customLevel";
     int numLevels;
 
-    // Level level = new Level();
+    
     @FXML
     void initialize() {
         String[] types = {"bold_silver", "bolt_bronze", "bolt_gold", "pill_blue", "pill_green", "pill_red", "pill_yellow", "powerupBlue_bolt", "powerupBlue_bolt"};
@@ -80,28 +75,42 @@ public class MainWindow {
 
 
     }
+
+    // factory method to create an instance of GameObject when the user clicks create new
+    GameObject createGameObjects(String identifier) {
+        switch (identifier) {
+            case "bold_silver":
+                return new Obstacle();
+            case "powerupBlue_bolt":
+                return new Obstacle();
+            default:
+                return new Obstacle();
+
+        }
+    }
     
     @FXML 
     void setCurrent(ImageView img) {
         // scaleable method to set the current image for the user.
         currentImage = img;
         currentImage.getStyleClass().add("current");
+        try {
+            currentObject = (GameObject) currentImage.getUserData();
+        }
+        catch (Exception e) {
+            System.out.println("failed");
+        }
     }
-    
 
-    
-    @FXML
-    void onCreateEnemyObjectClicked() {
-        // create an obstacle on the pane, then let the user modify it by drag and drop, manually setting x and y values, selecting its type, etc.
-    }
-
-    
 
     @FXML
     void onUpdateValuesClicked() {
-        if (currentImage != null) {
-            currentImage.setX(Integer.parseInt(txtF1.getText()));
-            currentImage.setY(Integer.parseInt(txtF2.getText()));
+        if (currentImage != null && currentObject != null) {
+            currentImage.setX(Integer.parseInt(txtFXValue.getText()));
+            currentImage.setY(Integer.parseInt(txtFYValue.getText()));
+
+            currentObject.setX(Integer.parseInt(txtFXValue.getText()));
+            currentObject.setY(Integer.parseInt(txtFYValue.getText()));
         }
         
     }
@@ -116,10 +125,17 @@ public class MainWindow {
         imgView.setOnMouseDragged(this::onMouseDragged);
         imgView.setOnMouseClicked(this::onMouseClicked);
 
+        var obj = createGameObjects(str);
+        imgView.setUserData(obj);
 
 
-        imgView.setX(Integer.parseInt(txtF1.getText()));
-        imgView.setY(Integer.parseInt(txtF2.getText()));
+
+        imgView.setX(Integer.parseInt(txtFXValue.getText()));
+        imgView.setY(Integer.parseInt(txtFYValue.getText()));
+
+        obj.setX(Integer.parseInt(txtFXValue.getText()));
+        obj.setY(Integer.parseInt(txtFYValue.getText()));
+
         pane.getChildren().add(imgView);
 
         
@@ -139,24 +155,13 @@ public class MainWindow {
     @FXML
     void onMouseDragged(MouseEvent e) {
         setCurrent((ImageView) e.getSource());
-        currentImage.setX(e.getX());
-        currentImage.setY(e.getY());
-    }
+        currentImage.setX((int) e.getX());
+        currentImage.setY((int) e.getY());
 
-
-    @FXML
-    void onMousePressed(MouseEvent e) {
-        
-    }
-    
-    @FXML
-    void onMouseReleased(MouseEvent e) {
-        int x = (int) e.getX();
-        int y = (int) e.getY();
-        
+        currentObject.setX((int) e.getX());
+        currentObject.setY((int) e.getY());
         setLabels();
     }
-    
 
 
     // stringify and write to a file.
@@ -177,6 +182,15 @@ public class MainWindow {
     // method to set the labels on the side of the pane
     @FXML
     void setLabels() {
-        
+        if (currentImage != null) {
+            lblLoc.setText("(" + String.valueOf(currentImage.getX()) + "," + String.valueOf(currentImage.getY()) + ")");
+            lblHeading.setText("heading here");
+            lblSpeed.setText("speed here");
+        }
+        else {
+            lblLoc.setText("");
+            lblHeading.setText("");
+            lblSpeed.setText("");
+        }
     }
 }

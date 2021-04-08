@@ -16,22 +16,22 @@
 
         <VBox>
             <Label text="x val:"/>
-            <TextField fx:id="txtF1"/>
+            <TextField fx:id="txtFXValue"/>
         </VBox>
 
         <VBox>
             <Label text="y val:"/>
-            <TextField fx:id="txtF2"/>
+            <TextField fx:id="txtFYValue"/>
         </VBox>
 
          <VBox>
             <Label text="Heading(for entities only)"/>
-            <TextField fx:id="txtF3"/>
+            <TextField fx:id="txtFHeading"/>
         </VBox>
 
         <VBox>
             <Label text="Appearance Time(for powerups only)"/>
-            <TextField fx:id="txtF4"/>
+            <TextField fx:id="txtFAppearanceTime"/>
         </VBox>
 
     </HBox>
