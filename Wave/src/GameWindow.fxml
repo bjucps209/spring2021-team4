@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
+<VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@GameWindow.css"
     spacing="10" prefWidth="600" prefHeight="400" alignment="CENTER">
 
     <Pane />

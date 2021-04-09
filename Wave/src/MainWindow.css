@@ -1,10 +1,23 @@
 .root {
+    -fx-background-image: url("./Images/Title.png");
+    -fx-background-size: 800 600;
     -fx-padding: 10; /* Add a small padding around the window */
     -fx-font-family: 'Helvetica', Arial, sans-serif;
 }
 
+.label {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
+
+#menu-background {
+    -fx-background-image: url("./Images/space.png");
+    -fx-background-size: 800 600;
+}
+
 #title {
     -fx-font-size:40px;
+    -fx-text-fill: black;
 }
 
 /* for Macs */
