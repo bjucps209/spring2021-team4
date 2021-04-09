@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.io.*;
 import model.Enums.EnemyTypes;
+import model.Enums.ShipSkins;
 import model.GameObjects.EnemyObject;
 import model.GameObjects.GameObject;
 import model.GameObjects.Player;
@@ -30,7 +31,6 @@ public class Game {
         initializeLevel(currentLevel);
     }
 
-
     // Main game update function for updating each object
     public void update() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
@@ -56,63 +56,159 @@ public class Game {
         initializeLevel(currentLevel);
     }
 
-    public Level getCurrentLevel() {
-        return currentLevel;
-    }
+    // --- setters ---
 
     public void setCurrentLevel(Level currentLevel) {
         this.currentLevel = currentLevel;
-    }
-
-    public int getLevelNum() {
-        return levelNum;
     }
 
     public void setLevelNum(int levelNum) {
         this.levelNum = levelNum;
     }
 
-    public int getGameWidth() {
-        return this.gameWidth;
-    }
-
     public void setGameWidth(int gameWidth) {
         this.gameWidth = gameWidth;
-    }
-
-    public int getGameHeight() {
-        return this.gameHeight;
     }
 
     public void setGameHeight(int gameHeight) {
         this.gameHeight = gameHeight;
     }
 
-    public ArrayList<Level> getLevels() {
-        return this.levels;
-    }
-
     public void setLevels(ArrayList<Level> levels) {
         this.levels = levels;
     }
 
+    // --- getters ---
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public int getLevelNum() {
+        return levelNum;
+    }
+
+    public int getGameWidth() {
+        return this.gameWidth;
+    }
+
+    public int getGameHeight() {
+        return this.gameHeight;
+    }
+
+    public ArrayList<Level> getLevels() {
+        return this.levels;
+    }
 
     // Methods for serialization
-    public boolean save(String userName){
-        // Note: userName will be uses as the fileName follow by ".dat"
-        try(BufferedReader rd = new BufferedReader( new FileReader(userName + ".dat") )){
+    /**
+     * The methods will load the file give by @param userName in txt form into program
+     * @param userName - the username or name of file been saved
+     * @return true if successfully loads data into the program, false otherwise
+     */
+    public boolean load(String userName) {
+
+        try (BufferedReader rd = new BufferedReader(new FileReader(userName + ".txt"))) {
             // load data here
+            String firstLine = rd.readLine();
+            if(firstLine.equals("###END###")){
+                // means already end of game
+                this.levelNum = this.levels.size()-1;
+                this.currentLevel = this.levels.get(levelNum);
+                this.currentLevel.setRemainingTime(0);
+                // set to last level in game, but yet already at the end of that level
+                //TODO: still need further discussion on how to handle it later
+
+       
+
+                return true;
+            }
+
+            // when it is not end of game
+            int remainingTime = Integer.parseInt(firstLine);
+            levelNum = Integer.parseInt(rd.readLine());
+            this.currentLevel = this.levels.get(levelNum);
+            currentLevel.setRemainingTime(remainingTime);
+
+            boolean result = currentLevel.deserialization(rd);
+
+            
+            String nextLine = rd.readLine();
+            if(  nextLine.equals("ENDL#")== false){
+                // should already be end of file, yet still consist of data
+                throw new IOException ("File format error");
+            }
+            
             return true;
-        }catch(IOException e){
+        } catch (IOException e) {
+            return false;
+        } catch (Exception e){
             return false;
         }
     }
-    
-    public boolean load(String userName){
+
+    /**
+     * The program will save the current game status into a txt file name after @param userName
+     * @param userName - the name of the file that is going to be save
+     * @return - true if successfully save the program into the file, false otherwise
+     */
+    public boolean save(String userName) {
         // Note: userName will be uses as the fileName follow by ".dat"
-        try(PrintWriter rd = new PrintWriter( new FileWriter( userName+".dat"))){
+        try (PrintWriter wd = new PrintWriter(new FileWriter(userName + ".txt"))) {
+            
+            int remainingTime = this.currentLevel.getRemainingTime();
+            if(remainingTime <= 0 && this.levelNum+1 < this.levels.size()){
+                // means end of game
+                // automatically move to next leve
+                wd.println("60"); // write remaining time for each level to be 60
+                wd.println(this.levelNum+1); // move to next level
+            }else if(remainingTime <= 0 && this.levelNum +1 == this.levels.size()){
+                // Means the player save at the end of last level of the game
+                wd.print("###END###");
+                return true;
+            }
+            else{
+                // means save during the game
+                wd.println(remainingTime);
+                wd.println(this.levelNum);
+            }
+
+            // Hard coding here, since only have one player mode
+            // need to change in beta version, when there is a difficulty level
+            // right not assume is in easy mode
+            // TODO: difficutly level 
+            wd.println("easy");
+
+
+             // need to change when two player mode add
+            /*wd.println("1");  // indicate only one player mode
+            int totalUser = 1;
+
+            
+            // determine number of player mode
+            if(totalUser == 1){
+                // single player mode
+                // also need user info
+                // username;totalCoins;score;shipskin;x;y;dx;dy;sepcial effects
+                wd.println("###user");
+                User currentUser = Wave.getInstance().getCurrentUser();
+                String info = currentUser.getName() + ";" + currentUser.getCoins() + ";" + currentLevel.getScore() + ";" +  currentLevel.getPlayer().serialize();
+                wd.println(info);
+            }else{
+                // score;shipskin;x;y;dx;dy;special effects
+                for(int i = 0; i < totalUser; i++){
+                    wd.println("###user");
+                    // 
+                    // TODO how to record each player info!!!
+                }
+            }*/
+
+            for(String s: currentLevel.serialization().split("/n")){
+                wd.println(s);
+            }
+            //wd.print(currentLevel.serialization());
+            wd.println("ENDL#");
             return true;
-        }catch(IOException e){
+        } catch (IOException e) {
             return false;
         }
     }
