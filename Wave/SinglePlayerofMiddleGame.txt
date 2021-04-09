@@ -1,0 +1,12 @@
+20
+4
+easy
+1
+###user
+Andrew;130;30;20;SHIP1;350;380;5;5;200;200
+2
+###gameobject
+EnemyObject;BOUNCER;20;20;5;5;4;4
+###gameobject
+Obstacle;Obstacle;20;330;5;5;0;0
+ENDL#

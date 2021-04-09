@@ -1,5 +1,7 @@
 package model.GameObjects;
 
+import org.junit.rules.TestRule;
+
 import model.Enums.EnemyTypes;
 
 public abstract class EnemyObject extends GameObject {
@@ -17,12 +19,29 @@ public abstract class EnemyObject extends GameObject {
     @Override
     public String serialize() {
         // TODO Auto-generated method stub
-        return null;
+        return "EnemyObject"+";"+type.toString()+";"+x+";"+y+";" + width +";" + height+";"+dx+";"+dy;  // TODO: special affect on enemy Object
     }
 
     @Override
-    public void deserialize(String info) {
+    public boolean deserialize(String info) {
         // TODO Auto-generated method stub
+        // TODO handle special effects later on
+        try{
+            String[] enemyInfo = info.split(";");
+        // x,y,width,height,dx,dy,special affect
+        // type already been set in level.serialization()
+        this.x = Integer.parseInt(enemyInfo[0]);
+        this.y = Integer.parseInt(enemyInfo[1]);
+        this.width = Integer.parseInt(enemyInfo[2]);
+        this.height = Integer.parseInt(enemyInfo[3]);
+        this.dx = Integer.parseInt(enemyInfo[4]);
+        this.dy = Integer.parseInt(enemyInfo[5]);
+        return true;
+        }catch (Exception e){
+            return false;
+        }
+        
+
         
     }
 }

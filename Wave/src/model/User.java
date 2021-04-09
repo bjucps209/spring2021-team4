@@ -23,10 +23,20 @@ public class User {
             isValidUser = false;
         }
     }
-
+    
+    /**
+     * This function will return a string value correspond to the saving format in serialization design
+     * @return String value
+     */
     public String serialization(){
         return name+";"+coins+";"+ship.toString()+";"+ ownedShipSkins.toString().replace("[", "").replace("]", "").replaceAll(" ", "");
     }
+    /**
+     * 
+     * @param information- a String array consist of userName,coins, currentShip, ownedShipSkin
+     * @return true if successfully load the information into User
+     *          false if error occurs in loading or converting the information
+     */
     public boolean deserialization(String [] information){
         try {
             String userName = information[0];
