@@ -1,44 +1,45 @@
 package model;
 
-import java.util.ArrayList;
+public class HighScore implements Comparable<HighScore> {
+    String name;
+    int score;
 
-public class HighScore implements Comparable<User> {
-    // List containing player name and score
-
-    private ArrayList<User> list = new ArrayList<User>();
-
-    public HighScore(ArrayList<User> list) {
-        this.list = list;
+    public HighScore(String name, int score) {
+        this.name = name;
+        this.score = score;
     }
 
     // will modify the Collections.sort method to sort by score
     @Override
-    public int compareTo(User o) {
-        return 0;
+    public int compareTo(HighScore o) {
+        return (this.getScore() < o.getScore() ? -1 : 
+                (this.getScore() == o.getScore() ? 0 : 1));
     }
 
-    // Use collections to properly sort the list
-    public ArrayList<User> sort() {
-        return null;
+    public String getName() {
+        return name;
     }
 
-    public ArrayList<User> getList() {
-        return list;
-    }
-    
-    public void setList(ArrayList<User> list) {
-        this.list = list;
+    public int getScore() {
+        return score;
     }
 
-    // Save the name and score to a file 
-    public void save() {
-
+    public void setName(String name) {
+        this.name = name;
     }
 
-    // Update the list with information from the save file
-    public void load() {
-
+    public void setScore(int score) {
+        this.score = score;
     }
 
+    public String serialize(){
+        return name + "-" + score + "\n";
+    }
 
+    public void unSerialize(String line){
+        String[] info = line.split("-");
+
+        name = info[0];
+        score = Integer.parseInt(info[1]);
+    }
 }
