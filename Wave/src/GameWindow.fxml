@@ -6,6 +6,6 @@
 <VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@GameWindow.css"
     spacing="10" prefWidth="600" prefHeight="400" alignment="CENTER">
 
-    <Pane />
+    <Pane fx:id="pane"/>
 
 </VBox>

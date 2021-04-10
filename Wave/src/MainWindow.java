@@ -45,6 +45,8 @@ public class MainWindow {
         stage.setScene(scene);
         stage.setTitle("Wave");
         stage.show();
+
+        GameWindow.setScene(scene);
     }
     
     @FXML
