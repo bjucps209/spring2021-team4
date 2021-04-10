@@ -22,7 +22,7 @@ public abstract class GameObject {
 
     // update method each object needs
     public void update() {
-        checkWallCollision();
+        //checkWallCollision();
         x.set(getX() + getDx());
         y.set(getY() + getDy());
     } 
