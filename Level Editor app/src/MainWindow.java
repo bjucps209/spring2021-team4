@@ -13,9 +13,6 @@ import model.Level;
 import model.GameObjects.*;
 import model.Enums.*;
 
-// need to discuss with team the PNG images we will be using. 
-// import the model so it will be easier to save
-
 // when the user selects something representing a powerup, create an instance of powerup.
 // when the user creates an obstacle, create an instance of obstacle.
 // when the user creates an entity, create an instance of entity class.
@@ -23,7 +20,6 @@ import model.Enums.*;
 
 // half methods : (these methods need more model classes to be completely implemented)
 // onSaveLevelClicked()
-// createGameObjects()
 // getObjectClass()
 public class MainWindow {
 
@@ -89,7 +85,75 @@ public class MainWindow {
 
     // factory method to create an instance of GameObject when the user clicks create new
     GameObject createGameObjects(String identifier) {
-        return null;
+        // obstacles
+        if (identifier.equals("block_square") || identifier.equals("block_corner") || identifier.equals("block_large") || identifier.equals("block_narrow")) {
+            return new Obstacle();
+        }
+        // powerups
+        else if (identifier.equals("powerupBlue_bolt")) {
+            var freeze = new FreezePowerUp();
+            try {
+                freeze.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            }
+            catch (NumberFormatException e) {
+                freeze.setAppearTime(0);
+            }
+            return freeze;
+        }
+        else if (identifier.equals("pill_yellow")) {
+            var largeHealth = new LargeHealthPowerUp();
+            try {
+                largeHealth.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            }
+            catch (NumberFormatException e) {
+                largeHealth.setAppearTime(0);
+            }
+            return largeHealth;
+        }
+        else if (identifier.equals("shield_gold")) {
+            var invincibility = new InvincibilityPowerUp();
+            try {
+                invincibility.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            }
+            catch (NumberFormatException e) {
+                invincibility.setAppearTime(0);
+            }
+            return invincibility;
+        }
+        else if (identifier.equals("bolt_gold")) {
+            var destroyShip = new DestroyShipPowerUp();
+            try {
+                destroyShip.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            }
+            catch (NumberFormatException e) {
+                destroyShip.setAppearTime(0);
+            }
+            return destroyShip;
+        }
+        else if (identifier.equals("pill_blue")) {
+            var healthPack = new HealthPackPowerUp();
+            try {
+                healthPack.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            }
+            catch (NumberFormatException e) {
+                healthPack.setAppearTime(0);
+            }
+            return healthPack;
+        }
+        // enemies
+        else if (identifier.equals("enemyBlack4")) {
+            return new Bouncer();
+        }
+        else if (identifier.equals("enemyBlack1")) {
+            return new Tracker();
+        }
+        else if (identifier.equals("enemyBlack2")) {
+            return new Ghost();
+        }
+        else {
+            return new Laser();
+        }
+        
     }
 
     // use this method to try to get the exact class of an object. usefull when extracting user data from an ImageView
@@ -144,15 +208,29 @@ public class MainWindow {
         // change the position of the entity to a specific value
         if (currentImage != null && currentObject != null) {
             if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
+                setPosition(currentImage, 0, 0);
+            }
+            else {
                 try {
-                    setPosition(currentImage, 0, 0);
+                    setPosition(currentImage, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
                 }
                 catch (NumberFormatException e) {
-                    var alert = new Alert(AlertType.INFORMATION, "Please choose an integer.");
+                    var alert = new Alert(AlertType.INFORMATION, "Please supply Integer values only.");
+                    alert.show();
+                }
+            }
+            if (currentImage.getUserData() instanceof PowerUp) {
+                var powerUp = (PowerUp) currentImage.getUserData();
+                try {
+                    powerUp.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+                }
+                catch (NumberFormatException f) {
+                    var alert = new Alert(AlertType.INFORMATION, "Please supply Integer values only.");
                     alert.show();
                 }
             }
         }
+        setLabels();
         
     }
 
@@ -271,7 +349,10 @@ public class MainWindow {
         if (currentImage != null) {
             lblLoc.setText("(" + String.valueOf(currentImage.getX()) + "," + String.valueOf(currentImage.getY()) + ")");
             lblHeading.setText("heading here");
-            lblTime.setText("time here");
+            if (currentImage.getUserData() instanceof PowerUp) {
+                var obj = (PowerUp) currentImage.getUserData();
+                lblTime.setText(String.valueOf(obj.getAppearTime()));
+            }
         }
         else {
             lblLoc.setText("");

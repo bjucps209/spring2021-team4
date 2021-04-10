@@ -19,7 +19,7 @@ public class Wave {
 
     // Data variables
     private ArrayList<User> users = new ArrayList<User>(); // A list of exist user
-    private ArrayList<HighScore> highScores = new ArrayList<HighScore>();
+    private ArrayList<HighScoreList> highScores = new ArrayList<HighScoreList>();
     private ArrayList<ShipSkins> skins = new ArrayList<ShipSkins>();
 
     // Menu variables
@@ -226,7 +226,7 @@ public class Wave {
         return this.users;
     }
 
-    public ArrayList<HighScore> getHighScores() {
+    public ArrayList<HighScoreList> getHighScores() {
         return this.highScores;
     }
 
@@ -247,7 +247,7 @@ public class Wave {
         this.users = users;
     }
 
-    public void setHighScores(ArrayList<HighScore> highScores) {
+    public void setHighScores(ArrayList<HighScoreList> highScores) {
         this.highScores = highScores;
     }
 

@@ -12,7 +12,7 @@ public abstract class GameObject {
     protected int height;
 
     public abstract String serialize();
-    public abstract void deserialize(String info);
+    public abstract boolean deserialize(String info);
 
     public void GameObject() {
 
@@ -63,5 +63,17 @@ public abstract class GameObject {
     }
     public void setDy(int dy) {
         this.dy = dy;
+    }
+    public int getWidth() {
+        return width;
+    }
+    public void setWidth(int width) {
+        this.width = width;
+    }
+    public int getHeight() {
+        return height;
+    }
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
