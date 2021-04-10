@@ -16,8 +16,8 @@ import model.GameObjects.EnemyObject;
 public class GameWindow {
 
     Wave w;
-    Player p;
-    Game g;
+    static Player p;
+    static Game g;
 
     static Scene s;
 
@@ -92,31 +92,28 @@ public class GameWindow {
         // code to spawn obstacles
     }
 
-    // This will detect whether a movement key has been pressed or not
-    void onKeyPressed(KeyEvent k) {
-        if (k.getEventType() == KeyEvent.KEY_PRESSED) {
-            switch (k.getCode()) {
-                case UP:
-                    p.moveUp();
-                    g.update();
-                case DOWN:
-                    p.moveDown();
-                    g.update();
-                case LEFT:
-                    p.moveLeft();
-                    g.update();
-                case RIGHT:
-                    p.moveRight();
-                    g.update();
-            }
-        }
+    public static void moveUp() {
+        p.moveUp();
+        g.update();
     }
 
-    // this will reset the speed of the player object whenever you release a key
-    void onKeyReleased(KeyEvent k) {
-        if (k.getEventType() == KeyEvent.KEY_RELEASED) {
-            p.moveNeutral();
-            g.update();
-        }
+    public static void moveDown() {
+        p.moveDown();
+        g.update();
+    }
+
+    public static void moveRight() {
+        p.moveRight();
+        g.update();
+    }
+
+    public static void moveLeft() {
+        p.moveLeft();
+        g.update();
+    }
+    
+    public static void moveNeutral() {
+        p.moveNeutral();
+        g.update();
     }
 }
