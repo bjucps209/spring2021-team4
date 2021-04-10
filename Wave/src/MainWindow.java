@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,14 +7,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import model.HighScore;
+import model.HighScoreList;
 import model.Wave;
 import model.GameObjects.Player;
 
 
 public class MainWindow {
     Wave w;
+
+    HighScore player1 = new HighScore("Bob", 100);
+    HighScore player2 = new HighScore("Amanda", 300);
+    HighScore player3 = new HighScore("Tim", 200);
+    HighScoreList highScoreList = new HighScoreList(new ArrayList<HighScore>());
 
     // Difficulty Buttons
     Button btnEasy = new Button();
@@ -152,6 +161,53 @@ public class MainWindow {
 
     void onCheatClicked(ActionEvent event) {
         
+    }
+
+    // Screen to display High Scores
+    public void onScoresClicked() {
+        VBox vbox = new VBox();
+        vbox.setId("menu-background");
+        vbox.setPadding(new Insets(10));
+        vbox.setSpacing(10);
+        vbox.setAlignment(Pos.CENTER);
+
+        Scene scoreScene = new Scene(vbox, 800, 600);
+        Stage scoreStage = new Stage();
+        scoreStage.setScene(scoreScene);
+        scoreStage.setTitle("High Scores");
+        scoreStage.show();
+
+        scoreScene.getStylesheets().add("MainWindow.css");
+
+        Label label = new Label();
+        label.setText("HIGH SCORES");
+        vbox.getChildren().add(label);
+
+        // temp manual placement of players
+        highScoreList.getList().add(player1);
+        highScoreList.getList().add(player2);
+        highScoreList.getList().add(player3);
+        highScoreList.sort();
+        for (HighScore items : highScoreList.getList()) {
+
+            HBox Scorehbox = new HBox();
+            Scorehbox.setPadding(new Insets(10));
+            Scorehbox.setSpacing(10);
+            Scorehbox.setAlignment(Pos.CENTER);
+
+            // Displaying the name and score properly in the High Score Screen
+            Label names = new Label();
+            names.setText(items.getName());
+            Scorehbox.getChildren().add(names);
+            Label dots = new Label();
+            dots.setText(" ............ ");
+            Scorehbox.getChildren().add(dots);
+            Label scores = new Label();
+            scores.setText(String.valueOf(items.getScore()));
+            Scorehbox.getChildren().add(scores);
+
+            vbox.getChildren().add(Scorehbox);
+        }
     }
 
     @FXML

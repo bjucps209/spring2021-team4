@@ -5,6 +5,12 @@
     -fx-font-family: 'Helvetica', Arial, sans-serif;
 }
 
+.button {
+    -fx-background-image: url("./Images/metal.jpg");
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+}
+
 .label {
     -fx-font-size: 20px;
     -fx-text-fill: white;
