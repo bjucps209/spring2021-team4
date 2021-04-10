@@ -33,6 +33,7 @@ public class GameWindow {
         w = Wave.getInstance();
         w.gameStart();
         g = w.getGame();
+        p = g.getCurrentLevel().getPlayer();
         spawnEntities();
 
         // Getting the game to update at 16.7ms or ~60fps
@@ -58,8 +59,8 @@ public class GameWindow {
         playerImageView.setFitWidth(50);
         playerImageView.setFitHeight(50);
         pane.getChildren().add(playerImageView);
-        playerImageView.layoutXProperty().bind(p.xProperty);
-        playerImageView.layoutYProperty().bind(p.yProperty);
+        playerImageView.layoutXProperty().bind(p.xProperty());
+        playerImageView.layoutYProperty().bind(p.yProperty());
     }
 
     public void spawnEnemies() {
