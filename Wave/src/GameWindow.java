@@ -12,6 +12,7 @@ import model.GameObjects.Player;
 import model.Game;
 import model.Wave;
 import model.GameObjects.EnemyObject;
+import model.GameObjects.GameObject;
 
 public class GameWindow {
 
@@ -58,16 +59,20 @@ public class GameWindow {
         ImageView playerImageView = new ImageView(playerImage);
         playerImageView.setFitWidth(50);
         playerImageView.setFitHeight(50);
-        pane.getChildren().add(playerImageView);
         playerImageView.layoutXProperty().bind(p.xProperty());
         playerImageView.layoutYProperty().bind(p.yProperty());
+        pane.getChildren().add(playerImageView);
     }
 
     public void spawnEnemies() {
         for (EnemyObject o : g.getLevels().get(g.getLevelNum()).getEnemies()) {
             switch (o.getType()) {
             case BOUNCER:
-
+                Image bouncerImage = new Image("./Images/enemyBlack4.png");
+                ImageView bouncerImageView = new ImageView(bouncerImage);
+                bouncerImageView.setFitWidth(50);
+                bouncerImageView.setFitHeight(50);
+                pane.getChildren().add(bouncerImageView);
                 break;
             case GHOST:
 
@@ -89,7 +94,7 @@ public class GameWindow {
     }
 
     public void spawnObstacles() {
-        // code to spawn obstacles
+        
     }
 
     public static void moveUp() {
