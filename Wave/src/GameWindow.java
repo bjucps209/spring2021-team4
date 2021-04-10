@@ -1,3 +1,4 @@
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -31,6 +32,34 @@ public class GameWindow {
         w.gameStart();
         g = w.getGame();
         spawnEntities();
+        s.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent k) {
+                if (k.getEventType() == KeyEvent.KEY_PRESSED) {
+                    switch (k.getCode()) {
+                        case UP:
+                            p.moveUp();
+                            g.update();
+                        case DOWN:
+                            p.moveDown();
+                            g.update();
+                        case LEFT:
+                            p.moveLeft();
+                            g.update();
+                        case RIGHT:
+                            p.moveRight();
+                            g.update();
+                    }
+                }
+            }
+        });
+        s.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent k) {
+                p.moveNeutral();
+                g.update();
+            }
+        });
     }
 
     public void spawnEntities() {
@@ -74,33 +103,5 @@ public class GameWindow {
 
     public void spawnObstacles() {
         // code to spawn obstacles
-    }
-
-    // This will detect whether a movement key has been pressed or not
-    void onKeyPressed(KeyEvent k) {
-        if (k.getEventType() == KeyEvent.KEY_PRESSED) {
-            switch (k.getCode()) {
-                case UP:
-                    p.moveUp();
-                    g.update();
-                case DOWN:
-                    p.moveDown();
-                    g.update();
-                case LEFT:
-                    p.moveLeft();
-                    g.update();
-                case RIGHT:
-                    p.moveRight();
-                    g.update();
-            }
-        }
-    }
-
-    // this will reset the speed of the player object whenever you release a key
-    void onKeyReleased(KeyEvent k) {
-        if (k.getEventType() == KeyEvent.KEY_RELEASED) {
-            p.moveNeutral();
-            g.update();
-        }
     }
 }
