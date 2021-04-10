@@ -48,13 +48,13 @@ public class MainWindow {
                 if (k.getEventType() == KeyEvent.KEY_PRESSED) {
                     switch (k.getCode()) {
                         case UP:
-                            g.moveUp();
+                            GameWindow.moveUp();
                         case DOWN:
-                            g.moveDown();
+                            GameWindow.moveDown();
                         case LEFT:
-                            g.moveLeft();
+                            GameWindow.moveLeft();
                         case RIGHT:
-                            g.moveRight();
+                            GameWindow.moveRight();
                     }
                 }
             }
@@ -62,7 +62,7 @@ public class MainWindow {
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent k) {
-                g.moveNeutral();
+                GameWindow.moveNeutral();
             }
         });
         Stage stage = new Stage();

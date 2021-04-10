@@ -14,8 +14,8 @@ import model.GameObjects.EnemyObject;
 public class GameWindow {
 
     Wave w;
-    Player p;
-    Game g;
+    static Player p;
+    static Game g;
 
     static Scene s;
 
@@ -78,27 +78,27 @@ public class GameWindow {
         // code to spawn obstacles
     }
 
-    public void moveUp() {
+    public static void moveUp() {
         p.moveUp();
         g.update();
     }
 
-    public void moveDown() {
+    public static void moveDown() {
         p.moveDown();
         g.update();
     }
 
-    public void moveRight() {
+    public static void moveRight() {
         p.moveRight();
         g.update();
     }
 
-    public void moveLeft() {
+    public static void moveLeft() {
         p.moveLeft();
         g.update();
     }
     
-    public void moveNeutral() {
+    public static void moveNeutral() {
         p.moveNeutral();
         g.update();
     }
