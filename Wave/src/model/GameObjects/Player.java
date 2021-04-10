@@ -12,33 +12,33 @@ public class Player extends GameObject {
 
     public Player() {
         super();
-        x = 40;
-        y = 5;
-        dx = 0;
-        dy = 0;
-        width = 5;
-        height = 5;
+        setX(40);
+        setY(5);
+        setDx(0);
+        setDy(0);
+        setWidth(5);
+        setHeight(5);
     }
 
     public void moveUp() {
-        this.dy = -speed;
+        setDy(-speed);
     }
 
     public void moveDown() {
-        this.dy = speed;
+        setDy(speed);
     }
 
     public void moveLeft() {
-        this.dx = -speed;
+        setDx(-speed);
     }
 
     public void moveRight() {
-        this.dx = speed;
+        setDx(speed);
     }
 
     public void moveNeutral() {
-        this.dx = 0;
-        this.dy = 0;
+        setDx(0);
+        setDy(0);
     }
 
     // --- getters ---

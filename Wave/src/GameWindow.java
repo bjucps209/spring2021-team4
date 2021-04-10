@@ -31,35 +31,8 @@ public class GameWindow {
         w = Wave.getInstance();
         w.gameStart();
         g = w.getGame();
+        p = g.getCurrentLevel().getPlayer();
         spawnEntities();
-        s.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent k) {
-                if (k.getEventType() == KeyEvent.KEY_PRESSED) {
-                    switch (k.getCode()) {
-                        case UP:
-                            p.moveUp();
-                            g.update();
-                        case DOWN:
-                            p.moveDown();
-                            g.update();
-                        case LEFT:
-                            p.moveLeft();
-                            g.update();
-                        case RIGHT:
-                            p.moveRight();
-                            g.update();
-                    }
-                }
-            }
-        });
-        s.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent k) {
-                p.moveNeutral();
-                g.update();
-            }
-        });
     }
 
     public void spawnEntities() {
@@ -72,8 +45,8 @@ public class GameWindow {
     public void spawnPlayer() {
         ImageView playerImage = new ImageView();
         playerImage.setId("player");
-        playerImage.layoutXProperty().bind(p.xProperty);
-        playerImage.layoutYProperty().bind(p.yProperty);
+        playerImage.layoutXProperty().bind(p.xProperty());
+        playerImage.layoutYProperty().bind(p.yProperty());
     }
 
     public void spawnEnemies() {
@@ -103,5 +76,30 @@ public class GameWindow {
 
     public void spawnObstacles() {
         // code to spawn obstacles
+    }
+
+    public void moveUp() {
+        p.moveUp();
+        g.update();
+    }
+
+    public void moveDown() {
+        p.moveDown();
+        g.update();
+    }
+
+    public void moveRight() {
+        p.moveRight();
+        g.update();
+    }
+
+    public void moveLeft() {
+        p.moveLeft();
+        g.update();
+    }
+    
+    public void moveNeutral() {
+        p.moveNeutral();
+        g.update();
     }
 }
