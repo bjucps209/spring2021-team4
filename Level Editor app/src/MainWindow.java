@@ -19,6 +19,12 @@ import model.Enums.*;
 // when the user selects something representing a powerup, create an instance of powerup.
 // when the user creates an obstacle, create an instance of obstacle.
 // when the user creates an entity, create an instance of entity class.
+// need these classes created so serialization works
+
+// half methods : (these methods need more model classes to be completely implemented)
+// onSaveLevelClicked()
+// createGameObjects()
+// getObjectClass()
 public class MainWindow {
 
     @FXML
@@ -54,7 +60,8 @@ public class MainWindow {
     @FXML
     TextField txtFAppearanceTime;
 
-    Level level = new Level();
+    // not sure if i need a level yet
+    // Level level = new Level();
 
 
     
@@ -72,7 +79,7 @@ public class MainWindow {
     
     @FXML
     void initialize() {
-        String[] types = {"bold_silver", "bolt_bronze", "bolt_gold", "pill_blue", "pill_green", "pill_red", "pill_yellow", "powerupBlue_bolt", "powerupBlue_bolt"};
+        String[] types = {"block_square", "block_corner", "block_large", "block_narrow", "powerupBlue_bolt", "pill_yellow", "shield_gold", "bolt_gold", "pill_blue", "enemyBlack4", "enemyBlack1", "enemyBlack2", "laser(uninmplemented)"};
         typeBox.getItems().addAll(types);
         vbox.getChildren().add(typeBox);
 
@@ -82,15 +89,23 @@ public class MainWindow {
 
     // factory method to create an instance of GameObject when the user clicks create new
     GameObject createGameObjects(String identifier) {
-        switch (identifier) {
-            case "bold_silver":
-                return new Obstacle();
-            case "powerupBlue_bolt":
-                return new Obstacle();
-            default:
-                return new Obstacle();
+        return null;
+    }
 
+    // use this method to try to get the exact class of an object. usefull when extracting user data from an ImageView
+    GameObject getObjectClass(Object obj) {
+        try {
+            Obstacle obstacle = (Obstacle) obj;
+            return obstacle;
         }
+        catch (ClassCastException e) {
+            // keep nesting try catch statements to try casting to every object until the correct type is found
+            return null;
+            // try {
+
+            // }
+        }
+
     }
     
 
@@ -128,8 +143,15 @@ public class MainWindow {
     void onUpdateValuesClicked() {
         // change the position of the entity to a specific value
         if (currentImage != null && currentObject != null) {
-
-            setPosition(currentImage, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
+            if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
+                try {
+                    setPosition(currentImage, 0, 0);
+                }
+                catch (NumberFormatException e) {
+                    var alert = new Alert(AlertType.INFORMATION, "Please choose an integer.");
+                    alert.show();
+                }
+            }
         }
         
     }
@@ -138,7 +160,7 @@ public class MainWindow {
     void onCreateNewClicked() {
         // clicking this button will update the current image to its correct position...
         String str = (String) typeBox.getValue();
-        var imgView = new ImageView("/PNG/Power-ups/" + str + ".png");
+        var imgView = new ImageView("/LevelEditorImages/" + str + ".png");
 
         imgView.setOnMouseDragged(this::onMouseDragged);
         imgView.setOnMouseClicked(this::onMouseClicked);
@@ -193,7 +215,7 @@ public class MainWindow {
     // stringify and write to a file.
     @FXML
     void onSaveLevelClicked() throws IOException {
-        String levelInfo = "00LEVELSTART";
+        String levelLength = "";
 
         String allObjectInformation = "";
 
@@ -208,8 +230,25 @@ public class MainWindow {
             }
             
         }
-        levelInfo += (allObjectInformation + "00LEVELEND");
-        System.out.println(levelInfo);
+        
+
+        // work on formatting the 4 digit length string if the length of the string version of the length of allObjectInformation is less than 4, keep adding zeros in front of the numbers till the length equals 4
+        if (String.valueOf(allObjectInformation.length()).length() < 4) {
+            String str = "";
+            System.out.println("less than 4");
+            System.out.println(allObjectInformation.length());
+            while (str.length() + allObjectInformation.length() < 4) {
+                str += "0";
+                System.out.println("while loop");
+            }
+            str += String.valueOf(allObjectInformation.length());
+            allObjectInformation = str + allObjectInformation;
+            // allObjectInformation = (str + String.valueOf(allObjectInformation.length()));
+
+        }
+        System.out.println(allObjectInformation.length());
+        levelLength += (allObjectInformation);
+        System.out.println(levelLength);
 
         // potentially remove ##LEVELSTART and ##LEVELEND
         // have a string of only object, info, delimited by |
