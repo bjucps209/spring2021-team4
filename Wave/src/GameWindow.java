@@ -1,3 +1,5 @@
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -5,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 import model.GameObjects.Player;
 import model.Game;
 import model.Wave;
@@ -31,6 +34,14 @@ public class GameWindow {
         w.gameStart();
         g = w.getGame();
         spawnEntities();
+
+        // Getting the game to update at 16.7ms or ~60fps
+        var timer = new Timeline(
+            new KeyFrame(Duration.millis(16.7), e -> {
+                g.update();
+            }));
+            timer.setCycleCount(Timeline.INDEFINITE);
+            timer.play();
     }
 
     public void spawnEntities() {
@@ -40,11 +51,15 @@ public class GameWindow {
         spawnObstacles();
     }
 
+    // spawns the player image and then binds that image to the player object
     public void spawnPlayer() {
-        ImageView playerImage = new ImageView();
-        playerImage.setId("player");
-        playerImage.layoutXProperty().bind(p.xProperty);
-        playerImage.layoutYProperty().bind(p.yProperty);
+        Image playerImage = new Image("./Images/playerShip1_blue.png");
+        ImageView playerImageView = new ImageView(playerImage);
+        playerImageView.setFitWidth(50);
+        playerImageView.setFitHeight(50);
+        pane.getChildren().add(playerImageView);
+        playerImageView.layoutXProperty().bind(p.xProperty);
+        playerImageView.layoutYProperty().bind(p.yProperty);
     }
 
     public void spawnEnemies() {

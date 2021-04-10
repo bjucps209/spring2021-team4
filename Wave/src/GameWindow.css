@@ -3,10 +3,6 @@
     -fx-font-family: 'Helvetica', Arial, sans-serif;
 }
 
-#player {
-    -fx-background-image: url("./Images/playerShip1_blue.png");
-    -fx-pref-width: 100;
-}
 
 /* for Macs */
 .dialog-pane  {
