@@ -41,11 +41,9 @@
     </HBox>
     <HBox spacing="10">
         <VBox spacing="10">
-            <!-- <Button text="obs" styleClass="leftbutton" onAction="#onCreateObstacleClicked"></Button>
-            <Button text="nme" styleClass="leftbutton" onAction="#onCreateEnemyObjectClicked"></Button>
-            <Button text="pwr" styleClass="leftbutton" onAction="#onCreatePowerupClicked"></Button> -->
-            <Button text="update" styleClass="leftbutton" onAction="#onUpdateValuesClicked"></Button>
-            <Button text="create" styleClass="leftbutton" onAction="#onCreateNewClicked"></Button>
+            <Button text="update" styleClass="leftbutton" onAction="#onUpdateValuesClicked"/>
+            <Button text="create" styleClass="leftbutton" onAction="#onCreateNewClicked"/>
+            <Button text="clear" styleClass="leftbutton" onAction="#onClearClicked"/>
             
             
 

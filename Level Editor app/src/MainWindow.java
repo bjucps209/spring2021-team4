@@ -8,19 +8,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.*;
+import java.util.regex.Pattern;
 
 import model.Level;
 import model.GameObjects.*;
 import model.Enums.*;
 
-// when the user selects something representing a powerup, create an instance of powerup.
-// when the user creates an obstacle, create an instance of obstacle.
-// when the user creates an entity, create an instance of entity class.
-// need these classes created so serialization works
-
-// half methods : (these methods need more model classes to be completely implemented)
-// onSaveLevelClicked()
-// getObjectClass()
 public class MainWindow {
 
     @FXML
@@ -56,10 +49,6 @@ public class MainWindow {
     @FXML
     TextField txtFAppearanceTime;
 
-    // not sure if i need a level yet
-    // Level level = new Level();
-
-
     
 
     @FXML
@@ -67,10 +56,8 @@ public class MainWindow {
 
     GameObject currentObject;
 
-    String fileName = "customLevel.dat";
+    int fileNumber = 0;
 
-    // optional value to store how many levels will be written to the custom level file -> not sure if needed yet
-    // int numLevels;
 
     
     @FXML
@@ -155,23 +142,6 @@ public class MainWindow {
         }
         
     }
-
-    // use this method to try to get the exact class of an object. usefull when extracting user data from an ImageView
-    GameObject getObjectClass(Object obj) {
-        try {
-            Obstacle obstacle = (Obstacle) obj;
-            return obstacle;
-        }
-        catch (ClassCastException e) {
-            // keep nesting try catch statements to try casting to every object until the correct type is found
-            return null;
-            // try {
-
-            // }
-        }
-
-    }
-    
 
     @FXML
     void setPosition(ImageView imgView, int x, int y) {
@@ -269,6 +239,12 @@ public class MainWindow {
         }
     }
 
+    @FXML
+    void onClearClicked() {
+        pane.getChildren().remove(0, pane.getChildren().size());
+        setLabels();
+    }
+
     
     // method to select an image
     @FXML
@@ -293,50 +269,54 @@ public class MainWindow {
     // stringify and write to a file.
     @FXML
     void onSaveLevelClicked() throws IOException {
-        String levelLength = "";
+        String levelInfo = "";
 
         String allObjectInformation = "";
 
         for (int i = 0; i < pane.getChildren().size(); i++) {
+            // get imageview to find object
             ImageView imgView = (ImageView) pane.getChildren().get(i);
-            GameObject obj = (GameObject) imgView.getUserData();
+            var obj = (GameObject) imgView.getUserData();
+            
+            String classString = String.valueOf(obj.getClass());
+
+            String[] array = classString.split(Pattern.quote("."));
             String x = String.valueOf(obj.getX());
             String y = String.valueOf(obj.getY());
-            allObjectInformation += ("|GAMEOBJECT," + x + "," + y);
+
+            allObjectInformation += ("|" + array[2] + "," + x + "," + y);
+            if (obj instanceof PowerUp) {
+                var downCastedObj = (PowerUp) obj;
+                allObjectInformation += ("," + downCastedObj.getAppearTime());
+            }
             if (i == pane.getChildren().size() - 1) {
                 allObjectInformation += "|";
             }
             
         }
-        
-
-        // work on formatting the 4 digit length string if the length of the string version of the length of allObjectInformation is less than 4, keep adding zeros in front of the numbers till the length equals 4
         if (String.valueOf(allObjectInformation.length()).length() < 4) {
             String str = "";
-            System.out.println("less than 4");
-            System.out.println(allObjectInformation.length());
-            while (str.length() + allObjectInformation.length() < 4) {
+            for (int i = 0; i < (4 -String.valueOf(allObjectInformation.length()).length()); i++) {
                 str += "0";
-                System.out.println("while loop");
             }
             str += String.valueOf(allObjectInformation.length());
             allObjectInformation = str + allObjectInformation;
-            // allObjectInformation = (str + String.valueOf(allObjectInformation.length()));
-
         }
-        System.out.println(allObjectInformation.length());
-        levelLength += (allObjectInformation);
-        System.out.println(levelLength);
 
-        // potentially remove ##LEVELSTART and ##LEVELEND
-        // have a string of only object, info, delimited by |
+        levelInfo += (allObjectInformation);
 
-
-        try (var stream = new FileOutputStream(fileName);) {
-
-        }
-        catch (IOException e) {
-
+        if (levelInfo.length() > 4) {
+            try (var stream = new FileOutputStream("customLevel" + String.valueOf(fileNumber) + ".dat");) {
+                
+                byte[] byteLevelInfo = levelInfo.getBytes();
+                stream.write(byteLevelInfo);
+                fileNumber ++;
+                if (fileNumber == 10) {
+                    var alert = new Alert(AlertType.INFORMATION, "10 levels created.");
+                    alert.show();
+                }
+                
+            }
         }
         
 
