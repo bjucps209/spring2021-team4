@@ -16,6 +16,37 @@ public abstract class EnemyObject extends GameObject {
         this.type = type;
     }
 
+    public static EnemyObject create(EnemyTypes e) {
+        EnemyObject enemy;
+        switch (e) {
+        case BOUNCER:
+            enemy = new Bouncer();
+            enemy.setType(EnemyTypes.BOUNCER);
+            break;
+        case GHOST:
+            enemy = new Bouncer();
+            enemy.setType(EnemyTypes.BOUNCER);
+            break;
+        case LASER:
+            enemy = new Bouncer();
+            enemy.setType(EnemyTypes.BOUNCER);
+            break;
+        case SHAPESHIFTER:
+            enemy = new Bouncer();
+            enemy.setType(EnemyTypes.BOUNCER);
+            break;
+        case TRACKER:
+            enemy = new Bouncer();
+            enemy.setType(EnemyTypes.BOUNCER);
+            break;
+        default:
+            enemy = new Bouncer();
+            enemy.setType(EnemyTypes.BOUNCER);
+            break;
+        }
+        return enemy;
+    }
+
     @Override
     public String serialize() {
         // TODO Auto-generated method stub
