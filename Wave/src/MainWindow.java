@@ -49,12 +49,16 @@ public class MainWindow {
                     switch (k.getCode()) {
                         case UP:
                             GameWindow.moveUp();
+                            break;
                         case DOWN:
                             GameWindow.moveDown();
+                            break;
                         case LEFT:
                             GameWindow.moveLeft();
+                            break;
                         case RIGHT:
                             GameWindow.moveRight();
+                            break;
                     }
                 }
             }
