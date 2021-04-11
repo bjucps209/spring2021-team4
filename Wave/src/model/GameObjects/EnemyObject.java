@@ -21,6 +21,8 @@ public abstract class EnemyObject extends GameObject {
         switch (e) {
         case BOUNCER:
             enemy = new Bouncer();
+            enemy.setDx(5);
+            enemy.setDy(5);
             enemy.setType(EnemyTypes.BOUNCER);
             break;
         case GHOST:

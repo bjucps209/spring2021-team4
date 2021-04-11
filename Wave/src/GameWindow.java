@@ -42,8 +42,8 @@ public class GameWindow {
             new KeyFrame(Duration.millis(16.7), e -> {
                 g.update();
             }));
-            timer.setCycleCount(Timeline.INDEFINITE);
-            timer.play();
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
     }
 
     public void spawnEntities() {
@@ -57,8 +57,8 @@ public class GameWindow {
     public void spawnPlayer() {
         Image playerImage = new Image("./Images/playerShip1_blue.png");
         ImageView playerImageView = new ImageView(playerImage);
-        playerImageView.setFitWidth(50);
-        playerImageView.setFitHeight(50);
+        playerImageView.setFitWidth(p.getWidth());
+        playerImageView.setFitHeight(p.getHeight());
         playerImageView.layoutXProperty().bind(p.xProperty());
         playerImageView.layoutYProperty().bind(p.yProperty());
         pane.getChildren().add(playerImageView);
@@ -70,9 +70,11 @@ public class GameWindow {
             case BOUNCER:
                 Image bouncerImage = new Image("./Images/enemyBlack4.png");
                 ImageView bouncerImageView = new ImageView(bouncerImage);
-                bouncerImageView.setFitWidth(50);
-                bouncerImageView.setFitHeight(50);
+                bouncerImageView.setFitWidth(o.getWidth());
+                bouncerImageView.setFitHeight(o.getHeight());
                 pane.getChildren().add(bouncerImageView);
+                bouncerImageView.layoutXProperty().bind(o.xProperty());
+                bouncerImageView.layoutYProperty().bind(o.yProperty());
                 break;
             case GHOST:
 

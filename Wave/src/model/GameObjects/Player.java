@@ -16,8 +16,8 @@ public class Player extends GameObject {
         setY(5);
         setDx(0);
         setDy(0);
-        setWidth(5);
-        setHeight(5);
+        setWidth(50);
+        setHeight(50);
     }
 
     public void moveUp() {

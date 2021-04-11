@@ -61,6 +61,7 @@ public class Level {
         e.setWidth(50);
         e.setHeight(50);
         enemies.add(e);
+        allObjects.add(e);
     }
 
     // starts enemy movements

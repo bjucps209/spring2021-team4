@@ -22,15 +22,15 @@ public abstract class GameObject {
 
     // update method each object needs
     public void update() {
-        //checkWallCollision();
+        checkWallCollision();
         x.set(getX() + getDx());
         y.set(getY() + getDy());
     } 
 
     public void checkWallCollision() {
-        if (getX() <= 4 || getX() >= Wave.getInstance().getGame().getGameWidth() + getWidth() - 4) {
+        if (getX() <= 4 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 4) {
             dx.set(-getDx());
-        } else if (getY() <= 4 || getY() >= Wave.getInstance().getGame().getGameHeight() + getHeight() - 4) {
+        } else if (getY() <= 4 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 4) {
             dy.set(-getDy());
         }
     }
