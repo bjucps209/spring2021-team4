@@ -23,10 +23,9 @@ public class GameTest {
     // Example 1
     Wave.getInstance().gameStart();
     Game game = Wave.getInstance().getGame();
+
     
-    for(int i = 0; i < 9; i++){
-      game.getLevels().add(new Level());
-    }
+
 
     assertTrue(game.load("Example1Serialization")); 
     User user = Wave.getInstance().getCurrentUser();
@@ -82,9 +81,7 @@ public class GameTest {
     Wave.getInstance().gameStart();
     Game game = Wave.getInstance().getGame();
     
-    for(int i = 0; i < 9; i++){
-      game.getLevels().add(new Level());
-    }
+   
 
     assertTrue(game.load("Example2Serialization")); 
 

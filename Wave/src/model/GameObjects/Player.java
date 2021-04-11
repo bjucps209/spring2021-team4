@@ -62,7 +62,7 @@ public class Player extends GameObject {
     public String serialize() {
         // TODO Auto-generated method stub
         // TODO still needs to add in special effects !!!
-        return health+";"+currentShipSkins.toString()+";"+ x+";"+y+";"+width+";"+height+";"+dx+";"+dy;
+        return health+";"+currentShipSkins.toString()+";"+ x.get()+";"+y.get()+";"+width.get()+";"+height.get()+";"+dx.get()+";"+dy.get();
     }
 
     @Override

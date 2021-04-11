@@ -52,7 +52,7 @@ public abstract class EnemyObject extends GameObject {
     @Override
     public String serialize() {
         // TODO Auto-generated method stub
-        return "EnemyObject"+";"+type.toString()+";"+x+";"+y+";" + width +";" + height+";"+dx+";"+dy;  // TODO: special affect on enemy Object
+        return "EnemyObject"+";"+type.toString()+";"+x.get()+";"+y.get()+";" + width.get() +";" + height.get()+";"+dx.get()+";"+dy.get();  // TODO: special affect on enemy Object
     }
 
     @Override

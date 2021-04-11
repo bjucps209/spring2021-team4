@@ -30,6 +30,8 @@ public class Level {
 
     private int remainingTime; // possible connect to TimeLine() with data binding technique
 
+    // This construction should only be use in unit test
+
     public Level() {
         initialize();
     }
@@ -217,6 +219,9 @@ public class Level {
             if (player.deserialize(restInfo) == false) {
                 throw new IOException("Error in converting user data");
                 // means error in converting user data
+            }else{
+                // add player into the list
+                allObjects.add(player);
             }
 
         } else {

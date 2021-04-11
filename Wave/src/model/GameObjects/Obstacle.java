@@ -10,7 +10,7 @@ public class Obstacle extends GameObject {
         // TODO Auto-generated method stub
         // TODO: do we have different type of obstacles
 
-        return "Obstacle;"+"Obstacle"+";"+x+";"+y+";" + width+";" + height+";"+dx+";"+dy; //TODO: special affect on obstacles?
+        return "Obstacle;"+"Obstacle"+";"+x.get()+";"+y.get()+";" + width.get()+";" + height.get()+";"+dx.get()+";"+dy.get(); //TODO: special affect on obstacles?
     }
 
     @Override
