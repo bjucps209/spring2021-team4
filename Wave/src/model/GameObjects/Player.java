@@ -74,12 +74,13 @@ public class Player extends GameObject {
         String[] restInfo = info.split(";");
         health = Integer.parseInt(restInfo[0]);
         currentShipSkins = ShipSkins.valueOf(restInfo[1]);
-        this.x = Integer.parseInt(restInfo[2]);
-        this.y = Integer.parseInt(restInfo[3]);
-        this.width = Integer.parseInt(restInfo[4]);
-        this.height = Integer.parseInt(restInfo[5]);
-        this.dx = Integer.parseInt(restInfo[6]);
-        this.dy = Integer.parseInt(restInfo[7]);
+        
+        this.x.set (Integer.parseInt(restInfo[2]));
+        this.y.set(Integer.parseInt(restInfo[3]));
+        this.width.set(Integer.parseInt(restInfo[4]));
+        this.height.set(Integer.parseInt(restInfo[5]));
+        this.dx.set(Integer.parseInt(restInfo[6]));
+        this.dy.set(Integer.parseInt(restInfo[7]));
         // TODO: handle rest of special affect on player
         return true;
         } catch (Exception e){

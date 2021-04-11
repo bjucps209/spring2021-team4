@@ -63,12 +63,12 @@ public abstract class EnemyObject extends GameObject {
             String[] enemyInfo = info.split(";");
         // x,y,width,height,dx,dy,special affect
         // type already been set in level.serialization()
-        this.x = Integer.parseInt(enemyInfo[0]);
-        this.y = Integer.parseInt(enemyInfo[1]);
-        this.width = Integer.parseInt(enemyInfo[2]);
-        this.height = Integer.parseInt(enemyInfo[3]);
-        this.dx = Integer.parseInt(enemyInfo[4]);
-        this.dy = Integer.parseInt(enemyInfo[5]);
+        this.x.set(Integer.parseInt(enemyInfo[0]));
+        this.y.set(Integer.parseInt(enemyInfo[1]));
+        this.width.set(Integer.parseInt(enemyInfo[2]));
+        this.height.set(Integer.parseInt(enemyInfo[3]));
+        this.dx.set(Integer.parseInt(enemyInfo[4]));
+        this.dy.set(Integer.parseInt(enemyInfo[5]));
         return true;
         }catch (Exception e){
             return false;

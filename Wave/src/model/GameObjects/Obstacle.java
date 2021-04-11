@@ -22,12 +22,12 @@ public class Obstacle extends GameObject {
         try{
         String [] restInfo = info.split(";");
         //x;y;dx;dy;special effect
-        this.x = Integer.parseInt(restInfo[0]);
-        this.y = Integer.parseInt(restInfo[1]);
-        this.width = Integer.parseInt(restInfo[2]);
-        this.height = Integer.parseInt(restInfo[3]);
-        this.dx = Integer.parseInt(restInfo[4]);
-        this.dy = Integer.parseInt(restInfo[5]);
+        this.x.set(Integer.parseInt(restInfo[0]));
+        this.y.set(Integer.parseInt(restInfo[1]));
+        this.width.set(Integer.parseInt(restInfo[2]));
+        this.height.set(Integer.parseInt(restInfo[3]));
+        this.dx.set(Integer.parseInt(restInfo[4]));
+        this.dy.set(Integer.parseInt(restInfo[5]));
 
         return true;
         } catch (Exception e){
