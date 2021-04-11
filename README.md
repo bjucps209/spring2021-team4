@@ -15,4 +15,4 @@ https://www.youtube.com/watch?v=znqomfxDVRs
 ## Expenses
 | Name | Github Username | Ownership Area | Hours Invested | Hours Remaining | Journal Link |
 | ---- | --------------- | -------------- | -------------- | --------------- | ------------ |
-| Nicholas Rich | Nicholas-Rich | Auxilary Screens | 16.25 hours | 33.75 hours | [Nick Journal](https://github.com/bjucps209/spring2021-team4/wiki/RichJournal) |
+| Nicholas Rich | Nicholas-Rich | Auxiliary Screens | 16.25 hours | 33.75 hours | [Nick Journal](https://github.com/bjucps209/spring2021-team4/wiki/RichJournal) |
