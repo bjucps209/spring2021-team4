@@ -1,13 +1,16 @@
 # spring2021-team4
 
 ## Instructions
-To play our game all you will need are the four directional arrow buttons on your keyboard. The Goal is to survive.
+Begin the game by clicking NEW GAME. To play all you will need are the four directional arrow buttons on your keyboard. The Goal is to survive.
 
 ## Work Completed
 
 ## Known Issues
+* Wall Collision is buggy.
+* Player speed gets faster because of keypress speed up firing.
 
 ## Recording
+https://www.youtube.com/watch?v=znqomfxDVRs
 
 ## Expenses
 | Name | Github Username | Ownership Area | Hours Invested | Hours Remaining | Journal Link |
