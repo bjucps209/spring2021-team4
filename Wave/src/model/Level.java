@@ -53,7 +53,15 @@ public class Level {
 
     // spawns enemies
     public void spawnEnemies() {
-
+        EnemyObject e = EnemyObject.create(EnemyTypes.BOUNCER);
+        e.setX(40);
+        e.setY(40);
+        e.setDx(5);
+        e.setDy(5);
+        e.setWidth(50);
+        e.setHeight(50);
+        enemies.add(e);
+        allObjects.add(e);
     }
 
     // starts enemy movements

@@ -2,12 +2,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.HighScore;
@@ -41,7 +42,33 @@ public class MainWindow {
         // opens up new window which is GameWindow
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
         Scene scene = new Scene(loader.load());
-    
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent k) {
+                if (k.getEventType() == KeyEvent.KEY_PRESSED) {
+                    switch (k.getCode()) {
+                        case UP:
+                            GameWindow.moveUp();
+                            break;
+                        case DOWN:
+                            GameWindow.moveDown();
+                            break;
+                        case LEFT:
+                            GameWindow.moveLeft();
+                            break;
+                        case RIGHT:
+                            GameWindow.moveRight();
+                            break;
+                    }
+                }
+            }
+        });
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent k) {
+                GameWindow.moveNeutral();
+            }
+        });
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Wave");

@@ -1,15 +1,17 @@
 package model.GameObjects;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import model.Wave;
 
 public abstract class GameObject {
     // abstract class for all game objects
-    protected int x;
-    protected int y;
-    protected int dx; // delta X (added to x every update (speed))
-    protected int dy; // delta y (added to y every update (speed))
-    protected int width;
-    protected int height;
+    protected IntegerProperty x = new SimpleIntegerProperty();
+    protected IntegerProperty y = new SimpleIntegerProperty();
+    protected IntegerProperty dx = new SimpleIntegerProperty(); // delta X (added to x every update (speed))
+    protected IntegerProperty dy = new SimpleIntegerProperty(); // delta y (added to y every update (speed))
+    protected IntegerProperty width = new SimpleIntegerProperty();
+    protected IntegerProperty height = new SimpleIntegerProperty();
 
     public abstract String serialize();
     public abstract boolean deserialize(String info);
@@ -21,59 +23,78 @@ public abstract class GameObject {
     // update method each object needs
     public void update() {
         checkWallCollision();
-        x = x + dx;
-        y = y + dy;
+        x.set(getX() + getDx());
+        y.set(getY() + getDy());
     } 
 
     public void checkWallCollision() {
-        if (x <= 4 || x >= Wave.getInstance().getGame().getGameWidth() + width - 4) {
-            dx = -dx;
-        } else if (y <= 4 || y >= Wave.getInstance().getGame().getGameHeight() + height - 4) {
-            dy = -dy;
+        if (getX() <= 4 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 4) {
+            dx.set(-getDx());
+        } else if (getY() <= 4 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 4) {
+            dy.set(-getDy());
         }
     }
 
     @Override
     public String toString() {
         String template = "x : %s \n y : %s \n dx : %s \n dy : %s \n";
-        String s = String.format(template, x, y, dx, dy);
+        String s = String.format(template, getX(), getY(), getDx(), getDy());
         return s; 
     }
 
     public int getX() {
-        return x;
+        return this.x.get();
     }
     public void setX(int x) {
-        this.x = x;
+        this.x.set(x);
     }
     public int getY() {
-        return y;
+        return this.y.get();
     }
     public void setY(int y) {
-        this.y = y;
+        this.y.set(y);
     }
     public int getDx() {
-        return dx;
+        return this.dx.get();
     }
     public void setDx(int dx) {
-        this.dx = dx;
+        this.dx.set(dx);
     }
     public int getDy() {
-        return dy;
+        return this.dy.get();
     }
     public void setDy(int dy) {
-        this.dy = dy;
+        this.dy.set(dy);
     }
     public int getWidth() {
-        return width;
+        return this.width.get();
     }
     public void setWidth(int width) {
-        this.width = width;
+        this.width.set(width);
     }
     public int getHeight() {
-        return height;
+        return this.height.get();
     }
     public void setHeight(int height) {
-        this.height = height;
+        this.height.set(height);
+    }
+
+    public IntegerProperty xProperty() {
+        return x;
+    }
+    public IntegerProperty yProperty() {
+        return y;
+    }
+    public IntegerProperty dxProperty() {
+        return dx;
+    }
+    public IntegerProperty dyProperty() {
+        return dy;
+    }
+    public IntegerProperty widthProperty() {
+        return width;
+    }
+    public IntegerProperty heightProperty() {
+        return height;
     }
 }
