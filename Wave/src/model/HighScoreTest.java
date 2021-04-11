@@ -17,7 +17,6 @@ public class HighScoreTest {
     HighScore user3 = new HighScore("Tim", 200);
 
     // Initializes the list and objects in that list that I will use for further methods
-    @Test
     public void initialize() {
 
         list.add(user1);

@@ -12,6 +12,17 @@ import java.util.*;
 public class WaveTest {
 
   @Test
+  public void testGame_objectMovement() {
+    Wave.getInstance().gameStart();
+    assertTrue(Wave.getInstance().getGame().getCurrentLevel().getEnemies().get(0).getX() == 40);
+    Wave.getInstance().getGame().update();
+    assertTrue(Wave.getInstance().getGame().getCurrentLevel().getEnemies().get(0).getX() == 45);
+    Wave.getInstance().getGame().getCurrentLevel().getEnemies().get(0).setDx(-5);
+    Wave.getInstance().getGame().update();
+    assertTrue(Wave.getInstance().getGame().getCurrentLevel().getEnemies().get(0).getX() == 40);
+  }
+
+  @Test
   public void testLoadAllUsers_sampleExample_correctResult(){
     System.out.println(new File("sampleUserInfo.txt").exists());
     assertTrue(Wave.getInstance().loadAllUsersTest("sampleUserInfo.txt"));
