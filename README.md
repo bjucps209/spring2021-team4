@@ -11,6 +11,7 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 |Help screen | Required | Nick | Done |
 |Player control | Required | Conner| Done |
 |Enemy Movement | Required | Conner | Done |
+|Collision detection | Required | Conner | Done |
 |Graphics | Required | Nick | Done |
 | Level Builder | Optional | Ryan | 98% |
 
