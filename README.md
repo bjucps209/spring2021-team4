@@ -4,6 +4,15 @@
 Begin the game by clicking NEW GAME. To play all you will need are the four directional arrow buttons on your keyboard. The Goal is to survive.
 
 ## Work Completed
+| Feature | Type | Assignee(s) | Status |
+|---------|------|-------------|--------|
+|Title Screen | Required | Nick | Done |
+|About Screen | Required | Nick | Done |
+|Help screen | Required | Nick | Done |
+|Player control | Required | Conner| Done |
+|Enemy Movement | Required | Conner | Done |
+|Graphics | Required | Nick | Done |
+| Level Builder | Optional | Ryan | 98% |
 
 ## Known Issues
 * Wall Collision is buggy.
