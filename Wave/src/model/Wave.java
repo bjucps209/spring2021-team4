@@ -263,4 +263,79 @@ public class Wave {
         this.currentUser = currentUser;
     }
 
+    // // method to load custom levels - RTR
+    // public void loadCustomLevels() throws IOException {
+    //     var level = new Level();
+    //     try (var stream = new FileInputStream("customLevel0.dat");) {
+    //         byte[] levelLength = new byte[4];
+    //         stream.read(levelLength);
+    //         int lengthOfLevel = java.nio.ByteBuffer.wrap(levelLength).order(java.nio.ByteOrder.BIG_ENDIAN).getInt();
+
+    //         byte[] levelInfoBytes = new byte[lengthOfLevel];
+    //         stream.read(levelInfo);
+    //         String levelInfoString = levelInfoBytes.toString();
+
+    //         String[] instances = levelInfoString.split("|");
+    //         for (String instance : instances) {
+    //             String[] instanceInfo = instance.split(",");
+    //             // enemy entities
+    //             if (instanceInfo[0].equals("Bouncer")) {
+    //                 var object = new Bouncer();
+    //             }
+    //             else if (instanceInfo[0].equals("Ghost")) {
+    //                 var object = new Ghost();
+    //             }
+    //             else if (instanceInfo[0].equals("Tracker")) {
+    //                 var object = new Tracker();
+    //             }
+    //             else if (instanceInfo[0].equals("ShapeShifter")) {
+    //                 var object = new ShapeShifter();
+    //             }
+    //             else if (instanceInfo[0].equals("Laser")) {
+    //                 var object = new Laser();
+    //             }
+    //             // powerups
+    //             else if (instanceInfo[0].equals("DestroyShipPowerUp")) {
+    //                 var object = new DestroyShipPowerUp();
+    //                 object.setAppearTime(Integer.parseInt(instanceInfo[3]));
+    //             }
+    //             else if (instanceInfo[0].equals("FreezePowerUp")) {
+    //                 var object = new FreezePowerUp();
+    //                 object.setAppearTime(Integer.parseInt(instanceInfo[3]));
+    //             }
+    //             else if (instanceInfo[0].equals("HealthPackPowerUp")) {
+    //                 var object = new HealthPackPowerUp();
+    //                 object.setAppearTime(Integer.parseInt(instanceInfo[3]));
+    //             }
+    //             else if (instanceInfo[0].equals("InvincibilityPowerUp")) {
+    //                 var object = new InvincibilityPowerUp();
+    //                 object.setAppearTime(Integer.parseInt(instanceInfo[3]));
+    //             }
+    //             else if (instanceInfo[0].equals("LargeHealthPowerUp")) {
+    //                 var object = new LargeHealthPowerUp();
+    //                 object.setAppearTime(Integer.parseInt(instanceInfo[3]));
+    //             }
+    //             // obstacles
+    //             else if (instanceInfo[0].equals("Obstacle")) {
+    //                 var object = new Obstacle();
+    //             }
+    //             object.setX(Integer.parseInt(instanceInfo[1]));
+    //             object.setY(Integer.parseInt(instanceInfo[2]));
+    //             level.getAllObjects().add(object);
+
+    //             // add object to corresponding part of the level
+    //             if (object instanceof PowerUp) {
+    //                 level.getPowerUps().add(object);
+    //             }
+    //             else if (object instanceof Obstacle) {
+    //                 level.getObstacles().add(object);
+    //             }
+    //             else if (object instanceof EnemyObject) {
+    //                 level.getEnemies().add(object);
+    //             }
+
+    //         }
+    //     }
+    // }
+
 }

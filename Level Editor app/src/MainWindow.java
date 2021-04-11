@@ -143,9 +143,9 @@ public class MainWindow {
         
     }
 
+    // scaleable method to set the position  for an imageview and its corresponding object
     @FXML
     void setPosition(ImageView imgView, int x, int y) {
-        // scaleable method to set the position  for an imageview and its corresponding object
         imgView.setX(x);
         imgView.setY(y);
 
@@ -155,10 +155,9 @@ public class MainWindow {
         obj.setY(y);
         }
 
-
+    // scaleable method to set the current image for the user.
     @FXML 
     void setCurrent(ImageView img) {
-        // scaleable method to set the current image for the user.
         if (currentImage != null) {
             currentImage.getStyleClass().remove("current");
         }
@@ -172,10 +171,9 @@ public class MainWindow {
         }
     }
 
-
+    // change applicable attributes of the current image
     @FXML
     void onUpdateValuesClicked() {
-        // change the position of the entity to a specific value
         if (currentImage != null && currentObject != null) {
             if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
                 setPosition(currentImage, 0, 0);
@@ -204,9 +202,9 @@ public class MainWindow {
         
     }
 
+    // create a new object
     @FXML
     void onCreateNewClicked() {
-        // clicking this button will update the current image to its correct position...
         String str = (String) typeBox.getValue();
         var imgView = new ImageView("/LevelEditorImages/" + str + ".png");
 
@@ -215,7 +213,6 @@ public class MainWindow {
 
         var obj = createGameObjects(str);
         imgView.setUserData(obj);
-        // level.getAllObjects().add(obj);
         
         if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
             try {
@@ -239,6 +236,7 @@ public class MainWindow {
         }
     }
 
+    // remove entities from the level
     @FXML
     void onClearClicked() {
         pane.getChildren().remove(0, pane.getChildren().size());
@@ -266,7 +264,7 @@ public class MainWindow {
     }
 
 
-    // stringify and write to a file.
+    // stringify, 'bytify', and write to a file.
     @FXML
     void onSaveLevelClicked() throws IOException {
         String levelInfo = "";
