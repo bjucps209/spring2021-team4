@@ -8,7 +8,7 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 ## Known Issues
 
 ## Recording
-!(https://www.youtube.com/watch?v=znqomfxDVRs)
+https://www.youtube.com/watch?v=znqomfxDVRs
 
 ## Expenses
 | Name | Github Username | Ownership Area | Hours Invested | Hours Remaining | Journal Link |
