@@ -14,6 +14,8 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 |Collision detection | Required | Conner | Done |
 |Graphics | Required | Nick | Done |
 | Level Builder | Optional | Ryan | 98% |
+| User Profile | Required | Joel | Done |
+| Serialization | Required | Joel | In progress |
 
 ## Known Issues
 * Wall Collision is buggy.
