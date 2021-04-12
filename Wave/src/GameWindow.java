@@ -100,23 +100,31 @@ public class GameWindow {
     }
 
     public static void moveUp() {
-        p.moveUp();
-        g.update();
+        if (p.getDy() == 0) {
+            p.moveUp();
+            g.update();
+        }
     }
 
     public static void moveDown() {
-        p.moveDown();
-        g.update();
+        if (p.getDy() == 0) {
+            p.moveDown();
+            g.update();
+        }
     }
 
     public static void moveRight() {
-        p.moveRight();
-        g.update();
+        if (p.getDx() == 0) {
+            p.moveRight();
+            g.update();
+        }
     }
 
     public static void moveLeft() {
-        p.moveLeft();
-        g.update();
+        if (p.getDx() == 0) {
+            p.moveLeft();
+            g.update();
+        }
     }
     
     public static void moveNeutral() {

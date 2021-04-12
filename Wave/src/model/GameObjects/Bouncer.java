@@ -6,4 +6,6 @@ public class Bouncer extends EnemyObject {
     public Bouncer() {
         
     }
+
+    public static int speed = 5;
 }

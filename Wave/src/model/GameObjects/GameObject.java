@@ -12,6 +12,7 @@ public abstract class GameObject {
     protected IntegerProperty dy = new SimpleIntegerProperty(); // delta y (added to y every update (speed))
     protected IntegerProperty width = new SimpleIntegerProperty();
     protected IntegerProperty height = new SimpleIntegerProperty();
+    protected static IntegerProperty speed = new SimpleIntegerProperty();
 
     public abstract String serialize();
     public abstract boolean deserialize(String info);
@@ -28,10 +29,20 @@ public abstract class GameObject {
     } 
 
     public void checkWallCollision() {
-        if (getX() <= 4 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 4) {
+        if (getX() <= 4 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth()) {
             dx.set(-getDx());
-        } else if (getY() <= 4 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 4) {
+            if (getX() < 10) {
+                x.set(1);
+            } else {
+                x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 1);
+            }
+        } else if (getY() <= 4 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight()) {
             dy.set(-getDy());
+            if (getY() < 10) {
+                y.set(1);
+            } else {
+                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 1);
+            }
         }
     }
 
@@ -77,6 +88,18 @@ public abstract class GameObject {
     }
     public void setHeight(int height) {
         this.height.set(height);
+    }
+
+    public int getSpeed() {
+        return this.speed.get();
+    }
+
+    public void setSpeed(int speed) {
+        this.speed.set(speed);
+    }
+
+    public IntegerProperty speed() {
+        return speed;
     }
 
     public IntegerProperty xProperty() {

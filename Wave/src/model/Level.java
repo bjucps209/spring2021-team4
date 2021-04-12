@@ -10,9 +10,13 @@ import model.Enums.ShipSkins;
 import model.GameObjects.Bouncer;
 import model.GameObjects.EnemyObject;
 import model.GameObjects.GameObject;
+import model.GameObjects.Ghost;
+import model.GameObjects.Laser;
 import model.GameObjects.Obstacle;
 import model.GameObjects.Player;
 import model.GameObjects.PowerUp;
+import model.GameObjects.Shapeshifter;
+import model.GameObjects.Tracker;
 
 public class Level {
     // Class that holds all info for 1 level
@@ -55,15 +59,37 @@ public class Level {
 
     // spawns enemies
     public void spawnEnemies() {
-        EnemyObject e = EnemyObject.create(EnemyTypes.BOUNCER);
-        e.setX(40);
-        e.setY(40);
-        e.setDx(5);
-        e.setDy(5);
-        e.setWidth(50);
-        e.setHeight(50);
+        spawnEnemy(EnemyTypes.BOUNCER, 40, 40, 50, 50);
+    }
+
+    public void spawnEnemy(EnemyTypes type, int x, int y, int width, int height) {
+        EnemyObject e = EnemyObject.create(type);
+        int speed = calcEnemySpeed(type);
+        e.setX(x);
+        e.setY(y);
+        e.setDx(speed);
+        e.setDy(speed);
+        e.setWidth(width);
+        e.setHeight(height);
         enemies.add(e);
         allObjects.add(e);
+    }
+
+    public int calcEnemySpeed(EnemyTypes type) {
+        switch (type) {
+            case BOUNCER:
+                return Bouncer.speed;
+            case GHOST:
+                return Ghost.speed;
+            case LASER:
+                return Laser.speed;
+            case SHAPESHIFTER:
+                return Shapeshifter.speed;
+            case TRACKER:
+                return Tracker.speed;
+            default:
+                return 0;
+            }
     }
 
     // starts enemy movements
