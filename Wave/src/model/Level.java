@@ -57,7 +57,7 @@ public class Level {
 
     // spawns enemies
     public void spawnEnemies() {
-        spawnEnemy(EnemyTypes.BOUNCER, 40, 40);
+        spawnEnemy(EnemyTypes.BOUNCER, 20, 20);
     }
 
     // creates obstacles
@@ -66,7 +66,7 @@ public class Level {
     }
 
     public void spawnPowerups() {
-        
+
     }
 
     // Takes the enemy type, x, and y. creates an enemy

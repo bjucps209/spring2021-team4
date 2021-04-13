@@ -1,8 +1,11 @@
 package model.GameObjects;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.Wave;
+import model.GameObjects.Enemies.EnemyObject;
 
 public abstract class GameObject {
     // abstract class for all game objects
@@ -17,13 +20,22 @@ public abstract class GameObject {
     public abstract String serialize();
     public abstract boolean deserialize(String info);
 
+    ArrayList<Obstacle> obstacles;
+    ArrayList<EnemyObject> enemies;
+
+    int collisionNum = 0;
+
     public void GameObject() {
 
     }
 
     // update method each object needs
     public void update() {
-        checkWallCollision();
+        collisionNum++;
+        if (collisionNum % 10 == 0) {
+            checkWallCollision();
+            checkObstacleCollision();
+        } 
         x.set(getX() + getDx());
         y.set(getY() + getDy());
     } 
@@ -45,6 +57,28 @@ public abstract class GameObject {
             }
         }
     }
+
+    public void checkObstacleCollision() {
+        obstacles = Wave.getInstance().getGame().getCurrentLevel().getObstacles();
+        for (Obstacle e : obstacles) {
+            for (int i = e.getX(); i <= e.getX() + e.getWidth(); i++) {
+                for (int k = getX(); k <= getX() + getWidth(); k++) {
+                    if (k == i) {
+                        for (int j = e.getY(); j <= e.getY() + e.getHeight(); j++) {
+                            for (int l = getY(); l <= getY() + getHeight(); l++) {
+                                if (l == j) {
+                                    //TODO HIT
+                                    System.out.println("HIT!");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    
 
     @Override
     public String toString() {
