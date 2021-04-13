@@ -10,13 +10,13 @@ import model.Enums.ShipSkins;
 import model.GameObjects.GameObject;
 import model.GameObjects.Obstacle;
 import model.GameObjects.Player;
-import model.GameObjects.PowerUp;
 import model.GameObjects.Enemies.Bouncer;
 import model.GameObjects.Enemies.EnemyObject;
 import model.GameObjects.Enemies.Ghost;
 import model.GameObjects.Enemies.Laser;
 import model.GameObjects.Enemies.Shapeshifter;
 import model.GameObjects.Enemies.Tracker;
+import model.GameObjects.Powerups.PowerUp;
 
 public class Level {
     // Class that holds all info for 1 level
@@ -26,6 +26,7 @@ public class Level {
     private ArrayList<EnemyObject> enemies = new ArrayList<EnemyObject>();
     private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
     private ArrayList<PowerUp> powerups = new ArrayList<PowerUp>();
+    
     // Data info
     private int score;
 
@@ -46,10 +47,7 @@ public class Level {
         spawnEnemies();
     }
 
-    // creates obstacles
-    public void createObstacles() {
-
-    }
+    
 
     // spawns player
     public void spawnPlayer() {
@@ -59,18 +57,29 @@ public class Level {
 
     // spawns enemies
     public void spawnEnemies() {
-        spawnEnemy(EnemyTypes.BOUNCER, 40, 40, 50, 50);
+        spawnEnemy(EnemyTypes.BOUNCER, 40, 40);
     }
 
-    public void spawnEnemy(EnemyTypes type, int x, int y, int width, int height) {
+    // creates obstacles
+    public void spawnObstacles() {
+
+    }
+
+    public void spawnPowerups() {
+        
+    }
+
+    // Takes the enemy type, x, and y. creates an enemy
+    // and adds it to enemy list and all object list
+    public void spawnEnemy(EnemyTypes type, int x, int y) {
         EnemyObject e = EnemyObject.create(type);
         int speed = calcEnemySpeed(type);
         e.setX(x);
         e.setY(y);
         e.setDx(speed);
         e.setDy(speed);
-        e.setWidth(width);
-        e.setHeight(height);
+        e.setWidth(50);
+        e.setHeight(50);
         enemies.add(e);
         allObjects.add(e);
     }
@@ -90,16 +99,6 @@ public class Level {
             default:
                 return 0;
             }
-    }
-
-    // starts enemy movements
-    public void start() {
-
-    }
-
-    // stops enemies and removes them and obstacles
-    public void stop() {
-
     }
 
     // opens wall at the end for player to progress to the next level through
