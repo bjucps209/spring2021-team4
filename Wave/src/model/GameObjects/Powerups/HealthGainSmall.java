@@ -2,7 +2,7 @@ package model.GameObjects.Powerups;
 
 import model.GameObjects.Player;
 
-public class HealthGain extends PowerUp{
+public class HealthGainSmall extends PowerUp{
     //Note: this implement the small gain package in the game specification
     int healthAddition = 10;
 
