@@ -1,18 +1,10 @@
-package model.GameObjects;
+package model.GameObjects.Powerups;
 
-import model.Game;
+import model.GameObjects.GameObject;
 
 public abstract class PowerUp extends GameObject {
 
     protected int appearTime;
-
-    public void setAppearTime(int appearTime) {
-      this.appearTime = appearTime;
-    }
-    
-    public int getAppearTime() {
-      return this.appearTime;
-    }
 
     @Override
     public String serialize(){
