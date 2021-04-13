@@ -1,6 +1,6 @@
-package model.GameObjects;
+package model.GameObjects.Powerups;
 
-import model.Game;
+import model.GameObjects.GameObject;
 
 public abstract class PowerUp extends GameObject {
 

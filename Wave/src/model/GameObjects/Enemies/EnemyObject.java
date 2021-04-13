@@ -1,8 +1,9 @@
-package model.GameObjects;
+package model.GameObjects.Enemies;
 
 import org.junit.rules.TestRule;
 
 import model.Enums.EnemyTypes;
+import model.GameObjects.GameObject;
 
 public abstract class EnemyObject extends GameObject {
     // abstract class for Enemy objects in game
