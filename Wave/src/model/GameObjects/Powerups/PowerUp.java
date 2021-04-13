@@ -1,5 +1,6 @@
 package model.GameObjects.Powerups;
 
+import model.Enums.PowerUps;
 import model.GameObjects.GameObject;
 import model.GameObjects.Player;
 
@@ -9,7 +10,8 @@ public abstract class PowerUp extends GameObject {
 
     //Note: powerups will be position by the level editors.
     protected int appearTime;
-    protected PowerUp type;
+    protected PowerUps type;
+    protected boolean isFinished = false;
     
     public abstract void collisionWithPlayer(Player p);
     @Override
@@ -36,10 +38,16 @@ public abstract class PowerUp extends GameObject {
     public void setAppearTime(int appearTime) {
       this.appearTime = appearTime;
     }
-    public PowerUp getType() {
+    public PowerUps getType() {
       return type;
     }
-    public void setType(PowerUp type) {
+    public void setType(PowerUps type) {
       this.type = type;
+    }
+    public void setIsFinished(boolean status){
+      this.isFinished = status;
+    }
+    public boolean getIsFinished(){
+      return this.isFinished;
     }
 }

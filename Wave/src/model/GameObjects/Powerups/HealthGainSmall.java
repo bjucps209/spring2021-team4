@@ -14,6 +14,7 @@ public class HealthGainSmall extends PowerUp{
     public void collisionWithPlayer(Player p) {
       // TODO Auto-generated method stub
       p.setHealth(p.getHealth() + healthAddition);
+      this.isFinished = true;
       
     }
 
