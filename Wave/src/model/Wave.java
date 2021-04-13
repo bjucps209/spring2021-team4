@@ -63,9 +63,6 @@ public class Wave {
         return this.windowHeight;
     }
 
-
-
-    
     /**
      * This function take a String userName, check and return User() in this.users that has the same user name
      * @param userName - String indicate user name

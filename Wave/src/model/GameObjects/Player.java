@@ -1,25 +1,43 @@
 package model.GameObjects;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.util.Duration;
 import model.Wave;
 import model.Enums.ShipSkins;
+import model.GameObjects.Enemies.EnemyObject;
 
 public class Player extends GameObject {
     // contains info for a Player during the game
     
     // instance variables
-    private int health;
+    private IntegerProperty health = new SimpleIntegerProperty(100);
     private int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
     private ShipSkins currentShipSkins; 
 
     public Player() {
         super();
-        setX(5);
-        setY(5);
+        setX(500);
+        setY(500);
         setDx(0);
         setDy(0);
         setWidth(50);
         setHeight(50);
     }
+
+    @Override
+    public void update() {
+        collisionNum++;
+        if (collisionNum % 50 == 0) {
+            checkEnemyCollision();
+            checkWallCollision();
+            checkObstacleCollision(); 
+        } 
+        x.set(getX() + getDx());
+        y.set(getY() + getDy());
+    } 
 
     @Override
     public void checkWallCollision() {
@@ -36,6 +54,26 @@ public class Player extends GameObject {
                 y.set(1);
             } else {
                 y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 1);
+            }
+        }
+    }
+
+    public void checkEnemyCollision() {
+        enemies = Wave.getInstance().getGame().getCurrentLevel().getEnemies();
+        for (EnemyObject e : enemies) {
+            for (int i = e.getX(); i <= e.getX() + e.getWidth(); i++) {
+                for (int k = getX(); k <= getX() + getWidth(); k++) {
+                    if (k == i) {
+                        for (int j = e.getY(); j <= e.getY() + e.getHeight(); j++) {
+                            for (int l = getY(); l <= getY() + getHeight(); l++) {
+                                if (l == j) {
+                                    //TODO HIT
+                                    health.set(health.get() - 1);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -63,15 +101,18 @@ public class Player extends GameObject {
 
     // --- getters ---
     public int getHealth() {
-      return health;
+      return this.health.get();
     }
     public ShipSkins getCurrentShipSkins() {
       return currentShipSkins;
     }
+    public IntegerProperty healthProperty() {
+        return health;
+    }
 
     // --- setters ---
     public void setHealth(int health) {
-      this.health = health;
+      this.health.set(health);
     }
 
     public void setCurrentShipSkins(ShipSkins currentShipSkins) {
@@ -92,7 +133,7 @@ public class Player extends GameObject {
         // x,y,width,height,dx,dy,special effects
         try{
         String[] restInfo = info.split(";");
-        health = Integer.parseInt(restInfo[0]);
+        health.set(Integer.parseInt(restInfo[0]));
         currentShipSkins = ShipSkins.valueOf(restInfo[1]);
         
         this.x.set (Integer.parseInt(restInfo[2]));
