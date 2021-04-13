@@ -152,6 +152,21 @@ public class MainWindow {
     // scaleable method to set the position  for an imageview and its corresponding object
     @FXML
     void setPosition(ImageView imgView, int x, int y) {
+
+        if (x < 0) {
+            x  = 0;
+        }
+        if (x >= (int) pane.getWidth()) {
+            x = (int) pane.getWidth();
+        }
+        if (y < 0) {
+            y = 0;
+        }
+        if (y >= (int) pane.getHeight()) {
+            y = (int) pane.getHeight();
+        }
+
+
         imgView.setX(x);
         imgView.setY(y);
 
@@ -233,7 +248,8 @@ public class MainWindow {
         else {
             try {
                 pane.getChildren().add(imgView);
-                setPosition(imgView, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
+
+                setPosition(imgView, objX, objY);
             }
             catch (NumberFormatException e) {
                 var alert = new Alert(AlertType.INFORMATION, "Please choose an integer.");

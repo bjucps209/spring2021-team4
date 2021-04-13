@@ -48,13 +48,13 @@
             
 
         </VBox>
-        <Pane fx:id="pane" prefHeight="500" prefWidth="800" style="-fx-background-color: lightgray" />
+        <Pane fx:id="pane" prefHeight="800" prefWidth="1000" style="-fx-background-color: lightgray"/>
         <HBox spacing="10" styleClass="propview">
             <VBox spacing="10">
                 <Label text="Position:" />
                 <Label text="Heading:" />
                 <Label text="Appearance Time:" />
-                <Button text="save level" styleClass="leftbutton" onAction="#onSaveLevelClicked"></Button>
+                <Button text="save level" styleClass="leftbutton" onAction="#onSaveLevelClicked"/>
             </VBox>
             <VBox spacing="10" minWidth="50">
                 <Label fx:id="lblLoc" text="" />
