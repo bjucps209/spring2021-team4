@@ -3,10 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.io.*;
 import model.Enums.*;
-import model.GameObjects.EnemyObject;
-import model.GameObjects.GameObject;
-import model.GameObjects.Obstacle;
-import model.GameObjects.Player;
 
 public class Wave {
 

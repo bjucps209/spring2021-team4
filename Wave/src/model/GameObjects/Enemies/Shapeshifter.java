@@ -1,4 +1,4 @@
-package model.GameObjects;
+package model.GameObjects.Enemies;
 
 public class Shapeshifter {
     public static int speed = 5;

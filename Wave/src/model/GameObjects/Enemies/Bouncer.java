@@ -1,4 +1,4 @@
-package model.GameObjects;
+package model.GameObjects.Enemies;
 
 import model.Wave;
 

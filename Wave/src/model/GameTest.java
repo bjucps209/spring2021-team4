@@ -7,10 +7,10 @@ import org.junit.Test;
 
 import model.Enums.EnemyTypes;
 import model.Enums.ShipSkins;
-import model.GameObjects.Bouncer;
-import model.GameObjects.EnemyObject;
 import model.GameObjects.Obstacle;
 import model.GameObjects.Player;
+import model.GameObjects.Enemies.Bouncer;
+import model.GameObjects.Enemies.EnemyObject;
 
 import static org.junit.Assert.*;
 import java.util.*;
@@ -114,6 +114,7 @@ public class GameTest {
   @Test
   public void testLoad_example3_correctResult(){
     // TODO: in beta version
+    assertTrue(true);
   }
 
   @Test

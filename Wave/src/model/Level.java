@@ -7,16 +7,16 @@ import java.util.stream.Stream;
 
 import model.Enums.EnemyTypes;
 import model.Enums.ShipSkins;
-import model.GameObjects.Bouncer;
-import model.GameObjects.EnemyObject;
 import model.GameObjects.GameObject;
-import model.GameObjects.Ghost;
-import model.GameObjects.Laser;
 import model.GameObjects.Obstacle;
 import model.GameObjects.Player;
 import model.GameObjects.PowerUp;
-import model.GameObjects.Shapeshifter;
-import model.GameObjects.Tracker;
+import model.GameObjects.Enemies.Bouncer;
+import model.GameObjects.Enemies.EnemyObject;
+import model.GameObjects.Enemies.Ghost;
+import model.GameObjects.Enemies.Laser;
+import model.GameObjects.Enemies.Shapeshifter;
+import model.GameObjects.Enemies.Tracker;
 
 public class Level {
     // Class that holds all info for 1 level
