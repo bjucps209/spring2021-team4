@@ -10,10 +10,14 @@ import javafx.scene.input.MouseEvent;
 import java.io.*;
 import java.util.regex.Pattern;
 
-import model.Level;
-import model.GameObjects.*;
 import model.Enums.*;
+import model.GameObjects.*;
+import model.GameObjects.Enemies.*;
+import model.GameObjects.Powerups.*;
 
+
+// re implement createNewObject
+// uncomment certain elements of save level when safe
 public class MainWindow {
 
     @FXML
@@ -72,73 +76,75 @@ public class MainWindow {
 
     // factory method to create an instance of GameObject when the user clicks create new
     GameObject createGameObjects(String identifier) {
-        // obstacles
+        // // obstacles
         if (identifier.equals("block_square") || identifier.equals("block_corner") || identifier.equals("block_large") || identifier.equals("block_narrow")) {
             return new Obstacle();
         }
-        // powerups
-        else if (identifier.equals("powerupBlue_bolt")) {
-            var freeze = new FreezePowerUp();
-            try {
-                freeze.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            }
-            catch (NumberFormatException e) {
-                freeze.setAppearTime(0);
-            }
-            return freeze;
-        }
-        else if (identifier.equals("pill_yellow")) {
-            var largeHealth = new LargeHealthPowerUp();
-            try {
-                largeHealth.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            }
-            catch (NumberFormatException e) {
-                largeHealth.setAppearTime(0);
-            }
-            return largeHealth;
-        }
-        else if (identifier.equals("shield_gold")) {
-            var invincibility = new InvincibilityPowerUp();
-            try {
-                invincibility.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            }
-            catch (NumberFormatException e) {
-                invincibility.setAppearTime(0);
-            }
-            return invincibility;
-        }
-        else if (identifier.equals("bolt_gold")) {
-            var destroyShip = new DestroyShipPowerUp();
-            try {
-                destroyShip.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            }
-            catch (NumberFormatException e) {
-                destroyShip.setAppearTime(0);
-            }
-            return destroyShip;
-        }
-        else if (identifier.equals("pill_blue")) {
-            var healthPack = new HealthPackPowerUp();
-            try {
-                healthPack.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            }
-            catch (NumberFormatException e) {
-                healthPack.setAppearTime(0);
-            }
-            return healthPack;
-        }
+        // // powerups
+        // else if (identifier.equals("powerupBlue_bolt")) {
+        //     var freeze = new FreezePowerUp();
+        //     try {
+        //         freeze.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+        //     }
+        //     catch (NumberFormatException e) {
+        //         freeze.setAppearTime(0);
+        //     }
+        //     return freeze;
+        // }
+        // else if (identifier.equals("pill_yellow")) {
+        //     var largeHealth = new LargeHealthPowerUp();
+        //     try {
+        //         largeHealth.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+        //     }
+        //     catch (NumberFormatException e) {
+        //         largeHealth.setAppearTime(0);
+        //     }
+        //     return largeHealth;
+        // }
+        // else if (identifier.equals("shield_gold")) {
+        //     var invincibility = new InvincibilityPowerUp();
+        //     try {
+        //         invincibility.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+        //     }
+        //     catch (NumberFormatException e) {
+        //         invincibility.setAppearTime(0);
+        //     }
+        //     return invincibility;
+        // }
+        // else if (identifier.equals("bolt_gold")) {
+        //     var destroyShip = new DestroyShipPowerUp();
+        //     try {
+        //         destroyShip.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+        //     }
+        //     catch (NumberFormatException e) {
+        //         destroyShip.setAppearTime(0);
+        //     }
+        //     return destroyShip;
+        // }
+        // else if (identifier.equals("pill_blue")) {
+        //     var healthPack = new HealthPackPowerUp();
+        //     try {
+        //         healthPack.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+        //     }
+        //     catch (NumberFormatException e) {
+        //         healthPack.setAppearTime(0);
+        //     }
+        //     return healthPack;
+        // }
+
         // enemies
+        // shapeshifter not implemented
         else if (identifier.equals("enemyBlack4")) {
-            return new Bouncer();
+            return EnemyObject.create(EnemyTypes.BOUNCER);
         }
         else if (identifier.equals("enemyBlack1")) {
-            return new Tracker();
+            return EnemyObject.create(EnemyTypes.TRACKER);
         }
         else if (identifier.equals("enemyBlack2")) {
-            return new Ghost();
+            return EnemyObject.create(EnemyTypes.GHOST);
         }
         else {
-            return new Laser();
+            return EnemyObject.create(EnemyTypes.LASER);
         }
         
     }
@@ -187,16 +193,16 @@ public class MainWindow {
                     alert.show();
                 }
             }
-            if (currentImage.getUserData() instanceof PowerUp) {
-                var powerUp = (PowerUp) currentImage.getUserData();
-                try {
-                    powerUp.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-                }
-                catch (NumberFormatException f) {
-                    var alert = new Alert(AlertType.INFORMATION, "Please supply Integer values only.");
-                    alert.show();
-                }
-            }
+            // if (currentImage.getUserData() instanceof PowerUp) {
+            //     var powerUp = (PowerUp) currentImage.getUserData();
+            //     try {
+            //         powerUp.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            //     }
+            //     catch (NumberFormatException f) {
+            //         var alert = new Alert(AlertType.INFORMATION, "Please supply Integer values only.");
+            //         alert.show();
+            //     }
+            // }
         }
         setLabels();
         
@@ -285,7 +291,7 @@ public class MainWindow {
             allObjectInformation += ("|" + array[2] + "," + x + "," + y);
             if (obj instanceof PowerUp) {
                 var downCastedObj = (PowerUp) obj;
-                allObjectInformation += ("," + downCastedObj.getAppearTime());
+                // allObjectInformation += ("," + downCastedObj.getAppearTime());
             }
             if (i == pane.getChildren().size() - 1) {
                 allObjectInformation += "|";
@@ -329,7 +335,7 @@ public class MainWindow {
             lblHeading.setText("heading here");
             if (currentImage.getUserData() instanceof PowerUp) {
                 var obj = (PowerUp) currentImage.getUserData();
-                lblTime.setText(String.valueOf(obj.getAppearTime()));
+                // lblTime.setText(String.valueOf(obj.getAppearTime()));
             }
         }
         else {

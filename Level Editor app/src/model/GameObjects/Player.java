@@ -1,5 +1,6 @@
 package model.GameObjects;
 
+import model.Wave;
 import model.Enums.ShipSkins;
 
 public class Player extends GameObject {
@@ -12,33 +13,52 @@ public class Player extends GameObject {
 
     public Player() {
         super();
-        x = 40;
-        y = 5;
-        dx = 0;
-        dy = 0;
-        width = 5;
-        height = 5;
+        setX(5);
+        setY(5);
+        setDx(0);
+        setDy(0);
+        setWidth(50);
+        setHeight(50);
+    }
+
+    @Override
+    public void checkWallCollision() {
+        if (getX() <= 0 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth()) {
+            dx.set(0);
+            if (getX() < 10) {
+                x.set(1);
+            } else {
+                x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 1);
+            }
+        } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight()) {
+            dy.set(0);
+            if (getY() < 10) {
+                y.set(1);
+            } else {
+                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 1);
+            }
+        }
     }
 
     public void moveUp() {
-        this.dy = -speed;
+        setDy(-speed);
     }
 
     public void moveDown() {
-        this.dy = speed;
+        setDy(speed);
     }
 
     public void moveLeft() {
-        this.dx = -speed;
+        setDx(-speed);
     }
 
     public void moveRight() {
-        this.dx = speed;
+        setDx(speed);
     }
 
     public void moveNeutral() {
-        this.dx = 0;
-        this.dy = 0;
+        setDx(0);
+        setDy(0);
     }
 
     // --- getters ---
@@ -62,7 +82,7 @@ public class Player extends GameObject {
     public String serialize() {
         // TODO Auto-generated method stub
         // TODO still needs to add in special effects !!!
-        return health+";"+currentShipSkins.toString()+";"+ x+";"+y+";"+width+";"+height+";"+dx+";"+dy;
+        return health+";"+currentShipSkins.toString()+";"+ x.get()+";"+y.get()+";"+width.get()+";"+height.get()+";"+dx.get()+";"+dy.get();
     }
 
     @Override
@@ -74,12 +94,13 @@ public class Player extends GameObject {
         String[] restInfo = info.split(";");
         health = Integer.parseInt(restInfo[0]);
         currentShipSkins = ShipSkins.valueOf(restInfo[1]);
-        this.x = Integer.parseInt(restInfo[2]);
-        this.y = Integer.parseInt(restInfo[3]);
-        this.width = Integer.parseInt(restInfo[4]);
-        this.height = Integer.parseInt(restInfo[5]);
-        this.dx = Integer.parseInt(restInfo[6]);
-        this.dy = Integer.parseInt(restInfo[7]);
+        
+        this.x.set (Integer.parseInt(restInfo[2]));
+        this.y.set(Integer.parseInt(restInfo[3]));
+        this.width.set(Integer.parseInt(restInfo[4]));
+        this.height.set(Integer.parseInt(restInfo[5]));
+        this.dx.set(Integer.parseInt(restInfo[6]));
+        this.dy.set(Integer.parseInt(restInfo[7]));
         // TODO: handle rest of special affect on player
         return true;
         } catch (Exception e){
