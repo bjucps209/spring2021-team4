@@ -1,11 +1,17 @@
 package model.GameObjects.Powerups;
 
 import model.GameObjects.GameObject;
+import model.GameObjects.Player;
+
+import java.util.ArrayList;
 import java.util.Random;
 public abstract class PowerUp extends GameObject {
 
+    //Note: powerups will be position by the level editors.
     protected int appearTime;
+    protected PowerUp type;
     
+    public abstract void collisionWithPlayer(Player p);
     @Override
     public void update() {
       // powerups will not move during the game
@@ -21,29 +27,19 @@ public abstract class PowerUp extends GameObject {
       return true;
     }
 
-    public void randomlyPlacePowerUps(){
-      int width = 1000;
-      int height = 800;
-      
-      int minx = 0;
-      int minY = 0;
-      int possibleX = 0;
-      int possibleY = 0;
-      Random ran = new Random();
 
-      do{
-
-        minx 
-      }while();
-      
-      
-
-    }
+    
 
     public int getAppearTime() {
       return appearTime;
     }
     public void setAppearTime(int appearTime) {
       this.appearTime = appearTime;
+    }
+    public PowerUp getType() {
+      return type;
+    }
+    public void setType(PowerUp type) {
+      this.type = type;
     }
 }
