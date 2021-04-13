@@ -1,6 +1,6 @@
 package model.GameObjects.Powerups;
 
 
-public class HealtGain extends PowerUp{
+public class HealthGain extends PowerUp{
   
 }

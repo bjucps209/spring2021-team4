@@ -1,7 +1,7 @@
 package model.GameObjects.Powerups;
 
 import model.GameObjects.GameObject;
-
+import java.util.Random;
 public abstract class PowerUp extends GameObject {
 
     protected int appearTime;
@@ -23,9 +23,21 @@ public abstract class PowerUp extends GameObject {
 
     public void randomlyPlacePowerUps(){
       int width = 1000;
-      int height = 800; 
+      int height = 800;
+      
+      int minx = 0;
+      int minY = 0;
+      int possibleX = 0;
+      int possibleY = 0;
+      Random ran = new Random();
+
+      do{
+
+        minx 
+      }while();
       
       
+
     }
 
     public int getAppearTime() {
