@@ -5,7 +5,7 @@ import model.GameObjects.Player;
 
 public class HealthGainSmall extends PowerUp{
     //Note: this implement the small gain package in the game specification
-    private int healthAddition = 10;
+    private final static int healthAddition = 10;
 
     public HealthGainSmall(){
       this.type = PowerUps.HealthGainSmall;
