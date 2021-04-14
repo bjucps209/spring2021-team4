@@ -1,5 +1,7 @@
 package model.GameObjects;
 
+import java.util.ArrayList;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
@@ -8,14 +10,16 @@ import javafx.util.Duration;
 import model.Wave;
 import model.Enums.ShipSkins;
 import model.GameObjects.Enemies.EnemyObject;
+import model.GameObjects.Powerups.PowerUp;
 
 public class Player extends GameObject {
     // contains info for a Player during the game
-    
+
     // instance variables
     private IntegerProperty health = new SimpleIntegerProperty(100);
     private int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
-    private ShipSkins currentShipSkins; 
+    private ShipSkins currentShipSkins;
+    private ArrayList<PowerUp> activaedPowerUs = new ArrayList<>();
 
     public Player() {
         super();
@@ -33,11 +37,11 @@ public class Player extends GameObject {
         if (collisionNum % 50 == 0) {
             checkEnemyCollision();
             checkWallCollision();
-            checkObstacleCollision(); 
-        } 
+            checkObstacleCollision();
+        }
         x.set(getX() + getDx());
         y.set(getY() + getDy());
-    } 
+    }
 
     @Override
     public void checkWallCollision() {
@@ -67,7 +71,7 @@ public class Player extends GameObject {
                         for (int j = e.getY(); j <= e.getY() + e.getHeight(); j++) {
                             for (int l = getY(); l <= getY() + getHeight(); l++) {
                                 if (l == j) {
-                                    //TODO HIT
+                                    // TODO HIT
                                     health.set(health.get() - 1);
                                 }
                             }
@@ -101,29 +105,52 @@ public class Player extends GameObject {
 
     // --- getters ---
     public int getHealth() {
-      return this.health.get();
+        return this.health.get();
     }
+
     public ShipSkins getCurrentShipSkins() {
-      return currentShipSkins;
+        return currentShipSkins;
     }
+
     public IntegerProperty healthProperty() {
         return health;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
+    public ArrayList<PowerUp> getActivaedPowerUs() {
+        return activaedPowerUs;
+    }
+
     // --- setters ---
     public void setHealth(int health) {
-      this.health.set(health);
+        this.health.set(health);
     }
 
     public void setCurrentShipSkins(ShipSkins currentShipSkins) {
-      this.currentShipSkins = currentShipSkins;
+        this.currentShipSkins = currentShipSkins;
+    }
+
+    public void setHealth(IntegerProperty health) {
+        this.health = health;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setActivaedPowerUs(ArrayList<PowerUp> activaedPowerUs) {
+        this.activaedPowerUs = activaedPowerUs;
     }
 
     @Override
     public String serialize() {
         // TODO Auto-generated method stub
         // TODO still needs to add in special effects !!!
-        return health+";"+currentShipSkins.toString()+";"+ x.get()+";"+y.get()+";"+width.get()+";"+height.get()+";"+dx.get()+";"+dy.get();
+        return health + ";" + currentShipSkins.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get() + ";"
+                + height.get() + ";" + dx.get() + ";" + dy.get();
     }
 
     @Override
@@ -131,25 +158,23 @@ public class Player extends GameObject {
         // TODO Auto-generated method stub
         // info contains
         // x,y,width,height,dx,dy,special effects
-        try{
-        String[] restInfo = info.split(";");
-        health.set(Integer.parseInt(restInfo[0]));
-        currentShipSkins = ShipSkins.valueOf(restInfo[1]);
-        
-        this.x.set (Integer.parseInt(restInfo[2]));
-        this.y.set(Integer.parseInt(restInfo[3]));
-        this.width.set(Integer.parseInt(restInfo[4]));
-        this.height.set(Integer.parseInt(restInfo[5]));
-        this.dx.set(Integer.parseInt(restInfo[6]));
-        this.dy.set(Integer.parseInt(restInfo[7]));
-        // TODO: handle rest of special affect on player
-        return true;
-        } catch (Exception e){
+        try {
+            String[] restInfo = info.split(";");
+            health.set(Integer.parseInt(restInfo[0]));
+            currentShipSkins = ShipSkins.valueOf(restInfo[1]);
+
+            this.x.set(Integer.parseInt(restInfo[2]));
+            this.y.set(Integer.parseInt(restInfo[3]));
+            this.width.set(Integer.parseInt(restInfo[4]));
+            this.height.set(Integer.parseInt(restInfo[5]));
+            this.dx.set(Integer.parseInt(restInfo[6]));
+            this.dy.set(Integer.parseInt(restInfo[7]));
+            // TODO: handle rest of special affect on player
+            return true;
+        } catch (Exception e) {
             // means error in converting
             return false;
         }
     }
-
-
 
 }

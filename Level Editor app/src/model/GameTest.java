@@ -73,9 +73,6 @@ public class GameTest {
 
     // TODO: check for power ups and so forth
 
-    // cannot do , right now no powerup yet
-    //assertTrue(currentLevel.getAllObjects().size()-1 == 3); // player is also in the list
-
   }
 
   @Test

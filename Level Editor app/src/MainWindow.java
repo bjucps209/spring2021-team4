@@ -10,10 +10,14 @@ import javafx.scene.input.MouseEvent;
 import java.io.*;
 import java.util.regex.Pattern;
 
-import model.Level;
-import model.GameObjects.*;
 import model.Enums.*;
+import model.GameObjects.*;
+import model.GameObjects.Enemies.*;
+import model.GameObjects.Powerups.*;
 
+
+// re implement createNewObject
+// uncomment certain elements of save level when safe
 public class MainWindow {
 
     @FXML
@@ -58,6 +62,8 @@ public class MainWindow {
 
     int fileNumber = 0;
 
+    String difficulty = "";
+
 
     
     @FXML
@@ -72,73 +78,75 @@ public class MainWindow {
 
     // factory method to create an instance of GameObject when the user clicks create new
     GameObject createGameObjects(String identifier) {
-        // obstacles
+        // // obstacles
         if (identifier.equals("block_square") || identifier.equals("block_corner") || identifier.equals("block_large") || identifier.equals("block_narrow")) {
             return new Obstacle();
         }
-        // powerups
-        else if (identifier.equals("powerupBlue_bolt")) {
-            var freeze = new FreezePowerUp();
-            try {
-                freeze.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            }
-            catch (NumberFormatException e) {
-                freeze.setAppearTime(0);
-            }
-            return freeze;
-        }
-        else if (identifier.equals("pill_yellow")) {
-            var largeHealth = new LargeHealthPowerUp();
-            try {
-                largeHealth.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            }
-            catch (NumberFormatException e) {
-                largeHealth.setAppearTime(0);
-            }
-            return largeHealth;
-        }
-        else if (identifier.equals("shield_gold")) {
-            var invincibility = new InvincibilityPowerUp();
-            try {
-                invincibility.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            }
-            catch (NumberFormatException e) {
-                invincibility.setAppearTime(0);
-            }
-            return invincibility;
-        }
-        else if (identifier.equals("bolt_gold")) {
-            var destroyShip = new DestroyShipPowerUp();
-            try {
-                destroyShip.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            }
-            catch (NumberFormatException e) {
-                destroyShip.setAppearTime(0);
-            }
-            return destroyShip;
-        }
-        else if (identifier.equals("pill_blue")) {
-            var healthPack = new HealthPackPowerUp();
-            try {
-                healthPack.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            }
-            catch (NumberFormatException e) {
-                healthPack.setAppearTime(0);
-            }
-            return healthPack;
-        }
+        // // powerups
+        // else if (identifier.equals("powerupBlue_bolt")) {
+        //     var freeze = new FreezePowerUp();
+        //     try {
+        //         freeze.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+        //     }
+        //     catch (NumberFormatException e) {
+        //         freeze.setAppearTime(0);
+        //     }
+        //     return freeze;
+        // }
+        // else if (identifier.equals("pill_yellow")) {
+        //     var largeHealth = new LargeHealthPowerUp();
+        //     try {
+        //         largeHealth.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+        //     }
+        //     catch (NumberFormatException e) {
+        //         largeHealth.setAppearTime(0);
+        //     }
+        //     return largeHealth;
+        // }
+        // else if (identifier.equals("shield_gold")) {
+        //     var invincibility = new InvincibilityPowerUp();
+        //     try {
+        //         invincibility.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+        //     }
+        //     catch (NumberFormatException e) {
+        //         invincibility.setAppearTime(0);
+        //     }
+        //     return invincibility;
+        // }
+        // else if (identifier.equals("bolt_gold")) {
+        //     var destroyShip = new DestroyShipPowerUp();
+        //     try {
+        //         destroyShip.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+        //     }
+        //     catch (NumberFormatException e) {
+        //         destroyShip.setAppearTime(0);
+        //     }
+        //     return destroyShip;
+        // }
+        // else if (identifier.equals("pill_blue")) {
+        //     var healthPack = new HealthPackPowerUp();
+        //     try {
+        //         healthPack.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+        //     }
+        //     catch (NumberFormatException e) {
+        //         healthPack.setAppearTime(0);
+        //     }
+        //     return healthPack;
+        // }
+
         // enemies
+        // shapeshifter not implemented
         else if (identifier.equals("enemyBlack4")) {
-            return new Bouncer();
+            return EnemyObject.create(EnemyTypes.BOUNCER);
         }
         else if (identifier.equals("enemyBlack1")) {
-            return new Tracker();
+            return EnemyObject.create(EnemyTypes.TRACKER);
         }
         else if (identifier.equals("enemyBlack2")) {
-            return new Ghost();
+            return EnemyObject.create(EnemyTypes.GHOST);
         }
         else {
-            return new Laser();
+            return EnemyObject.create(EnemyTypes.LASER);
         }
         
     }
@@ -146,6 +154,21 @@ public class MainWindow {
     // scaleable method to set the position  for an imageview and its corresponding object
     @FXML
     void setPosition(ImageView imgView, int x, int y) {
+
+        if (x < 0) {
+            x  = 0;
+        }
+        if (x >= (int) pane.getWidth()) {
+            x = (int) pane.getWidth();
+        }
+        if (y < 0) {
+            y = 0;
+        }
+        if (y >= (int) pane.getHeight()) {
+            y = (int) pane.getHeight();
+        }
+
+
         imgView.setX(x);
         imgView.setY(y);
 
@@ -202,6 +225,22 @@ public class MainWindow {
         
     }
 
+    // methods to set the level difficulty
+    @FXML
+    void onEasyClicked() {
+        difficulty = "easy";
+    }
+
+    @FXML
+    void onMediumClicked() {
+        difficulty = "medium";
+    }
+
+    @FXML
+    void onHardClicked() {
+        difficulty = "hard";
+    }
+
     // create a new object
     @FXML
     void onCreateNewClicked() {
@@ -227,6 +266,7 @@ public class MainWindow {
         else {
             try {
                 pane.getChildren().add(imgView);
+
                 setPosition(imgView, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
             }
             catch (NumberFormatException e) {

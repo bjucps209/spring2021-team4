@@ -1,3 +1,5 @@
+import java.util.concurrent.TimeUnit;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -31,6 +33,8 @@ public class GameWindow {
     @FXML Pane pane;
     @FXML Label health;
 
+    Timeline timer;
+
     @FXML
     public void initialize() {
         w = Wave.getInstance();
@@ -39,11 +43,12 @@ public class GameWindow {
         p = g.getCurrentLevel().getPlayer();
         health.textProperty().bind(p.healthProperty().asString());
         spawnEntities();
-
+        
         // Getting the game to update at 16.7ms or ~60fps
-        var timer = new Timeline(
+        timer = new Timeline(
             new KeyFrame(Duration.millis(16.7), e -> {
                 g.update();
+             
             }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();

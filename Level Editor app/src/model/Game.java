@@ -110,8 +110,6 @@ public class Game {
 
         try (BufferedReader rd = new BufferedReader(new FileReader(userName + ".txt"))) {
             // load data here
-
-            //TODO potential cause problem here if all level is been loaded
             this.levels = new ArrayList<Level>();
             for(int i = 0; i < 10; i++){
                 levels.add(new Level());
