@@ -34,10 +34,11 @@ public class Player extends GameObject {
     @Override
     public void update() {
         collisionNum++;
-        if (collisionNum % 50 == 0) {
-            checkEnemyCollision();
+        while (hits.size() == 0 && collisionNum % 50 == 0) {
             checkWallCollision();
-            checkObstacleCollision();
+            hits.add(checkCollision(currentLevel.getObstacles()));
+            hits.add(checkCollision(currentLevel.getEnemies()));
+            break;
         }
         x.set(getX() + getDx());
         y.set(getY() + getDy());

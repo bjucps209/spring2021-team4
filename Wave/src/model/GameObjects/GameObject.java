@@ -6,7 +6,18 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.Level;
 import model.Wave;
+import model.Enums.EnemyTypes;
+import model.GameObjects.Enemies.Bouncer;
 import model.GameObjects.Enemies.EnemyObject;
+import model.GameObjects.Enemies.Ghost;
+import model.GameObjects.Enemies.Laser;
+import model.GameObjects.Enemies.Shapeshifter;
+import model.GameObjects.Enemies.Tracker;
+import model.GameObjects.Powerups.DestroyShip;
+import model.GameObjects.Powerups.Freeze;
+import model.GameObjects.Powerups.HealthGainBig;
+import model.GameObjects.Powerups.HealthGainSmall;
+import model.GameObjects.Powerups.TemporaryInvincible;
 
 public abstract class GameObject {
     // abstract class for all game objects
@@ -29,20 +40,48 @@ public abstract class GameObject {
     int collisionNum = 0;
 
     public void GameObject() {
-
+        Thread hitDetection = new Thread(() -> {
+            while (hits.size() == 0 && collisionNum % 30 == 0) {
+                checkWallCollision();
+                hits.add(checkCollision(currentLevel.getObstacles()));
+                break;
+            }
+        });
+        hitDetection.start();
     }
 
     // update method each object needs
     public void update() {
         collisionNum++;
-        while (hits.size() == 0 && collisionNum % 30 == 0) {
-            checkWallCollision();
-            hits.add(checkCollision(currentLevel.getObstacles()));
-            hits.add(checkCollision(currentLevel.getEnemies()));
-            break;
-        }
         x.set(getX() + getDx());
         y.set(getY() + getDy());
+    }
+
+    public void processHit(GameObject g) {
+        Class gc = g.getClass();
+        if (gc.equals(Bouncer.class)) {
+
+        } else if (gc.equals(Ghost.class)) {
+
+        } else if (gc.equals(Laser.class)) {
+
+        } else if (gc.equals(Shapeshifter.class)) {
+            
+        } else if (gc.equals(Tracker.class)) {
+            
+        } else if (gc.equals(DestroyShip.class)) {
+            
+        } else if (gc.equals(Freeze.class)) {
+            
+        } else if (gc.equals(HealthGainBig.class)) {
+            
+        } else if (gc.equals(HealthGainSmall.class)) {
+            
+        } else if (gc.equals(TemporaryInvincible.class)) {
+            
+        } else if (gc.equals(Obstacle.class)) {
+            
+        }
     }
 
     public GameObject checkCollision(ArrayList<? extends GameObject> g) {
