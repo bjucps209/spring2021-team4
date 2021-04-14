@@ -62,6 +62,8 @@ public class MainWindow {
 
     int fileNumber = 0;
 
+    String difficulty = "";
+
 
     
     @FXML
@@ -208,19 +210,35 @@ public class MainWindow {
                     alert.show();
                 }
             }
-            // if (currentImage.getUserData() instanceof PowerUp) {
-            //     var powerUp = (PowerUp) currentImage.getUserData();
-            //     try {
-            //         powerUp.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-            //     }
-            //     catch (NumberFormatException f) {
-            //         var alert = new Alert(AlertType.INFORMATION, "Please supply Integer values only.");
-            //         alert.show();
-            //     }
-            // }
+            if (currentImage.getUserData() instanceof PowerUp) {
+                var powerUp = (PowerUp) currentImage.getUserData();
+                try {
+                    powerUp.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+                }
+                catch (NumberFormatException f) {
+                    var alert = new Alert(AlertType.INFORMATION, "Please supply Integer values only.");
+                    alert.show();
+                }
+            }
         }
         setLabels();
         
+    }
+
+    // methods to set the level difficulty
+    @FXML
+    void onEasyClicked() {
+        difficulty = "easy";
+    }
+
+    @FXML
+    void onMediumClicked() {
+        difficulty = "medium";
+    }
+
+    @FXML
+    void onHardClicked() {
+        difficulty = "hard";
     }
 
     // create a new object
@@ -249,7 +267,7 @@ public class MainWindow {
             try {
                 pane.getChildren().add(imgView);
 
-                setPosition(imgView, objX, objY);
+                setPosition(imgView, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
             }
             catch (NumberFormatException e) {
                 var alert = new Alert(AlertType.INFORMATION, "Please choose an integer.");
@@ -307,7 +325,7 @@ public class MainWindow {
             allObjectInformation += ("|" + array[2] + "," + x + "," + y);
             if (obj instanceof PowerUp) {
                 var downCastedObj = (PowerUp) obj;
-                // allObjectInformation += ("," + downCastedObj.getAppearTime());
+                allObjectInformation += ("," + downCastedObj.getAppearTime());
             }
             if (i == pane.getChildren().size() - 1) {
                 allObjectInformation += "|";
@@ -351,7 +369,7 @@ public class MainWindow {
             lblHeading.setText("heading here");
             if (currentImage.getUserData() instanceof PowerUp) {
                 var obj = (PowerUp) currentImage.getUserData();
-                // lblTime.setText(String.valueOf(obj.getAppearTime()));
+                lblTime.setText(String.valueOf(obj.getAppearTime()));
             }
         }
         else {
