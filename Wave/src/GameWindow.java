@@ -9,10 +9,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import model.GameObjects.Player;
+import model.GameObjects.Enemies.EnemyObject;
 import model.Game;
 import model.Wave;
-import model.GameObjects.EnemyObject;
 import model.GameObjects.GameObject;
+import model.Enums.EnemyTypes;
+
 
 public class GameWindow {
 

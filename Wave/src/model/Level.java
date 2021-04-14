@@ -130,6 +130,14 @@ public class Level {
         this.obstacles = obstacles;
     }
 
+    public ArrayList<PowerUp> getPowerUps() {
+        return powerups;
+    }
+    
+    public void setPowerUps(ArrayList<PowerUp> powerups) {
+        this.powerups = powerups;
+    }
+
     public int getScore() {
         return score;
     }

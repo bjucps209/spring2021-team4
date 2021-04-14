@@ -7,7 +7,7 @@ import model.GameObjects.Player;
 public class DestroyShip extends PowerUp{
 
 
-  DestroyShip(){
+  public DestroyShip(){
     this.type = PowerUps.DestroyShip;
   }
   @Override

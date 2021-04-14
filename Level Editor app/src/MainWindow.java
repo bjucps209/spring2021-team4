@@ -68,7 +68,7 @@ public class MainWindow {
     
     @FXML
     void initialize() {
-        String[] types = {"block_square", "block_corner", "block_large", "block_narrow", "powerupBlue_bolt", "pill_yellow", "shield_gold", "bolt_gold", "pill_blue", "enemyBlack4", "enemyBlack1", "enemyBlack2", "laser(uninmplemented)"};
+        String[] types = {"Player", "block_square", "block_corner", "block_large", "block_narrow", "powerupBlue_bolt", "pill_yellow", "shield_gold", "bolt_gold", "pill_blue", "enemyBlack4", "enemyBlack1", "enemyBlack2", "laser(uninmplemented)"};
         typeBox.getItems().addAll(types);
         vbox.getChildren().add(typeBox);
 
@@ -82,57 +82,66 @@ public class MainWindow {
         if (identifier.equals("block_square") || identifier.equals("block_corner") || identifier.equals("block_large") || identifier.equals("block_narrow")) {
             return new Obstacle();
         }
-        // // powerups
-        // else if (identifier.equals("powerupBlue_bolt")) {
-        //     var freeze = new FreezePowerUp();
-        //     try {
-        //         freeze.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-        //     }
-        //     catch (NumberFormatException e) {
-        //         freeze.setAppearTime(0);
-        //     }
-        //     return freeze;
-        // }
-        // else if (identifier.equals("pill_yellow")) {
-        //     var largeHealth = new LargeHealthPowerUp();
-        //     try {
-        //         largeHealth.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-        //     }
-        //     catch (NumberFormatException e) {
-        //         largeHealth.setAppearTime(0);
-        //     }
-        //     return largeHealth;
-        // }
-        // else if (identifier.equals("shield_gold")) {
-        //     var invincibility = new InvincibilityPowerUp();
-        //     try {
-        //         invincibility.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-        //     }
-        //     catch (NumberFormatException e) {
-        //         invincibility.setAppearTime(0);
-        //     }
-        //     return invincibility;
-        // }
-        // else if (identifier.equals("bolt_gold")) {
-        //     var destroyShip = new DestroyShipPowerUp();
-        //     try {
-        //         destroyShip.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-        //     }
-        //     catch (NumberFormatException e) {
-        //         destroyShip.setAppearTime(0);
-        //     }
-        //     return destroyShip;
-        // }
-        // else if (identifier.equals("pill_blue")) {
-        //     var healthPack = new HealthPackPowerUp();
-        //     try {
-        //         healthPack.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
-        //     }
-        //     catch (NumberFormatException e) {
-        //         healthPack.setAppearTime(0);
-        //     }
-        //     return healthPack;
-        // }
+        // powerups
+        // rewrite using PowerUps.create() method...
+        else if (identifier.equals("powerupBlue_bolt")) {
+            var freeze = new FreezePowerUp();
+            try {
+                freeze.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            }
+            catch (NumberFormatException e) {
+                freeze.setAppearTime(0);
+            }
+            return freeze;
+        }
+        else if (identifier.equals("pill_yellow")) {
+            var largeHealth = new LargeHealthPowerUp();
+            try {
+                largeHealth.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            }
+            catch (NumberFormatException e) {
+                largeHealth.setAppearTime(0);
+            }
+            return largeHealth;
+        }
+        else if (identifier.equals("shield_gold")) {
+            var invincibility = new TemporaryInvincible();
+            try {
+                invincibility.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            }
+            catch (NumberFormatException e) {
+                invincibility.setAppearTime(0);
+            }
+            return invincibility;
+        }
+        else if (identifier.equals("bolt_gold")) {
+            var destroyShip = new DestroyShip();
+            try {
+                destroyShip.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            }
+            catch (NumberFormatException e) {
+                destroyShip.setAppearTime(0);
+            }
+            return destroyShip;
+        }
+        else if (identifier.equals("pill_blue")) {
+            var healthPack = new HealthPackPowerUp();
+            try {
+                healthPack.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
+            }
+            catch (NumberFormatException e) {
+                healthPack.setAppearTime(0);
+            }
+            return healthPack;
+        }
+
+        else if (identifier.equals("Player")) {
+            return new Player();
+        }
+
+        else if (identifier.equals("Laser")) {
+            return EnemyObject.create(EnemyTypes.LASER);
+        }
 
         // enemies
         // shapeshifter not implemented
@@ -240,12 +249,22 @@ public class MainWindow {
     void onHardClicked() {
         difficulty = "hard";
     }
+    // ----
 
     // create a new object
     @FXML
     void onCreateNewClicked() {
         String str = (String) typeBox.getValue();
-        var imgView = new ImageView("/LevelEditorImages/" + str + ".png");
+        if (!str.equals("Player") && !str.equals("laser")) {
+            var imgView = new ImageView("/LevelEditorImages/" + str + ".png");
+        }
+        else if (str.equals("Player")) {
+            var imgView = new ImageView("/LevelEditorImages/playerShip1_blue.png");
+        }
+        else if (str.equals("Laser")) {
+            // var imgView = new ImageView("/LevelEditorImages/" + str + ".png");
+            // laser needs to be the cockpit and placed around the edge
+        }
 
         imgView.setOnMouseDragged(this::onMouseDragged);
         imgView.setOnMouseClicked(this::onMouseClicked);
@@ -274,6 +293,8 @@ public class MainWindow {
                 alert.show();
             }
         }
+        
+        
     }
 
     // remove entities from the level
@@ -304,9 +325,16 @@ public class MainWindow {
     }
 
 
-    // stringify, 'bytify', and write to a file.
+    // stringify, 'bytify', and write to a file in Wave.
     @FXML
     void onSaveLevelClicked() throws IOException {
+        // make this file and get its absolute path so creating files in other folders works on any system.
+        File f = new File("MainWindow.java");
+
+        String absolutePath = f.getAbsolutePath();
+        int findWave = absolutePath.indexOf("Level Editor app");
+        String basePath = absolutePath.substring(0, findWave);
+
         String levelInfo = "";
 
         String allObjectInformation = "";
@@ -344,7 +372,7 @@ public class MainWindow {
         levelInfo += (allObjectInformation);
 
         if (levelInfo.length() > 4) {
-            try (var stream = new FileOutputStream("customLevel" + String.valueOf(fileNumber) + ".dat");) {
+            try (var stream = new FileOutputStream(basePath + "Wave\\customLevel" + String.valueOf(fileNumber) + ".dat");) {
                 
                 byte[] byteLevelInfo = levelInfo.getBytes();
                 stream.write(byteLevelInfo);
