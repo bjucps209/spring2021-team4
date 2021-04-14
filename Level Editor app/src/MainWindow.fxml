@@ -16,26 +16,26 @@
 
         <VBox>
             <Label text="x val:"/>
-            <Label text="int value 0-800"/>
+            <Label text="int value 0-1000"/>
             <TextField fx:id="txtFXValue"/>
         </VBox>
 
         <VBox>
             <Label text="y val:"/>
-            <Label text="int value 0-500"/>
+            <Label text="int value 0-800"/>
             <TextField fx:id="txtFYValue"/>
-        </VBox>
-
-         <VBox>
-            <Label text="Heading(for entities only)"/>
-            <Label text="int value 0-359?"/>
-            <TextField fx:id="txtFHeading"/>
         </VBox>
 
         <VBox>
             <Label text="Appearance Time(for powerups only)"/>
             <Label text="int value 0-60?"/>
             <TextField fx:id="txtFAppearanceTime"/>
+        </VBox>
+
+        <VBox>
+            <Button text="Easy" onAction="#onEasyClicked"/>
+            <Button text="Medium" onAction="#onMediumClicked"/>
+            <Button text="Hard" onAction="#onHardClicked"/>
         </VBox>
 
     </HBox>
