@@ -2,6 +2,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -9,9 +10,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import model.GameObjects.Player;
+import model.GameObjects.Enemies.EnemyObject;
 import model.Game;
 import model.Wave;
-import model.GameObjects.EnemyObject;
 import model.GameObjects.GameObject;
 
 public class GameWindow {
@@ -28,6 +29,7 @@ public class GameWindow {
     }
 
     @FXML Pane pane;
+    @FXML Label health;
 
     @FXML
     public void initialize() {
@@ -35,6 +37,7 @@ public class GameWindow {
         w.gameStart();
         g = w.getGame();
         p = g.getCurrentLevel().getPlayer();
+        health.textProperty().bind(p.healthProperty().asString());
         spawnEntities();
 
         // Getting the game to update at 16.7ms or ~60fps
@@ -44,6 +47,7 @@ public class GameWindow {
             }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
+        
     }
 
     public void spawnEntities() {
