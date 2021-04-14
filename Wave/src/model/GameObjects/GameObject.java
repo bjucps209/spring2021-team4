@@ -36,23 +36,25 @@ public abstract class GameObject {
     ArrayList<EnemyObject> enemies;
     ArrayList<GameObject> hits = new ArrayList<GameObject>();
     public static Level currentLevel;
+    Thread hitDetection = new Thread(() -> {
+        while (hits.size() == 0) {
+            checkWallCollision();
+            hits.add(checkCollision(currentLevel.getObstacles()));
+            break;
+        }
+    });
 
     int collisionNum = 0;
 
     public GameObject(Level l) {
         currentLevel = l;
-        Thread hitDetection = new Thread(() -> {
-            while (hits.size() == 0 && collisionNum % 30 == 0) {
-                checkWallCollision();
-                hits.add(checkCollision(currentLevel.getObstacles()));
-                break;
-            }
-        });
-        hitDetection.start();
     }
 
     // update method each object needs
     public void update() {
+        if (hitDetection.isAlive()) {
+            hitDetection.start();
+        }
         collisionNum++;
         x.set(getX() + getDx());
         y.set(getY() + getDy());
