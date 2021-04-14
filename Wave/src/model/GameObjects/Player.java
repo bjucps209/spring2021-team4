@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
+import model.Level;
 import model.Wave;
 import model.Enums.ShipSkins;
 import model.GameObjects.Enemies.EnemyObject;
@@ -21,8 +22,8 @@ public class Player extends GameObject {
     private ShipSkins currentShipSkins;
     private ArrayList<PowerUp> activaedPowerUs = new ArrayList<>();
 
-    public Player() {
-        super();
+    public Player(Level l) {
+        super(l);
         setX(500);
         setY(500);
         setDx(0);

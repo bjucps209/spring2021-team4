@@ -1,9 +1,13 @@
 package model.GameObjects;
 
+import model.Level;
 
 public class Obstacle extends GameObject {
     // class for each Obstacle instance during the game
 
+    public Obstacle(Level l) {
+        super(l);
+    }
 
     @Override
     public String serialize() {

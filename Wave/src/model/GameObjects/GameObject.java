@@ -34,12 +34,13 @@ public abstract class GameObject {
 
     ArrayList<Obstacle> obstacles;
     ArrayList<EnemyObject> enemies;
-    ArrayList<GameObject> hits;
-    Level currentLevel = Wave.getInstance().getGame().getCurrentLevel();
+    ArrayList<GameObject> hits = new ArrayList<GameObject>();
+    public static Level currentLevel;
 
     int collisionNum = 0;
 
-    public void GameObject() {
+    public GameObject(Level l) {
+        currentLevel = l;
         Thread hitDetection = new Thread(() -> {
             while (hits.size() == 0 && collisionNum % 30 == 0) {
                 checkWallCollision();
@@ -60,15 +61,15 @@ public abstract class GameObject {
     public void processHit(GameObject g) {
         Class gc = g.getClass();
         if (gc.equals(Bouncer.class)) {
-
+            System.out.println("HIT!");
         } else if (gc.equals(Ghost.class)) {
-
+            System.out.println("HIT!");
         } else if (gc.equals(Laser.class)) {
-
+            System.out.println("HIT!");
         } else if (gc.equals(Shapeshifter.class)) {
-            
+            System.out.println("HIT!");
         } else if (gc.equals(Tracker.class)) {
-            
+            System.out.println("HIT!");
         } else if (gc.equals(DestroyShip.class)) {
             
         } else if (gc.equals(Freeze.class)) {
@@ -92,8 +93,6 @@ public abstract class GameObject {
                         for (int j = e.getY(); j <= e.getY() + e.getHeight(); j++) {
                             for (int l = getY(); l <= getY() + getHeight(); l++) {
                                 if (l == j) {
-                                    //TODO HIT
-                                    System.out.println("HIT!");
                                     return e;
                                 }
                             }
