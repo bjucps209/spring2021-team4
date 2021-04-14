@@ -1,8 +1,8 @@
 package model.GameObjects.Powerups;
 
-import model.Enums.PowerUps;
 import model.GameObjects.GameObject;
 import model.GameObjects.Player;
+import model.Enums.PowerUps;
 
 import java.util.ArrayList;
 import java.util.Random;

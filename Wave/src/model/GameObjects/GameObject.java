@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import model.Level;
 import model.Wave;
 import model.GameObjects.Enemies.EnemyObject;
 
@@ -22,6 +23,8 @@ public abstract class GameObject {
 
     ArrayList<Obstacle> obstacles;
     ArrayList<EnemyObject> enemies;
+    ArrayList<GameObject> hits;
+    Level currentLevel = Wave.getInstance().getGame().getCurrentLevel();
 
     int collisionNum = 0;
 
@@ -32,13 +35,36 @@ public abstract class GameObject {
     // update method each object needs
     public void update() {
         collisionNum++;
-        if (collisionNum % 10 == 0) {
+        while (hits.size() == 0 && collisionNum % 30 == 0) {
             checkWallCollision();
-            checkObstacleCollision();
-        } 
+            hits.add(checkCollision(currentLevel.getObstacles()));
+            hits.add(checkCollision(currentLevel.getEnemies()));
+            break;
+        }
         x.set(getX() + getDx());
         y.set(getY() + getDy());
-    } 
+    }
+
+    public GameObject checkCollision(ArrayList<? extends GameObject> g) {
+        for (GameObject e : g) {
+            for (int i = e.getX(); i <= e.getX() + e.getWidth(); i++) {
+                for (int k = getX(); k <= getX() + getWidth(); k++) {
+                    if (k == i) {
+                        for (int j = e.getY(); j <= e.getY() + e.getHeight(); j++) {
+                            for (int l = getY(); l <= getY() + getHeight(); l++) {
+                                if (l == j) {
+                                    //TODO HIT
+                                    System.out.println("HIT!");
+                                    return e;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
     public void checkWallCollision() {
         if (getX() <= 4 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth()) {
@@ -57,28 +83,6 @@ public abstract class GameObject {
             }
         }
     }
-
-    public void checkObstacleCollision() {
-        obstacles = Wave.getInstance().getGame().getCurrentLevel().getObstacles();
-        for (Obstacle e : obstacles) {
-            for (int i = e.getX(); i <= e.getX() + e.getWidth(); i++) {
-                for (int k = getX(); k <= getX() + getWidth(); k++) {
-                    if (k == i) {
-                        for (int j = e.getY(); j <= e.getY() + e.getHeight(); j++) {
-                            for (int l = getY(); l <= getY() + getHeight(); l++) {
-                                if (l == j) {
-                                    //TODO HIT
-                                    System.out.println("HIT!");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    
 
     @Override
     public String toString() {
