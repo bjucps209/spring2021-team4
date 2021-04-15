@@ -38,7 +38,7 @@ public abstract class GameObject {
     ArrayList<Obstacle> obstacles;
     ArrayList<EnemyObject> enemies;
     ArrayList<GameObject> hits = new ArrayList<GameObject>();
-    public static Level currentLevel;
+    public Level currentLevel;
     public Thread hitDetection = new Thread(() -> {
         Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
             checkWallCollision(); 
