@@ -25,13 +25,6 @@ public class GameWindow {
     static Player p;
     static Game g;
 
-    static Scene s;
-
-    @FXML
-    public static void setScene(Scene s) {
-        GameWindow.s = s;
-    }
-
     @FXML Pane pane;
     @FXML Label health;
 
@@ -61,7 +54,6 @@ public class GameWindow {
         // code to combine all spawn function below
         spawnPlayer();
         spawnEnemies();
-        spawnObstacles();
     }
 
     // spawns the player image and then binds that image to the player object
@@ -106,8 +98,8 @@ public class GameWindow {
         }
     }
 
-    public void spawnObstacles() {
-        
+    public void onClosed() {
+        w.onClosed();
     }
 
     public static void moveUp() {

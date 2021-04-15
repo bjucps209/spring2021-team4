@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.HighScore;
 import model.HighScoreList;
 import model.Wave;
@@ -34,7 +35,6 @@ public class MainWindow {
     @FXML
     public void initialize() {
         w = Wave.getInstance();
-        w.gameStart();
     }
 
     @FXML
@@ -73,6 +73,12 @@ public class MainWindow {
         stage.setScene(scene);
         stage.setTitle("Wave");
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                w.onClosed();
+            }
+        });
     }
     
     @FXML
@@ -235,14 +241,5 @@ public class MainWindow {
 
             vbox.getChildren().add(Scorehbox);
         }
-    }
-
-    @FXML
-    public void onDisplayInfo() {
-        Player p = w.getGame().getCurrentLevel().getPlayer();
-        p.moveDown();
-        p.moveLeft();
-        w.getGame().update();
-        System.out.println(p.toString());
     }
 }
