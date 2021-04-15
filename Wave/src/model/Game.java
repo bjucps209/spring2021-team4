@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.io.*;
 import model.Enums.EnemyTypes;
+import model.Enums.PowerUps;
 import model.Enums.ShipSkins;
 import model.GameObjects.GameObject;
 import model.GameObjects.Obstacle;
@@ -247,9 +248,10 @@ public class Game {
 
     // method to load custom levels - RTR
     public void loadCustomLevels() throws IOException {
-        var level = new Level();
+        
         for (int i = 0; i < 10; i ++) {
             try (var stream = new FileInputStream("customLevel" + String.valueOf(i) + ".dat");) {
+                var level = new Level();
                 byte[] levelLength = new byte[4];
                 stream.read(levelLength);
                 int lengthOfLevel = java.nio.ByteBuffer.wrap(levelLength).order(java.nio.ByteOrder.BIG_ENDIAN).getInt();
@@ -257,6 +259,7 @@ public class Game {
                 byte[] levelInfoBytes = new byte[lengthOfLevel];
                 stream.read(levelInfoBytes);
                 String levelInfoString = levelInfoBytes.toString();
+                
 
                 String[] instances = levelInfoString.split("|");
                 for (String instance : instances) {
@@ -264,44 +267,47 @@ public class Game {
                     GameObject object;
                     // enemy entities
                     if (instanceInfo[0].equals("Bouncer")) {
-                        object = EnemyObject.create(EnemyTypes.BOUNCER);
+                        object = EnemyObject.create(EnemyTypes.BOUNCER, level);
                     }
                     else if (instanceInfo[0].equals("Ghost")) {
-                        object = EnemyObject.create(EnemyTypes.GHOST);
+                        object = EnemyObject.create(EnemyTypes.GHOST, level);
                     }
                     else if (instanceInfo[0].equals("Tracker")) {
-                        object = EnemyObject.create(EnemyTypes.TRACKER);
+                        object = EnemyObject.create(EnemyTypes.TRACKER, level);
                     }
                     else if (instanceInfo[0].equals("ShapeShifter")) {
-                        object = EnemyObject.create(EnemyTypes.SHAPESHIFTER);
+                        object = EnemyObject.create(EnemyTypes.SHAPESHIFTER, level);
                     }
                     else if (instanceInfo[0].equals("Laser")) {
-                        object = EnemyObject.create(EnemyTypes.LASER);
+                        object = EnemyObject.create(EnemyTypes.LASER, level);
                     }
                     // powerups
-                    else if (instanceInfo[0].equals("DestroyShipPowerUp")) {
-                        object = new DestroyShip();
+                    else if (instanceInfo[0].equals("DestroyShip")) {
+                        object = PowerUp.create(PowerUps.DestroyShip, level);
                         ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                     }
-                    else if (instanceInfo[0].equals("FreezePowerUp")) {
-                        object = new Freeze();
+                    else if (instanceInfo[0].equals("Freeze")) {
+                        object = PowerUp.create(PowerUps.Freeze, level);
                         ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                     }
-                    else if (instanceInfo[0].equals("HealthPackPowerUp")) {
-                        object = new HealthGainSmall();
+                    else if (instanceInfo[0].equals("HealthGainSmall")) {
+                        object = PowerUp.create(PowerUps.HealthGainSmall, level);
                         ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                     }
-                    else if (instanceInfo[0].equals("InvincibilityPowerUp")) {
-                        object = new TemporaryInvincible();
+                    else if (instanceInfo[0].equals("TemporaryInvincible")) {
+                        object = PowerUp.create(PowerUps.TemporaryInvincible, level);
                         ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                     }
-                    else if (instanceInfo[0].equals("LargeHealthPowerUp")) {
-                        object = new HealthGainBig();
+                    else if (instanceInfo[0].equals("HealthGainBig")) {
+                        object = PowerUp.create(PowerUps.HealthGainBig, level);
                         ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                    }
+                    else if (instanceInfo[0].equals("Player")) {
+                        object = new Player(level);
                     }
                     // obstacles
                     else {
-                        object = new Obstacle();
+                        object = new Obstacle(level);
                     }
                     object.setX(Integer.parseInt(instanceInfo[1]));
                     object.setY(Integer.parseInt(instanceInfo[2]));
@@ -324,7 +330,9 @@ public class Game {
             catch (IOException e) {
                 System.out.println("caught on file exception" + i);
             }
+            levels.add(level);
         }
+        
     }
 
 }

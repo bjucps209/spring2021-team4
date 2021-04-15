@@ -91,10 +91,18 @@ public abstract class PowerUp extends GameObject {
   }
 
   public void setEffectiveTime(int effectiveTime) {
-    effectiveTime = effectiveTime;
+    this.effectiveTime = effectiveTime;
   }
 
   public void setFinished(boolean isFinished) {
     this.isFinished = isFinished;
+  }
+
+  public int getAppearTime() {
+    return this.appearTime;
+  }
+
+  public void setAppearTime(int appearTime) {
+    this.appearTime = appearTime;
   }
 }

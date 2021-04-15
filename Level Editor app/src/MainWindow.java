@@ -67,7 +67,7 @@ public class MainWindow {
 
     int fileNumber = 0;
 
-    String difficulty = "Easy";
+    String difficulty = "E";
 
 
     
@@ -238,17 +238,17 @@ public class MainWindow {
     // methods to set the level difficulty
     @FXML
     void onEasyClicked() {
-        difficulty = "Easy";
+        difficulty = "E";
     }
 
     @FXML
     void onMediumClicked() {
-        difficulty = "Medium";
+        difficulty = "M";
     }
 
     @FXML
     void onHardClicked() {
-        difficulty = "Hard";
+        difficulty = "H";
     }
     // ----
 
@@ -313,7 +313,7 @@ public class MainWindow {
     void onClearClicked() {
         pane.getChildren().remove(0, pane.getChildren().size());
         setLabels();
-        difficulty = "Easy";
+        difficulty = "E";
     }
 
     
