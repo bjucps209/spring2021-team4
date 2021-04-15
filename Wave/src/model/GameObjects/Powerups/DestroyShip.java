@@ -2,6 +2,7 @@ package model.GameObjects.Powerups;
 
 import java.util.ArrayList;
 
+import model.Level;
 import model.Wave;
 import model.Enums.PowerUps;
 import model.GameObjects.Player;
@@ -10,8 +11,10 @@ import java.util.Random;
 public class DestroyShip extends PowerUp{
 
 
-  public DestroyShip(){
+  DestroyShip(Level l){
+    super(l);
     this.type = PowerUps.DestroyShip;
+    this.effectiveTime = 0;
   }
   @Override
   public void collisionWithPlayer(Player p) {

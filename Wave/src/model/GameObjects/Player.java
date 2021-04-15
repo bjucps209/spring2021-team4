@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
+import model.Level;
 import model.Wave;
 import model.Enums.ShipSkins;
 import model.GameObjects.Enemies.EnemyObject;
@@ -19,67 +20,40 @@ public class Player extends GameObject {
     private IntegerProperty health = new SimpleIntegerProperty(100);
     private int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
     private ShipSkins currentShipSkins;
-    private ArrayList<PowerUp> activaedPowerUs = new ArrayList<>();
+    private ArrayList<PowerUp> activaedPowerUps = new ArrayList<>();
+    private boolean temporaryInvincible;
 
-    public Player() {
-        super();
+    public Player(Level l) {
+        super(l);
         setX(500);
         setY(500);
         setDx(0);
         setDy(0);
         setWidth(50);
         setHeight(50);
-    }
-
-    @Override
-    public void update() {
-        collisionNum++;
-        if (collisionNum % 50 == 0) {
-            checkEnemyCollision();
-            checkWallCollision();
-            checkObstacleCollision();
-        }
-        x.set(getX() + getDx());
-        y.set(getY() + getDy());
-    }
-
-    @Override
-    public void checkWallCollision() {
-        if (getX() <= 0 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth()) {
-            dx.set(0);
-            if (getX() < 10) {
-                x.set(1);
-            } else {
-                x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 1);
-            }
-        } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight()) {
-            dy.set(0);
-            if (getY() < 10) {
-                y.set(1);
-            } else {
-                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 1);
-            }
-        }
-    }
-
-    public void checkEnemyCollision() {
-        enemies = Wave.getInstance().getGame().getCurrentLevel().getEnemies();
-        for (EnemyObject e : enemies) {
-            for (int i = e.getX(); i <= e.getX() + e.getWidth(); i++) {
-                for (int k = getX(); k <= getX() + getWidth(); k++) {
-                    if (k == i) {
-                        for (int j = e.getY(); j <= e.getY() + e.getHeight(); j++) {
-                            for (int l = getY(); l <= getY() + getHeight(); l++) {
-                                if (l == j) {
-                                    // TODO HIT
-                                    health.set(health.get() - 1);
-                                }
-                            }
-                        }
+        hitDetection = new Thread(() -> {
+            Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
+                if (hits.size() > 0) {
+                    if(processHit(hits.get(0), this)){
+                        hits.remove(0);
                     }
+                    
                 }
-            }
-        }
+                checkWallCollision();
+                if (checkCollision(currentLevel.getEnemies()) != null) {
+                    hits.add(checkCollision(currentLevel.getEnemies()));
+                }
+                
+                PowerUp hitPowerUp = (PowerUp)checkCollision(currentLevel.getPowerups());
+                if(hitPowerUp != null){     
+                    hits.add(hitPowerUp);  //TODO: potentially cause problem in delay powerup's reaction?
+                }
+
+
+            }));
+            t.setCycleCount(Timeline.INDEFINITE);
+            t.play();
+        }); 
     }
 
     public void moveUp() {
@@ -120,8 +94,10 @@ public class Player extends GameObject {
         return speed;
     }
 
-    public ArrayList<PowerUp> getActivaedPowerUs() {
-        return activaedPowerUs;
+    public ArrayList<PowerUp> getActivaedPowerUps() {
+        return activaedPowerUps;
+    }   public boolean isTemporaryInvincible() {
+        return temporaryInvincible;
     }
 
     // --- setters ---
@@ -141,9 +117,13 @@ public class Player extends GameObject {
         this.speed = speed;
     }
 
-    public void setActivaedPowerUs(ArrayList<PowerUp> activaedPowerUs) {
-        this.activaedPowerUs = activaedPowerUs;
+    public void setActivaedPowerUps(ArrayList<PowerUp> activaedPowerUs) {
+        this.activaedPowerUps = activaedPowerUs;
     }
+    public void setTemporaryInvincible(boolean temporaryInvincible) {
+        this.temporaryInvincible = temporaryInvincible;
+    }
+
 
     @Override
     public String serialize() {
@@ -176,5 +156,7 @@ public class Player extends GameObject {
             return false;
         }
     }
+
+ 
 
 }

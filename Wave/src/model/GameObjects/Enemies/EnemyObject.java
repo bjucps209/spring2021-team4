@@ -1,13 +1,19 @@
 package model.GameObjects.Enemies;
 
-import org.junit.rules.TestRule;
 
+import model.Level;
 import model.Enums.EnemyTypes;
 import model.GameObjects.GameObject;
 
 public abstract class EnemyObject extends GameObject {
     // abstract class for Enemy objects in game
     private EnemyTypes type;
+    private boolean temporaryFreeze = false;
+        
+
+    public EnemyObject(Level l) {
+        super(l);
+    }
 
     public EnemyTypes getType() {
         return type;
@@ -17,34 +23,34 @@ public abstract class EnemyObject extends GameObject {
         this.type = type;
     }
 
-    public static EnemyObject create(EnemyTypes e) {
+    public static EnemyObject create(EnemyTypes e, Level l) {
         EnemyObject enemy;
         switch (e) {
         case BOUNCER:
-            enemy = new Bouncer();
+            enemy = new Bouncer(l);
             enemy.setDx(5);
             enemy.setDy(5);
             enemy.setType(e);
             break;
         case GHOST:
-            enemy = new Ghost();
-            enemy.setType(e);
+            enemy = new Bouncer(l);
+            enemy.setType(EnemyTypes.BOUNCER);
             break;
         case LASER:
-            enemy = new Laser();
-            enemy.setType(e);
+            enemy = new Bouncer(l);
+            enemy.setType(EnemyTypes.BOUNCER);
             break;
         case SHAPESHIFTER:
-            enemy = new Shapeshifter();
+            enemy = new Bouncer(l);
             enemy.setType(EnemyTypes.BOUNCER);
             break;
         case TRACKER:
-            enemy = new Tracker();
-            enemy.setType(e);
+            enemy = new Bouncer(l);
+            enemy.setType(EnemyTypes.BOUNCER);
             break;
         default:
-            enemy = new Bouncer();
-            enemy.setType(e);
+            enemy = new Bouncer(l);
+            enemy.setType(EnemyTypes.BOUNCER);
             break;
         }
         return enemy;
@@ -77,5 +83,13 @@ public abstract class EnemyObject extends GameObject {
         
 
         
+    }
+
+    public boolean isTemporaryFreeze() {
+        return temporaryFreeze;
+    }
+
+    public void setTemporaryFreeze(boolean temporaryFreeze) {
+        this.temporaryFreeze = temporaryFreeze;
     }
 }

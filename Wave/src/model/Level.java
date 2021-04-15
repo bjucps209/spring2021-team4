@@ -47,11 +47,9 @@ public class Level {
         spawnEnemies();
     }
 
-    
-
     // spawns player
     public void spawnPlayer() {
-        player = new Player();
+        player = new Player(this);
         allObjects.add(player);
     }
 
@@ -72,7 +70,7 @@ public class Level {
     // Takes the enemy type, x, and y. creates an enemy
     // and adds it to enemy list and all object list
     public void spawnEnemy(EnemyTypes type, int x, int y) {
-        EnemyObject e = EnemyObject.create(type);
+        EnemyObject e = EnemyObject.create(type, this);
         int speed = calcEnemySpeed(type);
         e.setX(x);
         e.setY(y);
@@ -286,10 +284,10 @@ public class Level {
 
                 if (object.equals("EnemyObject")) {
                     // TODO: multiple other kind of enemy
-                    EnemyObject enemy = new EnemyObject() {
+                    EnemyObject enemy = new EnemyObject(this) {
                     }; // the reference will change depent on different enemy later
                     if (EnemyTypes.valueOf(type) == EnemyTypes.BOUNCER) {
-                        enemy = new Bouncer();
+                        enemy = new Bouncer(this);
                         enemy.setType(EnemyTypes.valueOf(type)); // set enemy type value
 
                     }
@@ -306,7 +304,7 @@ public class Level {
                     // TODO have to determine if obstalce will have different type or not
 
                     // assumenot in this calse
-                    Obstacle obstacle = new Obstacle();
+                    Obstacle obstacle = new Obstacle(this);
                     if (obstacle.deserialize(restInfo) == false) {
                         throw new IOException("Error in converting obstacle data");
                     } else {
@@ -325,5 +323,13 @@ public class Level {
 
         return true;
 
+    }
+
+    public ArrayList<PowerUp> getPowerups() {
+        return powerups;
+    }
+
+    public void setPowerups(ArrayList<PowerUp> powerups) {
+        this.powerups = powerups;
     }
 }
