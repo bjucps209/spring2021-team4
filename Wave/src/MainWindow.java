@@ -12,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.Game;
 import model.HighScore;
 import model.HighScoreList;
 import model.Wave;
@@ -42,6 +43,7 @@ public class MainWindow {
         // opens up new window which is GameWindow
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
         Scene scene = new Scene(loader.load());
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent k) {
@@ -77,8 +79,10 @@ public class MainWindow {
             @Override
             public void handle(WindowEvent event) {
                 w.onClosed();
+                GameWindow.onClosed();
             }
         });
+        
     }
     
     @FXML

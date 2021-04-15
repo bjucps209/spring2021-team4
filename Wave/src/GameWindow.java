@@ -2,6 +2,7 @@ import java.util.concurrent.TimeUnit;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -28,10 +29,12 @@ public class GameWindow {
     @FXML Pane pane;
     @FXML Label health;
 
-    Timeline timer;
-
+   
+    static Timeline timer;
     @FXML
     public void initialize() {
+
+        
         w = Wave.getInstance();
         w.gameStart();
         g = w.getGame();
@@ -43,10 +46,13 @@ public class GameWindow {
         timer = new Timeline(
             new KeyFrame(Duration.millis(16.7), e -> {
                 g.update();
+            var s = pane.getChildren();
+
              
             }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
+        //Platform.exit();
         
     }
 
@@ -97,9 +103,11 @@ public class GameWindow {
             }
         }
     }
-
-    public void onClosed() {
-        w.onClosed();
+    
+    // close the timer
+    public static void onClosed() {
+        timer.stop();
+ 
     }
 
     public static void moveUp() {
