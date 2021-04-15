@@ -4,7 +4,7 @@ import model.Enums.PowerUps;
 import model.GameObjects.Player;
 
 public class HealthGainBig extends PowerUp {
-  private int healthAddition = 50;
+  private final static int healthAddition = 50;
 
   public HealthGainBig(){
     this.type = PowerUps.HealthGainBig;

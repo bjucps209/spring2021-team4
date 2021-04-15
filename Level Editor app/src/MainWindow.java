@@ -16,15 +16,18 @@ import model.GameObjects.Enemies.*;
 import model.GameObjects.Powerups.*;
 
 
-// re implement createNewObject
-// uncomment certain elements of save level when safe
+// save level doesnt sense some classes. 
+// when saving a laser, add in H or V for Horizontal/ vertical 
+// health gain small and big are both class small for some reason
 public class MainWindow {
 
     @FXML
     Pane pane;
 
     @FXML
-    VBox vbox;
+    VBox vbox1;
+    @FXML
+    VBox vbox2;
 
     @FXML
     Label lblLoc;
@@ -40,6 +43,8 @@ public class MainWindow {
 
     @FXML
     ComboBox<String> typeBox = new ComboBox<>();
+    @FXML
+    ComboBox<String> orientationBox = new ComboBox<>();
 
     @FXML
     TextField txtFXValue;
@@ -62,30 +67,30 @@ public class MainWindow {
 
     int fileNumber = 0;
 
-    String difficulty = "";
+    String difficulty = "Easy";
 
 
     
     @FXML
     void initialize() {
-        String[] types = {"Player", "block_square", "block_corner", "block_large", "block_narrow", "powerupBlue_bolt", "pill_yellow", "shield_gold", "bolt_gold", "pill_blue", "enemyBlack4", "enemyBlack1", "enemyBlack2", "laser(uninmplemented)"};
+        String[] types = {"Player playerShip1_blue", "Obstacle block_square", "Obstacle block_corner", "Obstacle block_large", "Obstacle block_narrow", "Freeze powerupBlue_bolt", "HealthGainBig pill_yellow", "TemporaryInvincible shield_gold", "DestroyShip bolt_gold", "HealthGainSmall pill_blue", "Bouncer enemyBlack4", "Tracker enemyBlack1", "Ghost enemyBlack2", "Laser cockpitGreen_0", "Shapeshifter enemyBlack4"};
         typeBox.getItems().addAll(types);
-        vbox.getChildren().add(typeBox);
+        vbox1.getChildren().add(typeBox);
 
-        
+        String[] orientations = {"Horizontal", "Vertical"};
+        orientationBox.getItems().addAll(orientations);
+        vbox2.getChildren().add(orientationBox);
 
     }
 
     // factory method to create an instance of GameObject when the user clicks create new
     GameObject createGameObjects(String identifier) {
-        // // obstacles
+        // // obstacles System.out.println(.getClass());
         if (identifier.equals("block_square") || identifier.equals("block_corner") || identifier.equals("block_large") || identifier.equals("block_narrow")) {
             return new Obstacle();
         }
-        // powerups
-        // rewrite using PowerUps.create() method...
         else if (identifier.equals("powerupBlue_bolt")) {
-            var freeze = new FreezePowerUp();
+            var freeze = PowerUp.create(PowerUps.Freeze);
             try {
                 freeze.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
             }
@@ -95,17 +100,18 @@ public class MainWindow {
             return freeze;
         }
         else if (identifier.equals("pill_yellow")) {
-            var largeHealth = new LargeHealthPowerUp();
+            var largeHealth = PowerUp.create(PowerUps.HealthGainBig);
             try {
                 largeHealth.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
             }
             catch (NumberFormatException e) {
                 largeHealth.setAppearTime(0);
             }
+            System.out.println(largeHealth.getClass());
             return largeHealth;
         }
         else if (identifier.equals("shield_gold")) {
-            var invincibility = new TemporaryInvincible();
+            var invincibility = PowerUp.create(PowerUps.TemporaryInvincible);
             try {
                 invincibility.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
             }
@@ -115,7 +121,7 @@ public class MainWindow {
             return invincibility;
         }
         else if (identifier.equals("bolt_gold")) {
-            var destroyShip = new DestroyShip();
+            var destroyShip = PowerUp.create(PowerUps.DestroyShip);
             try {
                 destroyShip.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
             }
@@ -125,7 +131,7 @@ public class MainWindow {
             return destroyShip;
         }
         else if (identifier.equals("pill_blue")) {
-            var healthPack = new HealthPackPowerUp();
+            var healthPack = PowerUp.create(PowerUps.HealthGainSmall);
             try {
                 healthPack.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
             }
@@ -134,17 +140,15 @@ public class MainWindow {
             }
             return healthPack;
         }
-
-        else if (identifier.equals("Player")) {
+        // player case
+        else if (identifier.equals("playerShip1_blue")) {
             return new Player();
         }
 
-        else if (identifier.equals("Laser")) {
+        // enemies
+        else if (identifier.equals("cockpitGreen_0")) {
             return EnemyObject.create(EnemyTypes.LASER);
         }
-
-        // enemies
-        // shapeshifter not implemented
         else if (identifier.equals("enemyBlack4")) {
             return EnemyObject.create(EnemyTypes.BOUNCER);
         }
@@ -155,7 +159,7 @@ public class MainWindow {
             return EnemyObject.create(EnemyTypes.GHOST);
         }
         else {
-            return EnemyObject.create(EnemyTypes.LASER);
+            return EnemyObject.create(EnemyTypes.SHAPESHIFTER);
         }
         
     }
@@ -177,12 +181,10 @@ public class MainWindow {
             y = (int) pane.getHeight();
         }
 
-
         imgView.setX(x);
         imgView.setY(y);
 
         GameObject obj = (GameObject) imgView.getUserData();
-
         obj.setX(x);
         obj.setY(y);
         }
@@ -199,7 +201,6 @@ public class MainWindow {
             currentObject = (GameObject) currentImage.getUserData();
         }
         catch (Exception e) {
-            
         }
     }
 
@@ -237,63 +238,73 @@ public class MainWindow {
     // methods to set the level difficulty
     @FXML
     void onEasyClicked() {
-        difficulty = "easy";
+        difficulty = "Easy";
     }
 
     @FXML
     void onMediumClicked() {
-        difficulty = "medium";
+        difficulty = "Medium";
     }
 
     @FXML
     void onHardClicked() {
-        difficulty = "hard";
+        difficulty = "Hard";
     }
     // ----
 
     // create a new object
     @FXML
     void onCreateNewClicked() {
-        String str = (String) typeBox.getValue();
-        if (!str.equals("Player") && !str.equals("laser")) {
-            var imgView = new ImageView("/LevelEditorImages/" + str + ".png");
-        }
-        else if (str.equals("Player")) {
-            var imgView = new ImageView("/LevelEditorImages/playerShip1_blue.png");
-        }
-        else if (str.equals("Laser")) {
-            // var imgView = new ImageView("/LevelEditorImages/" + str + ".png");
-            // laser needs to be the cockpit and placed around the edge
-        }
-
-        imgView.setOnMouseDragged(this::onMouseDragged);
-        imgView.setOnMouseClicked(this::onMouseClicked);
-
-        var obj = createGameObjects(str);
-        imgView.setUserData(obj);
+        try {
+            String str = (String) typeBox.getValue();
         
-        if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
-            try {
-                pane.getChildren().add(imgView);
-                setPosition(imgView, 0, 0);
+            // each option in the combobox has a user friendly word followed by the name of the png file that represents it, separated by a space. I used the png file "word" when designing the Level Builder
+            String[] split = str.split(" ");
+            ImageView imgView = new ImageView("/LevelEditorImages/" + split[1] + ".png");
+            
+            imgView.setOnMouseDragged(this::onMouseDragged);
+            imgView.setOnMouseClicked(this::onMouseClicked);
+            // pass in the string to be evaluated in createGameObjects
+            var obj = createGameObjects(split[1]);
+            imgView.setUserData(obj);
+            
+            if (split[0].equals("Laser")) {
+                try {
+                    if (orientationBox.getValue().equals("Horizontal")) {
+                        setPosition(imgView, 0, Integer.parseInt(txtFYValue.getText()));
+                    }
+                    else if (orientationBox.getValue().equals("Vertical")) {
+                        setPosition(imgView, Integer.parseInt(txtFXValue.getText()), 0);
+                    }
+                    pane.getChildren().add(imgView);
+                }
+                catch (Exception e) {
+                    var alert = new Alert(AlertType.INFORMATION, "Please select an orientation for the laser.");
+                    alert.show();
+                }
             }
-            catch (NumberFormatException e) {
-                var alert = new Alert(AlertType.INFORMATION, "Please choose an integer.");
-                alert.show();
-            }
-        }
-        else {
-            try {
-                pane.getChildren().add(imgView);
+            else {
+                if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
+                    pane.getChildren().add(imgView);
+                    setPosition(imgView, 0, 0);
+                }
+                else {
+                    try {
+                        pane.getChildren().add(imgView);
 
-                setPosition(imgView, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
-            }
-            catch (NumberFormatException e) {
-                var alert = new Alert(AlertType.INFORMATION, "Please choose an integer.");
-                alert.show();
+                        setPosition(imgView, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
+                    }
+                    catch (NumberFormatException e) {
+                        var alert = new Alert(AlertType.INFORMATION, "Please choose an integer.");
+                        alert.show();
+                    }
+                }
             }
         }
-        
+        catch (Exception e) {
+            var alert = new Alert(AlertType.INFORMATION, "Please choose an entity to create");
+            alert.show();
+        }
         
     }
 
@@ -302,6 +313,7 @@ public class MainWindow {
     void onClearClicked() {
         pane.getChildren().remove(0, pane.getChildren().size());
         setLabels();
+        difficulty = "Easy";
     }
 
     
@@ -337,7 +349,7 @@ public class MainWindow {
 
         String levelInfo = "";
 
-        String allObjectInformation = "";
+        String allObjectInformation = difficulty;
 
         for (int i = 0; i < pane.getChildren().size(); i++) {
             // get imageview to find object
@@ -350,7 +362,7 @@ public class MainWindow {
             String x = String.valueOf(obj.getX());
             String y = String.valueOf(obj.getY());
 
-            allObjectInformation += ("|" + array[2] + "," + x + "," + y);
+            allObjectInformation += ("|" + array[(array.length - 1)] + "," + x + "," + y);
             if (obj instanceof PowerUp) {
                 var downCastedObj = (PowerUp) obj;
                 allObjectInformation += ("," + downCastedObj.getAppearTime());
@@ -373,11 +385,12 @@ public class MainWindow {
 
         if (levelInfo.length() > 4) {
             try (var stream = new FileOutputStream(basePath + "Wave\\customLevel" + String.valueOf(fileNumber) + ".dat");) {
-                
-                byte[] byteLevelInfo = levelInfo.getBytes();
-                stream.write(byteLevelInfo);
-                fileNumber ++;
-                if (fileNumber == 10) {
+                if (fileNumber < 9) {
+                    byte[] byteLevelInfo = levelInfo.getBytes();
+                    stream.write(byteLevelInfo);
+                    fileNumber ++;
+                }
+                else {
                     var alert = new Alert(AlertType.INFORMATION, "10 levels created.");
                     alert.show();
                 }

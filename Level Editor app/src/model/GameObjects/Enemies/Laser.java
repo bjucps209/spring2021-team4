@@ -1,5 +1,5 @@
 package model.GameObjects.Enemies;
 
-public class Laser {
+public class Laser extends EnemyObject {
     public static int speed = 5;
 }

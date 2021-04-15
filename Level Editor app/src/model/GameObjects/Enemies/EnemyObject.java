@@ -24,27 +24,27 @@ public abstract class EnemyObject extends GameObject {
             enemy = new Bouncer();
             enemy.setDx(5);
             enemy.setDy(5);
-            enemy.setType(EnemyTypes.BOUNCER);
+            enemy.setType(e);
             break;
         case GHOST:
-            enemy = new Bouncer();
-            enemy.setType(EnemyTypes.BOUNCER);
+            enemy = new Ghost();
+            enemy.setType(e);
             break;
         case LASER:
-            enemy = new Bouncer();
-            enemy.setType(EnemyTypes.BOUNCER);
+            enemy = new Laser();
+            enemy.setType(e);
             break;
         case SHAPESHIFTER:
-            enemy = new Bouncer();
+            enemy = new Shapeshifter();
             enemy.setType(EnemyTypes.BOUNCER);
             break;
         case TRACKER:
-            enemy = new Bouncer();
-            enemy.setType(EnemyTypes.BOUNCER);
+            enemy = new Tracker();
+            enemy.setType(e);
             break;
         default:
             enemy = new Bouncer();
-            enemy.setType(EnemyTypes.BOUNCER);
+            enemy.setType(e);
             break;
         }
         return enemy;

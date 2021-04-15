@@ -1,3 +1,5 @@
+import java.util.concurrent.TimeUnit;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 import model.Game;
 import model.Wave;
+import model.GameObjects.Enemies.EnemyObject;
 import model.GameObjects.GameObject;
 import model.Enums.EnemyTypes;
 
@@ -31,6 +34,8 @@ public class GameWindow {
 
     @FXML Pane pane;
 
+    Timeline timer;
+
     @FXML
     public void initialize() {
         w = Wave.getInstance();
@@ -38,11 +43,12 @@ public class GameWindow {
         g = w.getGame();
         p = g.getCurrentLevel().getPlayer();
         spawnEntities();
-
+        
         // Getting the game to update at 16.7ms or ~60fps
-        var timer = new Timeline(
+        timer = new Timeline(
             new KeyFrame(Duration.millis(16.7), e -> {
                 g.update();
+             
             }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();

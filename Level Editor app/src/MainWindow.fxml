@@ -8,9 +8,15 @@
 
     <HBox spacing="20">
     <!-- Possibly needed textfields to select certain attributes about an object being inserted -->
-        <VBox fx:id="vbox">
+        <VBox fx:id="vbox1">
             <Label text="type"/>
             
+        </VBox>
+
+        <VBox fx:id="vbox2">
+            <Label text="orientation (for laser only)"/>
+            <Label text="if horizontal, enter a y value, if vertical, enter an x value"/>
+
         </VBox>
 
 
