@@ -18,8 +18,11 @@ public class HealthGainBig extends PowerUp {
   @Override
   public void collisionWithPlayer(Player p) {
     // TODO Auto-generated method stub
-    p.setHealth(p.getHealth() + healthAddition);
+    if(this.isFinished == false){
+        p.setHealth(p.getHealth() + healthAddition);
     this.isFinished = true; // Indicate this powerup is finished of usingz
+    }
+  
   }
 
 }

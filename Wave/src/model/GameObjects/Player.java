@@ -20,7 +20,7 @@ public class Player extends GameObject {
     private IntegerProperty health = new SimpleIntegerProperty(100);
     private int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
     private ShipSkins currentShipSkins;
-    private ArrayList<PowerUp> activaedPowerUs = new ArrayList<>();
+    private ArrayList<PowerUp> activaedPowerUps = new ArrayList<>();
     private boolean temporaryInvincible;
 
     public Player(Level l) {
@@ -34,13 +34,22 @@ public class Player extends GameObject {
         hitDetection = new Thread(() -> {
             Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
                 if (hits.size() > 0) {
-                    processHit(hits.get(0));
-                    hits.remove(0);
+                    if(processHit(hits.get(0), this)){
+                        hits.remove(0);
+                    }
+                    
                 }
                 checkWallCollision();
                 if (checkCollision(currentLevel.getEnemies()) != null) {
                     hits.add(checkCollision(currentLevel.getEnemies()));
                 }
+                
+                PowerUp hitPowerUp = (PowerUp)checkCollision(currentLevel.getPowerups());
+                if(hitPowerUp != null){     
+                    hits.add(hitPowerUp);  //TODO: potentially cause problem in delay powerup's reaction?
+                }
+
+
             }));
             t.setCycleCount(Timeline.INDEFINITE);
             t.play();
@@ -85,8 +94,8 @@ public class Player extends GameObject {
         return speed;
     }
 
-    public ArrayList<PowerUp> getActivaedPowerUs() {
-        return activaedPowerUs;
+    public ArrayList<PowerUp> getActivaedPowerUps() {
+        return activaedPowerUps;
     }   public boolean isTemporaryInvincible() {
         return temporaryInvincible;
     }
@@ -108,11 +117,11 @@ public class Player extends GameObject {
         this.speed = speed;
     }
 
-    public void setActivaedPowerUs(ArrayList<PowerUp> activaedPowerUs) {
-        this.activaedPowerUs = activaedPowerUs;
+    public void setActivaedPowerUps(ArrayList<PowerUp> activaedPowerUs) {
+        this.activaedPowerUps = activaedPowerUs;
     }
     public void setTemporaryInvincible(boolean temporaryInvincible) {
-        temporaryInvincible = temporaryInvincible;
+        this.temporaryInvincible = temporaryInvincible;
     }
 
 

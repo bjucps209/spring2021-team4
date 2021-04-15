@@ -20,6 +20,7 @@ import model.GameObjects.Powerups.DestroyShip;
 import model.GameObjects.Powerups.Freeze;
 import model.GameObjects.Powerups.HealthGainBig;
 import model.GameObjects.Powerups.HealthGainSmall;
+import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
 
 public abstract class GameObject {
@@ -61,31 +62,48 @@ public abstract class GameObject {
         hitDetection.start();
     }
 
-    public void processHit(GameObject g) {
+    public boolean processHit(GameObject g, Player p) {
         Class gc = g.getClass();
         if (gc.equals(Bouncer.class)) {
             System.out.println("HIT!");
+            return true;
         } else if (gc.equals(Ghost.class)) {
             System.out.println("HIT!");
+            return true;
         } else if (gc.equals(Laser.class)) {
             System.out.println("HIT!");
+            return true;
         } else if (gc.equals(Shapeshifter.class)) {
             System.out.println("HIT!");
+            return true;
         } else if (gc.equals(Tracker.class)) {
             System.out.println("HIT!");
+            return true;
         } else if (gc.equals(DestroyShip.class)) {
-            
+            PowerUp power = (PowerUp)g;
+            power.collisionWithPlayer(p);
+            return power.getIsFinished();
         } else if (gc.equals(Freeze.class)) {
-            
+            PowerUp power = (PowerUp)g;
+            power.collisionWithPlayer(p);
+            return power.getIsFinished();
         } else if (gc.equals(HealthGainBig.class)) {
-            
+            PowerUp power = (PowerUp)g;
+            power.collisionWithPlayer(p);
+            return power.getIsFinished();
         } else if (gc.equals(HealthGainSmall.class)) {
-            
+            PowerUp power = (PowerUp)g;
+            power.collisionWithPlayer(p);
+            return power.getIsFinished();
         } else if (gc.equals(TemporaryInvincible.class)) {
-            
+            PowerUp power = (PowerUp)g;
+            power.collisionWithPlayer(p);
+            return power.getIsFinished();
         } else if (gc.equals(Obstacle.class)) {
             
         }
+        // the default case
+        return true;
     }
 
     public GameObject checkCollision(ArrayList<? extends GameObject> g) {

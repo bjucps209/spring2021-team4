@@ -316,4 +316,12 @@ public class Level {
         return true;
 
     }
+
+    public ArrayList<PowerUp> getPowerups() {
+        return powerups;
+    }
+
+    public void setPowerups(ArrayList<PowerUp> powerups) {
+        this.powerups = powerups;
+    }
 }
