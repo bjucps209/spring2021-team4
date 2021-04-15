@@ -324,13 +324,14 @@ public class Game {
                     else if (object instanceof EnemyObject) {
                         level.getEnemies().add((EnemyObject) object);
                     }
-
+                    
                 }
+                levels.add(level);
             }
             catch (IOException e) {
                 System.out.println("caught on file exception" + i);
             }
-            levels.add(level);
+            
         }
         
     }
