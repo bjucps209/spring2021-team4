@@ -8,12 +8,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.regex.Pattern;
 
 import model.Enums.*;
 import model.GameObjects.*;
 import model.GameObjects.Enemies.*;
 import model.GameObjects.Powerups.*;
+
+import model.Level;
 
 
 // save level doesnt sense some classes. 
@@ -107,7 +110,7 @@ public class MainWindow {
             catch (NumberFormatException e) {
                 largeHealth.setAppearTime(0);
             }
-            System.out.println(largeHealth.getClass());
+
             return largeHealth;
         }
         else if (identifier.equals("shield_gold")) {
@@ -362,23 +365,18 @@ public class MainWindow {
             String x = String.valueOf(obj.getX());
             String y = String.valueOf(obj.getY());
 
-            allObjectInformation += ("|" + array[(array.length - 1)] + "," + x + "," + y);
+            allObjectInformation += (array[(array.length - 1)] + "," + x + "," + y);
             if (obj instanceof PowerUp) {
                 var downCastedObj = (PowerUp) obj;
                 allObjectInformation += ("," + downCastedObj.getAppearTime());
             }
-            if (i == pane.getChildren().size() - 1) {
-                allObjectInformation += "|";
-            }
+            allObjectInformation += "|";
+            // if lasers have an orientation attribute
+            // if (obj instanceof Laser) {
+            //     var downCastedObj = (Laser) obj;
+            //     allObjectInformation += ("," + downCastedObj.getOrientation());
+            // }
             
-        }
-        if (String.valueOf(allObjectInformation.length()).length() < 4) {
-            String str = "";
-            for (int i = 0; i < (4 -String.valueOf(allObjectInformation.length()).length()); i++) {
-                str += "0";
-            }
-            str += String.valueOf(allObjectInformation.length());
-            allObjectInformation = str + allObjectInformation;
         }
 
         levelInfo += (allObjectInformation);
@@ -417,6 +415,97 @@ public class MainWindow {
             lblLoc.setText("");
             lblHeading.setText("");
             lblTime.setText("");
+        }
+    }
+
+    // method to load custom levels - RTR
+    public void loadCustomLevel() throws IOException {
+
+        try (var stream = new FileInputStream("customLevel0.dat");) {
+            var f = new File("customLevel0.dat");
+            int lengthOfLevel = (int) f.length();
+            var level = new Level();
+
+            byte[] levelInfoBytes = new byte[lengthOfLevel];
+            stream.read(levelInfoBytes);
+            String levelInfoString = new String(levelInfoBytes);
+
+            // level difficulty
+            char levelDifficulty = levelInfoString.charAt(0);
+
+            levelInfoString = levelInfoString.substring(1);
+
+            String[] instances = levelInfoString.split("\\|");
+            
+            for (String instance : instances) {
+                String[] instanceInfo = instance.split(Pattern.quote(","));
+                
+                GameObject object;
+                // enemy entities
+                if (instanceInfo[0].equals("Bouncer")) {
+                    object = EnemyObject.create(EnemyTypes.BOUNCER);
+                }
+                else if (instanceInfo[0].equals("Ghost")) {
+                    object = EnemyObject.create(EnemyTypes.GHOST);
+                }
+                else if (instanceInfo[0].equals("Tracker")) {
+                    object = EnemyObject.create(EnemyTypes.TRACKER);
+                }
+                else if (instanceInfo[0].equals("ShapeShifter")) {
+                    object = EnemyObject.create(EnemyTypes.SHAPESHIFTER);
+                }
+                else if (instanceInfo[0].equals("Laser")) {
+                    object = EnemyObject.create(EnemyTypes.LASER);
+                }
+                // powerups
+                else if (instanceInfo[0].equals("DestroyShip")) {
+                    object = PowerUp.create(PowerUps.DestroyShip);
+                    ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                }
+                else if (instanceInfo[0].equals("Freeze")) {
+                    object = PowerUp.create(PowerUps.Freeze);
+                    ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                }
+                else if (instanceInfo[0].equals("HealthGainSmall")) {
+                    object = PowerUp.create(PowerUps.HealthGainSmall);
+                    ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                }
+                else if (instanceInfo[0].equals("TemporaryInvincible")) {
+                    object = PowerUp.create(PowerUps.TemporaryInvincible);
+                    ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                }
+                else if (instanceInfo[0].equals("HealthGainBig")) {
+                    object = PowerUp.create(PowerUps.HealthGainBig);
+                    ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                }
+                else if (instanceInfo[0].equals("Player")) {
+                    object = new Player();
+                }
+                // obstacles
+                else {
+                    object = new Obstacle();
+                }
+                object.setX(Integer.parseInt(instanceInfo[1]));
+                object.setY(Integer.parseInt(instanceInfo[2]));
+                level.getAllObjects().add(object);
+
+                // add object to corresponding part of the level
+                if (object instanceof PowerUp) {
+                    
+                    level.getPowerups().add((PowerUp) object);
+                }
+                else if (object instanceof Obstacle) {
+                    level.getObstacles().add((Obstacle) object);
+                }
+                else if (object instanceof EnemyObject) {
+                    level.getEnemies().add((EnemyObject) object);
+                }
+            }
+            // levels.add(level);
+            
+        }
+        catch (IOException e) {
+            System.out.println("caught on file exception \nFileName:");
         }
     }
 }

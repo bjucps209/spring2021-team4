@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 import java.io.*;
 import model.Enums.EnemyTypes;
 import model.Enums.PowerUps;
@@ -247,24 +248,27 @@ public class Game {
 
 
     // method to load custom levels - RTR
-    public void loadCustomLevels(String fileName) throws IOException {
-        
-        // try (var stream = new FileInputStream("customLevel" + String.valueOf(i) + ".dat");) {}
-        
-        try (var stream = new FileInputStream(fileName);) {
+    public void loadCustomLevel(String fileName) throws IOException {
+
+        try (var stream = new FileInputStream(fileName + ".dat");) {
+            var f = new File(fileName + ".dat");
+            int lengthOfLevel = (int) f.length();
             var level = new Level();
-            byte[] levelLength = new byte[4];
-            stream.read(levelLength);
-            int lengthOfLevel = java.nio.ByteBuffer.wrap(levelLength).order(java.nio.ByteOrder.BIG_ENDIAN).getInt();
 
             byte[] levelInfoBytes = new byte[lengthOfLevel];
             stream.read(levelInfoBytes);
-            String levelInfoString = levelInfoBytes.toString();
-            
+            String levelInfoString = new String(levelInfoBytes);
 
-            String[] instances = levelInfoString.split("|");
+            // level difficulty in char form
+            char levelDifficulty = levelInfoString.charAt(0);
+
+            levelInfoString = levelInfoString.substring(1);
+
+            String[] instances = levelInfoString.split("\\|");
+            
             for (String instance : instances) {
-                String[] instanceInfo = instance.split(",");
+                String[] instanceInfo = instance.split(Pattern.quote(","));
+                
                 GameObject object;
                 // enemy entities
                 if (instanceInfo[0].equals("Bouncer")) {
@@ -317,7 +321,7 @@ public class Game {
                 // add object to corresponding part of the level
                 if (object instanceof PowerUp) {
                     
-                    level.getPowerUps().add((PowerUp) object);
+                    level.getPowerups().add((PowerUp) object);
                 }
                 else if (object instanceof Obstacle) {
                     level.getObstacles().add((Obstacle) object);
@@ -325,16 +329,15 @@ public class Game {
                 else if (object instanceof EnemyObject) {
                     level.getEnemies().add((EnemyObject) object);
                 }
-                
             }
+            // adds the level and all 
             levels.add(level);
+            // potentially launch the list of levels when this method is called?
+            
         }
         catch (IOException e) {
-            System.out.println("caught on file exception \nFileName:" + fileName);
+            System.out.println("caught on file exception \nFileName:");
         }
-        
-        
-        
     }
 
 }

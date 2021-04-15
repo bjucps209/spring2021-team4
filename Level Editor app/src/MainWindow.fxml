@@ -61,6 +61,7 @@
                 <Label text="Heading:" />
                 <Label text="Appearance Time:" />
                 <Button text="save level" styleClass="leftbutton" onAction="#onSaveLevelClicked"/>
+                <Button text="load level" styleClass="leftbutton" onAction="#loadCustomLevel"/>
             </VBox>
             <VBox spacing="10" minWidth="50">
                 <Label fx:id="lblLoc" text="" />

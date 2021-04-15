@@ -38,7 +38,7 @@ public class Level {
     // This construction should only be use in unit test
 
     public Level() {
-        initialize();
+        
     }
 
     // start all info necessary for level
@@ -152,6 +152,14 @@ public class Level {
 
     public void setRemainingTime(int remainingTime) {
         this.remainingTime = remainingTime;
+    }
+
+    public void setPowerups(ArrayList<PowerUp> list) {
+        this.powerups = list;
+    }
+
+    public ArrayList<PowerUp> getPowerups() {
+        return this.powerups;
     }
 
     /**
