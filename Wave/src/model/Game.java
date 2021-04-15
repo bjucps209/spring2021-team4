@@ -16,6 +16,7 @@ import model.GameObjects.Powerups.*;
 
 public class Game {
     // Class that handles all game parts after game has started
+    Wave w;
 
     // Visual variables
     private int gameWidth;
@@ -47,6 +48,16 @@ public class Game {
     public void startHitDetection() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
             g.startHitDetection();
+        }
+    }
+
+    public void stopHitDetection() {
+        for (GameObject g : levels.get(levelNum).getAllObjects()) {
+            try {
+                g.stopHitDetection();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

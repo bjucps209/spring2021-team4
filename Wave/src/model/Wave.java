@@ -44,6 +44,10 @@ public class Wave {
         game.startHitDetection();
     }
 
+    public void onClosed() {
+        game.stopHitDetection();
+    }
+
     // Singleton get instance method
     public static Wave getInstance() {
         if (wave == null) {

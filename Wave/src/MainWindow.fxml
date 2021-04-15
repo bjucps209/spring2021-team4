@@ -18,8 +18,4 @@
     <Button text="HELP" onAction="#onHelpClicked" />
     <Button text="OPTIONS" onAction="#onOptionsClicked"/>
     <Button text="HIGH SCORES" onAction="#onScoresClicked"/>
-
-
-    <Button onAction="#onDisplayInfo" text="display info"  />
-
 </VBox>
