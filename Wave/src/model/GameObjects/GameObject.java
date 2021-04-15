@@ -2,8 +2,11 @@ package model.GameObjects;
 
 import java.util.ArrayList;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.util.Duration;
 import model.Level;
 import model.Wave;
 import model.Enums.EnemyTypes;
@@ -36,15 +39,13 @@ public abstract class GameObject {
     ArrayList<EnemyObject> enemies;
     ArrayList<GameObject> hits = new ArrayList<GameObject>();
     public static Level currentLevel;
-    Thread hitDetection = new Thread(() -> {
-        while (hits.size() == 0) {
-            checkWallCollision();
-            hits.add(checkCollision(currentLevel.getObstacles()));
-            break;
-        }
-    });
-
-    int collisionNum = 0;
+    public Thread hitDetection = new Thread(() -> {
+        Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
+            checkWallCollision(); 
+        }));
+        t.setCycleCount(Timeline.INDEFINITE);
+        t.play();
+    });;
 
     public GameObject(Level l) {
         currentLevel = l;
@@ -52,12 +53,12 @@ public abstract class GameObject {
 
     // update method each object needs
     public void update() {
-        if (hitDetection.isAlive()) {
-            hitDetection.start();
-        }
-        collisionNum++;
         x.set(getX() + getDx());
         y.set(getY() + getDy());
+    }
+
+    public void startHitDetection() {
+        hitDetection.start();
     }
 
     public void processHit(GameObject g) {
@@ -198,4 +199,5 @@ public abstract class GameObject {
     public IntegerProperty heightProperty() {
         return height;
     }
+    
 }

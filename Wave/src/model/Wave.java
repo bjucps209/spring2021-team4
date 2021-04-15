@@ -40,6 +40,7 @@ public class Wave {
     // Starts the game, does all calculations and initializes lists
     public void gameStart() {
         game = new Game(1000, 800);
+        game.startHitDetection();
     }
 
     // Singleton get instance method

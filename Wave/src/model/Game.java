@@ -39,6 +39,12 @@ public class Game {
         }
     }
 
+    public void startHitDetection() {
+        for (GameObject g : levels.get(levelNum).getAllObjects()) {
+            g.startHitDetection();
+        }
+    }
+
     // initializes game with current level
     public void initializeLevel(Level l) {
 
