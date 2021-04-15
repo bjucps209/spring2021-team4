@@ -1,6 +1,7 @@
 package model.GameObjects.Enemies;
 
 
+import model.Level;
 import model.Enums.EnemyTypes;
 import model.GameObjects.GameObject;
 
@@ -10,15 +11,10 @@ public abstract class EnemyObject extends GameObject {
     private boolean temporaryFreeze = false;
         
 
-    @Override
-    public void update(){
-        if(temporaryFreeze){
-            // means been frozen
-            // do not move
-        }else{
-            super.update();
-        }
+    public EnemyObject(Level l) {
+        super(l);
     }
+
     public EnemyTypes getType() {
         return type;
     }
@@ -27,33 +23,33 @@ public abstract class EnemyObject extends GameObject {
         this.type = type;
     }
 
-    public static EnemyObject create(EnemyTypes e) {
+    public static EnemyObject create(EnemyTypes e, Level l) {
         EnemyObject enemy;
         switch (e) {
         case BOUNCER:
-            enemy = new Bouncer();
+            enemy = new Bouncer(l);
             enemy.setDx(5);
             enemy.setDy(5);
             enemy.setType(EnemyTypes.BOUNCER);
             break;
         case GHOST:
-            enemy = new Bouncer();
+            enemy = new Bouncer(l);
             enemy.setType(EnemyTypes.BOUNCER);
             break;
         case LASER:
-            enemy = new Bouncer();
+            enemy = new Bouncer(l);
             enemy.setType(EnemyTypes.BOUNCER);
             break;
         case SHAPESHIFTER:
-            enemy = new Bouncer();
+            enemy = new Bouncer(l);
             enemy.setType(EnemyTypes.BOUNCER);
             break;
         case TRACKER:
-            enemy = new Bouncer();
+            enemy = new Bouncer(l);
             enemy.setType(EnemyTypes.BOUNCER);
             break;
         default:
-            enemy = new Bouncer();
+            enemy = new Bouncer(l);
             enemy.setType(EnemyTypes.BOUNCER);
             break;
         }

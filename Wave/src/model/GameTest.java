@@ -161,7 +161,7 @@ public class GameTest {
     player.setDx(200);
     player.setDy(200);
 
-    Bouncer bouncer = new Bouncer();
+    Bouncer bouncer = new Bouncer(currentLevel);
     bouncer.setType(EnemyTypes.BOUNCER);
     bouncer.setX(20);
     bouncer.setY(20);
@@ -171,7 +171,7 @@ public class GameTest {
     bouncer.setHeight(5);
     // TODO: set special affects later in
 
-    Obstacle ob = new Obstacle();
+    Obstacle ob = new Obstacle(currentLevel);
     ob.setX(20);
     ob.setY(330);
     ob.setWidth(5);

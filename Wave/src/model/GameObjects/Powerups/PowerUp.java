@@ -1,20 +1,25 @@
 package model.GameObjects.Powerups;
 
-import model.Enums.PowerUps;
 import model.GameObjects.GameObject;
 import model.GameObjects.Player;
+import model.Level;
+import model.Enums.PowerUps;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class PowerUp extends GameObject {
 
-  //Note: powerups will be position by the level editors.
-  protected int effectiveTime;  // indicate in seconds the amount of time this powerup can last 
+  // Note: powerups will be position by the level editors.
+  protected int appearTime;
   protected PowerUps type;
   protected boolean isFinished = false;
 
   public abstract void collisionWithPlayer(Player p);
+
+  public PowerUp(Level l) {
+    super(l);
+  }
 
   @Override
   public void update() {
@@ -33,30 +38,30 @@ public abstract class PowerUp extends GameObject {
   }
 
   // A factory method for all powerups
-  public static PowerUp create(PowerUps type) {
+  public static PowerUp create(PowerUps type, Level l) {
     PowerUp power;
     switch (type) {
     case Freeze: {
-      power = new Freeze();
+      power = new Freeze(l);
       break;
     }
     case DestroyShip: {
-      power = new DestroyShip();
+      power = new DestroyShip(l);
       break;
     }
     case TemporaryInvincible: {
-      power = new DestroyShip();
+      power = new DestroyShip(l);
       break;
     }
     case HealthGainBig: {
-      power = new HealthGainBig();
+      power = new HealthGainBig(l);
     }
     case HealthGainSmall: {
-      power = new HealthGainSmall();
+      power = new HealthGainSmall(l);
     }
     default: {
       // should not happen
-      power = new HealthGainSmall();
+      power = new HealthGainSmall(l);
     }
 
     }
