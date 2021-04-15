@@ -97,4 +97,8 @@ public abstract class PowerUp extends GameObject {
   public void setFinished(boolean isFinished) {
     this.isFinished = isFinished;
   }
+
+  public void setAppearTime(int appearTime) {
+    this.appearTime = appearTime;
+  }
 }

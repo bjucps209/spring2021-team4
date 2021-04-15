@@ -11,7 +11,7 @@ import java.util.Random;
 public class DestroyShip extends PowerUp{
 
 
-  DestroyShip(Level l){
+  public DestroyShip(Level l){
     super(l);
     this.type = PowerUps.DestroyShip;
     this.effectiveTime = 0;

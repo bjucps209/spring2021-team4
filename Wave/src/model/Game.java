@@ -264,44 +264,44 @@ public class Game {
                     GameObject object;
                     // enemy entities
                     if (instanceInfo[0].equals("Bouncer")) {
-                        object = EnemyObject.create(EnemyTypes.BOUNCER);
+                        object = EnemyObject.create(EnemyTypes.BOUNCER, level);
                     }
                     else if (instanceInfo[0].equals("Ghost")) {
-                        object = EnemyObject.create(EnemyTypes.GHOST);
+                        object = EnemyObject.create(EnemyTypes.GHOST, level);
                     }
                     else if (instanceInfo[0].equals("Tracker")) {
-                        object = EnemyObject.create(EnemyTypes.TRACKER);
+                        object = EnemyObject.create(EnemyTypes.TRACKER, level);
                     }
                     else if (instanceInfo[0].equals("ShapeShifter")) {
-                        object = EnemyObject.create(EnemyTypes.SHAPESHIFTER);
+                        object = EnemyObject.create(EnemyTypes.SHAPESHIFTER, level);
                     }
                     else if (instanceInfo[0].equals("Laser")) {
-                        object = EnemyObject.create(EnemyTypes.LASER);
+                        object = EnemyObject.create(EnemyTypes.LASER, level);
                     }
                     // powerups
                     else if (instanceInfo[0].equals("DestroyShipPowerUp")) {
-                        object = new DestroyShip();
+                        object = new DestroyShip(level);
                         ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                     }
                     else if (instanceInfo[0].equals("FreezePowerUp")) {
-                        object = new Freeze();
+                        object = new Freeze(level);
                         ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                     }
                     else if (instanceInfo[0].equals("HealthPackPowerUp")) {
-                        object = new HealthGainSmall();
+                        object = new HealthGainSmall(level);
                         ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                     }
                     else if (instanceInfo[0].equals("InvincibilityPowerUp")) {
-                        object = new TemporaryInvincible();
+                        object = new TemporaryInvincible(level);
                         ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                     }
                     else if (instanceInfo[0].equals("LargeHealthPowerUp")) {
-                        object = new HealthGainBig();
+                        object = new HealthGainBig(level);
                         ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                     }
                     // obstacles
                     else {
-                        object = new Obstacle();
+                        object = new Obstacle(level);
                     }
                     object.setX(Integer.parseInt(instanceInfo[1]));
                     object.setY(Integer.parseInt(instanceInfo[2]));
