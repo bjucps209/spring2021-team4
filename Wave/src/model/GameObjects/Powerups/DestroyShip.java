@@ -12,6 +12,7 @@ public class DestroyShip extends PowerUp{
 
   DestroyShip(){
     this.type = PowerUps.DestroyShip;
+    this.effectiveTime = 0;
   }
   @Override
   public void collisionWithPlayer(Player p) {

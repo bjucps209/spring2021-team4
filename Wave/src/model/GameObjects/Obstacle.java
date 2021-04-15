@@ -5,6 +5,12 @@ public class Obstacle extends GameObject {
     // class for each Obstacle instance during the game
 
 
+
+    @Override
+    public void update() {
+
+        // Obstacles will not move
+    }
     @Override
     public String serialize() {
         // TODO Auto-generated method stub

@@ -1,6 +1,5 @@
 package model.GameObjects.Enemies;
 
-import org.junit.rules.TestRule;
 
 import model.Enums.EnemyTypes;
 import model.GameObjects.GameObject;
@@ -8,7 +7,18 @@ import model.GameObjects.GameObject;
 public abstract class EnemyObject extends GameObject {
     // abstract class for Enemy objects in game
     private EnemyTypes type;
+    private boolean temporaryFreeze = false;
+        
 
+    @Override
+    public void update(){
+        if(temporaryFreeze){
+            // means been frozen
+            // do not move
+        }else{
+            super.update();
+        }
+    }
     public EnemyTypes getType() {
         return type;
     }
@@ -77,5 +87,13 @@ public abstract class EnemyObject extends GameObject {
         
 
         
+    }
+
+    public boolean isTemporaryFreeze() {
+        return temporaryFreeze;
+    }
+
+    public void setTemporaryFreeze(boolean temporaryFreeze) {
+        this.temporaryFreeze = temporaryFreeze;
     }
 }

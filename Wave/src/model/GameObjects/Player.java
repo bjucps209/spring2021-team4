@@ -20,7 +20,7 @@ public class Player extends GameObject {
     private int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
     private ShipSkins currentShipSkins;
     private ArrayList<PowerUp> activaedPowerUs = new ArrayList<>();
-
+    private boolean TemporaryInvincible = false;
     public Player() {
         super();
         setX(500);
@@ -72,6 +72,7 @@ public class Player extends GameObject {
                             for (int l = getY(); l <= getY() + getHeight(); l++) {
                                 if (l == j) {
                                     // TODO HIT
+                                    // TODO check if player is temporary invincible 
                                     health.set(health.get() - 1);
                                 }
                             }
@@ -122,6 +123,8 @@ public class Player extends GameObject {
 
     public ArrayList<PowerUp> getActivaedPowerUs() {
         return activaedPowerUs;
+    }   public boolean isTemporaryInvincible() {
+        return TemporaryInvincible;
     }
 
     // --- setters ---
@@ -144,6 +147,10 @@ public class Player extends GameObject {
     public void setActivaedPowerUs(ArrayList<PowerUp> activaedPowerUs) {
         this.activaedPowerUs = activaedPowerUs;
     }
+    public void setTemporaryInvincible(boolean temporaryInvincible) {
+        TemporaryInvincible = temporaryInvincible;
+    }
+
 
     @Override
     public String serialize() {
@@ -176,5 +183,7 @@ public class Player extends GameObject {
             return false;
         }
     }
+
+ 
 
 }

@@ -10,7 +10,7 @@ import java.util.Random;
 public abstract class PowerUp extends GameObject {
 
   //Note: powerups will be position by the level editors.
-  protected int appearTime;
+  protected int effectiveTime;  // indicate in seconds the amount of time this powerup can last 
   protected PowerUps type;
   protected boolean isFinished = false;
 
@@ -64,14 +64,7 @@ public abstract class PowerUp extends GameObject {
 
   }
 
-  public int getAppearTime() {
-    return appearTime;
-  }
-
-  public void setAppearTime(int appearTime) {
-    this.appearTime = appearTime;
-  }
-
+  
   public PowerUps getType() {
     return type;
   }
@@ -86,5 +79,17 @@ public abstract class PowerUp extends GameObject {
 
   public boolean getIsFinished() {
     return this.isFinished;
+  }
+
+  public int getEffectiveTime() {
+    return effectiveTime;
+  }
+
+  public void setEffectiveTime(int effectiveTime) {
+    effectiveTime = effectiveTime;
+  }
+
+  public void setFinished(boolean isFinished) {
+    this.isFinished = isFinished;
   }
 }

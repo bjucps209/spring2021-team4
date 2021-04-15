@@ -8,6 +8,7 @@ public class HealthGainBig extends PowerUp {
 
   public HealthGainBig(){
     this.type = PowerUps.HealthGainBig;
+    this.effectiveTime = 0;
   }
 
 

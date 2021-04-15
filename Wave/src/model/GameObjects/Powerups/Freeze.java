@@ -5,11 +5,12 @@ import model.Enums.PowerUps;
 import model.GameObjects.Player;
 
 public class Freeze extends PowerUp{
-  private final static int existTime = 5;
-  private Duration totalPassedTime = new Duration(0);
+
+
 
   public Freeze(){
     this.type = PowerUps.Freeze;
+    this.effectiveTime = 5;
   }
   @Override
   public void collisionWithPlayer(Player p) {

@@ -23,6 +23,8 @@ public abstract class GameObject {
     ArrayList<Obstacle> obstacles;
     ArrayList<EnemyObject> enemies;
 
+
+    
     int collisionNum = 0;
 
     public void GameObject() {

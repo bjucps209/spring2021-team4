@@ -9,6 +9,7 @@ public class HealthGainSmall extends PowerUp{
 
     public HealthGainSmall(){
       this.type = PowerUps.HealthGainSmall;
+      this.effectiveTime = 0;
     }
     @Override
     public void collisionWithPlayer(Player p) {
