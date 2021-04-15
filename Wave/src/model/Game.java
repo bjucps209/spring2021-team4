@@ -123,6 +123,7 @@ public class Game {
             // load data here
 
             //TODO potential cause problem here if all level is been loaded
+            //TODO: need to call and load all level from level editor first
             this.levels = new ArrayList<Level>();
             for(int i = 0; i < 10; i++){
                 levels.add(new Level());
