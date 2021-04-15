@@ -62,6 +62,10 @@ public abstract class GameObject {
         hitDetection.start();
     }
 
+    public void stopHitDetection() throws InterruptedException {
+        hitDetection.stop();
+    }
+
     public boolean processHit(GameObject g, Player p) {
         Class gc = g.getClass();
         if (gc.equals(Bouncer.class)) {

@@ -2,6 +2,7 @@ import java.util.concurrent.TimeUnit;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -25,20 +26,15 @@ public class GameWindow {
     static Player p;
     static Game g;
 
-    static Scene s;
-
-    @FXML
-    public static void setScene(Scene s) {
-        GameWindow.s = s;
-    }
-
     @FXML Pane pane;
     @FXML Label health;
 
-    Timeline timer;
-
+   
+    static Timeline timer;
     @FXML
     public void initialize() {
+
+        
         w = Wave.getInstance();
         w.gameStart();
         g = w.getGame();
@@ -50,10 +46,13 @@ public class GameWindow {
         timer = new Timeline(
             new KeyFrame(Duration.millis(16.7), e -> {
                 g.update();
+            var s = pane.getChildren();
+
              
             }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
+        //Platform.exit();
         
     }
 
@@ -61,7 +60,6 @@ public class GameWindow {
         // code to combine all spawn function below
         spawnPlayer();
         spawnEnemies();
-        spawnObstacles();
     }
 
     // spawns the player image and then binds that image to the player object
@@ -105,9 +103,11 @@ public class GameWindow {
             }
         }
     }
-
-    public void spawnObstacles() {
-        
+    
+    // close the timer
+    public static void onClosed() {
+        timer.stop();
+ 
     }
 
     public static void moveUp() {

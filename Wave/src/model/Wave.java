@@ -44,6 +44,11 @@ public class Wave {
         game.startHitDetection();
     }
 
+    public void onClosed() {
+        game.stopHitDetection();
+       
+    }
+
     // Singleton get instance method
     public static Wave getInstance() {
         if (wave == null) {
@@ -256,6 +261,10 @@ public class Wave {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
 

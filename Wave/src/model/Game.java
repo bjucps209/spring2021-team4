@@ -17,6 +17,7 @@ import model.GameObjects.Powerups.*;
 
 public class Game {
     // Class that handles all game parts after game has started
+    Wave w;
 
     // Visual variables
     private int gameWidth;
@@ -48,6 +49,16 @@ public class Game {
     public void startHitDetection() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
             g.startHitDetection();
+        }
+    }
+
+    public void stopHitDetection() {
+        for (GameObject g : levels.get(levelNum).getAllObjects()) {
+            try {
+                g.stopHitDetection();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -124,6 +135,7 @@ public class Game {
             // load data here
 
             //TODO potential cause problem here if all level is been loaded
+            //TODO: need to call and load all level from level editor first
             this.levels = new ArrayList<Level>();
             for(int i = 0; i < 10; i++){
                 levels.add(new Level());

@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
+import model.Game;
 import model.Level;
 import model.Wave;
 import model.Enums.ShipSkins;
@@ -33,12 +34,20 @@ public class Player extends GameObject {
         setHeight(50);
         hitDetection = new Thread(() -> {
             Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
-                if (hits.size() > 0) {
-                    if(processHit(hits.get(0), this)){
-                        hits.remove(0);
-                    }
-                    
+
+                ArrayList<Boolean> isFinished = new ArrayList<>();
+                for(GameObject object : this.hits){
+                    isFinished.add(processHit(object, this));
+                    // store true if should be delete, store false other wise
                 }
+                int i = 0;
+                for(boolean value : isFinished){
+                    if(value){
+                        this.hits.remove(i);
+                    }
+                    i++;
+                }
+
                 checkWallCollision();
                 if (checkCollision(currentLevel.getEnemies()) != null) {
                     hits.add(checkCollision(currentLevel.getEnemies()));
