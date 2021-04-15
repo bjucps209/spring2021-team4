@@ -14,7 +14,7 @@ public abstract class PowerUp extends GameObject {
   protected int appearTime;
   protected PowerUps type;
   protected boolean isFinished = false;
-
+  protected int effectiveTime;
   public abstract void collisionWithPlayer(Player p);
 
   public PowerUp(Level l) {

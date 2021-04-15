@@ -21,6 +21,7 @@ public class Player extends GameObject {
     private int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
     private ShipSkins currentShipSkins;
     private ArrayList<PowerUp> activaedPowerUs = new ArrayList<>();
+    private boolean temporaryInvincible;
 
     public Player(Level l) {
         super(l);
@@ -87,7 +88,7 @@ public class Player extends GameObject {
     public ArrayList<PowerUp> getActivaedPowerUs() {
         return activaedPowerUs;
     }   public boolean isTemporaryInvincible() {
-        return TemporaryInvincible;
+        return temporaryInvincible;
     }
 
     // --- setters ---
@@ -111,7 +112,7 @@ public class Player extends GameObject {
         this.activaedPowerUs = activaedPowerUs;
     }
     public void setTemporaryInvincible(boolean temporaryInvincible) {
-        TemporaryInvincible = temporaryInvincible;
+        temporaryInvincible = temporaryInvincible;
     }
 
 

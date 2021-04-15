@@ -47,17 +47,8 @@ public abstract class GameObject {
         t.play();
     });;
 
-<<<<<<< HEAD
-
-    
-    int collisionNum = 0;
-
-    public void GameObject() {
-
-=======
     public GameObject(Level l) {
         currentLevel = l;
->>>>>>> b4fd78ab818d6aec68db65288852402f2dcfce79
     }
 
     // update method each object needs
