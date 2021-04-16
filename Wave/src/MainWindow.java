@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -15,6 +16,7 @@ import javafx.stage.WindowEvent;
 import model.Game;
 import model.HighScore;
 import model.HighScoreList;
+import model.Level;
 import model.Wave;
 import model.GameObjects.Player;
 
@@ -26,6 +28,9 @@ public class MainWindow {
     HighScore player2 = new HighScore("Amanda", 300);
     HighScore player3 = new HighScore("Tim", 200);
     HighScoreList highScoreList = new HighScoreList(new ArrayList<HighScore>());
+
+    // list to be given to game if the user wants to play their custom games
+    ArrayList<Level> customGameLevels = new ArrayList<>();
 
     // Difficulty Buttons
     Button btnEasy = new Button();
@@ -82,6 +87,93 @@ public class MainWindow {
                 GameWindow.onClosed();
             }
         });
+        
+    }
+
+    @FXML
+    // click on load level to 
+    void onLoadCustomGameClicked() {
+        
+        VBox topVBox = new VBox();
+        topVBox.setId("menu-background");
+        topVBox.setAlignment(Pos.CENTER);
+
+        HBox hbox = new HBox();
+        hbox.setAlignment(Pos.CENTER);
+        
+        VBox leftVBox = new VBox();
+        leftVBox.setPadding(new Insets(10));
+        leftVBox.setSpacing(10);
+        leftVBox.setAlignment(Pos.CENTER);
+
+        for (int i = 0; i < 5; i++) {
+            Button button = new Button("customLevel" + i);
+            button.setOnAction(this::callLoadCustomLevel);
+            leftVBox.getChildren().add(button);
+        }
+        hbox.getChildren().add(leftVBox);
+
+        VBox rightVBox = new VBox();
+        rightVBox.setPadding(new Insets(10));
+        rightVBox.setSpacing(10);
+        rightVBox.setAlignment(Pos.CENTER);
+
+        for (int i = 5; i < 10; i++) {
+            Button button = new Button("customLevel" + i);
+            button.setOnAction(this::callLoadCustomLevel);
+            rightVBox.getChildren().add(button);
+        }
+        hbox.getChildren().add(rightVBox);
+
+        topVBox.getChildren().add(new Label("Click which levels you want to add to your custom game, if a level does not exist, \nnothing will be added.\nClick Start Game to begin a game with your custom levels."));
+        topVBox.getChildren().add(hbox);
+        
+        Button button = new Button("Start Game");
+        button.setOnAction(this::startCustomGame);
+        topVBox.getChildren().add(button);
+
+        Scene loadLevelScene = new Scene(topVBox, 800, 600);
+        Stage loadLevelStage = new Stage();
+        loadLevelStage.setScene(loadLevelScene);
+        loadLevelStage.setTitle("Level Menu");
+        loadLevelStage.show();
+
+        loadLevelScene.getStylesheets().add("MainWindow.css");
+
+    }
+
+    // method that calls loadCustomLevel(String levelName) in Wave.java
+    @FXML
+    void callLoadCustomLevel(ActionEvent e) {
+        Button button = (Button) e.getSource();
+        String levelName = button.getText();
+        try {
+            Level l = w.loadCustomLevel(levelName);
+            if (l != null) {
+                customGameLevels.add(l);
+            }
+
+        }
+        catch (IOException exception) {
+        }
+    }
+
+    @FXML
+    void startCustomGame(ActionEvent e) {
+        w.gameStart();
+        if (customGameLevels.size() > 0) {
+            try {
+                onNewGameClicked();
+                w.getGame().setLevels(customGameLevels);
+            }
+            catch (IOException exception) {
+
+            }
+        }
+        else {
+            var alert = new Alert(AlertType.INFORMATION, "You haven't picked any custom levels to play yet.");
+            alert.show();
+        }
         
     }
     

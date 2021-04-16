@@ -14,6 +14,7 @@
     </ImageView>
 
     <Button text="NEW GAME" onAction="#onNewGameClicked"/>
+    <Button text="LOAD GAME" onAction="#onLoadCustomGameClicked"/>
     <Button text="ABOUT" onAction="#onAboutClicked"/>
     <Button text="HELP" onAction="#onHelpClicked" />
     <Button text="OPTIONS" onAction="#onOptionsClicked"/>

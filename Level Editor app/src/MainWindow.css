@@ -11,3 +11,7 @@
 .current {
     -fx-effect: dropshadow(three-pass-box, rgba(255,0,0,0.8), 10, 0, 0, 0);
  }
+
+.backGround {
+    -fx-background-image: url("./LevelEditorImages/space.png");
+}

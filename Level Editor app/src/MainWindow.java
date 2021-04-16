@@ -4,6 +4,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
@@ -83,6 +84,8 @@ public class MainWindow {
         String[] orientations = {"Horizontal", "Vertical"};
         orientationBox.getItems().addAll(orientations);
         vbox2.getChildren().add(orientationBox);
+        pane.getStyleClass().add("backGround");
+        
 
     }
 

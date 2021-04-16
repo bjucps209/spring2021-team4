@@ -1,8 +1,19 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+
+
 import java.io.*;
 import model.Enums.*;
+
+// imports for loadCustomLevel()
+import model.GameObjects.*;
+import model.GameObjects.Enemies.*;
+import model.GameObjects.Powerups.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 
 public class Wave {
@@ -265,6 +276,108 @@ public class Wave {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+
+    // method to load custom levels - RTR
+    public Level loadCustomLevel(String fileName) throws IOException {
+
+        try (var stream = new FileInputStream(fileName + ".dat");) {
+            var f = new File(fileName + ".dat");
+            int lengthOfLevel = (int) f.length();
+            if (lengthOfLevel > 1) {
+                var level = new Level();
+
+                byte[] levelInfoBytes = new byte[lengthOfLevel];
+                stream.read(levelInfoBytes);
+                String levelInfoString = new String(levelInfoBytes);
+
+                // level difficulty in char form
+                char levelDifficulty = levelInfoString.charAt(0);
+
+                levelInfoString = levelInfoString.substring(1);
+
+                String[] instances = levelInfoString.split("\\|");
+                
+                for (String instance : instances) {
+                    String[] instanceInfo = instance.split(Pattern.quote(","));
+                    
+                    GameObject object;
+                    // enemy entities
+                    if (instanceInfo[0].equals("Bouncer")) {
+                        object = EnemyObject.create(EnemyTypes.BOUNCER, level);
+                    }
+                    else if (instanceInfo[0].equals("Ghost")) {
+                        object = EnemyObject.create(EnemyTypes.GHOST, level);
+                    }
+                    else if (instanceInfo[0].equals("Tracker")) {
+                        object = EnemyObject.create(EnemyTypes.TRACKER, level);
+                    }
+                    else if (instanceInfo[0].equals("ShapeShifter")) {
+                        object = EnemyObject.create(EnemyTypes.SHAPESHIFTER, level);
+                    }
+                    else if (instanceInfo[0].equals("Laser")) {
+                        object = EnemyObject.create(EnemyTypes.LASER, level);
+                    }
+                    // powerups
+                    else if (instanceInfo[0].equals("DestroyShip")) {
+                        object = PowerUp.create(PowerUps.DestroyShip, level);
+                        ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                    }
+                    else if (instanceInfo[0].equals("Freeze")) {
+                        object = PowerUp.create(PowerUps.Freeze, level);
+                        ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                    }
+                    else if (instanceInfo[0].equals("HealthGainSmall")) {
+                        object = PowerUp.create(PowerUps.HealthGainSmall, level);
+                        ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                    }
+                    else if (instanceInfo[0].equals("TemporaryInvincible")) {
+                        object = PowerUp.create(PowerUps.TemporaryInvincible, level);
+                        ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                    }
+                    else if (instanceInfo[0].equals("HealthGainBig")) {
+                        object = PowerUp.create(PowerUps.HealthGainBig, level);
+                        ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
+                    }
+                    else if (instanceInfo[0].equals("Player")) {
+                        object = new Player(level);
+                    }
+                    // obstacles
+                    else {
+                        object = new Obstacle(level);
+                    }
+                    object.setX(Integer.parseInt(instanceInfo[1]));
+                    object.setY(Integer.parseInt(instanceInfo[2]));
+                    level.getAllObjects().add(object);
+
+                    // add object to corresponding part of the level
+                    if (object instanceof PowerUp) {
+                        
+                        level.getPowerups().add((PowerUp) object);
+                    }
+                    else if (object instanceof Obstacle) {
+                        level.getObstacles().add((Obstacle) object);
+                    }
+                    else if (object instanceof EnemyObject) {
+                        level.getEnemies().add((EnemyObject) object);
+                    }
+                }
+                return level;
+            }
+            // if there is no information, there is no level to return
+            else {
+                var alert = new Alert(AlertType.INFORMATION, "That level is empty.");
+                alert.show();
+                return null;
+            }
+            
+        }
+        catch (IOException e) {
+            var alert = new Alert(AlertType.INFORMATION, "You have not created that level yet.");
+            alert.show();
+            return null;
+        }
     }
 
 
