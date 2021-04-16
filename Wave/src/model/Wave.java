@@ -54,7 +54,6 @@ public class Wave {
 
     public void onClosed() {
         game.stopHitDetection();
-
     }
 
     // Singleton get instance method
@@ -346,12 +345,13 @@ public class Wave {
 
                     // add object to corresponding part of the level
                     if (object instanceof PowerUp) {
-
                         level.getPowerups().add((PowerUp) object);
                     } else if (object instanceof Obstacle) {
                         level.getObstacles().add((Obstacle) object);
                     } else if (object instanceof EnemyObject) {
                         level.getEnemies().add((EnemyObject) object);
+                    } else if (object instanceof Player) {
+                        level.setPlayer((Player) object);
                     }
                 }
                 return level;

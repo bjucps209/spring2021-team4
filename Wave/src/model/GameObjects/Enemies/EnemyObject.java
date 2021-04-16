@@ -4,15 +4,18 @@ package model.GameObjects.Enemies;
 import model.Level;
 import model.Enums.EnemyTypes;
 import model.GameObjects.GameObject;
+import model.GameObjects.Player;
 
 public abstract class EnemyObject extends GameObject {
     // abstract class for Enemy objects in game
-    private EnemyTypes type;
-    private boolean temporaryFreeze = false;
+    protected EnemyTypes type;
+    protected boolean temporaryFreeze = false;
+    protected Player player;
         
 
     public EnemyObject(Level l) {
         super(l);
+        player = currentLevel.getPlayer();
     }
 
     public EnemyTypes getType() {
@@ -34,19 +37,19 @@ public abstract class EnemyObject extends GameObject {
             break;
         case GHOST:
             enemy = new Bouncer(l);
-            enemy.setType(EnemyTypes.BOUNCER);
+            enemy.setType(EnemyTypes.GHOST);
             break;
         case LASER:
             enemy = new Bouncer(l);
-            enemy.setType(EnemyTypes.BOUNCER);
+            enemy.setType(EnemyTypes.LASER);
             break;
         case SHAPESHIFTER:
             enemy = new Bouncer(l);
-            enemy.setType(EnemyTypes.BOUNCER);
+            enemy.setType(EnemyTypes.SHAPESHIFTER);
             break;
         case TRACKER:
             enemy = new Bouncer(l);
-            enemy.setType(EnemyTypes.BOUNCER);
+            enemy.setType(EnemyTypes.TRACKER);
             break;
         default:
             enemy = new Bouncer(l);

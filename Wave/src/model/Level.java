@@ -47,13 +47,12 @@ public class Level {
 
     // spawns player
     public void spawnPlayer() {
-        player = new Player(this);
-        allObjects.add(player);
+
     }
 
     // spawns enemies
     public void spawnEnemies() {
-        spawnEnemy(EnemyTypes.BOUNCER, 20, 20);
+        
     }
 
     // creates obstacles
