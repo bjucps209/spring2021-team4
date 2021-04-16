@@ -1,23 +1,15 @@
-import java.util.concurrent.TimeUnit;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 import model.Game;
 import model.Wave;
-import model.GameObjects.GameObject;
-import model.Enums.EnemyTypes;
 
 public class GameWindow {
 
@@ -46,7 +38,6 @@ public class GameWindow {
         timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
             g.update();
             var s = pane.getChildren();
-
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();

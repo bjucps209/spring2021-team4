@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.ArrayList;
 import model.Enums.ShipSkins;
 
 public class User {

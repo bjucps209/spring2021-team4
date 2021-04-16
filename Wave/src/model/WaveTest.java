@@ -3,11 +3,8 @@ package model;
 import java.io.*;
 import org.junit.Test;
 
-import model.Enums.EnemyTypes;
 import model.Enums.ShipSkins;
-
 import static org.junit.Assert.*;
-import java.util.*;
 
 public class WaveTest {
 

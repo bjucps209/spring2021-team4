@@ -5,9 +5,6 @@ import model.GameObjects.Player;
 import model.Level;
 import model.Enums.PowerUps;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public abstract class PowerUp extends GameObject {
 
   // Note: powerups will be position by the level editors.

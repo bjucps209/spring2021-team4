@@ -7,11 +7,8 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
-import model.Game;
 import model.Level;
-import model.Wave;
 import model.Enums.ShipSkins;
-import model.GameObjects.Enemies.EnemyObject;
 import model.GameObjects.Powerups.PowerUp;
 
 public class Player extends GameObject {

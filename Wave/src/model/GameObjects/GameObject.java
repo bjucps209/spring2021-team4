@@ -9,7 +9,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 import model.Level;
 import model.Wave;
-import model.Enums.EnemyTypes;
 import model.GameObjects.Enemies.Bouncer;
 import model.GameObjects.Enemies.EnemyObject;
 import model.GameObjects.Enemies.Ghost;

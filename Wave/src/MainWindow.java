@@ -13,12 +13,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.Game;
 import model.HighScore;
 import model.HighScoreList;
 import model.Level;
 import model.Wave;
-import model.GameObjects.Player;
 
 public class MainWindow {
     Wave w;
@@ -64,6 +62,8 @@ public class MainWindow {
                         break;
                     case RIGHT:
                         GameWindow.moveRight();
+                        break;
+                    default:
                         break;
                     }
                 }

@@ -1,19 +1,10 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 import java.io.*;
-import model.Enums.EnemyTypes;
-import model.Enums.PowerUps;
-import model.Enums.ShipSkins;
 import model.GameObjects.GameObject;
 import model.GameObjects.Obstacle;
-import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
-
-import model.GameObjects.*;
-import model.GameObjects.Enemies.*;
-import model.GameObjects.Powerups.*;
 
 public class Game {
     // Class that handles all game parts after game has started
