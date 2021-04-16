@@ -34,6 +34,7 @@ public abstract class GameObject {
     protected static IntegerProperty speed = new SimpleIntegerProperty();
 
     public abstract String serialize();
+
     public abstract boolean deserialize(String info);
 
     ArrayList<Obstacle> obstacles;
@@ -42,7 +43,7 @@ public abstract class GameObject {
     public Level currentLevel;
     public Thread hitDetection = new Thread(() -> {
         Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
-            checkWallCollision(); 
+            checkWallCollision();
         }));
         t.setCycleCount(Timeline.INDEFINITE);
         t.play();
@@ -84,27 +85,27 @@ public abstract class GameObject {
             System.out.println("HIT!");
             return true;
         } else if (gc.equals(DestroyShip.class)) {
-            PowerUp power = (PowerUp)g;
+            PowerUp power = (PowerUp) g;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(Freeze.class)) {
-            PowerUp power = (PowerUp)g;
+            PowerUp power = (PowerUp) g;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(HealthGainBig.class)) {
-            PowerUp power = (PowerUp)g;
+            PowerUp power = (PowerUp) g;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(HealthGainSmall.class)) {
-            PowerUp power = (PowerUp)g;
+            PowerUp power = (PowerUp) g;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(TemporaryInvincible.class)) {
-            PowerUp power = (PowerUp)g;
+            PowerUp power = (PowerUp) g;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(Obstacle.class)) {
-            
+
         }
         // the default case
         return true;
@@ -151,42 +152,53 @@ public abstract class GameObject {
     public String toString() {
         String template = "x : %s \n y : %s \n dx : %s \n dy : %s \n";
         String s = String.format(template, getX(), getY(), getDx(), getDy());
-        return s; 
+        return s;
     }
 
     public int getX() {
         return this.x.get();
     }
+
     public void setX(int x) {
         this.x.set(x);
     }
+
     public int getY() {
         return this.y.get();
     }
+
     public void setY(int y) {
         this.y.set(y);
     }
+
     public int getDx() {
         return this.dx.get();
     }
+
     public void setDx(int dx) {
         this.dx.set(dx);
     }
+
     public int getDy() {
         return this.dy.get();
     }
+
     public void setDy(int dy) {
         this.dy.set(dy);
     }
+
     public int getWidth() {
         return this.width.get();
     }
+
     public void setWidth(int width) {
         this.width.set(width);
     }
+
     public int getHeight() {
         return this.height.get();
     }
+
     public void setHeight(int height) {
         this.height.set(height);
     }
@@ -206,20 +218,25 @@ public abstract class GameObject {
     public IntegerProperty xProperty() {
         return x;
     }
+
     public IntegerProperty yProperty() {
         return y;
     }
+
     public IntegerProperty dxProperty() {
         return dx;
     }
+
     public IntegerProperty dyProperty() {
         return dy;
     }
+
     public IntegerProperty widthProperty() {
         return width;
     }
+
     public IntegerProperty heightProperty() {
         return height;
     }
-    
+
 }

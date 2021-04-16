@@ -4,19 +4,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
-<VBox fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@MainWindow.css"
-    spacing="10" prefWidth="800" prefHeight="600" alignment="CENTER">
+<VBox fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml" stylesheets="@MainWindow.css" spacing="10" prefWidth="800" prefHeight="600" alignment="CENTER">
 
     <ImageView>
         <image>
-            <Image url="@./images/text.png"/>
+            <Image url="@./images/text.png" />
         </image>
     </ImageView>
 
-    <Button text="NEW GAME" onAction="#onNewGameClicked"/>
-    <Button text="LOAD GAME" onAction="#onLoadCustomGameClicked"/>
-    <Button text="ABOUT" onAction="#onAboutClicked"/>
+    <Button text="NEW GAME" onAction="#onNewGameClicked" />
+    <Button text="LOAD GAME" onAction="#onLoadCustomGameClicked" />
+    <Button text="ABOUT" onAction="#onAboutClicked" />
     <Button text="HELP" onAction="#onHelpClicked" />
-    <Button text="OPTIONS" onAction="#onOptionsClicked"/>
-    <Button text="HIGH SCORES" onAction="#onScoresClicked"/>
+    <Button text="OPTIONS" onAction="#onOptionsClicked" />
+    <Button text="HIGH SCORES" onAction="#onScoresClicked" />
 </VBox>

@@ -19,41 +19,39 @@ import model.Wave;
 import model.GameObjects.GameObject;
 import model.Enums.EnemyTypes;
 
-
 public class GameWindow {
 
     Wave w;
     static Player p;
     static Game g;
 
-    @FXML Pane pane;
-    @FXML Label health;
+    @FXML
+    Pane pane;
+    @FXML
+    Label health;
 
-   
     static Timeline timer;
+
     @FXML
     public void initialize() {
 
-        
         w = Wave.getInstance();
         w.gameStart();
         g = w.getGame();
         p = g.getCurrentLevel().getPlayer();
         health.textProperty().bind(p.healthProperty().asString());
         spawnEntities();
-        
+
         // Getting the game to update at 16.7ms or ~60fps
-        timer = new Timeline(
-            new KeyFrame(Duration.millis(16.7), e -> {
-                g.update();
+        timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
+            g.update();
             var s = pane.getChildren();
 
-             
-            }));
+        }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
-        //Platform.exit();
-        
+        // Platform.exit();
+
     }
 
     public void spawnEntities() {
@@ -103,11 +101,11 @@ public class GameWindow {
             }
         }
     }
-    
+
     // close the timer
     public static void onClosed() {
         timer.stop();
- 
+
     }
 
     public static void moveUp() {
@@ -137,7 +135,7 @@ public class GameWindow {
             g.update();
         }
     }
-    
+
     public static void moveNeutral() {
         p.moveNeutral();
         g.update();

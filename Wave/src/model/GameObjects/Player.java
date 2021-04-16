@@ -36,13 +36,13 @@ public class Player extends GameObject {
             Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
 
                 ArrayList<Boolean> isFinished = new ArrayList<>();
-                for(GameObject object : this.hits){
+                for (GameObject object : this.hits) {
                     isFinished.add(processHit(object, this));
                     // store true if should be delete, store false other wise
                 }
                 int i = 0;
-                for(boolean value : isFinished){
-                    if(value){
+                for (boolean value : isFinished) {
+                    if (value) {
                         this.hits.remove(i);
                     }
                     i++;
@@ -52,17 +52,16 @@ public class Player extends GameObject {
                 if (checkCollision(currentLevel.getEnemies()) != null) {
                     hits.add(checkCollision(currentLevel.getEnemies()));
                 }
-                
-                PowerUp hitPowerUp = (PowerUp)checkCollision(currentLevel.getPowerups());
-                if(hitPowerUp != null){     
-                    hits.add(hitPowerUp);  //TODO: potentially cause problem in delay powerup's reaction?
-                }
 
+                PowerUp hitPowerUp = (PowerUp) checkCollision(currentLevel.getPowerups());
+                if (hitPowerUp != null) {
+                    hits.add(hitPowerUp); // TODO: potentially cause problem in delay powerup's reaction?
+                }
 
             }));
             t.setCycleCount(Timeline.INDEFINITE);
             t.play();
-        }); 
+        });
     }
 
     public void moveUp() {
@@ -105,7 +104,9 @@ public class Player extends GameObject {
 
     public ArrayList<PowerUp> getActivaedPowerUps() {
         return activaedPowerUps;
-    }   public boolean isTemporaryInvincible() {
+    }
+
+    public boolean isTemporaryInvincible() {
         return temporaryInvincible;
     }
 
@@ -129,10 +130,10 @@ public class Player extends GameObject {
     public void setActivaedPowerUps(ArrayList<PowerUp> activaedPowerUs) {
         this.activaedPowerUps = activaedPowerUs;
     }
+
     public void setTemporaryInvincible(boolean temporaryInvincible) {
         this.temporaryInvincible = temporaryInvincible;
     }
-
 
     @Override
     public String serialize() {
@@ -165,7 +166,5 @@ public class Player extends GameObject {
             return false;
         }
     }
-
- 
 
 }

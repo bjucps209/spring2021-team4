@@ -15,6 +15,7 @@ public abstract class PowerUp extends GameObject {
   protected PowerUps type;
   protected boolean isFinished = false;
   protected int effectiveTime;
+
   public abstract void collisionWithPlayer(Player p);
 
   public PowerUp(Level l) {
@@ -69,7 +70,6 @@ public abstract class PowerUp extends GameObject {
 
   }
 
-  
   public PowerUps getType() {
     return type;
   }

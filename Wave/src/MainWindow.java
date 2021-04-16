@@ -20,7 +20,6 @@ import model.Level;
 import model.Wave;
 import model.GameObjects.Player;
 
-
 public class MainWindow {
     Wave w;
 
@@ -54,18 +53,18 @@ public class MainWindow {
             public void handle(KeyEvent k) {
                 if (k.getEventType() == KeyEvent.KEY_PRESSED) {
                     switch (k.getCode()) {
-                        case UP:
-                            GameWindow.moveUp();
-                            break;
-                        case DOWN:
-                            GameWindow.moveDown();
-                            break;
-                        case LEFT:
-                            GameWindow.moveLeft();
-                            break;
-                        case RIGHT:
-                            GameWindow.moveRight();
-                            break;
+                    case UP:
+                        GameWindow.moveUp();
+                        break;
+                    case DOWN:
+                        GameWindow.moveDown();
+                        break;
+                    case LEFT:
+                        GameWindow.moveLeft();
+                        break;
+                    case RIGHT:
+                        GameWindow.moveRight();
+                        break;
                     }
                 }
             }
@@ -87,20 +86,20 @@ public class MainWindow {
                 GameWindow.onClosed();
             }
         });
-        
+
     }
 
     @FXML
-    // click on load level to 
+    // click on load level to
     void onLoadCustomGameClicked() {
-        
+
         VBox topVBox = new VBox();
         topVBox.setId("menu-background");
         topVBox.setAlignment(Pos.CENTER);
 
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.CENTER);
-        
+
         VBox leftVBox = new VBox();
         leftVBox.setPadding(new Insets(10));
         leftVBox.setSpacing(10);
@@ -125,9 +124,10 @@ public class MainWindow {
         }
         hbox.getChildren().add(rightVBox);
 
-        topVBox.getChildren().add(new Label("Click which levels you want to add to your custom game, if a level does not exist, \nnothing will be added.\nClick Start Game to begin a game with your custom levels."));
+        topVBox.getChildren().add(new Label(
+                "Click which levels you want to add to your custom game, if a level does not exist, \nnothing will be added.\nClick Start Game to begin a game with your custom levels."));
         topVBox.getChildren().add(hbox);
-        
+
         Button button = new Button("Start Game");
         button.setOnAction(this::startCustomGame);
         topVBox.getChildren().add(button);
@@ -153,8 +153,7 @@ public class MainWindow {
                 customGameLevels.add(l);
             }
 
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
         }
     }
 
@@ -165,18 +164,16 @@ public class MainWindow {
             try {
                 onNewGameClicked();
                 w.getGame().setLevels(customGameLevels);
-            }
-            catch (IOException exception) {
+            } catch (IOException exception) {
 
             }
-        }
-        else {
+        } else {
             var alert = new Alert(AlertType.INFORMATION, "You haven't picked any custom levels to play yet.");
             alert.show();
         }
-        
+
     }
-    
+
     @FXML
     // Screen to show how to play the game
     public void onAboutClicked() {
@@ -194,11 +191,9 @@ public class MainWindow {
 
         aboutScene.getStylesheets().add("MainWindow.css");
 
-        String INFO = "You can begin the game by clicking on NEW GAME.\n" +
-                      "\n" +
-                      "When playing the game keep this in mind:\n" +
-                      "- You will lose health if you are hit by an enemy.\n" +
-                      "- You can run into powerups that will give you an advantage.\n";
+        String INFO = "You can begin the game by clicking on NEW GAME.\n" + "\n"
+                + "When playing the game keep this in mind:\n" + "- You will lose health if you are hit by an enemy.\n"
+                + "- You can run into powerups that will give you an advantage.\n";
 
         Label lblInfo = new Label(INFO);
         vbox.getChildren().add(lblInfo);
@@ -225,8 +220,8 @@ public class MainWindow {
         Label space = new Label();
         space.setText(" ");
         Label lblPlayer = new Label();
-        lblPlayer.setText("Move Left and Right: left arrow / right arrow\n" +
-                          "Move up and down: up arrow / down arrow");
+        lblPlayer
+                .setText("Move Left and Right: left arrow / right arrow\n" + "Move up and down: up arrow / down arrow");
 
         vbox.getChildren().add(lblTitle);
         vbox.getChildren().add(space);
@@ -254,22 +249,21 @@ public class MainWindow {
         label.setText("SELECT DIFFICULTY");
         vbox.getChildren().add(label);
 
-        
         btnEasy.setText("EASY");
         btnEasy.setPrefWidth(200);
         btnEasy.setOnAction(e -> onEasyClicked(e));
         vbox.getChildren().add(btnEasy);
-        
+
         btnMedium.setText("MEDIUM");
         btnMedium.setPrefWidth(200);
         btnMedium.setOnAction(e -> onMediumClicked(e));
         vbox.getChildren().add(btnMedium);
-        
+
         btnHard.setText("HARD");
         btnHard.setPrefWidth(200);
         btnHard.setOnAction(e -> onHardClicked(e));
         vbox.getChildren().add(btnHard);
-        
+
         btnCheat.setText("CHEAT");
         btnCheat.setPrefWidth(200);
         btnCheat.setOnAction(e -> onCheatClicked(e));
@@ -277,19 +271,19 @@ public class MainWindow {
     }
 
     void onEasyClicked(ActionEvent event) {
-        
+
     }
 
     void onMediumClicked(ActionEvent event) {
-        
+
     }
 
     void onHardClicked(ActionEvent event) {
-        
+
     }
 
     void onCheatClicked(ActionEvent event) {
-        
+
     }
 
     // Screen to display High Scores
