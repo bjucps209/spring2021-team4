@@ -84,16 +84,40 @@ public class GameWindow {
                 bouncerImageView.layoutYProperty().bind(o.yProperty());
                 break;
             case GHOST:
-
+                Image ghostImage = new Image("./Images/enemyBlack4.png");
+                ImageView ghostImageView = new ImageView(ghostImage);
+                ghostImageView.setFitWidth(o.getWidth());
+                ghostImageView.setFitHeight(o.getHeight());
+                pane.getChildren().add(ghostImageView);
+                ghostImageView.layoutXProperty().bind(o.xProperty());
+                ghostImageView.layoutYProperty().bind(o.yProperty());
                 break;
             case LASER:
-
+                Image laserImage = new Image("./Images/enemyBlack4.png");
+                ImageView laserImageView = new ImageView(laserImage);
+                laserImageView.setFitWidth(o.getWidth());
+                laserImageView.setFitHeight(o.getHeight());
+                pane.getChildren().add(laserImageView);
+                laserImageView.layoutXProperty().bind(o.xProperty());
+                laserImageView.layoutYProperty().bind(o.yProperty());
                 break;
             case SHAPESHIFTER:
-
+                Image shapeshifterImage = new Image("./Images/enemyBlack4.png");
+                ImageView shapeshifterImageView = new ImageView(shapeshifterImage);
+                shapeshifterImageView.setFitWidth(o.getWidth());
+                shapeshifterImageView.setFitHeight(o.getHeight());
+                pane.getChildren().add(shapeshifterImageView);
+                shapeshifterImageView.layoutXProperty().bind(o.xProperty());
+                shapeshifterImageView.layoutYProperty().bind(o.yProperty());
                 break;
             case TRACKER:
-
+                Image trackerImage = new Image("./Images/enemyBlack4.png");
+                ImageView trackerImageView = new ImageView(trackerImage);
+                trackerImageView.setFitWidth(o.getWidth());
+                trackerImageView.setFitHeight(o.getHeight());
+                pane.getChildren().add(trackerImageView);
+                trackerImageView.layoutXProperty().bind(o.xProperty());
+                trackerImageView.layoutYProperty().bind(o.yProperty());
                 break;
             default:
 

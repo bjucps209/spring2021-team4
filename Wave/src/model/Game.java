@@ -32,11 +32,16 @@ public class Game {
 
     // Constructor
     public Game(int width, int height) {
+        w = Wave.getInstance();
         gameWidth = width;
         gameHeight = height;
-        createLevels();
+        try {
+            createLevels();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         currentLevel = levels.get(levelNum);
-        initializeLevel(currentLevel);
     }
 
     // Main game update function for updating each object
@@ -62,14 +67,9 @@ public class Game {
         }
     }
 
-    // initializes game with current level
-    public void initializeLevel(Level l) {
-
-    }
-
     // creates all hard-coded levels and stores in arraylist
-    public void createLevels() {
-        Level l = new Level();
+    public void createLevels() throws IOException {
+        Level l = w.loadCustomLevel("customLevel0");
         levels.add(l);
     }
 
@@ -77,7 +77,6 @@ public class Game {
     public void nextLevel() {
         levelNum++;
         currentLevel = levels.get(levelNum);
-        initializeLevel(currentLevel);
     }
 
     // --- setters ---
