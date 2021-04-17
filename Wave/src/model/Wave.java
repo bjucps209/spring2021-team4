@@ -10,6 +10,7 @@ import model.Enums.*;
 import model.GameObjects.*;
 import model.GameObjects.Enemies.*;
 import model.GameObjects.Powerups.*;
+import model.GameObjects.Obstacles.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 

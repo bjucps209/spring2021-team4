@@ -21,7 +21,7 @@ import model.GameObjects.Powerups.HealthGainBig;
 import model.GameObjects.Powerups.HealthGainSmall;
 import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
-
+import model.GameObjects.Obstacles.*;
 public abstract class GameObject {
     // abstract class for all game objects
     protected IntegerProperty x = new SimpleIntegerProperty();

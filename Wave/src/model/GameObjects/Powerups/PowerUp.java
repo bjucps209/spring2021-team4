@@ -17,6 +17,8 @@ public abstract class PowerUp extends GameObject {
 
   public PowerUp(Level l) {
     super(l);
+    this.dx.set(0);
+    this.dy.set(0);
   }
 
   @Override
@@ -27,12 +29,25 @@ public abstract class PowerUp extends GameObject {
   @Override
   public String serialize() {
     // TODO: type for different power ups
-    return "PowerUp;";// TODO: type, x,y,dx,dy
+    
+    return "PowerUp;"+type.toString()+";"+x.get()+";"+y.get()+";"+width.get()+";"+height.get()+";"+dx.get()+";"+dy.get();
   }
 
   public boolean deserialize(String info) {
-    // TODO: deserialize it later
-    return true;
+
+    // Note: powerup and type has already been deserialzied at level base
+    try{
+      String [] infos = info.split(";");
+      this.x.set(Integer.parseInt(infos[0]));
+      this.y.set(Integer.parseInt(infos[1]));
+      this.width.set(Integer.parseInt(infos[2]));
+      this.height.set(Integer.parseInt(infos[3]));
+      this.dx.set(Integer.parseInt(infos[4]));
+      this.dy.set(Integer.parseInt(infos[5]));
+      return true;
+    }catch (Exception e){
+      return false;
+    }
   }
 
   // A factory method for all powerups

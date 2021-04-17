@@ -5,9 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import model.Enums.EnemyTypes;
 import model.Enums.ObstacleTypes;
+import model.Enums.PowerUps;
 import model.Enums.ShipSkins;
-import model.GameObjects.GameObject;
-import model.GameObjects.Obstacle;
+import model.GameObjects.Obstacles.*;
+import model.GameObjects.*;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.Bouncer;
 import model.GameObjects.Enemies.EnemyObject;
@@ -15,7 +16,12 @@ import model.GameObjects.Enemies.Ghost;
 import model.GameObjects.Enemies.Laser;
 import model.GameObjects.Enemies.Shapeshifter;
 import model.GameObjects.Enemies.Tracker;
+import model.GameObjects.Powerups.DestroyShip;
+import model.GameObjects.Powerups.Freeze;
+import model.GameObjects.Powerups.HealthGainBig;
+import model.GameObjects.Powerups.HealthGainSmall;
 import model.GameObjects.Powerups.PowerUp;
+import model.GameObjects.Powerups.TemporaryInvincible;
 
 public class Level {
     // Class that holds all info for 1 level
@@ -202,6 +208,7 @@ public class Level {
                 info += object.serialize() + "/n";
             }else{
                 // means this object is a player
+                // actually should not be player anymore
             }
 
         }
@@ -219,6 +226,7 @@ public class Level {
 
         // TODO: handle difficulty level
         String difficultyLevel = rd.readLine();
+        boolean success = true;
 
         int totalPlayer = Integer.parseInt(rd.readLine());
         if (totalPlayer == 1) {
@@ -277,21 +285,43 @@ public class Level {
                     }
                 }
 
-                String object = gameObjectInfo[0];
+                String object = gameObjectInfo[0]; // String indicate the name
                 String type = gameObjectInfo[1];
 
                 if (object.equals("EnemyObject")) {
                     // TODO: multiple other kind of enemy
                     EnemyObject enemy = new EnemyObject(this) {
                     }; // the reference will change depent on different enemy later
-                    if (EnemyTypes.valueOf(type) == EnemyTypes.BOUNCER) {
-                        enemy = new Bouncer(this);
-                        enemy.setType(EnemyTypes.valueOf(type)); // set enemy type value
 
+                    switch (EnemyTypes.valueOf(type)){
+                        case BOUNCER:{
+                            enemy = new Bouncer(this);
+                            enemy.setType(EnemyTypes.valueOf(type));
+                        }
+                        case TRACKER:{
+                            enemy = new Tracker(this);
+                            enemy.setType(EnemyTypes.valueOf(type));
+                        }
+                        case GHOST:{
+                            enemy = new Ghost(this);
+                            enemy.setType(EnemyTypes.valueOf(type));
+                        }
+                        case LASER:{
+                            enemy = new Laser(this);
+                            enemy.setType(EnemyTypes.valueOf(type));
+                        }
+                        case SHAPESHIFTER:{
+                            enemy = new Shapeshifter(this);
+                            enemy.setType(EnemyTypes.valueOf(type));
+                        }
+                        default :
+                            // shoud not happen
+                           success = false;
                     }
 
                     if (enemy.deserialize(restInfo) == false) {
-                        throw new IOException("error in converting enemy data");
+                        //throw new IOException("error in converting enemy data");
+                        return false;
                     } else {
                         // add enemy into list
                         allObjects.add(enemy);
@@ -310,16 +340,41 @@ public class Level {
                         obstacles.add(obstacle);
                     }
                 } else if (object.equals("PowerUp")) {
-                    // TODO: power up shold have different type
-                    // TODO: in beta version
+                    PowerUp power;
+
+                    switch(PowerUps.valueOf(type)){
+                        case Freeze:{
+                            power = new Freeze(this);
+                            power.setType(PowerUps.valueOf(type));
+                        }
+                        case DestroyShip:{
+                            power = new DestroyShip(this);
+                            power.setType(PowerUps.valueOf(type));
+                        }
+                        case TemporaryInvincible:{
+                            power = new TemporaryInvincible(this);
+                            power.setType(PowerUps.valueOf(type));
+                        }
+                        case HealthGainBig:{
+                            power = new HealthGainBig(this);
+                            power.setType(PowerUps.valueOf(type));
+                        }
+                        case HealthGainSmall:{
+                            power = new HealthGainSmall(this);
+                            power.setType(PowerUps.valueOf(type));
+                        }
+                        default:
+                            success = false;
+                    }
                 } else {
+
                     // contains a type that does not exist
-                    throw new IOException("Object has a type does not exist");
+                    return false;
                 }
             }
         
 
-        return true;
+        return true && success;
 
     }
 
