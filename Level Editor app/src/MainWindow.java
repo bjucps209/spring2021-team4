@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.*;
+// import java.net.FileNameMap;
 // import java.nio.ByteBuffer;
 import java.util.regex.Pattern;
 
@@ -30,6 +31,8 @@ public class MainWindow {
     VBox vbox1;
     @FXML
     VBox vbox2;
+    @FXML
+    VBox saveFileVBox;
 
     @FXML
     Label lblLoc;
@@ -60,6 +63,8 @@ public class MainWindow {
     @FXML
     TextField txtFAppearanceTime;
 
+    @FXML
+    TextField txtFFileName;
     
 
     @FXML
@@ -219,7 +224,7 @@ public class MainWindow {
                     setPosition(currentImage, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
                 }
                 catch (NumberFormatException e) {
-                    var alert = new Alert(AlertType.INFORMATION, "Please supply Integer values only.");
+                    var alert = new Alert(AlertType.ERROR, "Please supply Integer values only.");
                     alert.show();
                 }
             }
@@ -229,7 +234,7 @@ public class MainWindow {
                     powerUp.setAppearTime(Integer.parseInt(txtFAppearanceTime.getText()));
                 }
                 catch (NumberFormatException f) {
-                    var alert = new Alert(AlertType.INFORMATION, "Please supply Integer values only.");
+                    var alert = new Alert(AlertType.ERROR, "Please supply Integer values only.");
                     alert.show();
                 }
             }
@@ -258,57 +263,58 @@ public class MainWindow {
     // create a new object
     @FXML
     void onCreateNewClicked() {
-        // try {
-        // tab the following in if try catch re implemented
-        String str = (String) typeBox.getValue();
-    
-        // each option in the combobox has a user friendly word followed by the name of the png file that represents it, separated by a space. I used the png file "word" when designing the Level Builder
-        String[] split = str.split(" ");
-        ImageView imgView = new ImageView("/LevelEditorImages/" + split[1] + ".png");
+        try {
+            // tab the following in if try catch re implemented
+            String str = (String) typeBox.getValue();
         
-        imgView.setOnMouseDragged(this::onMouseDragged);
-        imgView.setOnMouseClicked(this::onMouseClicked);
-        // pass in the string to be evaluated in createGameObjects
-        var obj = createGameObjects(split[1]);
-        imgView.setUserData(obj);
-        
-        if (split[0].equals("Laser")) {
-            try {
-                if (orientationBox.getValue().equals("Horizontal")) {
-                    setPosition(imgView, 0, Integer.parseInt(txtFYValue.getText()));
-                }
-                else if (orientationBox.getValue().equals("Vertical")) {
-                    setPosition(imgView, Integer.parseInt(txtFXValue.getText()), 0);
-                }
-                pane.getChildren().add(imgView);
-            }
-            catch (Exception e) {
-                var alert = new Alert(AlertType.INFORMATION, "Please select an orientation for the laser.");
-                alert.show();
-            }
-        }
-        else {
-            if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
-                pane.getChildren().add(imgView);
-                setPosition(imgView, 0, 0);
-            }
-            else {
+            // each option in the combobox has a user friendly word followed by the name of the png file that represents it, separated by a space. I used the png file "word" when designing the Level Builder
+            String[] split = str.split(" ");
+            ImageView imgView = new ImageView("/LevelEditorImages/" + split[1] + ".png");
+            
+            imgView.setOnMouseDragged(this::onMouseDragged);
+            imgView.setOnMouseClicked(this::onMouseClicked);
+            // pass in the string to be evaluated in createGameObjects
+            var obj = createGameObjects(split[1]);
+            imgView.setUserData(obj);
+            
+            if (split[0].equals("Laser")) {
                 try {
+                    if (orientationBox.getValue().equals("Horizontal")) {
+                        setPosition(imgView, 0, Integer.parseInt(txtFYValue.getText()));
+                    }
+                    else if (orientationBox.getValue().equals("Vertical")) {
+                        setPosition(imgView, Integer.parseInt(txtFXValue.getText()), 0);
+                    }
                     pane.getChildren().add(imgView);
-
-                    setPosition(imgView, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
                 }
-                catch (NumberFormatException e) {
-                    var alert = new Alert(AlertType.INFORMATION, "Please choose an integer.");
+                catch (NullPointerException e) {
+                    var alert = new Alert(AlertType.ERROR, "Please select an orientation for the laser.");
                     alert.show();
                 }
             }
+            else {
+                if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
+                    pane.getChildren().add(imgView);
+                    setPosition(imgView, 0, 0);
+                }
+                else {
+                    try {
+                        pane.getChildren().add(imgView);
+
+                        setPosition(imgView, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
+                    }
+                    catch (NumberFormatException e) {
+                        var alert = new Alert(AlertType.ERROR, "Please choose an integer.");
+                        alert.show();
+                    }
+                }
+            }
+            setCurrent(imgView);
         }
-        // }
-        // catch (Exception e) {
-        //     var alert = new Alert(AlertType.INFORMATION, e.getMessage());
-        //     alert.show();
-        // }
+        catch (IllegalArgumentException e) {
+            var alert = new Alert(AlertType.ERROR, e.getMessage());
+            alert.show();
+        }
         
     }
 
@@ -347,6 +353,8 @@ public class MainWindow {
         // make this file and get its absolute path so creating files in other folders works on any system.
         File f = new File("MainWindow.java");
 
+        String fileName = txtFFileName.getText();
+
         String absolutePath = f.getAbsolutePath();
         int findWave = absolutePath.indexOf("Level Editor app");
         String basePath = absolutePath.substring(0, findWave);
@@ -381,23 +389,25 @@ public class MainWindow {
         }
 
         levelInfo += (allObjectInformation);
-
-        if (levelInfo.length() > 4) {
-            try (var stream = new FileOutputStream(basePath + "Wave\\customLevel" + String.valueOf(fileNumber) + ".dat");) {
-                if (fileNumber < 9) {
+        // try (var stream = new FileOutputStream(basePath + "Wave\\customLevel" + String.valueOf(fileNumber) + ".dat");)
+        if (levelInfo.length() > 0) {
+            if (!fileName.equals("")) {
+                try (var stream = new FileOutputStream(basePath + "Wave\\" + fileName + ".dat");) {
                     byte[] byteLevelInfo = levelInfo.getBytes();
                     stream.write(byteLevelInfo);
-                    fileNumber ++;
-                }
-                else {
-                    var alert = new Alert(AlertType.INFORMATION, "10 levels created.");
+                    var alert = new Alert(AlertType.INFORMATION, "File saved as " + fileName);
                     alert.show();
                 }
-                
+            }
+            else {
+                var alert = new Alert(AlertType.ERROR, "Please pick a file name.");
+                alert.show();
             }
         }
-        
-
+        else {
+            var alert = new Alert(AlertType.ERROR, "Cannot save an 'empty' level.");
+            alert.show();
+            }
     }
 
     
@@ -418,95 +428,4 @@ public class MainWindow {
             lblTime.setText("");
         }
     }
-
-    // // method to load custom levels - RTR
-    // public void loadCustomLevel() throws IOException {
-
-    //     try (var stream = new FileInputStream("customLevel0.dat");) {
-    //         var f = new File("customLevel0.dat");
-    //         int lengthOfLevel = (int) f.length();
-    //         var level = new Level();
-
-    //         byte[] levelInfoBytes = new byte[lengthOfLevel];
-    //         stream.read(levelInfoBytes);
-    //         String levelInfoString = new String(levelInfoBytes);
-
-    //         // level difficulty
-    //         // char levelDifficulty = levelInfoString.charAt(0);
-
-    //         levelInfoString = levelInfoString.substring(1);
-
-    //         String[] instances = levelInfoString.split("\\|");
-            
-    //         for (String instance : instances) {
-    //             String[] instanceInfo = instance.split(Pattern.quote(","));
-                
-    //             GameObject object;
-    //             // enemy entities
-    //             if (instanceInfo[0].equals("Bouncer")) {
-    //                 object = EnemyObject.create(EnemyTypes.BOUNCER);
-    //             }
-    //             else if (instanceInfo[0].equals("Ghost")) {
-    //                 object = EnemyObject.create(EnemyTypes.GHOST);
-    //             }
-    //             else if (instanceInfo[0].equals("Tracker")) {
-    //                 object = EnemyObject.create(EnemyTypes.TRACKER);
-    //             }
-    //             else if (instanceInfo[0].equals("ShapeShifter")) {
-    //                 object = EnemyObject.create(EnemyTypes.SHAPESHIFTER);
-    //             }
-    //             else if (instanceInfo[0].equals("Laser")) {
-    //                 object = EnemyObject.create(EnemyTypes.LASER);
-    //             }
-    //             // powerups
-    //             else if (instanceInfo[0].equals("DestroyShip")) {
-    //                 object = PowerUp.create(PowerUps.DestroyShip);
-    //                 ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
-    //             }
-    //             else if (instanceInfo[0].equals("Freeze")) {
-    //                 object = PowerUp.create(PowerUps.Freeze);
-    //                 ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
-    //             }
-    //             else if (instanceInfo[0].equals("HealthGainSmall")) {
-    //                 object = PowerUp.create(PowerUps.HealthGainSmall);
-    //                 ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
-    //             }
-    //             else if (instanceInfo[0].equals("TemporaryInvincible")) {
-    //                 object = PowerUp.create(PowerUps.TemporaryInvincible);
-    //                 ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
-    //             }
-    //             else if (instanceInfo[0].equals("HealthGainBig")) {
-    //                 object = PowerUp.create(PowerUps.HealthGainBig);
-    //                 ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
-    //             }
-    //             else if (instanceInfo[0].equals("Player")) {
-    //                 object = new Player();
-    //             }
-    //             // obstacles
-    //             else {
-    //                 object = new Obstacle();
-    //             }
-    //             object.setX(Integer.parseInt(instanceInfo[1]));
-    //             object.setY(Integer.parseInt(instanceInfo[2]));
-    //             level.getAllObjects().add(object);
-
-    //             // add object to corresponding part of the level
-    //             if (object instanceof PowerUp) {
-                    
-    //                 level.getPowerups().add((PowerUp) object);
-    //             }
-    //             else if (object instanceof Obstacle) {
-    //                 level.getObstacles().add((Obstacle) object);
-    //             }
-    //             else if (object instanceof EnemyObject) {
-    //                 level.getEnemies().add((EnemyObject) object);
-    //             }
-    //         }
-    //         // levels.add(level);
-            
-    //     }
-    //     catch (IOException e) {
-    //         System.out.println("caught on file exception \nFileName:");
-    //     }
-    // }
 }

@@ -61,6 +61,8 @@
                 <Label text="Heading:" />
                 <Label text="Appearance Time:" />
                 <Button text="save level" styleClass="leftbutton" onAction="#onSaveLevelClicked"/>
+                <Label text="Name of File:"/>
+                <TextField fx:id="txtFFileName"/>
                 <!-- <Button text="load level" styleClass="leftbutton" onAction="#loadCustomLevel"/> -->
             </VBox>
             <VBox spacing="10" minWidth="50">
