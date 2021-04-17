@@ -26,7 +26,8 @@ public class DestroyShip extends PowerUp {
     int enemyIndex = ran.nextInt(((enemies.size() - 1) - 0) + 1) + 0;
 
     // TODO method of deleting variable
-
+    currentLevel.getAllObjects().remove(currentLevel.getEnemies().get(enemyIndex));
+    currentLevel.getEnemies().remove(enemyIndex);
   }
 
 }

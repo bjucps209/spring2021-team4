@@ -46,14 +46,20 @@ public abstract class EnemyObject extends GameObject {
             break;
         case GHOST:
             enemy = new Ghost(l);
+            enemy.setDx(Ghost.speed);
+            enemy.setDy(Ghost.speed);
             enemy.setType(e);
             break;
         case LASER:
             enemy = new Laser(l);
+            enemy.setDx(Laser.speed);
+            enemy.setDy(Laser.speed);
             enemy.setType(e);
             break;
         case SHAPESHIFTER:
             enemy = new Shapeshifter(l);
+            enemy.setDx(Shapeshifter.speed);
+            enemy.setDy(Shapeshifter.speed);
             enemy.setType(e);
             break;
         case TRACKER:

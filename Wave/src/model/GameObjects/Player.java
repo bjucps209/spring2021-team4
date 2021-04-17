@@ -31,31 +31,15 @@ public class Player extends GameObject {
         setHeight(50);
         hitDetection = new Thread(() -> {
             while (true) {
-                ArrayList<Boolean> isFinished = new ArrayList<>();
-                for (GameObject object : this.hits) {
-                    isFinished.add(processHit(object, this));
-                    // store true if should be delete, store false other wise
-    
-                }
-                int i = 0;
-                for (boolean value : isFinished) {
-                    if (value) {
-                        this.hits.remove(i);
-                    }
-                    i++;
-                }
-    
                 checkWallCollision();
                 if (checkCollision(currentLevel.getEnemies()) != null) {
                     hits.add(checkCollision(currentLevel.getEnemies()));
-                }
-    
-                PowerUp hitPowerUp = (PowerUp) checkCollision(currentLevel.getPowerUps());
-                if (hitPowerUp != null) {
-                    hits.add(hitPowerUp); // TODO: potentially cause problem in delay powerup's reaction?
+                } else if (checkCollision(currentLevel.getPowerUps()) != null) {
+                    hits.add(checkCollision(currentLevel.getPowerUps()));
                 }
                 
-
+                processHit(hits.get(0), this);
+                hits.remove(hits.get(0));
 
                 try {
                     Thread.sleep(33);
