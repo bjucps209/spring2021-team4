@@ -13,9 +13,11 @@ public abstract class PowerUp extends GameObject {
   protected boolean isFinished = false;
   protected int effectiveTime;
   protected int passedTime = 0; // might not be a int depent on implementation of running clock
-  
+  protected int startTime;
 
-  public abstract void collisionWithPlayer(Player p);
+  public  void collisionWithPlayer(Player p){
+    startTime = this.currentLevel.getRemainingTime();
+  }
 
   public PowerUp(Level l) {
     super(l);
@@ -30,6 +32,10 @@ public abstract class PowerUp extends GameObject {
   @Override
   public void update() {
     // powerups will not move during the game
+    this.passedTime = this.currentLevel.getRemainingTime() - this.startTime;
+    if(passedTime >= effectiveTime){
+      this.isFinished = true;
+    }
   }
 
   @Override
@@ -105,9 +111,7 @@ public abstract class PowerUp extends GameObject {
   }
 
   public boolean getIsFinished() {
-    if(passedTime >= effectiveTime){
-      this.isFinished = true;
-    }
+
     return this.isFinished;
   }
 
@@ -129,6 +133,14 @@ public abstract class PowerUp extends GameObject {
 
   public void setPassedTime(int passedTime) {
     this.passedTime = passedTime;
+  }
+
+  public int getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(int startTime) {
+    this.startTime = startTime;
   }
 
  
