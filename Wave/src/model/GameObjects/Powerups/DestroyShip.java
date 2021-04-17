@@ -24,9 +24,15 @@ public class DestroyShip extends PowerUp {
     ArrayList<EnemyObject> enemies = Wave.getInstance().getGame().getCurrentLevel().getEnemies();
 
     int enemyIndex = ran.nextInt(((enemies.size() - 1) - 0) + 1) + 0;
+    //TODO: delete 
 
-    // TODO method of deleting variable
+
+    this.isFinished = true;
+ 
+    
 
   }
+
+
 
 }

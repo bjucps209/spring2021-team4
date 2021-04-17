@@ -32,10 +32,7 @@ public abstract class PowerUp extends GameObject {
   @Override
   public void update() {
     // powerups will not move during the game
-    this.passedTime = this.currentLevel.getRemainingTime() - this.startTime;
-    if(passedTime >= effectiveTime){
-      this.isFinished = true;
-    }
+  
   }
 
   @Override

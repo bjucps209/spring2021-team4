@@ -15,10 +15,23 @@ public class TemporaryInvincible extends PowerUp{
     
   }
   @Override
+
+  public void update() {
+    // TODO Auto-generated method stub
+    this.passedTime = this.currentLevel.getRemainingTime() - this.startTime;
+    if(passedTime >= effectiveTime){
+      this.isFinished = true;
+    }
+  }
+  @Override
   public void collisionWithPlayer(Player p) {
     // TODO Auto-generated method stub
     // Add up all duration
-    //
+    if(this.isFinished == false){
+      p.setTemporaryInvincible(true);
+    }else{
+      p.setTemporaryInvincible(false);
+    }
     
   }
   
