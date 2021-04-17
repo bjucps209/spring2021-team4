@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
@@ -39,7 +40,9 @@ public abstract class GameObject {
 
     ArrayList<Obstacle> obstacles;
     ArrayList<EnemyObject> enemies;
-    ArrayList<GameObject> hits = new ArrayList<GameObject>();
+    protected ArrayList<GameObject> hits = new ArrayList<GameObject>();
+    private int pauseDx;
+    private int pauseDy;
     public Level currentLevel;
     public Thread hitDetection = new Thread(() -> {
         while (true) {
@@ -50,7 +53,7 @@ public abstract class GameObject {
                 e.printStackTrace();
             }
         } 
-     });;
+    });;
 
     public GameObject(Level l) {
         currentLevel = l;
@@ -70,22 +73,34 @@ public abstract class GameObject {
         hitDetection.stop();
     }
 
+    public void pause() {
+        pauseDx = getDx();
+        pauseDy = getDy();
+        setDx(0);
+        setDy(0);
+    }
+
+    public void start() {
+        setDx(pauseDx);
+        setDy(pauseDy);
+    }
+
     public boolean processHit(GameObject g, Player p) {
         Class gc = g.getClass();
         if (gc.equals(Bouncer.class)) {
-            System.out.println("HIT!");
+            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(Ghost.class)) {
-            System.out.println("HIT!");
+            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(Laser.class)) {
-            System.out.println("HIT!");
+            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(Shapeshifter.class)) {
-            System.out.println("HIT!");
+            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(Tracker.class)) {
-            System.out.println("HIT!");
+            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(DestroyShip.class)) {
             PowerUp power = (PowerUp) g;
@@ -108,7 +123,13 @@ public abstract class GameObject {
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(Obstacle.class)) {
-
+            if (gc.equals(Player.class)) {
+                p.setDx(0);
+                p.setDy(0);
+            } else {
+                g.setDx(-getDx());
+                g.setDy(-getDy());
+            }
         }
         // the default case
         return true;
@@ -134,19 +155,19 @@ public abstract class GameObject {
     }
 
     public void checkWallCollision() {
-        if (getX() <= 4 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth()) {
+        if (getX() <= 0 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 10) {
             dx.set(-getDx());
             if (getX() < 10) {
                 x.set(1);
             } else {
                 x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 1);
             }
-        } else if (getY() <= 4 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight()) {
+        } else if (getY() <= -5 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 25) {
             dy.set(-getDy());
             if (getY() < 10) {
                 y.set(1);
             } else {
-                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 1);
+                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 20);
             }
         }
     }
