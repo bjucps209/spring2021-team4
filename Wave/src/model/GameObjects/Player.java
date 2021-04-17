@@ -21,7 +21,7 @@ public class Player extends GameObject {
     private IntegerProperty health = new SimpleIntegerProperty(100);
     private int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
     private ShipSkins currentShipSkins;
-    //private ArrayList<GameObject> activatedAffects = new ArrayList<>();
+    // private ArrayList<GameObject> activatedAffects = new ArrayList<>();
     private boolean temporaryInvincible;
 
     public Player(Level l) {
@@ -33,42 +33,12 @@ public class Player extends GameObject {
         setWidth(50);
         setHeight(50);
         hitDetection = new Thread(() -> {
-           /* Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
-
-    //             ArrayList<Boolean> isFinished = new ArrayList<>();
-    //             for (GameObject object : this.hits) {
-    //                 isFinished.add(processHit(object, this));
-    //                 // store true if should be delete, store false other wise
-                
-                }
-                int i = 0;
-                for (boolean value : isFinished) {
-                    if (value) {
-                        this.hits.remove(i);
-                    }
-                    i++;
-                }
-
-                checkWallCollision();
-                if (checkCollision(currentLevel.getEnemies()) != null) {
-                    hits.add(checkCollision(currentLevel.getEnemies()));
-                }
-
-                PowerUp hitPowerUp = (PowerUp) checkCollision(currentLevel.getPowerUps());
-                if (hitPowerUp != null) {
-                    hits.add(hitPowerUp); // TODO: potentially cause problem in delay powerup's reaction?
-                }
-
-            }
-            ));
-            t.setCycleCount(Timeline.INDEFINITE);
-            t.play();*/
-
-            ArrayList<Boolean> isFinished = new ArrayList<>();
+            while (true) {
+                ArrayList<Boolean> isFinished = new ArrayList<>();
                 for (GameObject object : this.hits) {
                     isFinished.add(processHit(object, this));
                     // store true if should be delete, store false other wise
-                
+    
                 }
                 int i = 0;
                 for (boolean value : isFinished) {
@@ -77,22 +47,26 @@ public class Player extends GameObject {
                     }
                     i++;
                 }
-
+    
                 checkWallCollision();
                 if (checkCollision(currentLevel.getEnemies()) != null) {
                     hits.add(checkCollision(currentLevel.getEnemies()));
                 }
-
+    
                 PowerUp hitPowerUp = (PowerUp) checkCollision(currentLevel.getPowerUps());
                 if (hitPowerUp != null) {
                     hits.add(hitPowerUp); // TODO: potentially cause problem in delay powerup's reaction?
                 }
 
-            
+                try {
+                    Thread.sleep(33);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         });
-        
+
     }
-    
 
     public void moveUp() {
         setDy(-speed);
@@ -132,9 +106,10 @@ public class Player extends GameObject {
         return speed;
     }
 
-    /*public ArrayList<GameObject> getActivatedAffects() {
-        return this.activatedAffects;
-    }*/
+    /*
+     * public ArrayList<GameObject> getActivatedAffects() { return
+     * this.activatedAffects; }
+     */
 
     public boolean isTemporaryInvincible() {
         return temporaryInvincible;
@@ -157,9 +132,10 @@ public class Player extends GameObject {
         this.speed = speed;
     }
 
-    /*public void setActivatedAffects(ArrayList<GameObject> activatedPowerUs) {
-        this.activatedAffects = activatedPowerUs;
-    }*/
+    /*
+     * public void setActivatedAffects(ArrayList<GameObject> activatedPowerUs) {
+     * this.activatedAffects = activatedPowerUs; }
+     */
 
     public void setTemporaryInvincible(boolean temporaryInvincible) {
         this.temporaryInvincible = temporaryInvincible;
@@ -169,21 +145,20 @@ public class Player extends GameObject {
     public String serialize() {
         // TODO Auto-generated method stub
         // TODO still needs to add in special effects !!!
-        String returns =  health + ";" + currentShipSkins.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get() + ";"
-                + height.get() + ";" + dx.get() + ";" + dy.get() ;
-       
-        for(GameObject affObject : this.hits){
+        String returns = health + ";" + currentShipSkins.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get()
+                + ";" + height.get() + ";" + dx.get() + ";" + dy.get();
+
+        for (GameObject affObject : this.hits) {
             // need to give its affect type, enum type, remaining time
             String data = "";
-            if(affObject instanceof PowerUp){
-                PowerUp ob = (PowerUp)affObject;
-                data += "PowerUp,"+ob.getType()+","+ob.getEffectiveTime()+","+ob.getPassedTime();
-        
-            
-            }else{
+            if (affObject instanceof PowerUp) {
+                PowerUp ob = (PowerUp) affObject;
+                data += "PowerUp," + ob.getType() + "," + ob.getEffectiveTime() + "," + ob.getPassedTime();
+
+            } else {
                 // should be a panel
             }
-            returns += ";"+data;
+            returns += ";" + data;
         }
 
         return returns;
@@ -207,32 +182,32 @@ public class Player extends GameObject {
             this.dy.set(Integer.parseInt(restInfo[7]));
             // TODO: handle rest of special affect on player
 
-            if(restInfo.length != 8){
-                for(int i = 8; i < restInfo.length; i++){
-                    String [] data = restInfo[i].split(",");
-                    if(data[0].equals("PowerUp")){
+            if (restInfo.length != 8) {
+                for (int i = 8; i < restInfo.length; i++) {
+                    String[] data = restInfo[i].split(",");
+                    if (data[0].equals("PowerUp")) {
                         // only should have
                         PowerUps type = PowerUps.valueOf(data[1]);
-                        if(type== PowerUps.Freeze){
+                        if (type == PowerUps.Freeze) {
                             Freeze pow = new Freeze(this.currentLevel);
                             pow.setEffectiveTime(Integer.parseInt(data[2]));
                             pow.setPassedTime(Integer.parseInt(data[3]));
                             this.hits.add(pow);
-                        }else if(type == PowerUps.TemporaryInvincible){
+                        } else if (type == PowerUps.TemporaryInvincible) {
                             TemporaryInvincible pow = new TemporaryInvincible(this.currentLevel);
                             pow.setEffectiveTime(Integer.parseInt(data[2]));
                             pow.setPassedTime(Integer.parseInt(data[3]));
                             this.hits.add(pow);
-                        }else{
+                        } else {
                             // should not be the case
                             return false;
                         }
-                    }else{
-                        //TODO: panel effect for speed up and down
+                    } else {
+                        // TODO: panel effect for speed up and down
                     }
                 }
             }
-    
+
             return true;
         } catch (Exception e) {
             // means error in converting

@@ -42,11 +42,14 @@ public abstract class GameObject {
     ArrayList<GameObject> hits = new ArrayList<GameObject>();
     public Level currentLevel;
     public Thread hitDetection = new Thread(() -> {
-    //     Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
-    //         checkWallCollision();
-    //     }));
-    //     t.setCycleCount(Timeline.INDEFINITE);
-    //     t.play();
+        while (true) {
+            checkWallCollision();
+            try {
+                Thread.sleep(33);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } 
      });;
 
     public GameObject(Level l) {
