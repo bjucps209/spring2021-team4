@@ -122,6 +122,7 @@ public class Game {
      * @return true if successfully loads data into the program, false otherwise
      */
     public boolean load(String userName) {
+        // Warning, loading user has not been implement yet
 
         try (BufferedReader rd = new BufferedReader(new FileReader(userName + ".txt"))) {
             // load data here
