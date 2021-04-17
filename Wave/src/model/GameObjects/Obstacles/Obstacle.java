@@ -43,31 +43,6 @@ public class Obstacle extends GameObject {
         }
         return obstacle;
     }
-    
-    public static Obstacle create(ObstacleTypes type, Level l){
-        Obstacle ob;
-        switch(type){
-            case SQUARE:{
-                ob = new Square(l);
-                break;
-            }
-            case LARGE:{
-                ob = new Large(l);
-                break;
-            }
-            case NARROW:{
-                ob = new Narrow(l);
-            }
-            case CORNER:{
-                ob = new Corner(l);
-            }
-            default:
-                // should no happen
-                ob = null;
-        }
-
-        return ob;
-    }
 
     @Override
     public void update() {
