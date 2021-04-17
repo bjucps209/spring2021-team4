@@ -18,7 +18,7 @@ public class TemporaryInvincible extends PowerUp{
 
   public void update() {
     // TODO Auto-generated method stub
-    this.passedTime = this.currentLevel.getRemainingTime() - this.startTime;
+    this.passedTime = this.startTime - this.currentLevel.getRemainingTime();
     if(passedTime >= effectiveTime){
       this.isFinished = true;
     }
