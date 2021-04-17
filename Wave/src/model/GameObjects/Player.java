@@ -33,7 +33,7 @@ public class Player extends GameObject {
         setWidth(50);
         setHeight(50);
         hitDetection = new Thread(() -> {
-            Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
+           /* Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
 
                 ArrayList<Boolean> isFinished = new ArrayList<>();
                 for (GameObject object : this.hits) {
@@ -54,16 +54,45 @@ public class Player extends GameObject {
                     hits.add(checkCollision(currentLevel.getEnemies()));
                 }
 
-                PowerUp hitPowerUp = (PowerUp) checkCollision(currentLevel.getPowerups());
+                PowerUp hitPowerUp = (PowerUp) checkCollision(currentLevel.getPowerUps());
                 if (hitPowerUp != null) {
                     hits.add(hitPowerUp); // TODO: potentially cause problem in delay powerup's reaction?
                 }
 
-            }));
+            }
+            ));
             t.setCycleCount(Timeline.INDEFINITE);
-            t.play();
+            t.play();*/
+
+            ArrayList<Boolean> isFinished = new ArrayList<>();
+                for (GameObject object : this.hits) {
+                    isFinished.add(processHit(object, this));
+                    // store true if should be delete, store false other wise
+                
+                }
+                int i = 0;
+                for (boolean value : isFinished) {
+                    if (value) {
+                        this.hits.remove(i);
+                    }
+                    i++;
+                }
+
+                checkWallCollision();
+                if (checkCollision(currentLevel.getEnemies()) != null) {
+                    hits.add(checkCollision(currentLevel.getEnemies()));
+                }
+
+                PowerUp hitPowerUp = (PowerUp) checkCollision(currentLevel.getPowerUps());
+                if (hitPowerUp != null) {
+                    hits.add(hitPowerUp); // TODO: potentially cause problem in delay powerup's reaction?
+                }
+
+            
         });
+        
     }
+    
 
     public void moveUp() {
         setDy(-speed);
@@ -179,9 +208,9 @@ public class Player extends GameObject {
             // TODO: handle rest of special affect on player
 
             if(restInfo.length != 8){
-                for(int i = 9; i < restInfo.length; i++){
+                for(int i = 8; i < restInfo.length; i++){
                     String [] data = restInfo[i].split(",");
-                    if(data[0] == "PowerUp"){
+                    if(data[0].equals("PowerUp")){
                         // only should have
                         PowerUps type = PowerUps.valueOf(data[1]);
                         if(type== PowerUps.Freeze){

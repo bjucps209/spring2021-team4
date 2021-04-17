@@ -8,7 +8,7 @@ Jack;100;20;58;SHIP1;300;450;5;5;10;10;PowerUp,TemporaryInvincible,5,3
 ###gameobject
 EnemyObject;BOUNCER;100;230;5;5;4;4;60
 ###gameobject
-Obstacle;Obstacle;100;250;5;5;0;0;60
+Obstacle;SQUARE;100;250;5;5;0;0;40
 ###gameobject
-PowerUp;Freeze;20;50;5;5;0;0;60
+PowerUp;Freeze;20;50;5;5;0;0;30
 ENDL#

@@ -5,7 +5,10 @@ import org.junit.Test;
 import model.Enums.EnemyTypes;
 import model.Enums.ShipSkins;
 import model.Enums.ObstacleTypes;
+import model.Enums.PowerUps;
 import model.GameObjects.Obstacles.*;
+import model.GameObjects.Powerups.PowerUp;
+import model.GameObjects.Powerups.TemporaryInvincible;
 import model.GameObjects.*  ;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.Bouncer;
@@ -44,6 +47,12 @@ public class GameTest {
     assertTrue(player.getDy() == 10);
     //TODO: check for special affect later
     assertTrue(player.getHits().size() == 1);
+    assertTrue(player.getHits().get(0) instanceof TemporaryInvincible);
+    TemporaryInvincible ob = (TemporaryInvincible)player.getHits().get(0);
+    assertTrue(ob.getEffectiveTime() == 5);
+    assertTrue(ob.getPassedTime() == 3);
+    // note delete later
+    assertTrue(ob.getAppearTime() ==60);
 
     Level currentLevel = game.getCurrentLevel();
     //assertTrue(game.getCurrentLevel().getAllObjects().size()-1 == 3); TODO: have not implement powerUP yet, so it will be wrong 
@@ -57,18 +66,31 @@ public class GameTest {
     assertTrue(enemy.getHeight() == 5);
     assertTrue(enemy.getDx() == 4);
     assertTrue(enemy.getDy() == 4);
+    assertTrue(enemy.getAppearTime() == 60);
     //TODO: special affect on enemy needs to be checked
 
 
     assertTrue(currentLevel.getObstacles().size() == 1);
     Obstacle obstalce = currentLevel.getObstacles().get(0);
     // TODO: Obstacle have different type?
+    assertTrue(obstalce.getType() == ObstacleTypes.SQUARE);
     assertTrue(obstalce.getX() == 100);
     assertTrue(obstalce.getY() == 250);
     assertTrue(obstalce.getWidth() == 5);
     assertTrue(obstalce.getHeight() == 5);
     assertTrue(obstalce.getDx() == 0 && obstalce.getDy() == 0);
+    assertTrue(obstalce.getAppearTime() == 40);
 
+
+    assertTrue(currentLevel.getPowerUps().size() == 1);
+    PowerUp power = currentLevel.getPowerUps().get(0);
+    assertTrue(power.getType() == PowerUps.Freeze);
+    assertTrue(power.getX() == 20);
+    assertTrue(power.getY() == 50);
+    assertTrue(power.getWidth() == 5);
+    assertTrue(power.getHeight() == 5);
+    assertTrue(power.getDx() == 0 && power.getDy() == 0);
+    assertTrue(power.getAppearTime() == 30);
     // TODO: check for power ups and so forth
 
     // cannot do , right now no powerup yet

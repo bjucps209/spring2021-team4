@@ -36,7 +36,7 @@ public class Level {
     private int score;
 
     // Gameplay variables
-    private Player player;
+    private Player player= new Player(this);
 
     private int remainingTime; // possible connect to TimeLine() with data binding technique
 
@@ -297,6 +297,7 @@ public class Level {
                         case BOUNCER:{
                             enemy = new Bouncer(this);
                             enemy.setType(EnemyTypes.valueOf(type));
+                            
                             break;
                         }
                         case TRACKER:{
