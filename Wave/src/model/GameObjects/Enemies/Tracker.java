@@ -8,8 +8,8 @@ public class Tracker extends EnemyObject {
     
     public Tracker(Level l) {
         super(l);
-        setDy(3);
-        setDx(3);
+        setDy(Tracker.speed);
+        setDx(Tracker.speed);
         setWidth(50);
         setHeight(50);
         hitDetection = new Thread(() -> {

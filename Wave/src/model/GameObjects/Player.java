@@ -32,7 +32,7 @@ public class Player extends GameObject {
         hitDetection = new Thread(() -> {
             while (true) {
                 checkWallCollision();
-                if (checkCollision(currentLevel.getEnemies()) != null) {
+                if (currentLevel.getEnemies() != null && checkCollision(currentLevel.getEnemies()) != null) {
                     hits.add(checkCollision(currentLevel.getEnemies()));
                 } 
                 //else if (checkCollision(currentLevel.getPowerUps()) != null) {

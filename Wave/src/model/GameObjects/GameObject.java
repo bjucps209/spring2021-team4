@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
@@ -87,19 +88,19 @@ public abstract class GameObject {
     public boolean processHit(GameObject g, Player p) {
         Class gc = g.getClass();
         if (gc.equals(Bouncer.class)) {
-            System.out.println("HIT!");
+            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(Ghost.class)) {
-            System.out.println("HIT!");
+            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(Laser.class)) {
-            System.out.println("HIT!");
+            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(Shapeshifter.class)) {
-            System.out.println("HIT!");
+            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(Tracker.class)) {
-            System.out.println("HIT!");
+            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(DestroyShip.class)) {
             PowerUp power = (PowerUp) g;
