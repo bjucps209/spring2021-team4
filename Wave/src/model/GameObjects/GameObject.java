@@ -39,7 +39,7 @@ public abstract class GameObject {
 
     ArrayList<Obstacle> obstacles;
     ArrayList<EnemyObject> enemies;
-    ArrayList<GameObject> hits = new ArrayList<GameObject>();
+    protected ArrayList<GameObject> hits = new ArrayList<GameObject>();
     private int pauseDx;
     private int pauseDy;
     public Level currentLevel;
@@ -122,7 +122,14 @@ public abstract class GameObject {
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(Obstacle.class)) {
-
+            if (gc.equals(Player.class)) {
+                setDx(0);
+                setDy(0);
+            } else {
+                if (this.getX() > g.getX() + (g.getWidth() / 2)) {
+                    
+                }
+            }
         }
         // the default case
         return true;
