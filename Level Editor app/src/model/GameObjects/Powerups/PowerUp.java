@@ -10,7 +10,6 @@ import model.GameObjects.Player;
 public abstract class PowerUp extends GameObject {
 
   //Note: powerups will be position by the level editors.
-  protected int appearTime;
   protected PowerUps type;
   protected boolean isFinished = false;
 
@@ -66,13 +65,6 @@ public abstract class PowerUp extends GameObject {
 
   }
 
-  public int getAppearTime() {
-    return appearTime;
-  }
-
-  public void setAppearTime(int appearTime) {
-    this.appearTime = appearTime;
-  }
 
   public PowerUps getType() {
     return type;

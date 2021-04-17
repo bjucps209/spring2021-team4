@@ -13,11 +13,11 @@
             
         </VBox>
 
-        <VBox fx:id="vbox2">
+        <!--<VBox fx:id="vbox2">
             <Label text="orientation (for laser only)"/>
             <Label text="if horizontal, enter a y value, if vertical, enter an x value"/>
 
-        </VBox>
+        </VBox>-->
 
 
         <VBox>
@@ -33,15 +33,16 @@
         </VBox>
 
         <VBox>
-            <Label text="Appearance Time(for powerups only)"/>
-            <Label text="int value 0-60?"/>
+            <Label text="Appearance Time"/>
+            <Label text="int value 0-60"/>
+            <Label text="60 is beginning of level"/>
             <TextField fx:id="txtFAppearanceTime"/>
         </VBox>
 
         <VBox>
-            <Button text="Easy" onAction="#onEasyClicked"/>
-            <Button text="Medium" onAction="#onMediumClicked"/>
-            <Button text="Hard" onAction="#onHardClicked"/>
+            <Button text="Easy" onAction="#onEasyClicked" fx:id="btnEasy"/>
+            <Button text="Medium" onAction="#onMediumClicked" fx:id="btnMedium"/>
+            <Button text="Hard" onAction="#onHardClicked" fx:id="btnHard"/>
         </VBox>
 
     </HBox>
@@ -58,7 +59,6 @@
         <HBox spacing="10" styleClass="propview">
             <VBox spacing="10">
                 <Label text="Position:" />
-                <Label text="Heading:" />
                 <Label text="Appearance Time:" />
                 <Button text="save level" styleClass="leftbutton" onAction="#onSaveLevelClicked"/>
                 <Label text="Name of File:"/>
@@ -67,7 +67,6 @@
             </VBox>
             <VBox spacing="10" minWidth="50">
                 <Label fx:id="lblLoc" text="" />
-                <Label fx:id="lblHeading" text="" />
                 <Label fx:id="lblTime" text="" />
             </VBox>
         </HBox>
