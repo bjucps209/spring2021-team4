@@ -4,6 +4,11 @@
     -fx-font-family: 'Helvetica', Arial, sans-serif;
 }
 
+.label {
+    -fx-font-size: 40px;
+    -fx-text-fill: white;
+}
+
 /* for Macs */
 .dialog-pane  {
     -fx-font-family: 'Helvetica', Arial, sans-serif;

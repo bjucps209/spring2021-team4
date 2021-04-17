@@ -54,9 +54,16 @@ public class GameWindow {
         // timer to connect to the countdown in game.
         countDown = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             g.getCurrentLevel().setRemainingTime(g.getCurrentLevel().getRemainingTime() - 1);
+            w.setCoins(w.getCoins() + 10);
         }));
         countDown.setCycleCount(60);
         countDown.play();
+
+        // Score label and binding
+        Label lblScore = new Label();
+        lblScore.textProperty().bind(Bindings.createStringBinding(() -> String.valueOf(w.getCoins()), w.coinsProperty()));
+        pane.getChildren().add(lblScore);
+        lblScore.relocate(0, 60);
     }
 
     public void spawnEntities() {
