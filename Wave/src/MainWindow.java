@@ -9,6 +9,7 @@ import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -42,6 +43,36 @@ public class MainWindow {
 
     @FXML
     public void onNewGameClicked() throws IOException {
+        // // Opens window to allow player to enter their name
+        // VBox vboxName = new VBox();
+        // vboxName.setId("menu-background");
+        // vboxName.setPadding(new Insets(10));
+        // vboxName.setSpacing(10);
+        // vboxName.setAlignment(Pos.CENTER);
+        
+        // Scene nameScene = new Scene(vboxName, 800, 600);
+        // Stage nameStage = new Stage();
+        // nameStage.setScene(nameScene); // set the scene
+        // nameStage.setTitle("Name Menu");
+        // nameStage.setAlwaysOnTop(true);
+
+        // nameScene.getStylesheets().add("GameWindow.css");
+
+        // TextField nameField = new TextField();
+        //     Label lblName = new Label();
+        //     lblName.setText("Enter Your Name:");
+        //     vboxName.getChildren().add(lblName);
+        //     vboxName.getChildren().add(nameField);
+        //     nameField.requestFocus();
+        //     nameScene.setOnKeyPressed(key -> {
+        //         KeyCode keyCode = key.getCode();
+        //         if (keyCode.equals(KeyCode.ENTER)) {
+        //             highScoreList.getList().add(new HighScore(nameField.getText(), game.getScoreValue()));
+        //             highScoreList.save();
+        //         }
+        //     });
+
+
         // opens up new window which is GameWindow
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
         Scene scene = new Scene(loader.load());
