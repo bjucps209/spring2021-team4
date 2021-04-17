@@ -335,6 +335,7 @@ public class Wave {
                     ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                 } else if (instanceInfo[0].equals("Player")) {
                     object = new Player(level);
+                    level.setPlayer((Player) object);
                 }
                 // obstacles
                 else {

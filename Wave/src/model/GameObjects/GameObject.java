@@ -41,13 +41,13 @@ public abstract class GameObject {
     ArrayList<EnemyObject> enemies;
     ArrayList<GameObject> hits = new ArrayList<GameObject>();
     public Level currentLevel;
-    public Thread hitDetection = new Thread(() -> {
-        Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
-            checkWallCollision();
-        }));
-        t.setCycleCount(Timeline.INDEFINITE);
-        t.play();
-    });;
+    // public Thread hitDetection = new Thread(() -> {
+    //     Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
+    //         checkWallCollision();
+    //     }));
+    //     t.setCycleCount(Timeline.INDEFINITE);
+    //     t.play();
+    // });;
 
     public GameObject(Level l) {
         currentLevel = l;
@@ -60,11 +60,11 @@ public abstract class GameObject {
     }
 
     public void startHitDetection() {
-        hitDetection.start();
+        //hitDetection.start();
     }
 
     public void stopHitDetection() throws InterruptedException {
-        hitDetection.stop();
+        //hitDetection.stop();
     }
 
     public boolean processHit(GameObject g, Player p) {

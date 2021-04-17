@@ -32,37 +32,37 @@ public class Player extends GameObject {
         setDy(0);
         setWidth(50);
         setHeight(50);
-        hitDetection = new Thread(() -> {
-            Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
+    //     hitDetection = new Thread(() -> {
+    //         Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
 
-                ArrayList<Boolean> isFinished = new ArrayList<>();
-                for (GameObject object : this.hits) {
-                    isFinished.add(processHit(object, this));
-                    // store true if should be delete, store false other wise
+    //             ArrayList<Boolean> isFinished = new ArrayList<>();
+    //             for (GameObject object : this.hits) {
+    //                 isFinished.add(processHit(object, this));
+    //                 // store true if should be delete, store false other wise
                 
-                }
-                int i = 0;
-                for (boolean value : isFinished) {
-                    if (value) {
-                        this.hits.remove(i);
-                    }
-                    i++;
-                }
+    //             }
+    //             int i = 0;
+    //             for (boolean value : isFinished) {
+    //                 if (value) {
+    //                     this.hits.remove(i);
+    //                 }
+    //                 i++;
+    //             }
 
-                checkWallCollision();
-                if (checkCollision(currentLevel.getEnemies()) != null) {
-                    hits.add(checkCollision(currentLevel.getEnemies()));
-                }
+    //             checkWallCollision();
+    //             if (checkCollision(currentLevel.getEnemies()) != null) {
+    //                 hits.add(checkCollision(currentLevel.getEnemies()));
+    //             }
 
-                PowerUp hitPowerUp = (PowerUp) checkCollision(currentLevel.getPowerups());
-                if (hitPowerUp != null) {
-                    hits.add(hitPowerUp); // TODO: potentially cause problem in delay powerup's reaction?
-                }
+    //             PowerUp hitPowerUp = (PowerUp) checkCollision(currentLevel.getPowerups());
+    //             if (hitPowerUp != null) {
+    //                 hits.add(hitPowerUp); // TODO: potentially cause problem in delay powerup's reaction?
+    //             }
 
-            }));
-            t.setCycleCount(Timeline.INDEFINITE);
-            t.play();
-        });
+    //         }));
+    //         t.setCycleCount(Timeline.INDEFINITE);
+    //         t.play();
+    //     });
     }
 
     public void moveUp() {
