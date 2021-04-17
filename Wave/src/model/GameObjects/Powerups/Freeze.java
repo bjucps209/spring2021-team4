@@ -18,5 +18,6 @@ public class Freeze extends PowerUp{
     // TODO Auto-generated method stub
     
   }
+
   
 }

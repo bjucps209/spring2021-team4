@@ -332,7 +332,27 @@ public class Level {
                     // TODO have to determine if obstalce will have different type or not
 
                     // assumenot in this calse
-                    Obstacle obstacle = new Obstacle(ObstacleTypes.SQUARE, this);
+                    Obstacle obstacle = new Obstacle(this);
+                    switch(ObstacleTypes.valueOf(type)){
+                        case SQUARE:{
+                            obstacle = new Square(this);
+                            obstacle.setType(ObstacleTypes.valueOf(type));
+                        }
+                        case LARGE:{
+                            obstacle = new Large(this);
+                            obstacle.setType(ObstacleTypes.valueOf(type));
+                        }
+                        case NARROW:{
+                            obstacle = new Narrow(this);
+                            obstacle.setType(ObstacleTypes.valueOf(type));
+                        }
+                        case CORNER:{
+                            obstacle = new Corner(this);
+                            obstacle.setType(ObstacleTypes.valueOf(type));
+                        }
+                        default:
+                            success = false;
+                    }
                     if (obstacle.deserialize(restInfo) == false) {
                         throw new IOException("Error in converting obstacle data");
                     } else {
@@ -340,7 +360,13 @@ public class Level {
                         obstacles.add(obstacle);
                     }
                 } else if (object.equals("PowerUp")) {
-                    PowerUp power;
+                    PowerUp power = new PowerUp(this){
+                        @Override
+                        public void collisionWithPlayer(Player p) {
+                            // TODO Auto-generated method stub
+                            
+                        }    
+                    };
 
                     switch(PowerUps.valueOf(type)){
                         case Freeze:{
@@ -365,7 +391,16 @@ public class Level {
                         }
                         default:
                             success = false;
+                        
                     }
+                    if (power.deserialize(restInfo) == false) {
+                        throw new IOException("Error in converting obstacle data");
+                    } else {
+                        allObjects.add(power);
+                        this.powerups.add(power);
+                    }
+
+
                 } else {
 
                     // contains a type that does not exist

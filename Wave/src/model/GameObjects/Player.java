@@ -8,8 +8,11 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 import model.Level;
+import model.Enums.PowerUps;
 import model.Enums.ShipSkins;
+import model.GameObjects.Powerups.Freeze;
 import model.GameObjects.Powerups.PowerUp;
+import model.GameObjects.Powerups.TemporaryInvincible;
 
 public class Player extends GameObject {
     // contains info for a Player during the game
@@ -18,7 +21,7 @@ public class Player extends GameObject {
     private IntegerProperty health = new SimpleIntegerProperty(100);
     private int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
     private ShipSkins currentShipSkins;
-    private ArrayList<PowerUp> activaedPowerUps = new ArrayList<>();
+    //private ArrayList<GameObject> activatedAffects = new ArrayList<>();
     private boolean temporaryInvincible;
 
     public Player(Level l) {
@@ -99,9 +102,9 @@ public class Player extends GameObject {
         return speed;
     }
 
-    public ArrayList<PowerUp> getActivaedPowerUps() {
-        return activaedPowerUps;
-    }
+    /*public ArrayList<GameObject> getActivatedAffects() {
+        return this.activatedAffects;
+    }*/
 
     public boolean isTemporaryInvincible() {
         return temporaryInvincible;
@@ -124,9 +127,9 @@ public class Player extends GameObject {
         this.speed = speed;
     }
 
-    public void setActivaedPowerUps(ArrayList<PowerUp> activaedPowerUs) {
-        this.activaedPowerUps = activaedPowerUs;
-    }
+    /*public void setActivatedAffects(ArrayList<GameObject> activatedPowerUs) {
+        this.activatedAffects = activatedPowerUs;
+    }*/
 
     public void setTemporaryInvincible(boolean temporaryInvincible) {
         this.temporaryInvincible = temporaryInvincible;
@@ -136,8 +139,24 @@ public class Player extends GameObject {
     public String serialize() {
         // TODO Auto-generated method stub
         // TODO still needs to add in special effects !!!
-        return health + ";" + currentShipSkins.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get() + ";"
-                + height.get() + ";" + dx.get() + ";" + dy.get();
+        String returns =  health + ";" + currentShipSkins.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get() + ";"
+                + height.get() + ";" + dx.get() + ";" + dy.get() ;
+       
+        for(GameObject affObject : this.hits){
+            // need to give its affect type, enum type, remaining time
+            String data = "";
+            if(affObject instanceof PowerUp){
+                PowerUp ob = (PowerUp)affObject;
+                data += "PowerUp,"+ob.getType()+","+ob.getEffectiveTime();
+        
+            
+            }else{
+                // should be a panel
+            }
+            returns += ";"+data;
+        }
+
+        return returns;
     }
 
     @Override
@@ -157,6 +176,31 @@ public class Player extends GameObject {
             this.dx.set(Integer.parseInt(restInfo[6]));
             this.dy.set(Integer.parseInt(restInfo[7]));
             // TODO: handle rest of special affect on player
+
+            if(restInfo.length != 8){
+                for(int i = 9; i < restInfo.length; i++){
+                    String [] data = restInfo[i].split(",");
+                    if(data[0] == "PowerUp"){
+                        // only should have
+                        PowerUps type = PowerUps.valueOf(data[1]);
+                        if(type== PowerUps.Freeze){
+                            Freeze pow = new Freeze(this.currentLevel);
+                            pow.setEffectiveTime(Integer.parseInt(data[2]));
+                            this.hits.add(pow);
+                        }else if(type == PowerUps.TemporaryInvincible){
+                            TemporaryInvincible pow = new TemporaryInvincible(this.currentLevel);
+                            pow.setEffectiveTime(Integer.parseInt(data[2]));
+                            this.hits.add(pow);
+                        }else{
+                            // should not be the case
+                            return false;
+                        }
+                    }else{
+                        //TODO: panel effect for speed up and down
+                    }
+                }
+            }
+    
             return true;
         } catch (Exception e) {
             // means error in converting

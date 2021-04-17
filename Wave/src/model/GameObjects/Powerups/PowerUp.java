@@ -8,7 +8,7 @@ import model.Enums.PowerUps;
 public abstract class PowerUp extends GameObject {
 
   // Note: powerups will be position by the level editors.
-  protected int appearTime;
+ 
   protected PowerUps type;
   protected boolean isFinished = false;
   protected int effectiveTime;
@@ -110,11 +110,7 @@ public abstract class PowerUp extends GameObject {
     this.isFinished = isFinished;
   }
 
-  public int getAppearTime() {
-    return this.appearTime;
-  }
+ 
 
-  public void setAppearTime(int appearTime) {
-    this.appearTime = appearTime;
-  }
+
 }
