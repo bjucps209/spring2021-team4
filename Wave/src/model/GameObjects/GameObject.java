@@ -54,7 +54,6 @@ public abstract class GameObject {
 
     public GameObject(Level l) {
         currentLevel = l;
-        
     }
 
     // update method each object needs

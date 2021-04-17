@@ -4,18 +4,20 @@ import model.Level;
 import model.GameObjects.Player;
 
 public class Tracker extends EnemyObject {
-    public static int speed = 3;
+    public static int speed = 2;
     
     public Tracker(Level l) {
         super(l);
-        setDy(Tracker.speed);
-        setDx(Tracker.speed);
+        setDy(3);
+        setDx(3);
+        setWidth(50);
+        setHeight(50);
     }
 
     @Override
     public void update() {
-        super.update();
         calcDirection(player);
+        super.update();
     }
 
     public void calcDirection(Player p) {
@@ -26,27 +28,38 @@ public class Tracker extends EnemyObject {
         int y2 = p.getY();
         int adjacent = x1 - x2;
         int opposite = y1 - y2;
+        // if object is to the right
         if (adjacent < 0) {
+            // if object is below
             if (opposite < 0) {
-                angle = 45;
-            } else if (opposite > 0) {
                 angle = 315;
+            // if object is above
+            } else if (opposite > 0) {
+                angle = 45;
+            // if object is to the right and not above or below
             } else {
                 angle = 0;
             }
+        // if object is to the left
         } else if (adjacent > 0) {
+            // if object is below
             if (opposite < 0) {
-                angle = 135;
-            } else if (opposite > 0) {
                 angle = 225;
+            // if object is above
+            } else if (opposite > 0) {
+                angle = 135;
+            // if object is to the left and not above or below
             } else {
                 angle = 180;
             }
+        // if object is not to the left or right
         } else {
+            // if object is below
             if (opposite < 0) {
-                angle = 90;
-            } else {
                 angle = 270;
+            // if object is above
+            } else {
+                angle = 90;
             }
         }
         switch (angle) {
@@ -76,7 +89,7 @@ public class Tracker extends EnemyObject {
                 break;
             case 270:
                 setDx(0);
-                setDy(Tracker.speed);
+                setDy(+Tracker.speed);
                 break;
             case 315:
                 setDx(Tracker.speed);
