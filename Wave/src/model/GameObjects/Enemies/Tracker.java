@@ -12,6 +12,15 @@ public class Tracker extends EnemyObject {
         setDx(3);
         setWidth(50);
         setHeight(50);
+        hitDetection = new Thread(() -> {
+            while (true) {
+            checkWallCollision();
+            try {
+                Thread.sleep(33);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }});
     }
 
     @Override
