@@ -136,7 +136,7 @@ public class Player extends GameObject {
             String data = "";
             if (affObject instanceof PowerUp) {
                 PowerUp ob = (PowerUp) affObject;
-                data += "PowerUp," + ob.getType() + "," + ob.getEffectiveTime() + "," + ob.getPassedTime();
+                data += "PowerUp," + ob.getType() + "," + ob.getEffectiveTime() + "," + ob.getPassedTime()+","+ob.getAppearTime();
 
             } else {
                 // should be a panel
@@ -175,11 +175,13 @@ public class Player extends GameObject {
                             Freeze pow = new Freeze(this.currentLevel);
                             pow.setEffectiveTime(Integer.parseInt(data[2]));
                             pow.setPassedTime(Integer.parseInt(data[3]));
+                            pow.setStartTime(Integer.parseInt(data[4]));
                             this.hits.add(pow);
                         } else if (type == PowerUps.TemporaryInvincible) {
                             TemporaryInvincible pow = new TemporaryInvincible(this.currentLevel);
                             pow.setEffectiveTime(Integer.parseInt(data[2]));
                             pow.setPassedTime(Integer.parseInt(data[3]));
+                            pow.setStartTime(Integer.parseInt(data[4]));
                             this.hits.add(pow);
                         } else {
                             // should not be the case
