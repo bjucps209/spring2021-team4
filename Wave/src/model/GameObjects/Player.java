@@ -1,9 +1,6 @@
 package model.GameObjects;
 
 import java.util.ArrayList;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
@@ -57,6 +54,8 @@ public class Player extends GameObject {
                 if (hitPowerUp != null) {
                     hits.add(hitPowerUp); // TODO: potentially cause problem in delay powerup's reaction?
                 }
+                
+
 
                 try {
                     Thread.sleep(33);
@@ -145,7 +144,7 @@ public class Player extends GameObject {
     public String serialize() {
         // TODO Auto-generated method stub
         // TODO still needs to add in special effects !!!
-        String returns = health + ";" + currentShipSkins.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get()
+        String returns = health.get() + ";" + currentShipSkins.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get()
                 + ";" + height.get() + ";" + dx.get() + ";" + dy.get();
 
         for (GameObject affObject : this.hits) {

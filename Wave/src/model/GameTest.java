@@ -7,6 +7,7 @@ import model.Enums.ShipSkins;
 import model.Enums.ObstacleTypes;
 import model.Enums.PowerUps;
 import model.GameObjects.Obstacles.*;
+import model.GameObjects.Powerups.Freeze;
 import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
 import model.GameObjects.*  ;
@@ -91,10 +92,10 @@ public class GameTest {
     assertTrue(power.getHeight() == 5);
     assertTrue(power.getDx() == 0 && power.getDy() == 0);
     assertTrue(power.getAppearTime() == 30);
-    // TODO: check for power ups and so forth
 
-    // cannot do , right now no powerup yet
-    //assertTrue(currentLevel.getAllObjects().size()-1 == 3); // player is also in the list
+
+
+    assertTrue(currentLevel.getAllObjects().size()-1 == 3); // player is also in the list
 
   }
 
@@ -180,6 +181,11 @@ public class GameTest {
     player.setY(380);
     player.setDx(200);
     player.setDy(200);
+    
+    TemporaryInvincible s = new TemporaryInvincible(currentLevel);
+    s.setPassedTime(1);
+    s.setEffectiveTime(5);
+    player.getHits().add(s);
 
     Bouncer bouncer = new Bouncer(currentLevel);
     bouncer.setType(EnemyTypes.BOUNCER);
@@ -192,20 +198,32 @@ public class GameTest {
     // TODO: set special affects later in
 
     Obstacle ob = new Obstacle(ObstacleTypes.SQUARE, currentLevel);
+    ob.setType(ObstacleTypes.LARGE);
     ob.setX(20);
     ob.setY(330);
     ob.setWidth(5);
     ob.setHeight(5);
 
-    //TODO: set special affects later in 
+   
 
-    //TODO: add in powerUP
+    PowerUp pow = new Freeze(currentLevel);
+    pow.setType(PowerUps.Freeze);
+    pow.setX(100);
+    pow.setY(200);
+    pow.setDx(0);
+    pow.setDx(0);
+    pow.setWidth(10);
+    pow.setHeight(10);
+    pow.setAppearTime(20);
 
     currentLevel.getAllObjects().add(bouncer);
     currentLevel.getAllObjects().add(ob);
+    currentLevel.getAllObjects().add(pow);
 
     currentLevel.getEnemies().add(bouncer);
     currentLevel.getObstacles().add(ob);
+    currentLevel.getPowerUps().add(pow);
+
 
     game.save("SinglePlayerofMiddleGame");
 
@@ -216,13 +234,15 @@ public class GameTest {
       assertTrue(rd.readLine().equals("easy"));
       assertTrue(rd.readLine().equals("1"));
       assertTrue(rd.readLine().equals("###user"));
-      assertTrue(rd.readLine().equals("Andrew;130;30;20;SHIP1;350;380;5;5;200;200"));
-      assertTrue(rd.readLine().equals("2")); // should be 3 if add in powerup
+      assertTrue(rd.readLine().equals("Andrew;130;30;20;SHIP1;350;380;5;5;200;200;PowerUp,TemporaryInvincible,5,1"));
+      assertTrue(rd.readLine().equals("3")); // should be 3 if add in powerup
       assertTrue(rd.readLine().equals("###gameobject"));
-      assertTrue(rd.readLine().equals("EnemyObject;BOUNCER;20;20;5;5;4;4"));  //TODO: test for speical affects later on
+      assertTrue(rd.readLine().equals("EnemyObject;BOUNCER;20;20;5;5;4;4;60"));  //TODO: test for speical affects later on
       assertTrue(rd.readLine().equals("###gameobject"));
-      assertTrue(rd.readLine().equals("Obstacle;Obstacle;20;330;5;5;0;0"));
-      //TODO: test for powerups later
+      assertTrue(rd.readLine().equals("Obstacle;LARGE;20;330;5;5;0;0;60"));
+      assertTrue(rd.readLine().equals("###gameobject"));
+      assertTrue(rd.readLine().equals("PowerUp;Freeze;100;200;10;10;0;0;20"));
+
       assertTrue(rd.readLine().equals("ENDL#"));
 
     }catch (Exception e){
