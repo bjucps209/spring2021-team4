@@ -1,5 +1,6 @@
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -43,6 +44,18 @@ public class GameWindow {
         timer.play();
         // Platform.exit();
 
+        // Label to represent the timer
+        Label lblTimer = new Label();
+        g.getCurrentLevel().setRemainingTime(60);
+        lblTimer.textProperty().bind(Bindings.createStringBinding( () -> String.valueOf(g.getCurrentLevel().getRemainingTime()), g.getCurrentLevel().remainingTimeProperty()));
+        pane.getChildren().add(lblTimer);
+        lblTimer.relocate(0, 30);
+        // timer to connect to the countdown in game.
+        var countDown = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            g.getCurrentLevel().setRemainingTime(g.getCurrentLevel().getRemainingTime() - 1);
+        }));
+        countDown.setCycleCount(60);
+        countDown.play();
     }
 
     public void spawnEntities() {
@@ -75,7 +88,7 @@ public class GameWindow {
                 bouncerImageView.layoutYProperty().bind(o.yProperty());
                 break;
             case GHOST:
-                Image ghostImage = new Image("./Images/enemyBlack4.png");
+                Image ghostImage = new Image("./Images/enemyBlack2.png");
                 ImageView ghostImageView = new ImageView(ghostImage);
                 ghostImageView.setFitWidth(o.getWidth());
                 ghostImageView.setFitHeight(o.getHeight());
@@ -84,7 +97,7 @@ public class GameWindow {
                 ghostImageView.layoutYProperty().bind(o.yProperty());
                 break;
             case LASER:
-                Image laserImage = new Image("./Images/enemyBlack4.png");
+                Image laserImage = new Image("./Images/cockpitGreen_0.png");
                 ImageView laserImageView = new ImageView(laserImage);
                 laserImageView.setFitWidth(o.getWidth());
                 laserImageView.setFitHeight(o.getHeight());
@@ -102,7 +115,7 @@ public class GameWindow {
                 shapeshifterImageView.layoutYProperty().bind(o.yProperty());
                 break;
             case TRACKER:
-                Image trackerImage = new Image("./Images/enemyBlack4.png");
+                Image trackerImage = new Image("./Images/enemyBlack1.png");
                 ImageView trackerImageView = new ImageView(trackerImage);
                 trackerImageView.setFitWidth(o.getWidth());
                 trackerImageView.setFitHeight(o.getHeight());
