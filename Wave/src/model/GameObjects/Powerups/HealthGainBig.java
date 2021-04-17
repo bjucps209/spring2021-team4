@@ -11,7 +11,9 @@ public class HealthGainBig extends PowerUp {
     super(l);
     this.type = PowerUps.HealthGainBig;
     this.effectiveTime = 0;
+  
   }
+
 
 
 

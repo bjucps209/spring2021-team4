@@ -16,6 +16,10 @@ public abstract class EnemyObject extends GameObject {
     public EnemyObject(Level l) {
         super(l);
         player = currentLevel.getPlayer();
+
+        //TODO: in future version, control when will enemy come in
+        // right now set default to 60 second, the beginning of game
+        appearTime = 60;
     }
 
     public EnemyTypes getType() {
@@ -62,7 +66,8 @@ public abstract class EnemyObject extends GameObject {
     @Override
     public String serialize() {
         // TODO Auto-generated method stub
-        return "EnemyObject"+";"+type.toString()+";"+x.get()+";"+y.get()+";" + width.get() +";" + height.get()+";"+dx.get()+";"+dy.get();  // TODO: special affect on enemy Object
+        return "EnemyObject"+";"+type.toString()+";"+x.get()+";"+y.get()+";" + width.get() +";" + height.get()+";"+dx.get()+";"+dy.get()+";"+appearTime;
+          // TODO: special affect on enemy Object
     }
 
     @Override
@@ -79,6 +84,7 @@ public abstract class EnemyObject extends GameObject {
         this.height.set(Integer.parseInt(enemyInfo[3]));
         this.dx.set(Integer.parseInt(enemyInfo[4]));
         this.dy.set(Integer.parseInt(enemyInfo[5]));
+        this.appearTime = Integer.parseInt(enemyInfo[6]);
         return true;
         }catch (Exception e){
             return false;

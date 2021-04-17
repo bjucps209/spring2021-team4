@@ -12,6 +12,7 @@ public class Freeze extends PowerUp{
     super(l);
     this.type = PowerUps.Freeze;
     this.effectiveTime = 5;
+  
   }
   @Override
   public void collisionWithPlayer(Player p) {

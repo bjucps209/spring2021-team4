@@ -3,12 +3,12 @@
 easy
 1
 ###user
-Jack;100;20;58;SHIP1;300;450;5;5;10;10;Faster,5,20
+Jack;100;20;58;SHIP1;300;450;5;5;10;10;PowerUp,TemporaryInvincible,5,3
 3
 ###gameobject
-EnemyObject;BOUNCER;100;230;5;5;4;4;Freeze,0,5;Faster,5,20
+EnemyObject;BOUNCER;100;230;5;5;4;4;60
 ###gameobject
-Obstacle;Obstacle;100;250;5;5;0;0
+Obstacle;Obstacle;100;250;5;5;0;0;60
 ###gameobject
-PowerUp;Freeze;20;50;5;5;0;0
+PowerUp;Freeze;20;50;5;5;0;0;60
 ENDL#
