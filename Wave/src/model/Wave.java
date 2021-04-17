@@ -379,6 +379,9 @@ public class Wave {
     // method to search the directory of Wave for a file with the name supplied in the parameter. if it does exist, return true, if it does not, return false.
     public boolean searchDirectoryForFile(String fileName) {
         // make a file out of this file, get its path, find the path of the directory this file is in, create a file with that directory name, search that directory for the file we want
+
+        // some help from:
+        // https://stackoverflow.com/questions/15624226/java-search-for-files-in-a-directory
         File file = new File("Wave.java");
         String basePath = file.getAbsolutePath();
         int dirIndex = basePath.indexOf("Wave.java");
