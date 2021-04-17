@@ -34,9 +34,10 @@ public class Player extends GameObject {
                 checkWallCollision();
                 if (checkCollision(currentLevel.getEnemies()) != null) {
                     hits.add(checkCollision(currentLevel.getEnemies()));
-                } else if (checkCollision(currentLevel.getPowerUps()) != null) {
-                    hits.add(checkCollision(currentLevel.getPowerUps()));
-                }
+                } 
+                //else if (checkCollision(currentLevel.getPowerUps()) != null) {
+                    //hits.add(checkCollision(currentLevel.getPowerUps()));
+                //}
                 
                 processHit(hits.get(0), this);
                 hits.remove(hits.get(0));
