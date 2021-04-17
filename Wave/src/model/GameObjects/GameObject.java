@@ -64,11 +64,11 @@ public abstract class GameObject {
     }
 
     public void startHitDetection() {
-        //hitDetection.start();
+        hitDetection.start();
     }
 
     public void stopHitDetection() throws InterruptedException {
-        //hitDetection.stop();
+        hitDetection.stop();
     }
 
     public boolean processHit(GameObject g, Player p) {

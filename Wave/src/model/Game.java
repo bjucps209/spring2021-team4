@@ -30,7 +30,6 @@ public class Game {
         try {
             createLevels();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         currentLevel = levels.get(levelNum);
