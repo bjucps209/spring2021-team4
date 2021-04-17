@@ -17,7 +17,7 @@ public abstract class GameObject {
     public abstract String serialize();
     public abstract boolean deserialize(String info);
 
-    public void GameObject() {
+    public GameObject() {
 
     }
 

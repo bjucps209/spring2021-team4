@@ -4,6 +4,7 @@ import java.io.*;
 import org.junit.Test;
 import model.Enums.EnemyTypes;
 import model.Enums.ShipSkins;
+import model.Enums.ObstacleTypes;
 import model.GameObjects.Obstacle;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.Bouncer;
@@ -166,7 +167,7 @@ public class GameTest {
     bouncer.setHeight(5);
     // TODO: set special affects later in
 
-    Obstacle ob = new Obstacle(currentLevel);
+    Obstacle ob = new Obstacle(ObstacleTypes.SQUARE, currentLevel);
     ob.setX(20);
     ob.setY(330);
     ob.setWidth(5);

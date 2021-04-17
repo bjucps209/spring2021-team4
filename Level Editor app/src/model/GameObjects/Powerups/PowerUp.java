@@ -4,8 +4,8 @@ import model.Enums.PowerUps;
 import model.GameObjects.GameObject;
 import model.GameObjects.Player;
 
-import java.util.ArrayList;
-import java.util.Random;
+// import java.util.ArrayList;
+// import java.util.Random;
 
 public abstract class PowerUp extends GameObject {
 

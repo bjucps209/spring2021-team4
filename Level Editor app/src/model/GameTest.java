@@ -2,10 +2,11 @@ package model;
 
 import java.io.*;
 
-import org.junit.Rule;
+// import org.junit.Rule;
 import org.junit.Test;
 
 import model.Enums.EnemyTypes;
+import model.Enums.ObstacleTypes;
 import model.Enums.ShipSkins;
 import model.GameObjects.Obstacle;
 import model.GameObjects.Player;
@@ -13,7 +14,7 @@ import model.GameObjects.Enemies.Bouncer;
 import model.GameObjects.Enemies.EnemyObject;
 
 import static org.junit.Assert.*;
-import java.util.*;
+// import java.util.*;
 
 public class GameTest {
 
@@ -168,7 +169,7 @@ public class GameTest {
     bouncer.setHeight(5);
     // TODO: set special affects later in
 
-    Obstacle ob = new Obstacle();
+    Obstacle ob = new Obstacle(ObstacleTypes.SQUARE);
     ob.setX(20);
     ob.setY(330);
     ob.setWidth(5);

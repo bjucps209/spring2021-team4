@@ -1,11 +1,12 @@
 package model.GameObjects;
 
 import model.Level;
+import model.Enums.ObstacleTypes;
 
 public class Obstacle extends GameObject {
     // class for each Obstacle instance during the game
 
-    public Obstacle(Level l) {
+    public Obstacle(ObstacleTypes type, Level l) {
         super(l);
     }
 

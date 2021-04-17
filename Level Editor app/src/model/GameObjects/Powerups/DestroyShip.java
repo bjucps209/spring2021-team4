@@ -1,6 +1,6 @@
 package model.GameObjects.Powerups;
 
-import model.Wave;
+// import model.Wave;
 import model.Enums.PowerUps;
 import model.GameObjects.Player;
 

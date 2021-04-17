@@ -3,9 +3,10 @@ package model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.stream.Stream;
+// import java.util.stream.Stream;
 
 import model.Enums.EnemyTypes;
+import model.Enums.ObstacleTypes;
 import model.Enums.ShipSkins;
 import model.GameObjects.GameObject;
 import model.GameObjects.Obstacle;
@@ -306,7 +307,7 @@ public class Level {
                     // TODO have to determine if obstalce will have different type or not
 
                     // assumenot in this calse
-                    Obstacle obstacle = new Obstacle();
+                    Obstacle obstacle = new Obstacle(ObstacleTypes.SQUARE);
                     if (obstacle.deserialize(restInfo) == false) {
                         throw new IOException("Error in converting obstacle data");
                     } else {

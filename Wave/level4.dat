@@ -1,1 +1,1 @@
-EObstacle,610,519|Obstacle,331,522|Bouncer,853,672|Bouncer,31,26|Player,432,648|HealthGainSmall,467,539,0|Ghost,106,649|Bouncer,879,28|Obstacle,444,147|DestroyShip,462,55,0|
+EPlayer,441,707|DestroyShip,907,734,0|DestroyShip,916,25,0|Obstacle,205,506,NARROW|Obstacle,207,112,NARROW|Obstacle,363,312,NARROW|Bouncer,12,38|Bouncer,27,668|Bouncer,28,350|Bouncer,19,507|Bouncer,17,175|Obstacle,608,343,SQUARE|HealthGainBig,503,367,0|

@@ -94,9 +94,20 @@ public class MainWindow {
 
     // factory method to create an instance of GameObject when the user clicks create new
     GameObject createGameObjects(String identifier) {
-        if (identifier.equals("block_square") || identifier.equals("block_corner") || identifier.equals("block_large") || identifier.equals("block_narrow")) {
-            return new Obstacle();
+        // obstacles
+        if (identifier.equals("block_square")) {
+            return new Obstacle(ObstacleTypes.SQUARE);
         }
+        else if (identifier.equals("block_corner")) {
+            return new Obstacle(ObstacleTypes.CORNER);
+        }
+        else if (identifier.equals("block_large")) {
+            return new Obstacle(ObstacleTypes.LARGE);
+        }
+        else if (identifier.equals("block_narrow")) {
+            return new Obstacle(ObstacleTypes.NARROW);
+        }
+
         else if (identifier.equals("powerupBlue_bolt")) {
             var freeze = PowerUp.create(PowerUps.Freeze);
             try {
@@ -356,6 +367,7 @@ public class MainWindow {
         String fileName = txtFFileName.getText();
 
         String absolutePath = f.getAbsolutePath();
+        System.out.println(absolutePath);
         int findWave = absolutePath.indexOf("Level Editor app");
         String basePath = absolutePath.substring(0, findWave);
 
@@ -379,6 +391,10 @@ public class MainWindow {
                 var downCastedObj = (PowerUp) obj;
                 allObjectInformation += ("," + downCastedObj.getAppearTime());
             }
+            if (obj instanceof Obstacle) {
+                var downCastedObj = (Obstacle) obj;
+                allObjectInformation += ("," + String.valueOf(downCastedObj.getType()));
+            }
             allObjectInformation += "|";
             // if lasers have an orientation attribute
             // if (obj instanceof Laser) {
@@ -395,8 +411,6 @@ public class MainWindow {
                 try (var stream = new FileOutputStream(basePath + "Wave\\" + fileName + ".dat");) {
                     byte[] byteLevelInfo = levelInfo.getBytes();
                     stream.write(byteLevelInfo);
-                    var alert = new Alert(AlertType.INFORMATION, "File saved as " + fileName);
-                    alert.show();
                 }
             }
             else {

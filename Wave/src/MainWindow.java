@@ -90,47 +90,30 @@ public class MainWindow {
     }
 
     @FXML
-    // click on load level to
+    // click on load level to open a screen that will allow the user to search the directory for a file and if it exists, load that file
     void onLoadCustomGameClicked() {
 
         VBox topVBox = new VBox();
         topVBox.setId("menu-background");
         topVBox.setAlignment(Pos.CENTER);
+        topVBox.setSpacing(10);
 
-        HBox hbox = new HBox();
-        hbox.setAlignment(Pos.CENTER);
+        Label lbl = new Label("Please enter the name of the file you'd like to load.(don't worry about the .dat)");
+        topVBox.getChildren().add(lbl);
+        TextField txtFieldFileChooser = new TextField();
+        txtFieldFileChooser.setId("TEXTFIELD");
+        txtFieldFileChooser.setMaxWidth(125);
+        topVBox.getChildren().add(txtFieldFileChooser);
 
-        VBox leftVBox = new VBox();
-        leftVBox.setPadding(new Insets(10));
-        leftVBox.setSpacing(10);
-        leftVBox.setAlignment(Pos.CENTER);
+        Button button = new Button("Add Level");
+        button.setOnAction(this::callLoadCustomLevel);
 
-        for (int i = 0; i < 5; i++) {
-            Button button = new Button("customLevel" + i);
-            button.setOnAction(this::callLoadCustomLevel);
-            leftVBox.getChildren().add(button);
-        }
-        hbox.getChildren().add(leftVBox);
-
-        VBox rightVBox = new VBox();
-        rightVBox.setPadding(new Insets(10));
-        rightVBox.setSpacing(10);
-        rightVBox.setAlignment(Pos.CENTER);
-
-        for (int i = 5; i < 10; i++) {
-            Button button = new Button("customLevel" + i);
-            button.setOnAction(this::callLoadCustomLevel);
-            rightVBox.getChildren().add(button);
-        }
-        hbox.getChildren().add(rightVBox);
-
-        topVBox.getChildren().add(new Label(
-                "Click which levels you want to add to your custom game, if a level does not exist, \nnothing will be added.\nClick Start Game to begin a game with your custom levels."));
-        topVBox.getChildren().add(hbox);
-
-        Button button = new Button("Start Game");
-        button.setOnAction(this::startCustomGame);
         topVBox.getChildren().add(button);
+
+
+        Button startGameButton = new Button("Start Custom Game");
+        startGameButton.setOnAction(this::startCustomGame);
+        topVBox.getChildren().add(startGameButton);
 
         Scene loadLevelScene = new Scene(topVBox, 800, 600);
         Stage loadLevelStage = new Stage();
@@ -146,29 +129,41 @@ public class MainWindow {
     @FXML
     void callLoadCustomLevel(ActionEvent e) {
         Button button = (Button) e.getSource();
-        String levelName = button.getText();
-        try {
-            Level l = w.loadCustomLevel(levelName);
-            if (l != null) {
-                customGameLevels.add(l);
-            }
+        Scene scene = button.getScene();
+        TextField txtFileChoice = (TextField) scene.lookup("#TEXTFIELD");
+        String fileName = txtFileChoice.getText();
+        if (w.searchDirectoryForFile(fileName)) {
+            try {
+                Level l = w.loadCustomLevel(fileName);
+                if (l != null) {
+                    customGameLevels.add(l);
+                }
 
-        } catch (IOException exception) {
+            } catch (IOException exception) {
+            }
+        txtFileChoice.requestFocus();
+        }
+        else {
+            var alert = new Alert(AlertType.INFORMATION, "That file is not in the directory.");
+            alert.show();
         }
     }
 
     @FXML
     void startCustomGame(ActionEvent e) {
-        w.gameStart();
+        
         if (customGameLevels.size() > 0) {
-            try {
-                onNewGameClicked();
-                w.getGame().setLevels(customGameLevels);
-            } catch (IOException exception) {
+            System.out.println("start the custom game");
+            // try {
 
-            }
+            //     // w.gameStart();
+            //     // onNewGameClicked();
+            //     // w.getGame().setLevels(customGameLevels);
+            // } catch (IOException exception) {
+
+            // }
         } else {
-            var alert = new Alert(AlertType.INFORMATION, "You haven't picked any custom levels to play yet.");
+            var alert = new Alert(AlertType.ERROR, "You haven't picked any custom levels to play yet.");
             alert.show();
         }
 

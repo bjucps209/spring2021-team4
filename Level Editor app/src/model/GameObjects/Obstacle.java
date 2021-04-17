@@ -1,9 +1,14 @@
 package model.GameObjects;
 
+import model.Enums.ObstacleTypes;
 
 public class Obstacle extends GameObject {
     // class for each Obstacle instance during the game
+    ObstacleTypes type;
 
+    public Obstacle(ObstacleTypes type) {
+        this.type = type;
+    }
 
     @Override
     public String serialize() {
@@ -33,5 +38,12 @@ public class Obstacle extends GameObject {
         } catch (Exception e){
             return false; // error in converting obstacle data
         }
-    }  
+    }
+
+    public ObstacleTypes getType() {
+        return this.type;
+    }
+    public void setType(ObstacleTypes type) {
+        this.type = type;
+    }
 }
