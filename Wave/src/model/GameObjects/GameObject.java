@@ -247,4 +247,12 @@ public abstract class GameObject {
         this.appearTime = appearTime;
     }
 
+    public ArrayList<GameObject> getHits() {
+        return hits;
+    }
+
+    public void setHits(ArrayList<GameObject> hits) {
+        this.hits = hits;
+    }
+
 }

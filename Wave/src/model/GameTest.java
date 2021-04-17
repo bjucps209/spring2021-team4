@@ -43,6 +43,7 @@ public class GameTest {
     assertTrue(player.getDx() == 10 );
     assertTrue(player.getDy() == 10);
     //TODO: check for special affect later
+    assertTrue(player.getHits().size() == 1);
 
     Level currentLevel = game.getCurrentLevel();
     //assertTrue(game.getCurrentLevel().getAllObjects().size()-1 == 3); TODO: have not implement powerUP yet, so it will be wrong 

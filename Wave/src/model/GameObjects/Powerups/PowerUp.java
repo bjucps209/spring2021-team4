@@ -12,6 +12,8 @@ public abstract class PowerUp extends GameObject {
   protected PowerUps type;
   protected boolean isFinished = false;
   protected int effectiveTime;
+  protected int passedTime = 0; // might not be a int depent on implementation of running clock
+  
 
   public abstract void collisionWithPlayer(Player p);
 
@@ -19,6 +21,10 @@ public abstract class PowerUp extends GameObject {
     super(l);
     this.dx.set(0);
     this.dy.set(0);
+
+    //TODO: allow customized when will powerup appear
+    // in the future
+    this.appearTime = 60;
   }
 
   @Override
@@ -30,7 +36,7 @@ public abstract class PowerUp extends GameObject {
   public String serialize() {
     // TODO: type for different power ups
     
-    return "PowerUp;"+type.toString()+";"+x.get()+";"+y.get()+";"+width.get()+";"+height.get()+";"+dx.get()+";"+dy.get();
+    return "PowerUp;"+type.toString()+";"+x.get()+";"+y.get()+";"+width.get()+";"+height.get()+";"+dx.get()+";"+dy.get()+";"+appearTime;
   }
 
   public boolean deserialize(String info) {
@@ -44,6 +50,7 @@ public abstract class PowerUp extends GameObject {
       this.height.set(Integer.parseInt(infos[3]));
       this.dx.set(Integer.parseInt(infos[4]));
       this.dy.set(Integer.parseInt(infos[5]));
+      this.appearTime = Integer.parseInt(infos[6]);
       return true;
     }catch (Exception e){
       return false;
@@ -68,13 +75,16 @@ public abstract class PowerUp extends GameObject {
     }
     case HealthGainBig: {
       power = new HealthGainBig(l);
+      break;
     }
     case HealthGainSmall: {
       power = new HealthGainSmall(l);
+      break;
     }
     default: {
       // should not happen
       power = new HealthGainSmall(l);
+      break;
     }
 
     }
@@ -95,6 +105,9 @@ public abstract class PowerUp extends GameObject {
   }
 
   public boolean getIsFinished() {
+    if(passedTime >= effectiveTime){
+      this.isFinished = true;
+    }
     return this.isFinished;
   }
 
@@ -108,6 +121,14 @@ public abstract class PowerUp extends GameObject {
 
   public void setFinished(boolean isFinished) {
     this.isFinished = isFinished;
+  }
+
+  public int getPassedTime() {
+    return passedTime;
+  }
+
+  public void setPassedTime(int passedTime) {
+    this.passedTime = passedTime;
   }
 
  
