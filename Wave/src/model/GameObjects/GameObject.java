@@ -134,19 +134,19 @@ public abstract class GameObject {
     }
 
     public void checkWallCollision() {
-        if (getX() <= 4 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth()) {
+        if (getX() <= 0 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 10) {
             dx.set(-getDx());
             if (getX() < 10) {
                 x.set(1);
             } else {
                 x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 1);
             }
-        } else if (getY() <= 4 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight()) {
+        } else if (getY() <= -5 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 25) {
             dy.set(-getDy());
             if (getY() < 10) {
                 y.set(1);
             } else {
-                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 1);
+                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 20);
             }
         }
     }

@@ -39,8 +39,10 @@ public class Player extends GameObject {
                     //hits.add(checkCollision(currentLevel.getPowerUps()));
                 //}
                 
-                processHit(hits.get(0), this);
-                hits.remove(hits.get(0));
+                if (hits.size() != 0) {
+                    processHit(hits.get(0), this);
+                    hits.remove(hits.get(0));
+                }
 
                 try {
                     Thread.sleep(33);
