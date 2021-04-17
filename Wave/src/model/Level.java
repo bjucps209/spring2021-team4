@@ -3,6 +3,9 @@ package model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import model.Enums.EnemyTypes;
 import model.Enums.ObstacleTypes;
 import model.Enums.PowerUps;
@@ -38,7 +41,7 @@ public class Level {
     // Gameplay variables
     private Player player = new Player(this);
 
-    private int remainingTime; // possible connect to TimeLine() with data binding technique
+    private IntegerProperty remainingTime = new SimpleIntegerProperty(); // possible connect to TimeLine() with data binding technique
 
     // This construction should only be use in unit test
 
@@ -156,12 +159,16 @@ public class Level {
         this.player = player;
     }
 
-    public int getRemainingTime() {
+    public IntegerProperty remainingTimeProperty() {
         return remainingTime;
     }
 
+    public int getRemainingTime() {
+        return remainingTime.get();
+    }
+
     public void setRemainingTime(int remainingTime) {
-        this.remainingTime = remainingTime;
+        this.remainingTime.set(remainingTime);
     }
 
     /**
