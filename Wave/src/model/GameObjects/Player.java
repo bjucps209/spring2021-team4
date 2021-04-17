@@ -35,10 +35,10 @@ public class Player extends GameObject {
         hitDetection = new Thread(() -> {
            /* Timeline t = new Timeline(new KeyFrame(new Duration(33.3), e -> {
 
-                ArrayList<Boolean> isFinished = new ArrayList<>();
-                for (GameObject object : this.hits) {
-                    isFinished.add(processHit(object, this));
-                    // store true if should be delete, store false other wise
+    //             ArrayList<Boolean> isFinished = new ArrayList<>();
+    //             for (GameObject object : this.hits) {
+    //                 isFinished.add(processHit(object, this));
+    //                 // store true if should be delete, store false other wise
                 
                 }
                 int i = 0;

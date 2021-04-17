@@ -14,6 +14,8 @@ public abstract class GameObject {
     protected IntegerProperty height = new SimpleIntegerProperty();
     protected static IntegerProperty speed = new SimpleIntegerProperty();
 
+    protected int appearTime = 60;
+
     public abstract String serialize();
     public abstract boolean deserialize(String info);
 
@@ -120,4 +122,12 @@ public abstract class GameObject {
     public IntegerProperty heightProperty() {
         return height;
     }
+
+    public int getAppearTime() {
+        return this.appearTime;
+    }
+    public void setAppearTime(int appearTime) {
+        this.appearTime = appearTime;
+    }
+
 }

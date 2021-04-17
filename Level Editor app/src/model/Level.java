@@ -9,7 +9,8 @@ import model.Enums.EnemyTypes;
 import model.Enums.ObstacleTypes;
 import model.Enums.ShipSkins;
 import model.GameObjects.GameObject;
-import model.GameObjects.Obstacle;
+// import model.GameObjects.Obstacle;
+import model.GameObjects.Obstacles.*;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.Bouncer;
 import model.GameObjects.Enemies.EnemyObject;
@@ -307,7 +308,7 @@ public class Level {
                     // TODO have to determine if obstalce will have different type or not
 
                     // assumenot in this calse
-                    Obstacle obstacle = new Obstacle(ObstacleTypes.SQUARE);
+                    Obstacle obstacle = Obstacle.create(ObstacleTypes.SQUARE);
                     if (obstacle.deserialize(restInfo) == false) {
                         throw new IOException("Error in converting obstacle data");
                     } else {

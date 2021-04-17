@@ -1,15 +1,53 @@
-package model.GameObjects;
 
+package model.GameObjects.Obstacles;
+import model.Level;
 import model.Enums.ObstacleTypes;
+import model.GameObjects.GameObject;
 
-public class Obstacle extends GameObject {
+public abstract class Obstacle extends GameObject {
     // class for each Obstacle instance during the game
-    ObstacleTypes type;
+    protected ObstacleTypes type;
+    // public Obstacle(){
+    //     super();
+    //     this.dx.set(0);
+    //     this.dy.set(0);
+    //     //TODO: specific width and height for different obstacles
+    // }
+    // public Obstacle(ObstacleTypes type) {
+    //     super();
+    //     this.dx.set(0);
+    //     this.dy.set(0);
+    // }
 
-    public Obstacle(ObstacleTypes type) {
-        this.type = type;
+    public static Obstacle create(ObstacleTypes type) {
+        Obstacle obstacle;
+        switch (type) {
+            case SQUARE:
+                obstacle = new Square();
+                break;
+            case NARROW:
+                obstacle = new Narrow();
+                break;
+            case CORNER:
+                obstacle = new Corner();
+                break;
+            case LARGE:
+                obstacle = new Large();
+                break;
+            default:
+                obstacle = null;
+                break;
+        }
+        return obstacle;
     }
+    
 
+
+    @Override
+    public void update() {
+
+        // Obstacles will not move
+    }
     @Override
     public String serialize() {
         // TODO Auto-generated method stub
@@ -39,11 +77,10 @@ public class Obstacle extends GameObject {
             return false; // error in converting obstacle data
         }
     }
-
     public ObstacleTypes getType() {
-        return this.type;
+        return type;
     }
     public void setType(ObstacleTypes type) {
         this.type = type;
-    }
+    }  
 }

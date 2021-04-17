@@ -21,30 +21,27 @@ public class Obstacle extends GameObject {
         this.dy.set(0);
         this.appearTime = 60;
     }
-    
-    public static Obstacle create(ObstacleTypes type, Level l){
-        Obstacle ob;
-        switch(type){
-            case SQUARE:{
-                ob = new Square(l);
-                break;
-            }
-            case LARGE:{
-                ob = new Large(l);
-                break;
-            }
-            case NARROW:{
-                ob = new Narrow(l);
-            }
-            case CORNER:{
-                ob = new Corner(l);
-            }
-            default:
-                // should no happen
-                ob = null;
-        }
 
-        return ob;
+    public static Obstacle create(ObstacleTypes type, Level l) {
+        Obstacle obstacle;
+        switch (type) {
+            case SQUARE:
+                obstacle = new Square(l);
+                break;
+            case NARROW:
+                obstacle = new Narrow(l);
+                break;
+            case CORNER:
+                obstacle = new Corner(l);
+                break;
+            case LARGE:
+                obstacle = new Large(l);
+                break;
+            default:
+                obstacle = null;
+                break;
+        }
+        return obstacle;
     }
 
     @Override

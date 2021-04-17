@@ -36,7 +36,7 @@ public class Level {
     private int score;
 
     // Gameplay variables
-    private Player player= new Player(this);
+    private Player player = new Player(this);
 
     private int remainingTime; // possible connect to TimeLine() with data binding technique
 

@@ -5,7 +5,7 @@ import java.io.*;
 // import model.Enums.EnemyTypes;
 // import model.Enums.ShipSkins;
 import model.GameObjects.GameObject;
-import model.GameObjects.Obstacle;
+import model.GameObjects.Obstacles.*;
 // import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 
