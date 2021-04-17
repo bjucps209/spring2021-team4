@@ -27,6 +27,7 @@ public class DestroyShip extends PowerUp {
 
     // TODO method of deleting variable
     currentLevel.getAllObjects().remove(currentLevel.getEnemies().get(enemyIndex));
+    currentLevel.getEnemies().get(enemyIndex).setIsRemoved(true);
     currentLevel.getEnemies().remove(enemyIndex);
   }
 

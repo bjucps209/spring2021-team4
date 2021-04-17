@@ -11,6 +11,7 @@ public abstract class EnemyObject extends GameObject {
     protected EnemyTypes type;
     protected boolean temporaryFreeze = false;
     protected Player player;
+    protected boolean isRemoved = false;
         
 
     public EnemyObject(Level l) {
@@ -113,5 +114,9 @@ public abstract class EnemyObject extends GameObject {
 
     public void setTemporaryFreeze(boolean temporaryFreeze) {
         this.temporaryFreeze = temporaryFreeze;
+    }
+
+    public void setIsRemoved(boolean isRemoved) {
+        this.isRemoved = isRemoved;
     }
 }
