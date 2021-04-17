@@ -320,37 +320,32 @@ public class Wave {
                 // powerups
                 else if (instanceInfo[0].equals("DestroyShip")) {
                     object = PowerUp.create(PowerUps.DestroyShip, level);
-                    ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                 } else if (instanceInfo[0].equals("Freeze")) {
                     object = PowerUp.create(PowerUps.Freeze, level);
-                    ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                 } else if (instanceInfo[0].equals("HealthGainSmall")) {
                     object = PowerUp.create(PowerUps.HealthGainSmall, level);
-                    ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                 } else if (instanceInfo[0].equals("TemporaryInvincible")) {
                     object = PowerUp.create(PowerUps.TemporaryInvincible, level);
-                    ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                 } else if (instanceInfo[0].equals("HealthGainBig")) {
                     object = PowerUp.create(PowerUps.HealthGainBig, level);
-                    ((PowerUp) object).setAppearTime(Integer.parseInt(instanceInfo[3]));
                 } else if (instanceInfo[0].equals("Player")) {
                     object = new Player(level);
+                    level.setPlayer((Player) object);
                 }
                 // obstacles
-                else {
-                    if (instanceInfo[instanceInfo.length - 1].equals("SQUARE")) {
-                        object = new Obstacle(ObstacleTypes.SQUARE, level);
-                    }
-                    else if (instanceInfo[instanceInfo.length - 1].equals("LARGE")) { 
-                        object = new Obstacle(ObstacleTypes.LARGE, level);
-                    }
-                    else if (instanceInfo[instanceInfo.length - 1].equals("NARROW")) {
-                        object = new Obstacle(ObstacleTypes.NARROW, level);
-                    }
-                    else {
-                        object = new Obstacle(ObstacleTypes.CORNER, level);
-                    }
+                else if (instanceInfo[0].equals("SQUARE")) {
+                    object = Obstacle.create(ObstacleTypes.SQUARE, level);
                 }
+                else if (instanceInfo[0].equals("NARROW")) {
+                    object = Obstacle.create(ObstacleTypes.NARROW, level);
+                }
+                else if (instanceInfo[0].equals("CORNER")) {
+                    object = Obstacle.create(ObstacleTypes.CORNER, level);
+                }
+                else {
+                    object = Obstacle.create(ObstacleTypes.LARGE, level);
+                }
+                object.setAppearTime(Integer.parseInt(instanceInfo[3]));
                 object.setX(Integer.parseInt(instanceInfo[1]));
                 object.setY(Integer.parseInt(instanceInfo[2]));
                 level.getAllObjects().add(object);

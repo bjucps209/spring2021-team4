@@ -18,6 +18,28 @@ public class Obstacle extends GameObject {
         this.dx.set(0);
         this.dy.set(0);
     }
+
+    public static Obstacle create(ObstacleTypes type, Level l) {
+        Obstacle obstacle;
+        switch (type) {
+            case SQUARE:
+                obstacle = new Square(l);
+                break;
+            case NARROW:
+                obstacle = new Narrow(l);
+                break;
+            case CORNER:
+                obstacle = new Corner(l);
+                break;
+            case LARGE:
+                obstacle = new Large(l);
+                break;
+            default:
+                obstacle = null;
+                break;
+        }
+        return obstacle;
+    }
     
 
 
