@@ -40,6 +40,8 @@ public abstract class GameObject {
     ArrayList<Obstacle> obstacles;
     ArrayList<EnemyObject> enemies;
     ArrayList<GameObject> hits = new ArrayList<GameObject>();
+    private int pauseDx;
+    private int pauseDy;
     public Level currentLevel;
     public Thread hitDetection = new Thread(() -> {
         while (true) {
@@ -50,7 +52,7 @@ public abstract class GameObject {
                 e.printStackTrace();
             }
         } 
-     });;
+    });;
 
     public GameObject(Level l) {
         currentLevel = l;
@@ -68,6 +70,18 @@ public abstract class GameObject {
 
     public void stopHitDetection() throws InterruptedException {
         hitDetection.stop();
+    }
+
+    public void pause() {
+        pauseDx = getDx();
+        pauseDy = getDy();
+        setDx(0);
+        setDy(0);
+    }
+
+    public void start() {
+        setDx(pauseDx);
+        setDy(pauseDy);
     }
 
     public boolean processHit(GameObject g, Player p) {
