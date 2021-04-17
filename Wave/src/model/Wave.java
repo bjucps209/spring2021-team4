@@ -330,7 +330,8 @@ public class Wave {
                     object = PowerUp.create(PowerUps.HealthGainBig, level);
                 } else if (instanceInfo[0].equals("Player")) {
                     object = new Player(level);
-                    level.setPlayer((Player) object);
+                    level.setPlayer((Player)object);
+                    
                 }
                 // obstacles
                 else if (instanceInfo[0].equals("SQUARE")) {
@@ -352,7 +353,7 @@ public class Wave {
 
                 // add object to corresponding part of the level
                 if (object instanceof PowerUp) {
-                    level.getPowerups().add((PowerUp) object);
+                    level.getPowerUps().add((PowerUp) object);
                 } 
                 else if (object instanceof Obstacle) {
                     level.getObstacles().add((Obstacle) object);

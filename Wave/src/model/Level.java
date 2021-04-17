@@ -297,6 +297,7 @@ public class Level {
                         case BOUNCER:{
                             enemy = new Bouncer(this);
                             enemy.setType(EnemyTypes.valueOf(type));
+                            
                             break;
                         }
                         case TRACKER:{
