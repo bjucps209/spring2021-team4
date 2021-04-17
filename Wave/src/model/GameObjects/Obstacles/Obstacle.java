@@ -12,14 +12,40 @@ public class Obstacle extends GameObject {
         this.dx.set(0);
         this.dy.set(0);
         //TODO: specific width and height for different obstacles
+
+        appearTime = 60;
     }
     public Obstacle(ObstacleTypes type, Level l) {
         super(l);
         this.dx.set(0);
         this.dy.set(0);
+        this.appearTime = 60;
     }
     
+    public static Obstacle create(ObstacleTypes type, Level l){
+        Obstacle ob;
+        switch(type){
+            case SQUARE:{
+                ob = new Square(l);
+                break;
+            }
+            case LARGE:{
+                ob = new Large(l);
+                break;
+            }
+            case NARROW:{
+                ob = new Narrow(l);
+            }
+            case CORNER:{
+                ob = new Corner(l);
+            }
+            default:
+                // should no happen
+                ob = null;
+        }
 
+        return ob;
+    }
 
     @Override
     public void update() {
@@ -31,7 +57,8 @@ public class Obstacle extends GameObject {
         // TODO Auto-generated method stub
         // TODO: do we have different type of obstacles
 
-        return "Obstacle;"+"Obstacle"+";"+x.get()+";"+y.get()+";" + width.get()+";" + height.get()+";"+dx.get()+";"+dy.get(); //TODO: special affect on obstacles?
+        return "Obstacle;"+"Obstacle"+";"+x.get()+";"+y.get()+";" + width.get()+";" + height.get()+";"+dx.get()+";"+dy.get() + ";"+appearTime;
+         //TODO: special affect on obstacles?
     }
 
     @Override
@@ -49,6 +76,7 @@ public class Obstacle extends GameObject {
         this.height.set(Integer.parseInt(restInfo[3]));
         this.dx.set(Integer.parseInt(restInfo[4]));
         this.dy.set(Integer.parseInt(restInfo[5]));
+        this.appearTime = Integer.parseInt(restInfo[6]);
 
         return true;
         } catch (Exception e){

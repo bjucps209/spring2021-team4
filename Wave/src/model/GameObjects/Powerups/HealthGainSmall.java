@@ -12,6 +12,7 @@ public class HealthGainSmall extends PowerUp {
     super(l);
     this.type = PowerUps.HealthGainSmall;
     this.effectiveTime = 0;
+  
   }
 
   @Override

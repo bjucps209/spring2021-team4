@@ -297,26 +297,32 @@ public class Level {
                         case BOUNCER:{
                             enemy = new Bouncer(this);
                             enemy.setType(EnemyTypes.valueOf(type));
+                            break;
                         }
                         case TRACKER:{
                             enemy = new Tracker(this);
                             enemy.setType(EnemyTypes.valueOf(type));
+                            break;
                         }
                         case GHOST:{
                             enemy = new Ghost(this);
                             enemy.setType(EnemyTypes.valueOf(type));
+                            break;
                         }
                         case LASER:{
                             enemy = new Laser(this);
                             enemy.setType(EnemyTypes.valueOf(type));
+                            break;
                         }
                         case SHAPESHIFTER:{
                             enemy = new Shapeshifter(this);
                             enemy.setType(EnemyTypes.valueOf(type));
+                            break;
                         }
                         default :
                             // shoud not happen
                            success = false;
+                           break;
                     }
 
                     if (enemy.deserialize(restInfo) == false) {
@@ -337,21 +343,26 @@ public class Level {
                         case SQUARE:{
                             obstacle = new Square(this);
                             obstacle.setType(ObstacleTypes.valueOf(type));
+                            break;
                         }
                         case LARGE:{
                             obstacle = new Large(this);
                             obstacle.setType(ObstacleTypes.valueOf(type));
+                            break;
                         }
                         case NARROW:{
                             obstacle = new Narrow(this);
                             obstacle.setType(ObstacleTypes.valueOf(type));
+                            break;
                         }
                         case CORNER:{
                             obstacle = new Corner(this);
                             obstacle.setType(ObstacleTypes.valueOf(type));
+                            break;
                         }
                         default:
                             success = false;
+                            break;
                     }
                     if (obstacle.deserialize(restInfo) == false) {
                         throw new IOException("Error in converting obstacle data");
@@ -372,25 +383,31 @@ public class Level {
                         case Freeze:{
                             power = new Freeze(this);
                             power.setType(PowerUps.valueOf(type));
+                            break;
                         }
                         case DestroyShip:{
                             power = new DestroyShip(this);
                             power.setType(PowerUps.valueOf(type));
+                            break;
                         }
                         case TemporaryInvincible:{
                             power = new TemporaryInvincible(this);
                             power.setType(PowerUps.valueOf(type));
+                            break;
                         }
                         case HealthGainBig:{
                             power = new HealthGainBig(this);
                             power.setType(PowerUps.valueOf(type));
+                            break;
                         }
                         case HealthGainSmall:{
                             power = new HealthGainSmall(this);
                             power.setType(PowerUps.valueOf(type));
+                            break;
                         }
                         default:
                             success = false;
+                            break;
                         
                     }
                     if (power.deserialize(restInfo) == false) {

@@ -39,6 +39,7 @@ public class Player extends GameObject {
                 for (GameObject object : this.hits) {
                     isFinished.add(processHit(object, this));
                     // store true if should be delete, store false other wise
+                
                 }
                 int i = 0;
                 for (boolean value : isFinished) {
@@ -147,7 +148,7 @@ public class Player extends GameObject {
             String data = "";
             if(affObject instanceof PowerUp){
                 PowerUp ob = (PowerUp)affObject;
-                data += "PowerUp,"+ob.getType()+","+ob.getEffectiveTime();
+                data += "PowerUp,"+ob.getType()+","+ob.getEffectiveTime()+","+ob.getPassedTime();
         
             
             }else{
@@ -186,10 +187,12 @@ public class Player extends GameObject {
                         if(type== PowerUps.Freeze){
                             Freeze pow = new Freeze(this.currentLevel);
                             pow.setEffectiveTime(Integer.parseInt(data[2]));
+                            pow.setPassedTime(Integer.parseInt(data[3]));
                             this.hits.add(pow);
                         }else if(type == PowerUps.TemporaryInvincible){
                             TemporaryInvincible pow = new TemporaryInvincible(this.currentLevel);
                             pow.setEffectiveTime(Integer.parseInt(data[2]));
+                            pow.setPassedTime(Integer.parseInt(data[3]));
                             this.hits.add(pow);
                         }else{
                             // should not be the case
