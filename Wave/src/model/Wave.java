@@ -10,6 +10,7 @@ import model.Enums.*;
 import model.GameObjects.*;
 import model.GameObjects.Enemies.*;
 import model.GameObjects.Powerups.*;
+import model.GameObjects.Obstacles.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -282,7 +283,10 @@ public class Wave {
 
     // method to load custom levels - RTR
     public Level loadCustomLevel(String fileName) throws IOException {
-
+        System.out.println(System.getProperty("user.dir"));
+        File s = new File(fileName+".dat");
+        System.out.println(s.exists());
+        System.out.println("");
         try (var stream = new FileInputStream(fileName + ".dat");) {
             var f = new File(fileName + ".dat");
             int lengthOfLevel = (int) f.length();

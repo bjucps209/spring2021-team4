@@ -3,7 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.io.*;
 import model.GameObjects.GameObject;
-import model.GameObjects.Obstacle;
+import model.GameObjects.Obstacles.*;
+import model.GameObjects.*;
 import model.GameObjects.Enemies.EnemyObject;
 
 public class Game {

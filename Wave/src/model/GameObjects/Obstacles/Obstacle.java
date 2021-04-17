@@ -1,14 +1,24 @@
-package model.GameObjects;
 
+package model.GameObjects.Obstacles;
 import model.Level;
 import model.Enums.ObstacleTypes;
+import model.GameObjects.GameObject;
 
 public class Obstacle extends GameObject {
     // class for each Obstacle instance during the game
-
+    protected ObstacleTypes type;
+    public Obstacle(Level l){
+        super(l);
+        this.dx.set(0);
+        this.dy.set(0);
+        //TODO: specific width and height for different obstacles
+    }
     public Obstacle(ObstacleTypes type, Level l) {
         super(l);
+        this.dx.set(0);
+        this.dy.set(0);
     }
+    
 
 
     @Override
@@ -44,5 +54,11 @@ public class Obstacle extends GameObject {
         } catch (Exception e){
             return false; // error in converting obstacle data
         }
+    }
+    public ObstacleTypes getType() {
+        return type;
+    }
+    public void setType(ObstacleTypes type) {
+        this.type = type;
     }  
 }
