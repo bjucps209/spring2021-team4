@@ -46,6 +46,7 @@ public class GameWindow {
 
         // Label to represent the timer
         Label lblTimer = new Label();
+        g.getCurrentLevel().setRemainingTime(60);
         lblTimer.textProperty().bind(Bindings.createStringBinding( () -> String.valueOf(g.getCurrentLevel().getRemainingTime()), g.getCurrentLevel().remainingTimeProperty()));
         pane.getChildren().add(lblTimer);
         lblTimer.relocate(0, 30);
