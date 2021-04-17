@@ -24,6 +24,7 @@ public class GameWindow {
     Label health;
 
     static Timeline timer;
+    Timeline countDown;
 
     @FXML
     public void initialize() {
@@ -51,7 +52,7 @@ public class GameWindow {
         pane.getChildren().add(lblTimer);
         lblTimer.relocate(0, 30);
         // timer to connect to the countdown in game.
-        var countDown = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+        countDown = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             g.getCurrentLevel().setRemainingTime(g.getCurrentLevel().getRemainingTime() - 1);
         }));
         countDown.setCycleCount(60);
