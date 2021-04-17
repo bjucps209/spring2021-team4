@@ -123,12 +123,11 @@ public abstract class GameObject {
             return power.getIsFinished();
         } else if (gc.equals(Obstacle.class)) {
             if (gc.equals(Player.class)) {
-                setDx(0);
-                setDy(0);
+                p.setDx(0);
+                p.setDy(0);
             } else {
-                if (this.getX() > g.getX() + (g.getWidth() / 2)) {
-                    
-                }
+                g.setDx(-getDx());
+                g.setDy(-getDy());
             }
         }
         // the default case
