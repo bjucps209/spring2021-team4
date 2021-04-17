@@ -60,7 +60,7 @@ public class Game {
 
     // creates all hard-coded levels and stores in arraylist
     public void createLevels() throws IOException {
-        Level l = w.loadCustomLevel("level1");
+        Level l = w.loadCustomLevel("testlevel");
         levels.add(l);
     }
 
