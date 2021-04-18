@@ -317,7 +317,7 @@ public class Wave {
 
             for (String instance : instances) {
                 String[] instanceInfo = instance.split(Pattern.quote(","));
-                System.out.println(instanceInfo.length);
+                //System.out.println(instanceInfo.length);
                 GameObject object;
                 // enemy entities
                 if (instanceInfo[0].equals("Bouncer")) {

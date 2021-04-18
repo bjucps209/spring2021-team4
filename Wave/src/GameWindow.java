@@ -28,7 +28,7 @@ public class GameWindow {
     static Player p;
     static Game g;
 
-    static HighScoreList highScoreList;
+    static HighScoreList highScoreList = new HighScoreList();
     static boolean pauseState = false;
 
     @FXML
@@ -169,6 +169,7 @@ public class GameWindow {
             for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
                 item.pause();
             }
+            timer.pause();
 
             // Opens window to allow player to enter their name
             VBox vboxName = new VBox();
@@ -202,7 +203,7 @@ public class GameWindow {
                     }
                     // this is where all the saving gets excecuted
                     highScoreList.save();
-
+                    timer.play();
                 }
             });
         }
