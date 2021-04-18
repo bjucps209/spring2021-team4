@@ -156,9 +156,9 @@ public class MainWindow {
             System.out.println("start the custom game");
             // try {
 
-            //     // w.gameStart();
-            //     // onNewGameClicked();
-            //     // w.getGame().setLevels(customGameLevels);
+            //     w.gameStart();
+            //     onNewGameClicked();
+            //     w.getGame().setLevels(customGameLevels);
             // } catch (IOException exception) {
 
             // }

@@ -303,7 +303,6 @@ public class Wave {
 
             for (String instance : instances) {
                 String[] instanceInfo = instance.split(Pattern.quote(","));
-                System.out.println(instanceInfo.length);
                 GameObject object;
                 // enemy entities
                 if (instanceInfo[0].equals("Bouncer")) {
@@ -377,7 +376,7 @@ public class Wave {
     public boolean searchDirectoryForFile(String fileName) {
         // make a file out of this file, get its path, find the path of the directory this file is in, create a file with that directory name, search that directory for the file we want
 
-        // some help from:
+        // some ideas from:
         // https://stackoverflow.com/questions/15624226/java-search-for-files-in-a-directory
         File file = new File("Wave.java");
         String basePath = file.getAbsolutePath();
