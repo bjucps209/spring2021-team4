@@ -28,7 +28,8 @@ public class HighScoreTest {
     @Test
     public void testSort() {
         initialize();
-        var realList = new HighScoreList(list);
+        var realList = new HighScoreList();
+        realList.setList(list);
         realList.sort();
 
         assertEquals(300, realList.getList().get(0).getScore());
@@ -39,7 +40,8 @@ public class HighScoreTest {
     @Test
     public void testSave() {
         initialize();
-        var realList = new HighScoreList(list);
+        var realList = new HighScoreList();
+        realList.setList(list);
         realList.save();
 
         File f = new File("scores.txt");
@@ -48,7 +50,7 @@ public class HighScoreTest {
 
     @Test
     public void testLoad() {
-        var scoreList = new HighScoreList(new ArrayList<HighScore>());
+        var scoreList = new HighScoreList();
         scoreList.load();
 
         assertEquals("Bob", scoreList.getList().get(0).getName());

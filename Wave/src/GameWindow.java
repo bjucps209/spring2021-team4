@@ -28,7 +28,7 @@ public class GameWindow {
     static Player p;
     static Game g;
 
-    static HighScoreList highScoreList;
+    static HighScoreList highScoreList = new HighScoreList();
     static boolean pauseState = false;
 
     @FXML
