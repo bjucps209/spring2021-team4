@@ -94,8 +94,26 @@ public class GameWindow {
         lblScore.relocate(900, 20);
     }
 
+    public void spawnObstecles() {
+        Image obsteclImage = new Image("./Images/block_square.png");
+        ImageView obstImageView = new ImageView(obsteclImage);
+        obstImageView.setLayoutX(500);
+        obstImageView.setLayoutY(300);
+        pane.getChildren().add(obstImageView);
+    }
+
+    public void spawnPowerups() {
+        Image powerupsImage = new Image("./Images/powerupBlue_bolt.png");
+        ImageView powerupsImageView = new ImageView(powerupsImage);
+        powerupsImageView.setLayoutX(600);
+        powerupsImageView.setLayoutY(300);
+        pane.getChildren().add(powerupsImageView);
+    }
+
     public void spawnEntities() {
         // code to combine all spawn function below
+        spawnObstecles();
+        spawnPowerups();
         spawnPlayer();
         spawnEnemies();
     }
