@@ -104,19 +104,11 @@ public class GameWindow {
     }
 
     public void spawnPowerups() {
-        /*
         Image powerupsImage = new Image("./Images/powerupBlue_bolt.png");
         ImageView powerupsImageView = new ImageView(powerupsImage);
         powerupsImageView.setLayoutX(600);
         powerupsImageView.setLayoutY(300);
-        pane.getChildren().add(powerupsImageView);*/
-
-        for(PowerUp o: g.getLevels().get(g.getLevelNum()).getPowerUps()){
-            switch(o.getType()){
-                case HealthGainBig:
-                    Image healthBigImageView = new Image();
-            }
-        }
+        pane.getChildren().add(powerupsImageView);
     }
 
     public void spawnEntities() {
