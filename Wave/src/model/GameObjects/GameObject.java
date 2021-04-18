@@ -44,6 +44,7 @@ public abstract class GameObject {
     private int pauseDx;
     private int pauseDy;
     public Level currentLevel;
+    protected boolean paused = false;
     public Thread hitDetection = new Thread(() -> {
         while (true) {
             checkWallCollision();
@@ -61,8 +62,10 @@ public abstract class GameObject {
 
     // update method each object needs
     public void update() {
-        x.set(getX() + getDx());
-        y.set(getY() + getDy());
+        if (!paused) {
+            x.set(getX() + getDx());
+            y.set(getY() + getDy());
+        }
     }
 
     public void startHitDetection() {
@@ -74,15 +77,11 @@ public abstract class GameObject {
     }
 
     public void pause() {
-        pauseDx = getDx();
-        pauseDy = getDy();
-        setDx(0);
-        setDy(0);
+        setPaused(true);
     }
 
     public void start() {
-        setDx(pauseDx);
-        setDy(pauseDy);
+        setPaused(false);
     }
 
     public boolean processHit(GameObject g, Player p) {
@@ -233,6 +232,14 @@ public abstract class GameObject {
 
     public void setSpeed(int speed) {
         this.speed.set(speed);
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 
     public ArrayList<EnemyObject> getEnemies() {
