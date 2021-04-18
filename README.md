@@ -14,9 +14,6 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 | Collision Detection | Optional | Conner |done |
 | Serialization | Required | Joel | In progress |
 
-## note:
-* Serialization is updated with current model design
-
 ## Known Issues
 * See issue tracker
 
@@ -30,7 +27,7 @@ https://www.youtube.com/watch?v=znqomfxDVRs
 ## Expenses
 | Name | Github Username | Ownership Area | Hours Invested | Hours Remaining | Journal Link |
 | ---- | --------------- | -------------- | -------------- | --------------- | ------------ |
-| Nicholas Rich | Nicholas-Rich | Auxiliary Screens | 16.25 hours | 33.75 hours | [Nick Journal](https://github.com/bjucps209/spring2021-team4/wiki/RichJournal) |
+| Nicholas Rich | Nicholas-Rich | Auxiliary Screens | 22.75 hours | 27.25 hours | [Nick Journal](https://github.com/bjucps209/spring2021-team4/wiki/RichJournal) |
 | Ryan Raddatz | Marlowe007 | Level Builder | 18 1/2 hours | 31 1/2 hours | [Ryan Journal](https://github.com/bjucps209/spring2021-team4/wiki/RaddatzJournal) |
 | Conner Christ | ConnerPC | Game Model | 23.75 hours | 26.25 hours | [Conner Journal](https://github.com/bjucps209/spring2021-team4/wiki/ChristJournal) |
 | Shouyu Du | Joeldushouyu | Serialization | 26.75 hours | 23.25 hours | [Shouyu Journal](https://github.com/bjucps209/spring2021-team4/wiki/ShouyuJournal) |
