@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
@@ -16,6 +18,8 @@ import model.GameObjects.GameObject;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 import model.Game;
+import model.HighScore;
+import model.HighScoreList;
 import model.Wave;
 
 public class GameWindow {
@@ -23,7 +27,9 @@ public class GameWindow {
     Wave w;
     static Player p;
     static Game g;
-    GameObject gO;
+
+    static HighScoreList highScoreList = new HighScoreList(new ArrayList<HighScore>());
+    static boolean pauseState = false;
 
     @FXML
     Pane pane;
@@ -147,8 +153,49 @@ public class GameWindow {
 
     // Method for pausing the game and ending the game
     
-    public void onKeyPressed(KeyEvent event) {
-        
+    public static void pause() {
+        if (pauseState == false) {
+            pauseState = true;
+            for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+                item.pause();
+            }
+
+            // Opens window to allow player to enter their name
+            VBox vboxName = new VBox();
+            vboxName.setPadding(new Insets(10));
+            vboxName.setSpacing(10);
+            vboxName.setAlignment(Pos.CENTER);
+
+            Scene nameScene = new Scene(vboxName, 800, 600);
+            Stage nameStage = new Stage();
+            nameStage.setScene(nameScene); // set the scene
+            nameStage.setTitle("Name Menu");
+            nameStage.setAlwaysOnTop(true);
+            nameStage.show();
+
+            nameScene.getStylesheets().add("GameWindow.css");
+
+            TextField nameField = new TextField();
+            Label lblName = new Label();
+            lblName.setText("Enter Your Name:");
+            vboxName.getChildren().add(lblName);
+            vboxName.getChildren().add(nameField);
+            nameField.requestFocus();
+            nameScene.setOnKeyPressed(key -> {
+                KeyCode keyCode = key.getCode();
+                if (keyCode.equals(KeyCode.ENTER)) {
+                    highScoreList.getList().add(new HighScore(nameField.getText(), g.getCurrentLevel().getScore()));
+                    // this is where all the saving gets excecuted
+                    highScoreList.save();
+
+                }
+            });
+        }
+        // } else {
+        //     for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+        //         item.start();
+        //     }
+        // }
     }
 
     // close the timer
