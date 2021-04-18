@@ -45,6 +45,9 @@ public class GameWindow {
         g = w.getGame();
         p = g.getCurrentLevel().getPlayer();
         spawnEntities();
+        
+        //pane dimensions
+        pane.setPrefSize(1000, 800);
 
         // Getting the game to update at 16.7ms or ~60fps
         timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
