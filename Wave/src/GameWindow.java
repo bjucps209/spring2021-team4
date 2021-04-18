@@ -24,7 +24,7 @@ import model.Wave;
 
 public class GameWindow {
 
-    Wave w;
+    static Wave w;
     static Player p;
     static Game g;
 

@@ -161,12 +161,12 @@ public abstract class GameObject {
             } else {
                 x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 19);
             }
-        } else if (getY() <= -25 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 100) {
+        } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 5) {
             dy.set(-getDy());
             if (getY() < 10) {
-                y.set(-21);
+                y.set(1);
             } else {
-                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 102);
+                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 6);
             }
         }
     }
