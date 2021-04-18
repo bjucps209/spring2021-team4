@@ -147,7 +147,7 @@ public class GameWindow {
 
     // Method for pausing the game and ending the game
     @FXML
-    public void setOnKeyPressed(KeyEvent event) {
+    public void onKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.P) {
             for (EnemyObject item : gO.getEnemies()) {
                 item.pause();
