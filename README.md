@@ -14,6 +14,9 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 | Collision Detection | Optional | Conner |done |
 | Serialization | Required | Joel | In progress |
 
+## note:
+* Serialization is updated with current model design
+
 ## Known Issues
 * See issue tracker
 
