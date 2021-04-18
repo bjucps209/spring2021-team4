@@ -33,8 +33,6 @@ public class GameWindow {
 
     @FXML
     Pane pane;
-    @FXML
-    Label health;
 
     static Timeline timer;
     Timeline countDown;
@@ -64,8 +62,8 @@ public class GameWindow {
         lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
         pane.getChildren().add(lblTime);
         pane.getChildren().add(lblTimer);
-        lblTime.relocate(0, 30);
-        lblTimer.relocate(0, 50);
+        lblTime.relocate(0, 60);
+        lblTimer.relocate(0, 80);
         // timer to connect to the countdown in game.
         countDown = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             g.getCurrentLevel().setRemainingTime(g.getCurrentLevel().getRemainingTime() - 1);
@@ -74,10 +72,14 @@ public class GameWindow {
         countDown.setCycleCount(60);
         countDown.play();
 
+        // health label and bar with binding
+        Label lblHealth = new Label("HEALTH");
+
         ProgressBar healthBar = new ProgressBar();
         healthBar.progressProperty().bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
+        pane.getChildren().add(lblHealth);
         pane.getChildren().add(healthBar);
-
+        healthBar.relocate(0, 30);
 
         // Score label and binding
         Label lblSCORE = new Label("SCORE");
@@ -195,7 +197,7 @@ public class GameWindow {
             nameScene.setOnKeyPressed(key -> {
                 KeyCode keyCode = key.getCode();
                 if (keyCode.equals(KeyCode.ENTER)) {
-                    highScoreList.getList().add(new HighScore(nameField.getText(), g.getCurrentLevel().getScore()));
+                    highScoreList.getList().add(new HighScore(nameField.getText(), w.getCoins()));
                     nameStage.close();
                     pauseState = false;
                     for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
