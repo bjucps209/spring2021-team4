@@ -6,7 +6,7 @@
 <VBox fx:controller="GameWindow" xmlns:fx="http://javafx.com/fxml"  stylesheets="@GameWindow.css"
     spacing="10" prefWidth="1000" prefHeight="800">
 
-    <Label fx:id="health"/>
+    <Label fx:id="health" text="HEALTH"/>
     <Pane fx:id="pane"/>
 
 </VBox>

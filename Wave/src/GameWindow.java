@@ -46,7 +46,6 @@ public class GameWindow {
         w.gameStart();
         g = w.getGame();
         p = g.getCurrentLevel().getPlayer();
-        health.textProperty().bind(p.healthProperty().asString());
         spawnEntities();
 
         // Getting the game to update at 16.7ms or ~60fps
@@ -59,11 +58,14 @@ public class GameWindow {
         // Platform.exit();
 
         // Label to represent the timer
+        Label lblTime = new Label("TIME REMAINING");
         Label lblTimer = new Label();
         g.getCurrentLevel().setRemainingTime(60);
         lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
+        pane.getChildren().add(lblTime);
         pane.getChildren().add(lblTimer);
-        lblTimer.relocate(0, 30);
+        lblTime.relocate(0, 30);
+        lblTimer.relocate(0, 50);
         // timer to connect to the countdown in game.
         countDown = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             g.getCurrentLevel().setRemainingTime(g.getCurrentLevel().getRemainingTime() - 1);
@@ -72,11 +74,19 @@ public class GameWindow {
         countDown.setCycleCount(60);
         countDown.play();
 
+        ProgressBar healthBar = new ProgressBar();
+        healthBar.progressProperty().bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
+        pane.getChildren().add(healthBar);
+
+
         // Score label and binding
+        Label lblSCORE = new Label("SCORE");
         Label lblScore = new Label();
         lblScore.textProperty().bind(w.coinsProperty().asString());
+        pane.getChildren().add(lblSCORE);
         pane.getChildren().add(lblScore);
-        lblScore.relocate(0, 60);
+        lblSCORE.relocate(900, 0);
+        lblScore.relocate(900, 20);
     }
 
     public void spawnEntities() {
