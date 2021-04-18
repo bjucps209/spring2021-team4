@@ -18,8 +18,7 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 | Serialization | Required | Joel | In progress |
 
 ## Known Issues
-* Wall Collision is buggy.
-* Player speed gets faster because of keypress speed up firing.
+* See issue tracker
 
 ## Recording
 https://www.youtube.com/watch?v=znqomfxDVRs
