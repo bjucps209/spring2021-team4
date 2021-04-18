@@ -43,8 +43,6 @@ public class MainWindow {
 
     @FXML
     public void onNewGameClicked() throws IOException {
-        
-
 
         // opens up new window which is GameWindow
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
@@ -67,6 +65,38 @@ public class MainWindow {
                     case RIGHT:
                         GameWindow.moveRight();
                         break;
+                    case P:
+                        for (EnemyObject item : gO.getEnemies()) {
+                            item.pause();
+                        }
+
+                        // Opens window to allow player to enter their name
+                        VBox vboxName = new VBox();
+                        vboxName.setPadding(new Insets(10));
+                        vboxName.setSpacing(10);
+                        vboxName.setAlignment(Pos.CENTER);
+
+                        Scene nameScene = new Scene(vboxName, 800, 600);
+                        Stage nameStage = new Stage();
+                        nameStage.setScene(nameScene); // set the scene
+                        nameStage.setTitle("Name Menu");
+                        nameStage.setAlwaysOnTop(true);
+
+                        TextField nameField = new TextField();
+                        Label lblName = new Label();
+                        lblName.setText("Enter Your Name:");
+                        vboxName.getChildren().add(lblName);
+                        vboxName.getChildren().add(nameField);
+                        nameField.requestFocus();
+                        nameScene.setOnKeyPressed(key -> {
+                            KeyCode keyCode = key.getCode();
+                            if (keyCode.equals(KeyCode.ENTER)) {
+                                // highScoreList.getList().add(new HighScore(nameField.getText(),
+                                // game.getScoreValue()));
+                                // highScoreList.save();
+                            }
+                        });
+
                     default:
                         break;
                     }
@@ -94,7 +124,8 @@ public class MainWindow {
     }
 
     @FXML
-    // click on load level to open a screen that will allow the user to search the directory for a file and if it exists, load that file
+    // click on load level to open a screen that will allow the user to search the
+    // directory for a file and if it exists, load that file
     void onLoadCustomGameClicked() {
 
         VBox topVBox = new VBox();
@@ -113,7 +144,6 @@ public class MainWindow {
         button.setOnAction(this::callLoadCustomLevel);
 
         topVBox.getChildren().add(button);
-
 
         Button startGameButton = new Button("Start Custom Game");
         startGameButton.setOnAction(this::startCustomGame);
@@ -145,9 +175,8 @@ public class MainWindow {
 
             } catch (IOException exception) {
             }
-        txtFileChoice.requestFocus();
-        }
-        else {
+            txtFileChoice.requestFocus();
+        } else {
             var alert = new Alert(AlertType.INFORMATION, "That file is not in the directory.");
             alert.show();
         }
@@ -155,14 +184,14 @@ public class MainWindow {
 
     @FXML
     void startCustomGame(ActionEvent e) {
-        
+
         if (customGameLevels.size() > 0) {
             System.out.println("start the custom game");
             // try {
 
-            //     // w.gameStart();
-            //     // onNewGameClicked();
-            //     // w.getGame().setLevels(customGameLevels);
+            // // w.gameStart();
+            // // onNewGameClicked();
+            // // w.getGame().setLevels(customGameLevels);
             // } catch (IOException exception) {
 
             // }
