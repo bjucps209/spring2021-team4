@@ -28,7 +28,7 @@ public class GameWindow {
     static Player p;
     static Game g;
 
-    static HighScoreList highScoreList = new HighScoreList(new ArrayList<HighScore>());
+    static HighScoreList highScoreList;
     static boolean pauseState = false;
 
     @FXML
@@ -61,7 +61,7 @@ public class GameWindow {
         // Label to represent the timer
         Label lblTimer = new Label();
         g.getCurrentLevel().setRemainingTime(60);
-        lblTimer.textProperty().bind(Bindings.createStringBinding( () -> String.valueOf(g.getCurrentLevel().getRemainingTime()), g.getCurrentLevel().remainingTimeProperty()));
+        lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
         pane.getChildren().add(lblTimer);
         lblTimer.relocate(0, 30);
         // timer to connect to the countdown in game.
@@ -74,7 +74,7 @@ public class GameWindow {
 
         // Score label and binding
         Label lblScore = new Label();
-        lblScore.textProperty().bind(Bindings.createStringBinding(() -> String.valueOf(w.getCoins()), w.coinsProperty()));
+        lblScore.textProperty().bind(w.coinsProperty().asString());
         pane.getChildren().add(lblScore);
         lblScore.relocate(0, 60);
     }
@@ -185,6 +185,11 @@ public class GameWindow {
                 KeyCode keyCode = key.getCode();
                 if (keyCode.equals(KeyCode.ENTER)) {
                     highScoreList.getList().add(new HighScore(nameField.getText(), g.getCurrentLevel().getScore()));
+                    nameStage.close();
+                    pauseState = false;
+                    for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+                        item.start();
+                    }
                     // this is where all the saving gets excecuted
                     highScoreList.save();
 

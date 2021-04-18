@@ -22,10 +22,7 @@ import model.Wave;
 public class MainWindow {
     Wave w;
 
-    HighScore player1 = new HighScore("Bob", 100);
-    HighScore player2 = new HighScore("Amanda", 300);
-    HighScore player3 = new HighScore("Tim", 200);
-    HighScoreList highScoreList = new HighScoreList(new ArrayList<HighScore>());
+    HighScoreList highScoreList;
 
     // list to be given to game if the user wants to play their custom games
     ArrayList<Level> customGameLevels = new ArrayList<>();
@@ -304,10 +301,6 @@ public class MainWindow {
         label.setText("HIGH SCORES");
         vbox.getChildren().add(label);
 
-        // temp manual placement of players
-        highScoreList.getList().add(player1);
-        highScoreList.getList().add(player2);
-        highScoreList.getList().add(player3);
         highScoreList.sort();
         for (HighScore items : highScoreList.getList()) {
 
