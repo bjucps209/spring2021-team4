@@ -235,6 +235,10 @@ public abstract class GameObject {
         this.speed.set(speed);
     }
 
+    public ArrayList<EnemyObject> getEnemies() {
+        return enemies;
+    }
+
     public IntegerProperty speed() {
         return speed;
     }

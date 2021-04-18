@@ -2,11 +2,17 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.geometry.*;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.GameObjects.GameObject;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 import model.Game;
@@ -17,6 +23,7 @@ public class GameWindow {
     Wave w;
     static Player p;
     static Game g;
+    GameObject gO;
 
     @FXML
     Pane pane;
@@ -135,6 +142,42 @@ public class GameWindow {
 
                 break;
             }
+        }
+    }
+
+    // Method for pausing the game and ending the game
+    @FXML
+    public void setOnKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.P) {
+            for (EnemyObject item : gO.getEnemies()) {
+                item.pause();
+            }
+
+            // Opens window to allow player to enter their name
+            VBox vboxName = new VBox();
+            vboxName.setPadding(new Insets(10));
+            vboxName.setSpacing(10);
+            vboxName.setAlignment(Pos.CENTER);
+            
+            Scene nameScene = new Scene(vboxName, 800, 600);
+            Stage nameStage = new Stage();
+            nameStage.setScene(nameScene); // set the scene
+            nameStage.setTitle("Name Menu");
+            nameStage.setAlwaysOnTop(true);
+
+            TextField nameField = new TextField();
+                Label lblName = new Label();
+                lblName.setText("Enter Your Name:");
+                vboxName.getChildren().add(lblName);
+                vboxName.getChildren().add(nameField);
+                nameField.requestFocus();
+                nameScene.setOnKeyPressed(key -> {
+                    KeyCode keyCode = key.getCode();
+                    if (keyCode.equals(KeyCode.ENTER)) {
+                        // highScoreList.getList().add(new HighScore(nameField.getText(), game.getScoreValue()));
+                        // highScoreList.save();
+                    }
+                });
         }
     }
 
