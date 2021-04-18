@@ -23,6 +23,8 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 https://www.youtube.com/watch?v=znqomfxDVRs
 
 ### Beta
+Gameplay: https://youtu.be/YvMd14HE1-A
+Level Builder: https://youtu.be/GO2fBVKnfZY (Youtube may still be processing a trim I had to do)
 
 ## Expenses
 | Name | Github Username | Ownership Area | Hours Invested | Hours Remaining | Journal Link |
