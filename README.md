@@ -21,7 +21,11 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 * See issue tracker
 
 ## Recording
+
+### Alpha
 https://www.youtube.com/watch?v=znqomfxDVRs
+
+### Beta
 
 ## Expenses
 | Name | Github Username | Ownership Area | Hours Invested | Hours Remaining | Journal Link |
