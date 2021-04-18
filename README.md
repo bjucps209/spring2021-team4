@@ -6,15 +6,12 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 ## Work Completed
 | Feature | Type | Assignee(s) | Status |
 |---------|------|-------------|--------|
-|Title Screen | Required | Nick | Done |
-|About Screen | Required | Nick | Done |
-|Help screen | Required | Nick | Done |
-|Player control | Required | Conner| Done |
-|Enemy Movement | Required | Conner | Done |
-|Collision detection | Required | Conner | Done |
-|Graphics | Required | Nick | Done |
-| Level Builder | Optional | Ryan | 98% |
-| PowerUps | Optional | Joel | Done |
+|Scoring | Required | Conner/Nick | done|
+|Level | Required | Conner | in progress |
+|Level Designer | Required | Ryan | done |
+|powerups | Optional | Joel | done |
+|Different enemies | Optional | Conner |done |
+| Collision Detection | Optional | Conner |done |
 | Serialization | Required | Joel | In progress |
 
 ## Known Issues
