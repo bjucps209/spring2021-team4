@@ -13,8 +13,8 @@ public class HighScoreList {
 
     private ArrayList<HighScore> list = new ArrayList<HighScore>();
 
-    public HighScoreList(ArrayList<HighScore> list) {
-        this.list = list;
+    public HighScoreList() {
+        
     }
 
     // Use collections to properly sort the list

@@ -1,27 +1,38 @@
+import java.util.ArrayList;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.geometry.*;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.GameObjects.GameObject;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 import model.Game;
+import model.HighScore;
+import model.HighScoreList;
 import model.Wave;
 
 public class GameWindow {
 
-    Wave w;
+    static Wave w;
     static Player p;
     static Game g;
 
+    static HighScoreList highScoreList = new HighScoreList();
+    static boolean pauseState = false;
+
     @FXML
     Pane pane;
-    @FXML
-    Label health;
 
     static Timeline timer;
     Timeline countDown;
@@ -33,8 +44,10 @@ public class GameWindow {
         w.gameStart();
         g = w.getGame();
         p = g.getCurrentLevel().getPlayer();
-        health.textProperty().bind(p.healthProperty().asString());
         spawnEntities();
+        
+        //pane dimensions
+        pane.setPrefSize(1000, 800);
 
         // Getting the game to update at 16.7ms or ~60fps
         timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
@@ -46,21 +59,61 @@ public class GameWindow {
         // Platform.exit();
 
         // Label to represent the timer
+        Label lblTime = new Label("TIME REMAINING");
         Label lblTimer = new Label();
         g.getCurrentLevel().setRemainingTime(60);
-        lblTimer.textProperty().bind(Bindings.createStringBinding( () -> String.valueOf(g.getCurrentLevel().getRemainingTime()), g.getCurrentLevel().remainingTimeProperty()));
+        lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
+        pane.getChildren().add(lblTime);
         pane.getChildren().add(lblTimer);
-        lblTimer.relocate(0, 30);
+        lblTime.relocate(0, 60);
+        lblTimer.relocate(0, 80);
         // timer to connect to the countdown in game.
         countDown = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             g.getCurrentLevel().setRemainingTime(g.getCurrentLevel().getRemainingTime() - 1);
+            w.setCoins(w.getCoins() + 10);
         }));
         countDown.setCycleCount(60);
         countDown.play();
+
+        // health label and bar with binding
+        Label lblHealth = new Label("HEALTH");
+
+        ProgressBar healthBar = new ProgressBar();
+        healthBar.progressProperty().bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
+        pane.getChildren().add(lblHealth);
+        pane.getChildren().add(healthBar);
+        healthBar.relocate(0, 30);
+
+        // Score label and binding
+        Label lblSCORE = new Label("SCORE");
+        Label lblScore = new Label();
+        lblScore.textProperty().bind(w.coinsProperty().asString());
+        pane.getChildren().add(lblSCORE);
+        pane.getChildren().add(lblScore);
+        lblSCORE.relocate(900, 0);
+        lblScore.relocate(900, 20);
+    }
+
+    public void spawnObstecles() {
+        Image obsteclImage = new Image("./Images/block_square.png");
+        ImageView obstImageView = new ImageView(obsteclImage);
+        obstImageView.setLayoutX(500);
+        obstImageView.setLayoutY(300);
+        pane.getChildren().add(obstImageView);
+    }
+
+    public void spawnPowerups() {
+        Image powerupsImage = new Image("./Images/powerupBlue_bolt.png");
+        ImageView powerupsImageView = new ImageView(powerupsImage);
+        powerupsImageView.setLayoutX(600);
+        powerupsImageView.setLayoutY(300);
+        pane.getChildren().add(powerupsImageView);
     }
 
     public void spawnEntities() {
         // code to combine all spawn function below
+        spawnObstecles();
+        spawnPowerups();
         spawnPlayer();
         spawnEnemies();
     }
@@ -129,6 +182,59 @@ public class GameWindow {
                 break;
             }
         }
+    }
+
+    // Method for pausing the game and ending the game
+    
+    public static void pause() {
+        if (pauseState == false) {
+            pauseState = true;
+            for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+                item.pause();
+            }
+            timer.pause();
+
+            // Opens window to allow player to enter their name
+            VBox vboxName = new VBox();
+            vboxName.setPadding(new Insets(10));
+            vboxName.setSpacing(10);
+            vboxName.setAlignment(Pos.CENTER);
+
+            Scene nameScene = new Scene(vboxName, 800, 600);
+            Stage nameStage = new Stage();
+            nameStage.setScene(nameScene); // set the scene
+            nameStage.setTitle("Name Menu");
+            nameStage.setAlwaysOnTop(true);
+            nameStage.show();
+
+            nameScene.getStylesheets().add("GameWindow.css");
+
+            TextField nameField = new TextField();
+            Label lblName = new Label();
+            lblName.setText("Enter Your Name:");
+            vboxName.getChildren().add(lblName);
+            vboxName.getChildren().add(nameField);
+            nameField.requestFocus();
+            nameScene.setOnKeyPressed(key -> {
+                KeyCode keyCode = key.getCode();
+                if (keyCode.equals(KeyCode.ENTER)) {
+                    highScoreList.getList().add(new HighScore(nameField.getText(), w.getCoins()));
+                    nameStage.close();
+                    pauseState = false;
+                    for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+                        item.start();
+                    }
+                    // this is where all the saving gets excecuted
+                    highScoreList.save();
+                    timer.play();
+                }
+            });
+        }
+        // } else {
+        //     for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+        //         item.start();
+        //     }
+        // }
     }
 
     // close the timer

@@ -3,6 +3,7 @@ package model.GameObjects.Powerups;
 import model.Level;
 import model.Enums.PowerUps;
 import model.GameObjects.Player;
+import model.GameObjects.Enemies.EnemyObject;
 
 public class Freeze extends PowerUp{
 
@@ -17,7 +18,25 @@ public class Freeze extends PowerUp{
   @Override
   public void collisionWithPlayer(Player p) {
     // TODO Auto-generated method stub
+    if(isFinished == false){
+      for(EnemyObject ob : this.currentLevel.getEnemies()){
+        ob.setTemporaryFreeze(true);
+      }
+    }else{
+      for(EnemyObject ob : this.currentLevel.getEnemies()){
+        ob.setTemporaryFreeze(false);
+      }
+    }
     
+  }
+  @Override
+
+  public void update() {
+    // TODO Auto-generated method stub
+    this.passedTime = this.startTime - this.currentLevel.getRemainingTime();
+    if(passedTime >= effectiveTime){
+      this.isFinished = true;
+    }
   }
 
   

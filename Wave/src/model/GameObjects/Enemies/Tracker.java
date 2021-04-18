@@ -8,10 +8,31 @@ public class Tracker extends EnemyObject {
     
     public Tracker(Level l) {
         super(l);
-        setDy(3);
-        setDx(3);
+        setDy(Tracker.speed);
+        setDx(Tracker.speed);
         setWidth(50);
         setHeight(50);
+        hitDetection = new Thread(() -> {
+            while (true) {
+                checkWallCollision();
+                if (currentLevel.getObstacles() != null && checkCollision(currentLevel.getObstacles()) != null) {
+                    hits.add(checkCollision(currentLevel.getObstacles()));
+                } 
+                //else if (checkCollision(currentLevel.getPowerUps()) != null) {
+                    //hits.add(checkCollision(currentLevel.getPowerUps()));
+                //}
+                
+                if (hits.size() != 0) {
+                    processHit(hits.get(0), currentLevel.getPlayer());
+                    hits.remove(hits.get(0));
+                }
+                try {
+                    Thread.sleep(33);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } 
+        });;
     }
 
     @Override

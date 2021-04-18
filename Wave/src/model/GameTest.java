@@ -46,14 +46,15 @@ public class GameTest {
     assertTrue(player.getHeight() == 5);
     assertTrue(player.getDx() == 10 );
     assertTrue(player.getDy() == 10);
-    //TODO: check for special affect later
+    
     assertTrue(player.getHits().size() == 1);
     assertTrue(player.getHits().get(0) instanceof TemporaryInvincible);
     TemporaryInvincible ob = (TemporaryInvincible)player.getHits().get(0);
     assertTrue(ob.getEffectiveTime() == 5);
     assertTrue(ob.getPassedTime() == 3);
     // note delete later
-    assertTrue(ob.getAppearTime() ==60);
+    //TODO: later assertTrue(ob.getAppearTime() ==60);
+    assertTrue(ob.getStartTime() == 18);
 
     Level currentLevel = game.getCurrentLevel();
     //assertTrue(game.getCurrentLevel().getAllObjects().size()-1 == 3); TODO: have not implement powerUP yet, so it will be wrong 
@@ -185,6 +186,7 @@ public class GameTest {
     TemporaryInvincible s = new TemporaryInvincible(currentLevel);
     s.setPassedTime(1);
     s.setEffectiveTime(5);
+    s.setAppearTime(20);
     player.getHits().add(s);
 
     Bouncer bouncer = new Bouncer(currentLevel);
@@ -234,7 +236,7 @@ public class GameTest {
       assertTrue(rd.readLine().equals("easy"));
       assertTrue(rd.readLine().equals("1"));
       assertTrue(rd.readLine().equals("###user"));
-      assertTrue(rd.readLine().equals("Andrew;130;30;20;SHIP1;350;380;5;5;200;200;PowerUp,TemporaryInvincible,5,1"));
+      assertTrue(rd.readLine().equals("Andrew;130;30;20;SHIP1;350;380;5;5;200;200;PowerUp,TemporaryInvincible,5,1,20"));
       assertTrue(rd.readLine().equals("3")); // should be 3 if add in powerup
       assertTrue(rd.readLine().equals("###gameobject"));
       assertTrue(rd.readLine().equals("EnemyObject;BOUNCER;20;20;5;5;4;4;60"));  //TODO: test for speical affects later on

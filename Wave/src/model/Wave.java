@@ -11,6 +11,8 @@ import model.GameObjects.*;
 import model.GameObjects.Enemies.*;
 import model.GameObjects.Powerups.*;
 import model.GameObjects.Obstacles.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -33,7 +35,7 @@ public class Wave {
 
     // User variables
     private User currentUser;
-    private int coins;
+    private IntegerProperty coins = new SimpleIntegerProperty();
 
     // Shop variables
     private ShipSkins currentShip;
@@ -44,7 +46,7 @@ public class Wave {
     }
 
     public void loadUser() {
-        coins = currentUser.getCoins();
+        setCoins(currentUser.getCoins());
     }
 
     // Starts the game, does all calculations and initializes lists
@@ -236,6 +238,14 @@ public class Wave {
     }
 
     // --- getters ---
+    public int getCoins() {
+        return coins.get();
+    }
+
+    public IntegerProperty coinsProperty() {
+        return coins;
+    }
+
     public ArrayList<User> getUsers() {
         return this.users;
     }
@@ -256,6 +266,10 @@ public class Wave {
         return currentUser;
     }
     // --- setters ---
+
+    public void setCoins(int coins) {
+        this.coins.set(coins);
+    }
 
     public void setUsers(ArrayList<User> users) {
         this.users = users;

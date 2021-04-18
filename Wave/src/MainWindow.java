@@ -9,6 +9,7 @@ import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -21,10 +22,7 @@ import model.Wave;
 public class MainWindow {
     Wave w;
 
-    HighScore player1 = new HighScore("Bob", 100);
-    HighScore player2 = new HighScore("Amanda", 300);
-    HighScore player3 = new HighScore("Tim", 200);
-    HighScoreList highScoreList = new HighScoreList(new ArrayList<HighScore>());
+    HighScoreList highScoreList;
 
     // list to be given to game if the user wants to play their custom games
     ArrayList<Level> customGameLevels = new ArrayList<>();
@@ -42,6 +40,7 @@ public class MainWindow {
 
     @FXML
     public void onNewGameClicked() throws IOException {
+
         // opens up new window which is GameWindow
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
         Scene scene = new Scene(loader.load());
@@ -63,6 +62,8 @@ public class MainWindow {
                     case RIGHT:
                         GameWindow.moveRight();
                         break;
+                    case P:
+                        GameWindow.pause();
                     default:
                         break;
                     }
@@ -90,7 +91,8 @@ public class MainWindow {
     }
 
     @FXML
-    // click on load level to open a screen that will allow the user to search the directory for a file and if it exists, load that file
+    // click on load level to open a screen that will allow the user to search the
+    // directory for a file and if it exists, load that file
     void onLoadCustomGameClicked() {
 
         VBox topVBox = new VBox();
@@ -109,7 +111,6 @@ public class MainWindow {
         button.setOnAction(this::callLoadCustomLevel);
 
         topVBox.getChildren().add(button);
-
 
         Button startGameButton = new Button("Start Custom Game");
         startGameButton.setOnAction(this::startCustomGame);
@@ -141,9 +142,8 @@ public class MainWindow {
 
             } catch (IOException exception) {
             }
-        txtFileChoice.requestFocus();
-        }
-        else {
+            txtFileChoice.requestFocus();
+        } else {
             var alert = new Alert(AlertType.INFORMATION, "That file is not in the directory.");
             alert.show();
         }
@@ -151,7 +151,7 @@ public class MainWindow {
 
     @FXML
     void startCustomGame(ActionEvent e) {
-        
+
         if (customGameLevels.size() > 0) {
             System.out.println("start the custom game");
             // try {
@@ -301,10 +301,6 @@ public class MainWindow {
         label.setText("HIGH SCORES");
         vbox.getChildren().add(label);
 
-        // temp manual placement of players
-        highScoreList.getList().add(player1);
-        highScoreList.getList().add(player2);
-        highScoreList.getList().add(player3);
         highScoreList.sort();
         for (HighScore items : highScoreList.getList()) {
 

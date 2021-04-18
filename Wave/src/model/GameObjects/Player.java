@@ -31,31 +31,18 @@ public class Player extends GameObject {
         setHeight(50);
         hitDetection = new Thread(() -> {
             while (true) {
-                ArrayList<Boolean> isFinished = new ArrayList<>();
-                for (GameObject object : this.hits) {
-                    isFinished.add(processHit(object, this));
-                    // store true if should be delete, store false other wise
-    
-                }
-                int i = 0;
-                for (boolean value : isFinished) {
-                    if (value) {
-                        this.hits.remove(i);
-                    }
-                    i++;
-                }
-    
                 checkWallCollision();
-                if (checkCollision(currentLevel.getEnemies()) != null) {
+                if (currentLevel.getEnemies() != null && checkCollision(currentLevel.getEnemies()) != null) {
                     hits.add(checkCollision(currentLevel.getEnemies()));
-                }
-    
-                PowerUp hitPowerUp = (PowerUp) checkCollision(currentLevel.getPowerUps());
-                if (hitPowerUp != null) {
-                    hits.add(hitPowerUp); // TODO: potentially cause problem in delay powerup's reaction?
-                }
+                } 
+                //else if (checkCollision(currentLevel.getPowerUps()) != null) {
+                    //hits.add(checkCollision(currentLevel.getPowerUps()));
+                //}
                 
-
+                if (hits.size() != 0) {
+                    processHit(hits.get(0), this);
+                    hits.remove(hits.get(0));
+                }
 
                 try {
                     Thread.sleep(33);
@@ -152,7 +139,7 @@ public class Player extends GameObject {
             String data = "";
             if (affObject instanceof PowerUp) {
                 PowerUp ob = (PowerUp) affObject;
-                data += "PowerUp," + ob.getType() + "," + ob.getEffectiveTime() + "," + ob.getPassedTime();
+                data += "PowerUp," + ob.getType() + "," + ob.getEffectiveTime() + "," + ob.getPassedTime()+","+ob.getAppearTime();
 
             } else {
                 // should be a panel
@@ -191,11 +178,13 @@ public class Player extends GameObject {
                             Freeze pow = new Freeze(this.currentLevel);
                             pow.setEffectiveTime(Integer.parseInt(data[2]));
                             pow.setPassedTime(Integer.parseInt(data[3]));
+                            pow.setStartTime(Integer.parseInt(data[4]));
                             this.hits.add(pow);
                         } else if (type == PowerUps.TemporaryInvincible) {
                             TemporaryInvincible pow = new TemporaryInvincible(this.currentLevel);
                             pow.setEffectiveTime(Integer.parseInt(data[2]));
                             pow.setPassedTime(Integer.parseInt(data[3]));
+                            pow.setStartTime(Integer.parseInt(data[4]));
                             this.hits.add(pow);
                         } else {
                             // should not be the case

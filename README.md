@@ -6,28 +6,28 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 ## Work Completed
 | Feature | Type | Assignee(s) | Status |
 |---------|------|-------------|--------|
-|Title Screen | Required | Nick | Done |
-|About Screen | Required | Nick | Done |
-|Help screen | Required | Nick | Done |
-|Player control | Required | Conner| Done |
-|Enemy Movement | Required | Conner | Done |
-|Collision detection | Required | Conner | Done |
-|Graphics | Required | Nick | Done |
-| Level Builder | Optional | Ryan | 98% |
-| User Profile | Required | Joel | Done |
+|Scoring | Required | Conner/Nick | done|
+|Level | Required | Conner | in progress |
+|Level Designer | Required | Ryan | done |
+|powerups | Optional | Joel | done |
+|Different enemies | Optional | Conner |done |
+| Collision Detection | Optional | Conner |done |
 | Serialization | Required | Joel | In progress |
 
 ## Known Issues
-* Wall Collision is buggy.
-* Player speed gets faster because of keypress speed up firing.
+* See issue tracker
 
 ## Recording
+
+### Alpha
 https://www.youtube.com/watch?v=znqomfxDVRs
+
+### Beta
 
 ## Expenses
 | Name | Github Username | Ownership Area | Hours Invested | Hours Remaining | Journal Link |
 | ---- | --------------- | -------------- | -------------- | --------------- | ------------ |
-| Nicholas Rich | Nicholas-Rich | Auxiliary Screens | 16.25 hours | 33.75 hours | [Nick Journal](https://github.com/bjucps209/spring2021-team4/wiki/RichJournal) |
-| Ryan Raddatz | Marlowe007 | Level Builder | 18 1/2 hours | 31 1/2 hours | [Ryan Journal](https://github.com/bjucps209/spring2021-team4/wiki/RaddatzJournal) |
-| Conner Christ | ConnerPC | Game Model | 15 hours | 35 hours | [Conner Journal](https://github.com/bjucps209/spring2021-team4/wiki/ChristJournal) |
-| Shouyu Du | Joeldushouyu | Serialization | 15.7 hours | 34.3 hours | [Shouyu Journal](https://github.com/bjucps209/spring2021-team4/wiki/ShouyuJournal) |
+| Nicholas Rich | Nicholas-Rich | Auxiliary Screens | 22.75 hours | 27.25 hours | [Nick Journal](https://github.com/bjucps209/spring2021-team4/wiki/RichJournal) |
+| Ryan Raddatz | Marlowe007 | Level Builder | 31 1/2 hours | 18 1/2 hours | [Ryan Journal](https://github.com/bjucps209/spring2021-team4/wiki/RaddatzJournal) |
+| Conner Christ | ConnerPC | Game Model | 23.75 hours | 26.25 hours | [Conner Journal](https://github.com/bjucps209/spring2021-team4/wiki/ChristJournal) |
+| Shouyu Du | Joeldushouyu | Serialization | 26.75 hours | 23.25 hours | [Shouyu Journal](https://github.com/bjucps209/spring2021-team4/wiki/ShouyuJournal) |
