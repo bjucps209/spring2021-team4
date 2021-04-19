@@ -64,12 +64,12 @@ public class Player extends GameObject {
             } else {
                 x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 19);
             }
-        } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 5) {
+        } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 9) {
             dy.set(0);
             if (getY() < 10) {
                 y.set(1);
             } else {
-                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 6);
+                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 10);
             }
         }
     }
