@@ -5,6 +5,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
 import model.Level;
+import model.Wave;
 import model.Enums.PowerUps;
 import model.Enums.ShipSkins;
 import model.GameObjects.Powerups.Freeze;
@@ -52,6 +53,25 @@ public class Player extends GameObject {
             }
         });
 
+    }
+
+    @Override
+    public void checkWallCollision() {
+        if (getX() <= 0 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 20) {
+            dx.set(0);
+            if (getX() < 10) {
+                x.set(1);
+            } else {
+                x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 19);
+            }
+        } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 5) {
+            dy.set(0);
+            if (getY() < 10) {
+                y.set(1);
+            } else {
+                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 6);
+            }
+        }
     }
 
     public void moveUp() {
