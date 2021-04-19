@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import model.GameObjects.GameObject;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
+import model.GameObjects.Powerups.PowerUp;
 import model.Game;
 import model.HighScore;
 import model.HighScoreList;
