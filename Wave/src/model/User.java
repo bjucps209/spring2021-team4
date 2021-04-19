@@ -1,6 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import model.Enums.ShipSkins;
 
 public class User {
@@ -57,6 +60,22 @@ public class User {
             return false;
         }
         
+
+    }
+
+    // method to buy a ship skin from the shop. used in mainwindow's onSkinClicked method
+    public void buy(ShipSkins skin) {
+        for (ShipSkins s : ownedShipSkins) {
+            if (skin.equals(s)) {
+                var alert = new Alert(AlertType.INFORMATION, "You already own that skin.");
+                alert.show();
+                return;
+            }
+        }
+        System.out.println("bought" + coins);
+        coins -= 100;
+        System.out.println(coins);
+        ownedShipSkins.add(skin);
 
     }
 

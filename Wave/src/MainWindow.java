@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.swing.Action;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,6 +12,8 @@ import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -17,7 +22,9 @@ import javafx.stage.WindowEvent;
 import model.HighScore;
 import model.HighScoreList;
 import model.Level;
+import model.User;
 import model.Wave;
+import model.Enums.ShipSkins;
 
 public class MainWindow {
     Wave w;
@@ -95,28 +102,28 @@ public class MainWindow {
     // directory for a file and if it exists, load that file
     void onLoadCustomGameClicked() {
 
-        VBox topVBox = new VBox();
-        topVBox.setId("menu-background");
-        topVBox.setAlignment(Pos.CENTER);
-        topVBox.setSpacing(10);
+        VBox vbox = new VBox();
+        vbox.setId("menu-background");
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
 
         Label lbl = new Label("Please enter the name of the file you'd like to load.(don't worry about the .dat)");
-        topVBox.getChildren().add(lbl);
+        vbox.getChildren().add(lbl);
         TextField txtFieldFileChooser = new TextField();
         txtFieldFileChooser.setId("TEXTFIELD");
         txtFieldFileChooser.setMaxWidth(125);
-        topVBox.getChildren().add(txtFieldFileChooser);
+        vbox.getChildren().add(txtFieldFileChooser);
 
         Button button = new Button("Add Level");
         button.setOnAction(this::callLoadCustomLevel);
 
-        topVBox.getChildren().add(button);
+        vbox.getChildren().add(button);
 
         Button startGameButton = new Button("Start Custom Game");
         startGameButton.setOnAction(this::startCustomGame);
-        topVBox.getChildren().add(startGameButton);
+        vbox.getChildren().add(startGameButton);
 
-        Scene loadLevelScene = new Scene(topVBox, 800, 600);
+        Scene loadLevelScene = new Scene(vbox, 800, 600);
         Stage loadLevelStage = new Stage();
         loadLevelStage.setScene(loadLevelScene);
         loadLevelStage.setTitle("Level Menu");
@@ -166,8 +173,56 @@ public class MainWindow {
             var alert = new Alert(AlertType.ERROR, "You haven't picked any custom levels to play yet.");
             alert.show();
         }
+    }
+
+    @FXML
+    void onSkinShopClicked() {
+        User user = new User("Ryan");
+        user.setCoins(10);
+        w.setCurrentUser(user);
+        ShipSkins[] shop = ShipSkins.values();
+        Image[] shipImages = {new Image("/Images/block_corner.png"), new Image("/Images/block_large.png"), new Image("/Images/block_square.png"), new Image("/Images/block_narrow.png"), new Image("/Images/playerShip1_blue.png")};
+        VBox vbox = new VBox();
+        vbox.setId("menu-background");
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
+
+        for (int i = 0; i < shop.length; i++) {
+            Button button = new Button();
+            button.setUserData(shop[i]);
+            button.setGraphic(new ImageView(shipImages[i]));
+            button.setOnAction(this::onSkinClicked);
+            
+            vbox.getChildren().add(button);
+        }
+        Scene skinShopScene = new Scene(vbox, 800, 600);
+        Stage skinShopStage = new Stage();
+        skinShopStage.setScene(skinShopScene);
+        skinShopStage.setTitle("Skin Shop");
+
+        skinShopStage.show();
+        skinShopScene.getStylesheets().add("MainWindow.css");
 
     }
+
+    @FXML
+    void onSkinClicked(ActionEvent e) {
+        Button button = (Button) e.getSource();
+        User user = w.getCurrentUser();
+        if (user != null) {
+            if (user.getCoins() > 100) {
+                user.buy((ShipSkins) button.getUserData());
+            }
+            else {
+                var alert = new Alert(AlertType.WARNING, "You do not have enough player coins.");
+                alert.show();
+            }
+        }
+        else {
+            // ask to pick a user??
+        }
+    }
+
 
     @FXML
     // Screen to show how to play the game
