@@ -84,8 +84,10 @@ public abstract class GameObject {
         setPaused(false);
     }
 
-    public boolean processHit(GameObject g, Player p) {
-        Class gc = g.getClass();
+    // First gameobject is the object hit, second is the object hitting the first (usually a moving enemy or player), and third is the levels player
+    public boolean processHit(GameObject hit, GameObject hitter, Player p) {
+        Class gc = hit.getClass();
+        Class hitterClass = hitter.getClass();
         if (gc.equals(Bouncer.class)) {
             Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
@@ -102,32 +104,32 @@ public abstract class GameObject {
             Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
             return true;
         } else if (gc.equals(DestroyShip.class)) {
-            PowerUp power = (PowerUp) g;
+            PowerUp power = (PowerUp) hit;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(Freeze.class)) {
-            PowerUp power = (PowerUp) g;
+            PowerUp power = (PowerUp) hit;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(HealthGainBig.class)) {
-            PowerUp power = (PowerUp) g;
+            PowerUp power = (PowerUp) hit;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(HealthGainSmall.class)) {
-            PowerUp power = (PowerUp) g;
+            PowerUp power = (PowerUp) hit;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(TemporaryInvincible.class)) {
-            PowerUp power = (PowerUp) g;
+            PowerUp power = (PowerUp) hit;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
         } else if (gc.equals(Obstacle.class)) {
-            if (gc.equals(Player.class)) {
+            if (hitterClass.equals(Player.class)) {
                 p.setDx(0);
                 p.setDy(0);
             } else {
-                g.setDx(-getDx());
-                g.setDy(-getDy());
+                hitter.setDx(-getDx());
+                hitter.setDy(-getDy());
             }
         }
         // the default case

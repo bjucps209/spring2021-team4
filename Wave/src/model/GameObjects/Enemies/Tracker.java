@@ -23,7 +23,7 @@ public class Tracker extends EnemyObject {
                 //}
                 
                 if (hits.size() != 0) {
-                    processHit(hits.get(0), currentLevel.getPlayer());
+                    processHit(hits.get(0), this, currentLevel.getPlayer());
                     hits.remove(hits.get(0));
                 }
                 try {

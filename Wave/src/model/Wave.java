@@ -344,7 +344,6 @@ public class Wave {
                 } else if (instanceInfo[0].equals("Player")) {
                     object = new Player(level);
                     level.setPlayer((Player)object);
-                    
                 }
                 // obstacles
                 else if (instanceInfo[0].equals("SQUARE")) {

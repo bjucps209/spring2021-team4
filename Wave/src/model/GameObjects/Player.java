@@ -36,12 +36,12 @@ public class Player extends GameObject {
                 if (currentLevel.getEnemies() != null && checkCollision(currentLevel.getEnemies()) != null) {
                     hits.add(checkCollision(currentLevel.getEnemies()));
                 } 
-                //else if (checkCollision(currentLevel.getPowerUps()) != null) {
-                    //hits.add(checkCollision(currentLevel.getPowerUps()));
-                //}
+                else if (checkCollision(currentLevel.getObstacles()) != null) {
+                    hits.add(checkCollision(currentLevel.getObstacles()));
+                }
                 
                 if (hits.size() != 0) {
-                    processHit(hits.get(0), this);
+                    processHit(hits.get(0), this, this);
                     hits.remove(hits.get(0));
                 }
 
