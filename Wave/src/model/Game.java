@@ -43,7 +43,12 @@ public class Game {
     // Main game update function for updating each object
     public void update() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
-            g.update();
+            try {
+                g.update();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
         }
     }
 

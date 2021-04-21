@@ -36,8 +36,7 @@ public class Difficulty {
         break;
       default:
         returnValue = -1;
-      
-      
+        break;
     }
     return returnValue;
   }
