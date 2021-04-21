@@ -40,6 +40,16 @@ public class Game {
         difficulty = new Difficulty(DifficultyLevel.Medium);
     }
 
+    public void initializeDifficulty() {
+        for (GameObject g : levels.get(levelNum).getAllObjects()) {
+            try {
+                g.initializeDifficulty();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     // Main game update function for updating each object
     public void update() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
