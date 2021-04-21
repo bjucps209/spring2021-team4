@@ -23,6 +23,7 @@ import model.GameObjects.Powerups.HealthGainSmall;
 import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
 import model.GameObjects.Obstacles.*;
+
 public abstract class GameObject {
     // abstract class for all game objects
     protected IntegerProperty x = new SimpleIntegerProperty();
@@ -34,6 +35,7 @@ public abstract class GameObject {
     protected static IntegerProperty speed = new SimpleIntegerProperty();
 
     protected int appearTime = 60;
+
     public abstract String serialize();
 
     public abstract boolean deserialize(String info);
@@ -53,7 +55,7 @@ public abstract class GameObject {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } 
+        }
     });;
 
     public GameObject(Level l) {
@@ -62,9 +64,16 @@ public abstract class GameObject {
 
     // update method each object needs
     public void update() {
+        int increaseSpeed = Wave.getInstance().getGame().getDifficultyLevel().difficultyAffect();
         if (!paused) {
-            x.set(getX() + getDx());
-            y.set(getY() + getDy());
+            if (this instanceof Player) {
+                x.set(getX() + getDx());
+                y.set(getY() + getDy());
+            }else{
+                x.set(getX() + getDx()+increaseSpeed);
+                y.set(getY() + getDy()+increaseSpeed);
+            }
+
         }
     }
 
@@ -84,24 +93,35 @@ public abstract class GameObject {
         setPaused(false);
     }
 
-    // First gameobject is the object hit, second is the object hitting the first (usually a moving enemy or player), and third is the levels player
+    // First gameobject is the object hit, second is the object hitting the first
+    // (usually a moving enemy or player), and third is the levels player
     public boolean processHit(GameObject hit, GameObject hitter, Player p) {
         Class gc = hit.getClass();
         Class hitterClass = hitter.getClass();
         if (gc.equals(Bouncer.class)) {
-            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
+            Platform.runLater(() -> {
+                p.setHealth(p.getHealth() - 1);
+            });
             return true;
         } else if (gc.equals(Ghost.class)) {
-            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
+            Platform.runLater(() -> {
+                p.setHealth(p.getHealth() - 1);
+            });
             return true;
         } else if (gc.equals(Laser.class)) {
-            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
+            Platform.runLater(() -> {
+                p.setHealth(p.getHealth() - 1);
+            });
             return true;
         } else if (gc.equals(Shapeshifter.class)) {
-            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
+            Platform.runLater(() -> {
+                p.setHealth(p.getHealth() - 1);
+            });
             return true;
         } else if (gc.equals(Tracker.class)) {
-            Platform.runLater(() -> {p.setHealth(p.getHealth() - 1);});
+            Platform.runLater(() -> {
+                p.setHealth(p.getHealth() - 1);
+            });
             return true;
         } else if (gc.equals(DestroyShip.class)) {
             PowerUp power = (PowerUp) hit;

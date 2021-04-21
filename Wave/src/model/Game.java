@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.io.*;
 import model.GameObjects.GameObject;
 import model.GameObjects.Obstacles.*;
+import model.Enums.DifficultyLevel;
 import model.GameObjects.*;
 import model.GameObjects.Enemies.EnemyObject;
 
@@ -18,6 +19,7 @@ public class Game {
     // Data variables
     private ArrayList<Level> levels = new ArrayList<Level>();
 
+    private Difficulty difficulty;
     // Gameplay variables
     private Level currentLevel;
     private int levelNum = 0;
@@ -33,6 +35,9 @@ public class Game {
             e.printStackTrace();
         }
         currentLevel = levels.get(levelNum);
+
+        //TODO: set the difficulty here
+        difficulty = new Difficulty(DifficultyLevel.Medium);
     }
 
     // Main game update function for updating each object
@@ -239,6 +244,22 @@ public class Game {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    public Wave getW() {
+        return w;
+    }
+
+    public void setW(Wave w) {
+        this.w = w;
+    }
+
+    public Difficulty getDifficultyLevel() {
+        return difficulty;
+    }
+
+    public void setDifficultyLevel(Difficulty difficultyLevel) {
+        this.difficulty = difficultyLevel;
     }
 
 }
