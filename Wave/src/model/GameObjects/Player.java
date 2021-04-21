@@ -17,7 +17,7 @@ public class Player extends GameObject {
 
     // instance variables
     private IntegerProperty health = new SimpleIntegerProperty(100);
-    private int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
+    private static int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
     private ShipSkins currentShipSkins;
     // private ArrayList<GameObject> activatedAffects = new ArrayList<>();
     private boolean temporaryInvincible;
@@ -136,8 +136,8 @@ public class Player extends GameObject {
         this.health = health;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    public static void setSpeed(int speed) {
+        Player.speed = speed;
     }
 
     /*

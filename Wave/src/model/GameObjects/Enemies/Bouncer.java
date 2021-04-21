@@ -3,6 +3,9 @@ package model.GameObjects.Enemies;
 import model.Level;
 
 public class Bouncer extends EnemyObject {
+
+    public static int speed = 5;
+
     public Bouncer(Level l) {
         super(l);
         setWidth(50);
@@ -29,6 +32,4 @@ public class Bouncer extends EnemyObject {
             } 
         });;
     }
-
-    public static int speed = 5;
 }

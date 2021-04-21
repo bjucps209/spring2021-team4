@@ -53,6 +53,7 @@ public class Wave {
     public void gameStart() {
         game = new Game(1000, 800);
         game.startHitDetection();
+        game.initializeDifficulty();
     }
 
     public void onClosed() {

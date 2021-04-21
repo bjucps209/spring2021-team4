@@ -47,6 +47,7 @@ public abstract class GameObject {
     private int pauseDy;
     public Level currentLevel;
     protected boolean paused = false;
+    protected static int increaseSpeed;
     public Thread hitDetection = new Thread(() -> {
         while (true) {
             checkWallCollision();
@@ -62,16 +63,25 @@ public abstract class GameObject {
         currentLevel = l;
     }
 
+    public void initializeDifficulty() {
+        increaseSpeed = Wave.getInstance().getGame().getDifficultyLevel().difficultyAffect();
+        if (this instanceof Player) {
+            Player.setSpeed(5 + increaseSpeed);
+        } else {
+            setDx(getDx() + increaseSpeed);
+            setDy(getDy() + increaseSpeed);
+        }   
+    }
+
     // update method each object needs
     public void update() {
-        int increaseSpeed = Wave.getInstance().getGame().getDifficultyLevel().difficultyAffect();
         if (!paused) {
             if (this instanceof Player) {
                 x.set(getX() + getDx());
                 y.set(getY() + getDy());
             }else{
-                x.set(getX() + getDx()+increaseSpeed);
-                y.set(getY() + getDy()+increaseSpeed);
+                x.set(getX() + getDx());
+                y.set(getY() + getDy());
             }
 
         }
@@ -183,12 +193,12 @@ public abstract class GameObject {
             } else {
                 x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 19);
             }
-        } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 5) {
+        } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 15) {
             dy.set(-getDy());
             if (getY() < 10) {
                 y.set(1);
             } else {
-                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 6);
+                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 16);
             }
         }
     }
@@ -248,13 +258,9 @@ public abstract class GameObject {
         this.height.set(height);
     }
 
-    public int getSpeed() {
-        return this.speed.get();
-    }
-
-    public void setSpeed(int speed) {
-        this.speed.set(speed);
-    }
+    // public int getSpeed() {
+    //     return this.speed.get();
+    // }
 
     public boolean isPaused() {
         return paused;
