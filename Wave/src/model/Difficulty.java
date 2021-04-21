@@ -23,21 +23,16 @@ public class Difficulty {
     }
   }
   public int difficultyAffect(){
-    int returnValue;
+    
     switch(difficulty){
       case Easy:
-        returnValue = 0;
-        break;
+        return 0;
       case Medium:
-        returnValue = 3;
-        break;
+        return 3;
       case Hard:
-        returnValue = 5;
-        break;
+        return 5;
       default:
-        returnValue = -1;
-        break;
+        return -1;
     }
-    return returnValue;
   }
 }
