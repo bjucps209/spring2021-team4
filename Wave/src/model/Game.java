@@ -64,14 +64,18 @@ public class Game {
 
     public void startHitDetection() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
-            g.startHitDetection();
+            if (!(g instanceof Obstacle)) {
+                g.startHitDetection();
+            }    
         }
     }
 
     public void stopHitDetection() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
             try {
-                g.stopHitDetection();
+                if (!(g instanceof Obstacle)) {
+                    g.stopHitDetection();
+                } 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

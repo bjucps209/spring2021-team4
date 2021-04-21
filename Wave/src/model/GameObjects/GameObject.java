@@ -57,7 +57,7 @@ public abstract class GameObject {
                 e.printStackTrace();
             }
         }
-    });;
+    });
 
     public GameObject(Level l) {
         currentLevel = l;
@@ -153,10 +153,11 @@ public abstract class GameObject {
             PowerUp power = (PowerUp) hit;
             power.collisionWithPlayer(p);
             return power.getIsFinished();
-        } else if (gc.equals(Obstacle.class)) {
-            if (hitterClass.equals(Player.class)) {
+        } else if (hit instanceof Obstacle) {
+            if (hitter.equals(p)) {
                 p.setDx(0);
                 p.setDy(0);
+                System.out.println("stop");
             } else {
                 hitter.setDx(-getDx());
                 hitter.setDy(-getDy());

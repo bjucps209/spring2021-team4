@@ -14,12 +14,16 @@ public class Obstacle extends GameObject {
         //TODO: specific width and height for different obstacles
 
         appearTime = 60;
-    }
-    public Obstacle(ObstacleTypes type, Level l) {
-        super(l);
-        this.dx.set(0);
-        this.dy.set(0);
-        this.appearTime = 60;
+        hitDetection = new Thread(() -> {
+            while (true) {
+                checkWallCollision();
+                try {
+                    Thread.sleep(33);
+                } catch (InterruptedException e) {
+                    //e.printStackTrace();
+                }
+            }
+        });
     }
 
     public static Obstacle create(ObstacleTypes type, Level l) {
@@ -29,6 +33,8 @@ public class Obstacle extends GameObject {
                 obstacle = new Square(l);
                 l.getAllObjects().add(obstacle);
                 l.getObstacles().add(obstacle);
+                obstacle.setWidth(50);
+                obstacle.setHeight(50);
                 break;
             case NARROW:
                 obstacle = new Narrow(l);

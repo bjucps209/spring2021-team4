@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import model.GameObjects.GameObject;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
+import model.GameObjects.Obstacles.Obstacle;
 import model.GameObjects.Powerups.PowerUp;
 import model.Game;
 import model.HighScore;
@@ -99,7 +100,7 @@ public class GameWindow {
 
     public void spawnEntities() {
         // code to combine all spawn function below
-        spawnObstecles();
+        spawnObstacles();
         spawnPowerups();
         spawnPlayer();
         spawnEnemies();
@@ -165,18 +166,54 @@ public class GameWindow {
                 trackerImageView.layoutYProperty().bind(o.yProperty());
                 break;
             default:
-
                 break;
             }
         }
     }
 
     public void spawnObstacles() {
-        // Image obsteclImage = new Image("./Images/block_square.png");
-        // ImageView obstImageView = new ImageView(obsteclImage);
-        // obstImageView.setLayoutX(500);
-        // obstImageView.setLayoutY(300);
-        // pane.getChildren().add(obstImageView);
+        for (Obstacle o : g.getLevels().get(g.getLevelNum()).getObstacles()) {
+            switch (o.getType()) {
+            case SQUARE:
+                Image squareImage = new Image("./Images/block_square.png");
+                ImageView squareImageView = new ImageView(squareImage);
+                squareImageView.setFitWidth(o.getWidth());
+                squareImageView.setFitHeight(o.getHeight());
+                pane.getChildren().add(squareImageView);
+                squareImageView.layoutXProperty().bind(o.xProperty());
+                squareImageView.layoutYProperty().bind(o.yProperty());
+                break;
+            case LARGE:
+                Image ghostImage = new Image("./Images/block_large.png");
+                ImageView ghostImageView = new ImageView(ghostImage);
+                ghostImageView.setFitWidth(o.getWidth());
+                ghostImageView.setFitHeight(o.getHeight());
+                pane.getChildren().add(ghostImageView);
+                ghostImageView.layoutXProperty().bind(o.xProperty());
+                ghostImageView.layoutYProperty().bind(o.yProperty());
+                break;
+            case NARROW:
+                Image laserImage = new Image("./Images/block_narrow.png");
+                ImageView laserImageView = new ImageView(laserImage);
+                laserImageView.setFitWidth(o.getWidth());
+                laserImageView.setFitHeight(o.getHeight());
+                pane.getChildren().add(laserImageView);
+                laserImageView.layoutXProperty().bind(o.xProperty());
+                laserImageView.layoutYProperty().bind(o.yProperty());
+                break;
+            case CORNER:
+                Image shapeshifterImage = new Image("./Images/block_corner.png");
+                ImageView shapeshifterImageView = new ImageView(shapeshifterImage);
+                shapeshifterImageView.setFitWidth(o.getWidth());
+                shapeshifterImageView.setFitHeight(o.getHeight());
+                pane.getChildren().add(shapeshifterImageView);
+                shapeshifterImageView.layoutXProperty().bind(o.xProperty());
+                shapeshifterImageView.layoutYProperty().bind(o.yProperty());
+                break;
+            default:
+                break;
+            }
+        }
     }
 
     public void spawnPowerups() {

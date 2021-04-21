@@ -41,13 +41,14 @@ public class Player extends GameObject {
 
                 if (checkCollision(currentLevel.getObstacles()) != null) {
                     hits.add(checkCollision(currentLevel.getObstacles()));
-                    System.out.println(checkCollision(currentLevel.getObstacles()));
                 }
                 
                 if (hits.size() != 0) {
                     processHit(hits.get(0), this, this);
                     hits.remove(hits.get(0));
                 }
+
+                System.out.println(hits);
 
                 try {
                     Thread.sleep(33);

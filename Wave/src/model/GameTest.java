@@ -199,14 +199,12 @@ public class GameTest {
     bouncer.setHeight(5);
     // TODO: set special affects later in
 
-    Obstacle ob = new Obstacle(ObstacleTypes.SQUARE, currentLevel);
+    Obstacle ob = Obstacle.create(ObstacleTypes.SQUARE, currentLevel);
     ob.setType(ObstacleTypes.LARGE);
     ob.setX(20);
     ob.setY(330);
     ob.setWidth(5);
     ob.setHeight(5);
-
-   
 
     PowerUp pow = new Freeze(currentLevel);
     pow.setType(PowerUps.Freeze);
