@@ -37,6 +37,8 @@ public class Player extends GameObject {
                     hits.add(checkCollision(currentLevel.getEnemies()));
                 } 
                 
+                //System.out.println(currentLevel.getObstacles());
+
                 if (checkCollision(currentLevel.getObstacles()) != null) {
                     hits.add(checkCollision(currentLevel.getObstacles()));
                     System.out.println(checkCollision(currentLevel.getObstacles()));

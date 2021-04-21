@@ -369,6 +369,7 @@ public class Wave {
                     level.getPowerUps().add((PowerUp) object);
                 } 
                 else if (object instanceof Obstacle) {
+                    System.out.println("this is an object");
                     level.getObstacles().add((Obstacle) object);
                 } 
                 else if (object instanceof EnemyObject) {
