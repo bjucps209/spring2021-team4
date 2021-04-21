@@ -106,6 +106,8 @@ public abstract class GameObject {
     // First gameobject is the object hit, second is the object hitting the first
     // (usually a moving enemy or player), and third is the levels player
     public boolean processHit(GameObject hit, GameObject hitter, Player p) {
+        int playerX = p.getX();
+        int playerY = p.getY();
         Class gc = hit.getClass();
         Class hitterClass = hitter.getClass();
         if (gc.equals(Bouncer.class)) {
@@ -157,7 +159,8 @@ public abstract class GameObject {
             if (hitter.equals(p)) {
                 p.setDx(0);
                 p.setDy(0);
-                System.out.println("stop");
+                changePlayerPosition(p, (Obstacle) hit);
+                
             } else {
                 hitter.setDx(-getDx());
                 hitter.setDy(-getDy());
@@ -165,6 +168,32 @@ public abstract class GameObject {
         }
         // the default case
         return true;
+    }
+
+    public void changePlayerPosition(Player p, Obstacle o) {
+        // left
+        if (p.getX() <= o.getX() + 10) {
+            // above
+            if (p.getY() <= o.getY()) {
+                p.setX(p.getX() - (p.getSpeed() + 3));
+                p.setY(p.getY() - (p.getSpeed() + 3));
+            // below
+            } else {
+                p.setX(p.getX() - (p.getSpeed() + 3));
+                p.setY(p.getY() + (p.getSpeed() + 3));
+            }
+        // right
+        } else {
+            // above
+            if (p.getY() <= o.getY()) {
+                p.setX(p.getX() + (p.getSpeed() + 3));
+                p.setY(p.getY() - (p.getSpeed() + 3));
+            // below
+            } else {
+                p.setX(p.getX() + (p.getSpeed() + 3));
+                p.setY(p.getY() + (p.getSpeed() + 3));
+            }
+        }
     }
 
     public GameObject checkCollision(ArrayList<? extends GameObject> g) {

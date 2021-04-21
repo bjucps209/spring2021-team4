@@ -1,6 +1,8 @@
 package model.GameObjects;
 
 import java.util.ArrayList;
+
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
@@ -45,10 +47,8 @@ public class Player extends GameObject {
                 
                 if (hits.size() != 0) {
                     processHit(hits.get(0), this, this);
-                    hits.remove(hits.get(0));
+                    hits.removeAll(hits);
                 }
-
-                System.out.println(hits);
 
                 try {
                     Thread.sleep(33);
