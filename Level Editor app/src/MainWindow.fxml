@@ -39,11 +39,7 @@
             <TextField fx:id="txtFAppearanceTime"/>
         </VBox>
 
-        <VBox>
-            <Button text="Easy" onAction="#onEasyClicked" fx:id="btnEasy"/>
-            <Button text="Medium" onAction="#onMediumClicked" fx:id="btnMedium"/>
-            <Button text="Hard" onAction="#onHardClicked" fx:id="btnHard"/>
-        </VBox>
+    <Label text="When creating an entity or updating its values, please input an integer for each of the three attributes."/>
 
     </HBox>
     <HBox spacing="10">
