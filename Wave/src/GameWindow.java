@@ -22,6 +22,7 @@ import model.GameObjects.Powerups.PowerUp;
 import model.Game;
 import model.HighScore;
 import model.HighScoreList;
+import model.Level;
 import model.Wave;
 
 public class GameWindow {
@@ -43,22 +44,20 @@ public class GameWindow {
     public void initialize() {
 
         w = Wave.getInstance();
-        w.gameStart();
+        int test = MainWindow.customGameLevels.size();
+        if (MainWindow.customGameLevels.size() != 0) {
+            w.gameStart(MainWindow.customGameLevels);
+        } else {
+            ArrayList<Level> levels = w.getDefaultLevels();
+            w.gameStart(levels);
+        }
+        
         g = w.getGame();
         p = g.getCurrentLevel().getPlayer();
         spawnEntities();
         
         //pane dimensions
         pane.setPrefSize(1000, 800);
-
-        // Getting the game to update at 16.7ms or ~60fps
-        timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
-            g.update();
-            var s = pane.getChildren();
-        }));
-        timer.setCycleCount(Timeline.INDEFINITE);
-        timer.play();
-        // Platform.exit();
 
         // Label to represent the timer
         Label lblTime = new Label("TIME REMAINING");
@@ -94,6 +93,15 @@ public class GameWindow {
         pane.getChildren().add(lblScore);
         lblSCORE.relocate(900, 0);
         lblScore.relocate(900, 20);
+
+        // Getting the game to update at 16.7ms or ~60fps
+        timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
+            g.update();
+            var s = pane.getChildren();
+        }));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
+        // Platform.exit();
     }
 
     
