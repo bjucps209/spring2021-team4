@@ -25,7 +25,7 @@ public class Game {
     private int levelNum = 0;
 
     // Constructor
-    public Game(int width, int height) {
+    public Game(int width, int height, ArrayList<Level> levels) {
         w = Wave.getInstance();
         gameWidth = width;
         gameHeight = height;
@@ -34,6 +34,7 @@ public class Game {
         // } catch (IOException e) {
         //     e.printStackTrace();
         // }
+        this.levels = levels;
         currentLevel = levels.get(levelNum);
 
         //TODO: set the difficulty here
