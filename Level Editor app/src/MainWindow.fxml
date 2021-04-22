@@ -36,7 +36,7 @@
             <Label text="Appearance Time"/>
             <Label text="int value 0-60"/>
             <Label text="60 is beginning of level"/>
-            <TextField fx:id="txtFAppearanceTime"/>
+            <TextField fx:id="txtFAppearanceTime" text="60"/>
         </VBox>
 
     <Label text="When creating an entity or updating its values, please input an integer for each of the three attributes."/>

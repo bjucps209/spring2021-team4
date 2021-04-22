@@ -68,13 +68,11 @@ public class MainWindow {
 
     GameObject currentObject;
 
-    String difficulty = "E";
-
 
     
     @FXML
     void initialize() {
-        String[] types = {"Player playerShip1_blue", "Obstacle block_square", "Obstacle block_corner", "Obstacle block_large", "Obstacle block_narrow", "Freeze powerupBlue_bolt", "HealthGainBig pill_yellow", "TemporaryInvincible shield_gold", "DestroyShip bolt_gold", "HealthGainSmall pill_blue", "Bouncer enemyBlack4", "Tracker enemyBlack1", "Ghost enemyBlack2", "Laser cockpitGreen_0", "Shapeshifter enemyBlack4"};
+        String[] types = {"Player playerShip1_blue", "Square block_square", "Corner block_corner", "Large block_large", "Narrow block_narrow", "Freeze powerupBlue_bolt", "HealthGainBig pill_yellow", "TemporaryInvincible shield_gold", "DestroyShip bolt_gold", "HealthGainSmall pill_blue", "Bouncer enemyBlack4", "Tracker enemyBlack1", "Ghost enemyBlack2", "Laser cockpitGreen_0", "Shapeshifter enemyBlack4"};
         typeBox.getItems().addAll(types);
         vbox1.getChildren().add(typeBox);
 
@@ -212,32 +210,6 @@ public class MainWindow {
         
     }
 
-    // methods to set the level difficulty
-    @FXML
-    void onEasyClicked() {
-        difficulty = "E";
-        btnEasy.setDisable(true);
-        btnMedium.setDisable(false);
-        btnHard.setDisable(false);
-    }
-
-    @FXML
-    void onMediumClicked() {
-        difficulty = "M";
-        btnEasy.setDisable(false);
-        btnMedium.setDisable(true);
-        btnHard.setDisable(false);
-    }
-
-    @FXML
-    void onHardClicked() {
-        difficulty = "H";
-        btnEasy.setDisable(false);
-        btnMedium.setDisable(false);
-        btnHard.setDisable(true);
-    }
-    // ----
-
     // create a new object
     @FXML
     void onCreateNewClicked() {
@@ -257,7 +229,15 @@ public class MainWindow {
         
             if (!txtFXValue.getText().equals("") && !txtFYValue.getText().equals("") && !txtFAppearanceTime.getText().equals("")) {
                 try {
-                    setDataValues(imgView, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()), Integer.parseInt(txtFAppearanceTime.getText()));
+                    int x = Integer.parseInt(txtFXValue.getText());
+                    int y = Integer.parseInt(txtFYValue.getText());
+                    int time = Integer.parseInt(txtFAppearanceTime.getText());
+                    if (x < 0 || y < 0 || time < 0 || time > 60 || x > 1000 || y > 800) {
+                        throw new IllegalArgumentException("An integer value is either too big or too small. Please check your text fields.");
+                    }
+                    else {
+                        setDataValues(imgView, x, y, time);
+                    }
                 }
                 catch (NumberFormatException e) {
                     setDataValues(imgView, 0, 0, 60);
@@ -286,7 +266,6 @@ public class MainWindow {
     void onClearClicked() {
         pane.getChildren().remove(0, pane.getChildren().size());
         setLabels();
-        difficulty = "E";
     }
 
     
@@ -331,7 +310,7 @@ public class MainWindow {
 
         String levelInfo = "";
 
-        String allObjectInformation = difficulty;
+        String allObjectInformation = "";
 
         for (int i = 0; i < pane.getChildren().size(); i++) {
             // get imageview to find object
