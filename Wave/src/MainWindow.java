@@ -189,21 +189,22 @@ public class MainWindow {
             shop[i - 1] = faultyShop[i];
         }
         // all ImageViews to be iterated over for the shop appearance.
-        ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
-        ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};
-        ImageView[] playerShip3Images = {new ImageView(new Image("/Images/playerShip3_blue.png")), new ImageView(new Image("/Images/playerShip3_green.png")), new ImageView(new Image("/Images/playerShip3_orange.png")), new ImageView(new Image("/Images/playerShip3_red.png"))};
-        ImageView[] ufoImages = {new ImageView(new Image("/Images/ufoBlue.png")), new ImageView(new Image("/Images/ufoGreen.png")), new ImageView(new Image("/Images/ufoYellow.png")), new ImageView(new Image("/Images/ufoRed.png"))};
-        ImageView[][] allImages = {playerShip1Images, playerShip2Images, playerShip3Images, ufoImages};
-
-        VBox vbox = new VBox();
-        vbox.setId("menu-background");
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(25);
-
-        Label shopLabel = new Label("SKIN SHOP");
-        vbox.getChildren().add(shopLabel);
-
         try {
+            ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
+            ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};
+            ImageView[] playerShip3Images = {new ImageView(new Image("/Images/playerShip3_blue.png")), new ImageView(new Image("/Images/playerShip3_green.png")), new ImageView(new Image("/Images/playerShip3_orange.png")), new ImageView(new Image("/Images/playerShip3_red.png"))};
+            ImageView[] ufoImages = {new ImageView(new Image("/Images/ufoBlue.png")), new ImageView(new Image("/Images/ufoGreen.png")), new ImageView(new Image("/Images/ufoYellow.png")), new ImageView(new Image("/Images/ufoRed.png"))};
+            ImageView[][] allImages = {playerShip1Images, playerShip2Images, playerShip3Images, ufoImages};
+        
+
+            VBox vbox = new VBox();
+            vbox.setId("menu-background");
+            vbox.setAlignment(Pos.CENTER);
+            vbox.setSpacing(25);
+
+            Label shopLabel = new Label("SKIN SHOP");
+            vbox.getChildren().add(shopLabel);
+
             int i = 0;
             for (ImageView[] row : allImages) {
                 
@@ -229,20 +230,22 @@ public class MainWindow {
                 }
                 vbox.getChildren().add(hbox);
             }
+
+
+
+
+            Scene skinShopScene = new Scene(vbox, 800, 600);
+            Stage skinShopStage = new Stage();
+            skinShopStage.setScene(skinShopScene);
+            skinShopStage.setTitle("Skin Shop");
+
+            skinShopStage.show();
+            skinShopScene.getStylesheets().add("MainWindow.css");
         }
         catch (IllegalArgumentException e) {
-
+            var alert = new Alert(AlertType.ERROR, "Error in loading shop.");
+            alert.show();
         }
-
-
-
-        Scene skinShopScene = new Scene(vbox, 800, 600);
-        Stage skinShopStage = new Stage();
-        skinShopStage.setScene(skinShopScene);
-        skinShopStage.setTitle("Skin Shop");
-
-        skinShopStage.show();
-        skinShopScene.getStylesheets().add("MainWindow.css");
 
     }
 
