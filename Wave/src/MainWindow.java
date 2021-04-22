@@ -163,14 +163,12 @@ public class MainWindow {
 
         if (customGameLevels.size() > 0) {
             System.out.println("start the custom game");
-            // try {
+            try {
+                w.getGame().setLevels(customGameLevels);
+                onNewGameClicked();
+            } catch (IOException exception) {
 
-            //     w.gameStart();
-            //     onNewGameClicked();
-            //     w.getGame().setLevels(customGameLevels);
-            // } catch (IOException exception) {
-
-            // }
+            }
         } else {
             var alert = new Alert(AlertType.ERROR, "You haven't picked any custom levels to play yet.");
             alert.show();
