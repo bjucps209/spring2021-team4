@@ -322,8 +322,6 @@ public class Wave {
             stream.read(levelInfoBytes);
             String levelInfoString = new String(levelInfoBytes);
 
-            levelInfoString = levelInfoString.substring(1);
-
             String[] instances = levelInfoString.split("\\|");
 
             for (String instance : instances) {

@@ -1,6 +1,8 @@
 package model;
 
 import java.io.*;
+import java.util.ArrayList;
+
 import org.junit.Test;
 import model.Enums.EnemyTypes;
 import model.Enums.ShipSkins;
@@ -22,7 +24,7 @@ public class GameTest {
   @Test
   public void testLoad_example1_expectResult() {
     // Example 1
-    Wave.getInstance().gameStart();
+    Wave.getInstance().gameStart(new ArrayList<Level>());
     Game game = Wave.getInstance().getGame();
 
     
@@ -103,7 +105,7 @@ public class GameTest {
   @Test
   public void testLoad_example2_expectResult() {
     // Example 2
-    Wave.getInstance().gameStart();
+    Wave.getInstance().gameStart(new ArrayList<Level>());
     Game game = Wave.getInstance().getGame();
     
    
@@ -144,7 +146,7 @@ public class GameTest {
 
   @Test
   public void testLoad_example4_correctResult(){
-    Wave.getInstance().gameStart();
+    Wave.getInstance().gameStart(new ArrayList<Level>());
     Game game = Wave.getInstance().getGame();
     
     for(int i = 0; i < 9; i++){  // already has one level when Wave.getInstance().gameStart()
@@ -162,7 +164,7 @@ public class GameTest {
   @Test
   public void testSave_middlleOfGameSingelPlayer_correctResult(){
     //TODO: need implement same thing for multiple player
-    Wave.getInstance().gameStart();
+    Wave.getInstance().gameStart(new ArrayList<Level>());
     Game game = Wave.getInstance().getGame();
     
     for(int i = 0; i < 9; i++){
@@ -257,7 +259,7 @@ public class GameTest {
   @Test
   public void testSave_endOfGameSinglePlauer_correctResult(){
         //TODO: need implement same thing for multiple player
-        Wave.getInstance().gameStart();
+        Wave.getInstance().gameStart(new ArrayList<Level>());
         Game game = Wave.getInstance().getGame();
         
         for(int i = 0; i < 9; i++){
