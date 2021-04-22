@@ -51,15 +51,6 @@ public class GameWindow {
         //pane dimensions
         pane.setPrefSize(1000, 800);
 
-        // Getting the game to update at 16.7ms or ~60fps
-        timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
-            g.update();
-            var s = pane.getChildren();
-        }));
-        timer.setCycleCount(Timeline.INDEFINITE);
-        timer.play();
-        // Platform.exit();
-
         // Label to represent the timer
         Label lblTime = new Label("TIME REMAINING");
         Label lblTimer = new Label();
@@ -94,6 +85,15 @@ public class GameWindow {
         pane.getChildren().add(lblScore);
         lblSCORE.relocate(900, 0);
         lblScore.relocate(900, 20);
+
+        // Getting the game to update at 16.7ms or ~60fps
+        timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
+            g.update();
+            var s = pane.getChildren();
+        }));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
+        // Platform.exit();
     }
 
     

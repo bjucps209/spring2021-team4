@@ -50,8 +50,9 @@ public class Wave {
     }
 
     // Starts the game, does all calculations and initializes lists
-    public void gameStart() {
+    public void gameStart(ArrayList<Level> levels) {
         game = new Game(1000, 800);
+        game.setLevels(levels);
         game.initializeDifficulty();
         game.startHitDetection();
     }

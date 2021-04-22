@@ -29,11 +29,11 @@ public class Game {
         w = Wave.getInstance();
         gameWidth = width;
         gameHeight = height;
-        try {
-            createLevels();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     createLevels();
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
         currentLevel = levels.get(levelNum);
 
         //TODO: set the difficulty here
