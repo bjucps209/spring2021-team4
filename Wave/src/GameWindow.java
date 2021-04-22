@@ -172,6 +172,7 @@ public class GameWindow {
     }
 
     public void spawnObstacles() {
+        System.out.println(System.getProperty("user.dir"));
         for (Obstacle o : g.getLevels().get(g.getLevelNum()).getObstacles()) {
             switch (o.getType()) {
             case SQUARE:
@@ -222,6 +223,57 @@ public class GameWindow {
         // powerupsImageView.setLayoutX(600);
         // powerupsImageView.setLayoutY(300);
         // pane.getChildren().add(powerupsImageView);
+        for(PowerUp power : g.getLevels().get(g.getLevelNum()).getPowerUps()){
+            switch(power.getType()){
+                case HealthGainBig:
+                    Image healthBig = new Image("./Images/pill_yellow.png");
+                    ImageView healthBigImageView = new ImageView(healthBig);
+                    healthBigImageView.setFitWidth(power.getWidth());
+                    healthBigImageView.setFitHeight(power.getHeight());
+                    pane.getChildren().add(healthBigImageView);
+                    healthBigImageView.layoutXProperty().bind(power.xProperty());
+                    healthBigImageView.layoutYProperty().bind(power.yProperty());
+                    break;
+                case HealthGainSmall:
+                    Image healthSmall = new Image("./Images/pill_blue.png");
+                    ImageView healthImageView = new ImageView(healthSmall);
+                    healthImageView.setFitWidth(power.getWidth());
+                    healthImageView.setFitHeight(power.getHeight());
+                    pane.getChildren().add(healthImageView);
+                    healthImageView.layoutXProperty().bind(power.xProperty());
+                    healthImageView.layoutYProperty().bind(power.yProperty());
+                    break;
+                case DestroyShip:
+                    Image destroyShip = new Image("./Images/bolt_gold.png");
+                    ImageView destroyShipImageView = new ImageView(destroyShip);
+                    destroyShipImageView.setFitWidth(power.getWidth());
+                    destroyShipImageView.setFitHeight(power.getHeight());
+                    pane.getChildren().add(destroyShipImageView);
+                    destroyShipImageView.layoutXProperty().bind(power.xProperty());
+                    destroyShipImageView.layoutYProperty().bind(power.yProperty());
+                    break;
+                case Freeze:
+                    Image freeze = new Image("./Images/powerupBlue_bolt.png");
+                    ImageView freezeImageView = new ImageView(freeze);
+                    freezeImageView.setFitWidth(power.getWidth());
+                    freezeImageView.setFitHeight(power.getHeight());
+                    pane.getChildren().add(freezeImageView);
+                    freezeImageView.layoutXProperty().bind(power.xProperty());
+                    freezeImageView.layoutYProperty().bind(power.yProperty());
+                    break;
+                case TemporaryInvincible:
+                    Image tempInvincible = new Image("./Images/shield_gold.png");
+                    ImageView invincibleImageView = new ImageView(tempInvincible);
+                    invincibleImageView.setFitWidth(power.getWidth());
+                    invincibleImageView.setFitHeight(power.getHeight());
+                    pane.getChildren().add(invincibleImageView);
+                    invincibleImageView.layoutXProperty().bind(power.xProperty());
+                    invincibleImageView.layoutYProperty().bind(power.yProperty());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     // Method for pausing the game and ending the game

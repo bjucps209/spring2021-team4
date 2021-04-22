@@ -5,39 +5,45 @@ import model.Enums.PowerUps;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 
-public class Freeze extends PowerUp{
+public class Freeze extends PowerUp {
 
-
-
-  public Freeze(Level l){
+  public Freeze(Level l) {
     super(l);
     this.type = PowerUps.Freeze;
     this.effectiveTime = 5;
-  
+
   }
+
   @Override
   public void collisionWithPlayer(Player p) {
     // TODO Auto-generated method stub
-    if(isFinished == false){
-      for(EnemyObject ob : this.currentLevel.getEnemies()){
+    if (this.startTime == -1) {
+      this.startTime = this.currentLevel.getRemainingTime();
+    }
+    if (isFinished == false) {
+      for (EnemyObject ob : this.currentLevel.getEnemies()) {
         ob.setTemporaryFreeze(true);
       }
-    }else{
-      for(EnemyObject ob : this.currentLevel.getEnemies()){
+    } else {
+      for (EnemyObject ob : this.currentLevel.getEnemies()) {
         ob.setTemporaryFreeze(false);
       }
     }
-    
+
   }
+
   @Override
 
   public void update() {
     // TODO Auto-generated method stub
-    this.passedTime = this.startTime - this.currentLevel.getRemainingTime();
-    if(passedTime >= effectiveTime){
-      this.isFinished = true;
+
+    if (this.startTime != -1) {
+      this.passedTime = this.startTime - this.currentLevel.getRemainingTime();
+      if (passedTime >= effectiveTime) {
+        this.isFinished = true;
+      }
     }
+
   }
 
-  
 }

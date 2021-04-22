@@ -112,27 +112,39 @@ public abstract class GameObject {
         Class hitterClass = hitter.getClass();
         if (gc.equals(Bouncer.class)) {
             Platform.runLater(() -> {
-                p.setHealth(p.getHealth() - 1);
+                if(p.isTemporaryInvincible() == false){
+                    p.setHealth(p.getHealth() - 1);
+                }
+                
             });
             return true;
         } else if (gc.equals(Ghost.class)) {
             Platform.runLater(() -> {
-                p.setHealth(p.getHealth() - 1);
+                if(p.isTemporaryInvincible() == false){
+                    
+                    p.setHealth(p.getHealth() - 1);
+                }
             });
             return true;
         } else if (gc.equals(Laser.class)) {
             Platform.runLater(() -> {
-                p.setHealth(p.getHealth() - 1);
+                if(p.isTemporaryInvincible() == false){
+                    p.setHealth(p.getHealth() - 1);
+                }
             });
             return true;
         } else if (gc.equals(Shapeshifter.class)) {
             Platform.runLater(() -> {
-                p.setHealth(p.getHealth() - 1);
+                if(p.isTemporaryInvincible() == false){
+                    p.setHealth(p.getHealth() - 1);
+                }
             });
             return true;
         } else if (gc.equals(Tracker.class)) {
             Platform.runLater(() -> {
-                p.setHealth(p.getHealth() - 1);
+                if(p.isTemporaryInvincible() == false){
+                    p.setHealth(p.getHealth() - 1);
+                }
             });
             return true;
         } else if (gc.equals(DestroyShip.class)) {

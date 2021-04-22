@@ -41,14 +41,29 @@ public class Player extends GameObject {
                 
                 //System.out.println(currentLevel.getObstacles());
 
-                if (checkCollision(currentLevel.getObstacles()) != null) {
+                if (currentLevel.getObstacles() != null && checkCollision(currentLevel.getObstacles()) != null) {
                     hits.add(checkCollision(currentLevel.getObstacles()));
                 }
-                
-                if (hits.size() != 0) {
-                    processHit(hits.get(0), this, this);
-                    hits.removeAll(hits);
+
+                var collisionPowerUp = checkCollision(currentLevel.getPowerUps());
+                if (currentLevel.getPowerUps()!= null && collisionPowerUp != null && hits.contains(collisionPowerUp) ==false) {
+                    hits.add(checkCollision(currentLevel.getPowerUps()));
                 }
+                int i = 0;
+                while (hits.size() != 0 && i < hits.size()) {
+                    if( processHit(hits.get(0), this, this)){
+                        if(hits.get(0) instanceof PowerUp){
+                            this.currentLevel.getPowerUps().remove(hits.get(0));
+                        }
+                        hits.remove(hits.get(0));
+                    }
+                    //processHit(hits.get(0), this, this);
+                    
+                   // hits.removeAll(hits);
+                   i++;
+                }
+                
+                //for(GameObject)
 
                 try {
                     Thread.sleep(33);

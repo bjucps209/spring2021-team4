@@ -13,7 +13,7 @@ public abstract class PowerUp extends GameObject {
   protected boolean isFinished = false;
   protected int effectiveTime;
   protected int passedTime = 0; // might not be a int depent on implementation of running clock
-  protected int startTime;
+  protected int startTime = -1;
 
   public  void collisionWithPlayer(Player p){
     startTime = this.currentLevel.getRemainingTime();

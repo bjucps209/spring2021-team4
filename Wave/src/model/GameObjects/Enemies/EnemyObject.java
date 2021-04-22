@@ -25,7 +25,10 @@ public abstract class EnemyObject extends GameObject {
 
     @Override
     public void update() {
-        super.update();
+        if(temporaryFreeze == false){
+                  super.update();
+        }
+  
     }
 
     public EnemyTypes getType() {
