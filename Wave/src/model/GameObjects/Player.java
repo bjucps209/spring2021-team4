@@ -48,7 +48,11 @@ public class Player extends GameObject {
 
                 var collisionPowerUp = checkCollision(currentLevel.getPowerUps());
                 if (currentLevel.getPowerUps()!= null && collisionPowerUp != null ) {
-                    hits.add(checkCollision(currentLevel.getPowerUps()));
+                    hits.add(collisionPowerUp);
+                    this.currentLevel.getPowerUps().remove(collisionPowerUp);
+                    //this.currentLevel.getAllObjects().remove(collisionPowerUp);
+                    
+                    
                 }
                 int i = 0;
                 while (hits.size() != 0 && i < hits.size()) {
@@ -56,14 +60,14 @@ public class Player extends GameObject {
                     
                     if( processHit(hits.get(0), this, this)){
                         if(hits.get(0) instanceof PowerUp){
-                            this.currentLevel.getPowerUps().remove(hits.get(0));
+                            //this.currentLevel.getPowerUps().remove(hits.get(0));
                             this.currentLevel.getAllObjects().remove(hits.get(0));
                         }
-                        hits.remove(hits.get(0));
+                        hits.remove(hits.get(0)); 
                     }
                     //processHit(hits.get(0), this, this);
                     
-                    hits.removeIf( (GameObject o) -> (o instanceof PowerUp) == false );
+                    hits.removeIf( (GameObject o) -> (o instanceof PowerUp) == false ); 
                    i++;
                 }
                 
