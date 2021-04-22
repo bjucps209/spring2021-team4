@@ -44,6 +44,7 @@ public class GameWindow {
     public void initialize() {
 
         w = Wave.getInstance();
+        int test = MainWindow.customGameLevels.size();
         if (MainWindow.customGameLevels.size() != 0) {
             w.gameStart(MainWindow.customGameLevels);
         } else {
