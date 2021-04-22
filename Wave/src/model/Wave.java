@@ -309,9 +309,6 @@ public class Wave {
             stream.read(levelInfoBytes);
             String levelInfoString = new String(levelInfoBytes);
 
-            // level difficulty in char form
-            // char levelDifficulty = levelInfoString.charAt(0);
-
             levelInfoString = levelInfoString.substring(1);
 
             String[] instances = levelInfoString.split("\\|");
@@ -369,7 +366,6 @@ public class Wave {
                     level.getPowerUps().add((PowerUp) object);
                 } 
                 else if (object instanceof Obstacle) {
-                    System.out.println("this is an object");
                     level.getObstacles().add((Obstacle) object);
                 } 
                 else if (object instanceof EnemyObject) {
