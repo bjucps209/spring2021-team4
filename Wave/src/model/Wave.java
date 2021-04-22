@@ -355,13 +355,13 @@ public class Wave {
                     level.setPlayer((Player)object);
                 }
                 // obstacles
-                else if (instanceInfo[0].equals("SQUARE")) {
+                else if (instanceInfo[0].equals("Square")) {
                     object = Obstacle.create(ObstacleTypes.SQUARE, level);
                 }
-                else if (instanceInfo[0].equals("NARROW")) {
+                else if (instanceInfo[0].equals("Narrow")) {
                     object = Obstacle.create(ObstacleTypes.NARROW, level);
                 }
-                else if (instanceInfo[0].equals("CORNER")) {
+                else if (instanceInfo[0].equals("Corner")) {
                     object = Obstacle.create(ObstacleTypes.CORNER, level);
                 }
                 else {
