@@ -73,7 +73,7 @@ public class User {
             }
         }
         System.out.println("bought" + coins);
-        coins -= 100;
+        coins -= 1000;
         System.out.println(coins);
         ownedShipSkins.add(skin);
 

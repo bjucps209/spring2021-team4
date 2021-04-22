@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 import javax.swing.Action;
 
@@ -178,23 +180,62 @@ public class MainWindow {
     @FXML
     void onSkinShopClicked() {
         User user = new User("Ryan");
-        user.setCoins(10);
+        user.setCoins(1000);
         w.setCurrentUser(user);
-        ShipSkins[] shop = ShipSkins.values();
-        Image[] shipImages = {new Image("/Images/block_corner.png"), new Image("/Images/block_large.png"), new Image("/Images/block_square.png"), new Image("/Images/block_narrow.png"), new Image("/Images/playerShip1_blue.png")};
+        
+        ShipSkins[] faultyShop = ShipSkins.values(); // remove the first one from this list - playerShip1_blue
+        ShipSkins[] shop = new ShipSkins[faultyShop.length - 1]; // take one off because of size method and one extra because this array will be one smaller
+        for (int i = 1; i < faultyShop.length; i++) {
+            shop[i - 1] = faultyShop[i];
+        }
+        // all ImageViews to be iterated over for the shop appearance.
+        ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
+        ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};
+        ImageView[] playerShip3Images = {new ImageView(new Image("/Images/playerShip3_blue.png")), new ImageView(new Image("/Images/playerShip3_green.png")), new ImageView(new Image("/Images/playerShip3_orange.png")), new ImageView(new Image("/Images/playerShip3_red.png"))};
+        ImageView[] ufoImages = {new ImageView(new Image("/Images/ufoBlue.png")), new ImageView(new Image("/Images/ufoGreen.png")), new ImageView(new Image("/Images/ufoYellow.png")), new ImageView(new Image("/Images/ufoRed.png"))};
+        ImageView[][] allImages = {playerShip1Images, playerShip2Images, playerShip3Images, ufoImages};
+
         VBox vbox = new VBox();
         vbox.setId("menu-background");
         vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(10);
+        vbox.setSpacing(25);
 
-        for (int i = 0; i < shop.length; i++) {
-            Button button = new Button();
-            button.setUserData(shop[i]);
-            button.setGraphic(new ImageView(shipImages[i]));
-            button.setOnAction(this::onSkinClicked);
-            
-            vbox.getChildren().add(button);
+        Label shopLabel = new Label("SKIN SHOP");
+        vbox.getChildren().add(shopLabel);
+
+        try {
+            int i = 0;
+            for (ImageView[] row : allImages) {
+                
+                HBox hbox = new HBox();
+                hbox.setAlignment(Pos.CENTER);
+                hbox.setSpacing(20);
+                for (ImageView imageView : row) {
+                    VBox pair = new VBox();
+                    pair.setAlignment(Pos.CENTER);
+
+                    Label label = new Label("1000 coins");
+                    label.setId("shop-label");
+
+                    Button button = new Button();
+                    button.setGraphic(imageView);
+                    button.setOnAction(this::onSkinClicked);
+                    button.setUserData(shop[i]);
+
+                    pair.getChildren().add(button);
+                    pair.getChildren().add(label);
+                    hbox.getChildren().add(pair);
+                    i++;
+                }
+                vbox.getChildren().add(hbox);
+            }
         }
+        catch (IllegalArgumentException e) {
+
+        }
+
+
+
         Scene skinShopScene = new Scene(vbox, 800, 600);
         Stage skinShopStage = new Stage();
         skinShopStage.setScene(skinShopScene);
@@ -210,7 +251,7 @@ public class MainWindow {
         Button button = (Button) e.getSource();
         User user = w.getCurrentUser();
         if (user != null) {
-            if (user.getCoins() > 100) {
+            if (user.getCoins() >= 1000) {
                 user.buy((ShipSkins) button.getUserData());
             }
             else {
@@ -219,7 +260,8 @@ public class MainWindow {
             }
         }
         else {
-            // ask to pick a user??
+            var alert = new Alert(AlertType.WARNING, "You are not currently signed in as a user.");
+                alert.show();
         }
     }
 
