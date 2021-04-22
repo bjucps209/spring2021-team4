@@ -35,31 +35,35 @@ public class Player extends GameObject {
         hitDetection = new Thread(() -> {
             while (true) {
                 checkWallCollision();
-                if (currentLevel.getEnemies() != null && checkCollision(currentLevel.getEnemies()) != null) {
-                    hits.add(checkCollision(currentLevel.getEnemies()));
+                var collisionEnemy = checkCollision(currentLevel.getEnemies());
+                if (currentLevel.getEnemies() != null && collisionEnemy != null) {
+                    hits.add(collisionEnemy);
                 } 
                 
                 //System.out.println(currentLevel.getObstacles());
-
-                if (currentLevel.getObstacles() != null && checkCollision(currentLevel.getObstacles()) != null) {
-                    hits.add(checkCollision(currentLevel.getObstacles()));
+                var collisionObstacle = checkCollision(currentLevel.getObstacles());
+                if (currentLevel.getObstacles() != null && collisionObstacle!= null) {
+                    hits.add(collisionObstacle);
                 }
 
                 var collisionPowerUp = checkCollision(currentLevel.getPowerUps());
-                if (currentLevel.getPowerUps()!= null && collisionPowerUp != null && hits.contains(collisionPowerUp) ==false) {
+                if (currentLevel.getPowerUps()!= null && collisionPowerUp != null ) {
                     hits.add(checkCollision(currentLevel.getPowerUps()));
                 }
                 int i = 0;
                 while (hits.size() != 0 && i < hits.size()) {
+
+                    
                     if( processHit(hits.get(0), this, this)){
                         if(hits.get(0) instanceof PowerUp){
                             this.currentLevel.getPowerUps().remove(hits.get(0));
+                            this.currentLevel.getAllObjects().remove(hits.get(0));
                         }
                         hits.remove(hits.get(0));
                     }
                     //processHit(hits.get(0), this, this);
                     
-                   // hits.removeAll(hits);
+                    hits.removeIf( (GameObject o) -> (o instanceof PowerUp) == false );
                    i++;
                 }
                 
@@ -94,6 +98,13 @@ public class Player extends GameObject {
         }
     }
 
+    public void takeDamage(int damage){
+
+        if(this.temporaryInvincible == false){
+            this.health.set(this.health.get() - damage);
+        }
+        
+    }
     public void moveUp() {
         setDy(-speed);
     }

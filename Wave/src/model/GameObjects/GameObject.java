@@ -70,7 +70,7 @@ public abstract class GameObject {
         } else {
             setDx(getDx() + increaseSpeed);
             setDy(getDy() + increaseSpeed);
-        }   
+        }
     }
 
     // update method each object needs
@@ -79,7 +79,7 @@ public abstract class GameObject {
             if (this instanceof Player) {
                 x.set(getX() + getDx());
                 y.set(getY() + getDy());
-            }else{
+            } else {
                 x.set(getX() + getDx());
                 y.set(getY() + getDy());
             }
@@ -111,41 +111,42 @@ public abstract class GameObject {
         Class gc = hit.getClass();
         Class hitterClass = hitter.getClass();
         if (gc.equals(Bouncer.class)) {
-            Platform.runLater(() -> {
-                if(p.isTemporaryInvincible() == false){
+            if (p.isTemporaryInvincible() == false) {
+                Platform.runLater(() -> {
                     p.setHealth(p.getHealth() - 1);
-                }
-                
-            });
+                });
+            }
             return true;
         } else if (gc.equals(Ghost.class)) {
-            Platform.runLater(() -> {
-                if(p.isTemporaryInvincible() == false){
-                    
+            if (p.isTemporaryInvincible() == false) {
+                Platform.runLater(() -> {
                     p.setHealth(p.getHealth() - 1);
-                }
-            });
+                });
+            }
             return true;
         } else if (gc.equals(Laser.class)) {
-            Platform.runLater(() -> {
-                if(p.isTemporaryInvincible() == false){
+            if (p.isTemporaryInvincible() == false) {
+                Platform.runLater(() -> {
                     p.setHealth(p.getHealth() - 1);
-                }
-            });
+                });
+            }
             return true;
         } else if (gc.equals(Shapeshifter.class)) {
-            Platform.runLater(() -> {
-                if(p.isTemporaryInvincible() == false){
+            if (p.isTemporaryInvincible() == false) {
+                Platform.runLater(() -> {
                     p.setHealth(p.getHealth() - 1);
-                }
-            });
+                });
+            }
             return true;
-        } else if (gc.equals(Tracker.class)) {
-            Platform.runLater(() -> {
-                if(p.isTemporaryInvincible() == false){
+        } else if (gc.equals(Tracker.class) ) {
+
+            if (p.isTemporaryInvincible() == false) {
+                Platform.runLater(() -> {
                     p.setHealth(p.getHealth() - 1);
-                }
-            });
+                });
+            }
+    
+
             return true;
         } else if (gc.equals(DestroyShip.class)) {
             PowerUp power = (PowerUp) hit;
@@ -172,7 +173,7 @@ public abstract class GameObject {
                 p.setDx(0);
                 p.setDy(0);
                 changePlayerPosition(p, (Obstacle) hit);
-                
+
             } else {
                 hitter.setDx(-getDx());
                 hitter.setDy(-getDy());
@@ -189,18 +190,18 @@ public abstract class GameObject {
             if (p.getY() <= o.getY()) {
                 p.setX(p.getX() - (p.getSpeed() + 3));
                 p.setY(p.getY() - (p.getSpeed() + 3));
-            // below
+                // below
             } else {
                 p.setX(p.getX() - (p.getSpeed() + 3));
                 p.setY(p.getY() + (p.getSpeed() + 3));
             }
-        // right
+            // right
         } else {
             // above
             if (p.getY() <= o.getY()) {
                 p.setX(p.getX() + (p.getSpeed() + 3));
                 p.setY(p.getY() - (p.getSpeed() + 3));
-            // below
+                // below
             } else {
                 p.setX(p.getX() + (p.getSpeed() + 3));
                 p.setY(p.getY() + (p.getSpeed() + 3));
@@ -301,7 +302,7 @@ public abstract class GameObject {
     }
 
     // public int getSpeed() {
-    //     return this.speed.get();
+    // return this.speed.get();
     // }
 
     public boolean isPaused() {
