@@ -22,6 +22,7 @@ import model.GameObjects.Powerups.PowerUp;
 import model.Game;
 import model.HighScore;
 import model.HighScoreList;
+import model.Level;
 import model.Wave;
 
 public class GameWindow {
@@ -43,7 +44,13 @@ public class GameWindow {
     public void initialize() {
 
         w = Wave.getInstance();
-        w.gameStart();
+        if (MainWindow.customGameLevels.size() != 0) {
+            w.gameStart(MainWindow.customGameLevels);
+        } else {
+            ArrayList<Level> levels = w.getDefaultLevels();
+            w.gameStart(levels);
+        }
+        
         g = w.getGame();
         p = g.getCurrentLevel().getPlayer();
         spawnEntities();

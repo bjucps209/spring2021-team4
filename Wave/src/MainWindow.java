@@ -34,7 +34,9 @@ public class MainWindow {
     HighScoreList highScoreList;
 
     // list to be given to game if the user wants to play their custom games
-    ArrayList<Level> customGameLevels = new ArrayList<>();
+    static ArrayList<Level> customGameLevels = new ArrayList<>();
+
+    public boolean defaultLevels = true;
 
     // Difficulty Buttons
     Button btnEasy = new Button();
@@ -49,6 +51,10 @@ public class MainWindow {
 
     @FXML
     public void onNewGameClicked() throws IOException {
+
+        if (defaultLevels) {
+            customGameLevels.removeAll(customGameLevels);
+        }
 
         // opens up new window which is GameWindow
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
@@ -164,8 +170,9 @@ public class MainWindow {
         if (customGameLevels.size() > 0) {
             System.out.println("start the custom game");
             try {
-                w.getGame().setLevels(customGameLevels);
+                defaultLevels = false;
                 onNewGameClicked();
+                defaultLevels = true;         
             } catch (IOException exception) {
 
             }

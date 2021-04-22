@@ -70,6 +70,18 @@ public class Wave {
         return wave;
     }
 
+    public ArrayList<Level> getDefaultLevels() {
+        ArrayList<Level> levels = new ArrayList<Level>();
+        for (int i = 0; i < 5; i++) {
+            try {
+                levels.add(loadCustomLevel("level" + i));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return levels;
+    }
+
     public Game getGame() {
         return this.game;
     }
