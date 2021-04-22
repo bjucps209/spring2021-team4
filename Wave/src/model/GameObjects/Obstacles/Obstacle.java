@@ -31,25 +31,20 @@ public class Obstacle extends GameObject {
         switch (type) {
             case SQUARE:
                 obstacle = new Square(l);
-                l.getAllObjects().add(obstacle);
-                l.getObstacles().add(obstacle);
                 obstacle.setWidth(50);
                 obstacle.setHeight(50);
                 break;
             case NARROW:
                 obstacle = new Narrow(l);
-                l.getAllObjects().add(obstacle);
-                l.getObstacles().add(obstacle);
+                //TODO: set width and height
                 break;
             case CORNER:
                 obstacle = new Corner(l);
-                l.getAllObjects().add(obstacle);
-                l.getObstacles().add(obstacle);
+                //TODO: set width and height        
                 break;
             case LARGE:
                 obstacle = new Large(l);
-                l.getAllObjects().add(obstacle);
-                l.getObstacles().add(obstacle);
+                //TODO: set width and height
                 break;
             default:
                 obstacle = null;

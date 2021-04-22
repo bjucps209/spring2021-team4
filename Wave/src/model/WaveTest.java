@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class WaveTest {
 
-  @Test
+  /*@Test
   public void testGame_objectMovement() {
     Wave.getInstance().gameStart();
     assertTrue(Wave.getInstance().getGame().getCurrentLevel().getEnemies().get(0).getX() == 40);
@@ -17,7 +17,7 @@ public class WaveTest {
     Wave.getInstance().getGame().getCurrentLevel().getEnemies().get(0).setDx(-5);
     Wave.getInstance().getGame().update();
     assertTrue(Wave.getInstance().getGame().getCurrentLevel().getEnemies().get(0).getX() == 40);
-  }
+  }*/
 
   @Test
   public void testLoadAllUsers_sampleExample_correctResult(){
