@@ -1,6 +1,5 @@
 package model;
 
-import static org.junit.Assert.assertArrayEquals;
 
 import java.util.ArrayList;
 
@@ -26,6 +25,7 @@ public class User {
         if (name.equals("")) {
             isValidUser = false;
         }
+        ownedShipSkins.add(ShipSkins.SHIP1);
     }
     
     /**
