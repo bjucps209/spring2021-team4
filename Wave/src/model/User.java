@@ -1,5 +1,6 @@
 package model;
 
+
 import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
@@ -24,6 +25,7 @@ public class User {
         if (name.equals("")) {
             isValidUser = false;
         }
+        ownedShipSkins.add(ShipSkins.SHIP1);
     }
     
     /**
@@ -64,19 +66,24 @@ public class User {
     }
 
     // method to buy a ship skin from the shop. used in mainwindow's onSkinClicked method
-    public void buy(ShipSkins skin) {
+    public boolean buy(ShipSkins skin) {
         for (ShipSkins s : ownedShipSkins) {
             if (skin.equals(s)) {
-                var alert = new Alert(AlertType.INFORMATION, "You already own that skin.");
-                alert.show();
-                return;
+                ship = skin;
+                // exception to be caught in MainWindow, indicates that the user owns this skin
+                throw new IllegalArgumentException();
             }
         }
-        System.out.println("bought" + coins);
-        coins -= 1000;
-        System.out.println(coins);
-        ownedShipSkins.add(skin);
-
+        if (coins >= 1000) {
+            coins -= 1000;
+            ownedShipSkins.add(skin);
+            return true;
+        }
+        else {
+            var alert = new Alert(AlertType.ERROR, "You do not have enough coins.");
+            alert.show();
+            return false;
+        }
     }
 
     public boolean isIsValidUser() {

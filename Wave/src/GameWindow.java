@@ -51,6 +51,17 @@ public class GameWindow {
     static Scene nameScene;
     static Button btnEnd;
 
+    // GUI needed for every level
+    Label lblTime = new Label("TIME REMAINING");
+    Label lblTimer = new Label();
+
+    // this is the only pair that wont be reset every level
+    Label lblHealth = new Label("HEALTH");
+    ProgressBar healthBar = new ProgressBar();
+
+    Label lblSCORE = new Label("SCORE");
+    Label lblScore = new Label();
+
     @FXML
     public void initialize() {
 
@@ -71,8 +82,7 @@ public class GameWindow {
         pane.setPrefSize(1000, 800);
 
         // Label to represent the timer
-        Label lblTime = new Label("TIME REMAINING");
-        Label lblTimer = new Label();
+        // lblTimer = new Label();
         g.getCurrentLevel().setRemainingTime(60);
         lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
         pane.getChildren().add(lblTime);
@@ -88,17 +98,17 @@ public class GameWindow {
         countDown.play();
 
         // health label and bar with binding
-        Label lblHealth = new Label("HEALTH");
+        // Label lblHealth = new Label("HEALTH");
 
-        ProgressBar healthBar = new ProgressBar();
+        // ProgressBar healthBar = new ProgressBar();
         healthBar.progressProperty().bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
         pane.getChildren().add(lblHealth);
         pane.getChildren().add(healthBar);
         healthBar.relocate(0, 30);
 
         // Score label and binding
-        Label lblSCORE = new Label("SCORE");
-        Label lblScore = new Label();
+        // Label lblSCORE = new Label("SCORE");
+        // Label lblScore = new Label();
         lblScore.textProperty().bind(w.coinsProperty().asString());
         pane.getChildren().add(lblSCORE);
         pane.getChildren().add(lblScore);

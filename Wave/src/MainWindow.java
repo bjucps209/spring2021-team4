@@ -183,19 +183,62 @@ public class MainWindow {
     }
 
     @FXML
-    void onSkinShopClicked() {
-        User user = new User("Ryan");
-        user.setCoins(1000);
-        w.setCurrentUser(user);
+    void onLogInScreenClicked() {
+        ArrayList<User> list = new ArrayList<User>();
+        list.add(new User("joel"));
+        list.add(new User("ryan"));
         
-        ShipSkins[] faultyShop = ShipSkins.values(); // remove the first one from this list - playerShip1_blue
-        ShipSkins[] shop = new ShipSkins[faultyShop.length - 1]; // take one off because of size method and one extra because this array will be one smaller
-        for (int i = 1; i < faultyShop.length; i++) {
-            shop[i - 1] = faultyShop[i];
+        w.setUsers(list);
+        VBox vbox = new VBox();
+        vbox.setId("menu-background");
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(25);
+
+        ComboBox<String> users = new ComboBox<>();
+        String[] userNames = new String[w.getUsers().size()];
+        for (int i = 0; i < w.getUsers().size(); i++) {
+            userNames[i] = w.getUsers().get(i).getName();
         }
-        // all ImageViews to be iterated over for the shop appearance.
+        users.getItems().addAll(userNames);
+
+        Button button = new Button("LOG IN");
+        button.setOnAction(this::onLogInClicked);
+
+        vbox.getChildren().add(users);
+        vbox.getChildren().add(button);
+        
+        Scene logInScene = new Scene(vbox, 800, 600);
+        Stage logInStage = new Stage();
+        logInStage.setScene(logInScene);
+        logInStage.setTitle("Log In/Sign Up");
+
+        logInStage.show();
+        logInScene.getStylesheets().add("MainWindow.css");
+    }
+
+    @FXML
+    <Node> void onLogInClicked(ActionEvent e) {
+        Button button = (Button) e.getSource();
+        VBox vbox = (VBox) button.getParent();
+
+        // allows me to cast to a ComboBox with generic type string
+        @SuppressWarnings("unchecked")
+        ComboBox<String> cBox = (ComboBox<String>) vbox.getChildren().get(0);
+        String name = cBox.getValue();
+        for (User u : w.getUsers()) {
+            if (u.getName().equals(name)) {
+                w.setCurrentUser(u);
+                return;
+            }
+        }
+    }
+
+    @FXML
+    void onSkinShopClicked() {
+
+        ShipSkins[] shop = ShipSkins.values();
         try {
-            ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
+            ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_blue.png")), new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
             ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};
             ImageView[] playerShip3Images = {new ImageView(new Image("/Images/playerShip3_blue.png")), new ImageView(new Image("/Images/playerShip3_green.png")), new ImageView(new Image("/Images/playerShip3_orange.png")), new ImageView(new Image("/Images/playerShip3_red.png"))};
             ImageView[] ufoImages = {new ImageView(new Image("/Images/ufoBlue.png")), new ImageView(new Image("/Images/ufoGreen.png")), new ImageView(new Image("/Images/ufoYellow.png")), new ImageView(new Image("/Images/ufoRed.png"))};
@@ -207,7 +250,7 @@ public class MainWindow {
             vbox.setAlignment(Pos.CENTER);
             vbox.setSpacing(25);
 
-            Label shopLabel = new Label("SKIN SHOP");
+            Label shopLabel = new Label("SKIN SHOP/SELECT SKIN");
             vbox.getChildren().add(shopLabel);
 
             int i = 0;
@@ -220,7 +263,7 @@ public class MainWindow {
                     VBox pair = new VBox();
                     pair.setAlignment(Pos.CENTER);
 
-                    Label label = new Label("1000 coins");
+                    Label label = new Label("1000 COINS");
                     label.setId("shop-label");
 
                     Button button = new Button();
@@ -236,8 +279,10 @@ public class MainWindow {
                 vbox.getChildren().add(hbox);
             }
 
-
-
+            HBox firstHBox = (HBox) vbox.getChildren().get(1);
+            VBox pairVBox = (VBox) firstHBox.getChildren().get(0);
+            Label ownedShipLabel = (Label) pairVBox.getChildren().get(1);
+            ownedShipLabel.setText("OWNED");
 
             Scene skinShopScene = new Scene(vbox, 800, 600);
             Stage skinShopStage = new Stage();
@@ -259,17 +304,22 @@ public class MainWindow {
         Button button = (Button) e.getSource();
         User user = w.getCurrentUser();
         if (user != null) {
-            if (user.getCoins() >= 1000) {
-                user.buy((ShipSkins) button.getUserData());
+            try {
+                boolean ownership = user.buy((ShipSkins) button.getUserData());
+                VBox vbox = (VBox) button.getParent();
+                try {
+                    Label label = (Label) vbox.getChildren().get(1);
+                    label.setText(ownership ? "OWNED" : "1000 COINS");
+                    
+                }
+                catch (ClassCastException ex) {
+
+                }
             }
-            else {
-                var alert = new Alert(AlertType.WARNING, "You do not have enough player coins.");
+            catch (IllegalArgumentException error) {
+                var alert = new Alert(AlertType.INFORMATION, "You own that already and it should be set as your current skin.");
                 alert.show();
             }
-        }
-        else {
-            var alert = new Alert(AlertType.WARNING, "You are not currently signed in as a user.");
-                alert.show();
         }
     }
 
