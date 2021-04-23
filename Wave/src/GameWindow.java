@@ -2,9 +2,11 @@ import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.geometry.*;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -97,6 +99,15 @@ public class GameWindow {
         // Getting the game to update at 16.7ms or ~60fps
         timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
             g.update();
+            Node nodeToRemove = null;
+            for (Node n : pane.getChildren()) {
+                if (n.getUserData() instanceof EnemyObject && !g.getCurrentLevel().getEnemies().contains(n.getUserData())) {
+                    nodeToRemove = n;
+                }
+            }
+            if (nodeToRemove != null) {
+                pane.getChildren().remove(nodeToRemove);
+            }
             var s = pane.getChildren();
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
@@ -136,6 +147,7 @@ public class GameWindow {
                 pane.getChildren().add(bouncerImageView);
                 bouncerImageView.layoutXProperty().bind(o.xProperty());
                 bouncerImageView.layoutYProperty().bind(o.yProperty());
+                bouncerImageView.setUserData(o);
                 break;
             case GHOST:
                 Image ghostImage = new Image("./Images/enemyBlack2.png");
@@ -145,6 +157,7 @@ public class GameWindow {
                 pane.getChildren().add(ghostImageView);
                 ghostImageView.layoutXProperty().bind(o.xProperty());
                 ghostImageView.layoutYProperty().bind(o.yProperty());
+                ghostImageView.setUserData(o);
                 break;
             case LASER:
                 Image laserImage = new Image("./Images/cockpitGreen_0.png");
@@ -154,6 +167,7 @@ public class GameWindow {
                 pane.getChildren().add(laserImageView);
                 laserImageView.layoutXProperty().bind(o.xProperty());
                 laserImageView.layoutYProperty().bind(o.yProperty());
+                laserImageView.setUserData(o);
                 break;
             case SHAPESHIFTER:
                 Image shapeshifterImage = new Image("./Images/enemyBlack4.png");
@@ -163,6 +177,7 @@ public class GameWindow {
                 pane.getChildren().add(shapeshifterImageView);
                 shapeshifterImageView.layoutXProperty().bind(o.xProperty());
                 shapeshifterImageView.layoutYProperty().bind(o.yProperty());
+                shapeshifterImageView.setUserData(o);
                 break;
             case TRACKER:
                 Image trackerImage = new Image("./Images/enemyBlack1.png");
@@ -172,6 +187,7 @@ public class GameWindow {
                 pane.getChildren().add(trackerImageView);
                 trackerImageView.layoutXProperty().bind(o.xProperty());
                 trackerImageView.layoutYProperty().bind(o.yProperty());
+                trackerImageView.setUserData(o);
                 break;
             default:
                 break;
