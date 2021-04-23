@@ -185,7 +185,7 @@ public class MainWindow {
     @FXML
     void onSkinShopClicked() {
         User user = new User("Ryan");
-        user.setCoins(1000);
+        user.setCoins(10000);
         w.setCurrentUser(user);
         
         ShipSkins[] faultyShop = ShipSkins.values(); // remove the first one from this list - playerShip1_blue
@@ -220,7 +220,7 @@ public class MainWindow {
                     VBox pair = new VBox();
                     pair.setAlignment(Pos.CENTER);
 
-                    Label label = new Label("1000 coins");
+                    Label label = new Label("1000 COINS");
                     label.setId("shop-label");
 
                     Button button = new Button();
@@ -235,9 +235,6 @@ public class MainWindow {
                 }
                 vbox.getChildren().add(hbox);
             }
-
-
-
 
             Scene skinShopScene = new Scene(vbox, 800, 600);
             Stage skinShopStage = new Stage();
@@ -259,17 +256,22 @@ public class MainWindow {
         Button button = (Button) e.getSource();
         User user = w.getCurrentUser();
         if (user != null) {
-            if (user.getCoins() >= 1000) {
-                user.buy((ShipSkins) button.getUserData());
+            try {
+                boolean ownership = user.buy((ShipSkins) button.getUserData());
+                VBox vbox = (VBox) button.getParent();
+                try {
+                    Label label = (Label) vbox.getChildren().get(1);
+                    label.setText(ownership ? "OWNED" : "1000 COINS");
+                    
+                }
+                catch (ClassCastException ex) {
+
+                }
             }
-            else {
-                var alert = new Alert(AlertType.WARNING, "You do not have enough player coins.");
+            catch (IllegalArgumentException error) {
+                var alert = new Alert(AlertType.INFORMATION, "You own that already and it should be set as your current skin.");
                 alert.show();
             }
-        }
-        else {
-            var alert = new Alert(AlertType.WARNING, "You are not currently signed in as a user.");
-                alert.show();
         }
     }
 
