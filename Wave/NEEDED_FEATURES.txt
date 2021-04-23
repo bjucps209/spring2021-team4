@@ -11,3 +11,5 @@ Remove Corner - conner
 Difficulty - conner
 
 Low:
+Power pads
+Survive as long as possible mode
