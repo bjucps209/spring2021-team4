@@ -2,9 +2,12 @@ import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.*;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -34,11 +37,17 @@ public class GameWindow {
     static HighScoreList highScoreList = new HighScoreList();
     static boolean pauseState = false;
 
+    public boolean levelStopped = false;
+    public boolean levelIsNext = false;
+
     @FXML
     Pane pane;
 
     static Timeline timer;
     Timeline countDown;
+    static VBox vboxName;
+    static Scene nameScene;
+    static Button btnEnd;
 
     // GUI needed for every level
     Label lblTime = new Label("TIME REMAINING");
@@ -107,6 +116,24 @@ public class GameWindow {
         // Getting the game to update at 16.7ms or ~60fps
         timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
             g.update();
+            Node nodeToRemove = null;
+            for (Node n : pane.getChildren()) {
+                if (n.getUserData() instanceof EnemyObject && !g.getCurrentLevel().getEnemies().contains(n.getUserData())) {
+                    nodeToRemove = n;
+                }
+            }
+            if (nodeToRemove != null) {
+                pane.getChildren().remove(nodeToRemove);
+            }
+            
+            // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL g.getCurrentLevel().setFinished(true);
+
+            if (g.getCurrentLevel().isFinished()) {
+                stopLevel();
+            }
+            if (g.getCurrentLevel().getPlayer().moveOn) {
+                startLevel();
+            }
             var s = pane.getChildren();
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
@@ -114,7 +141,30 @@ public class GameWindow {
         // Platform.exit();
     }
 
-    
+    public void stopLevel() {
+        
+        if (!levelStopped) {
+            // Code for stopping level and preparing for move on
+
+
+            // lets next level be stopped
+            levelStopped = true;
+        }
+    }
+
+    public void startLevel() {
+        // Code to start a level
+        if (!levelIsNext) {
+            g.nextLevel();
+
+            // Code for starting a Level
+            
+
+            levelStopped = false;
+            levelIsNext = false;
+        }
+        
+    }
 
     public void spawnEntities() {
         // code to combine all spawn function below
@@ -146,6 +196,7 @@ public class GameWindow {
                 pane.getChildren().add(bouncerImageView);
                 bouncerImageView.layoutXProperty().bind(o.xProperty());
                 bouncerImageView.layoutYProperty().bind(o.yProperty());
+                bouncerImageView.setUserData(o);
                 break;
             case GHOST:
                 Image ghostImage = new Image("./Images/enemyBlack2.png");
@@ -155,6 +206,7 @@ public class GameWindow {
                 pane.getChildren().add(ghostImageView);
                 ghostImageView.layoutXProperty().bind(o.xProperty());
                 ghostImageView.layoutYProperty().bind(o.yProperty());
+                ghostImageView.setUserData(o);
                 break;
             case LASER:
                 Image laserImage = new Image("./Images/cockpitGreen_0.png");
@@ -164,6 +216,7 @@ public class GameWindow {
                 pane.getChildren().add(laserImageView);
                 laserImageView.layoutXProperty().bind(o.xProperty());
                 laserImageView.layoutYProperty().bind(o.yProperty());
+                laserImageView.setUserData(o);
                 break;
             case SHAPESHIFTER:
                 Image shapeshifterImage = new Image("./Images/enemyBlack4.png");
@@ -173,6 +226,7 @@ public class GameWindow {
                 pane.getChildren().add(shapeshifterImageView);
                 shapeshifterImageView.layoutXProperty().bind(o.xProperty());
                 shapeshifterImageView.layoutYProperty().bind(o.yProperty());
+                shapeshifterImageView.setUserData(o);
                 break;
             case TRACKER:
                 Image trackerImage = new Image("./Images/enemyBlack1.png");
@@ -182,6 +236,7 @@ public class GameWindow {
                 pane.getChildren().add(trackerImageView);
                 trackerImageView.layoutXProperty().bind(o.xProperty());
                 trackerImageView.layoutYProperty().bind(o.yProperty());
+                trackerImageView.setUserData(o);
                 break;
             default:
                 break;
@@ -305,12 +360,12 @@ public class GameWindow {
             timer.pause();
 
             // Opens window to allow player to enter their name
-            VBox vboxName = new VBox();
+            vboxName = new VBox();
             vboxName.setPadding(new Insets(10));
             vboxName.setSpacing(10);
             vboxName.setAlignment(Pos.CENTER);
 
-            Scene nameScene = new Scene(vboxName, 800, 600);
+            nameScene = new Scene(vboxName, 800, 600);
             Stage nameStage = new Stage();
             nameStage.setScene(nameScene); // set the scene
             nameStage.setTitle("Name Menu");
@@ -319,32 +374,47 @@ public class GameWindow {
 
             nameScene.getStylesheets().add("GameWindow.css");
 
-            TextField nameField = new TextField();
-            Label lblName = new Label();
-            lblName.setText("Enter Your Name:");
-            vboxName.getChildren().add(lblName);
-            vboxName.getChildren().add(nameField);
-            nameField.requestFocus();
-            nameScene.setOnKeyPressed(key -> {
-                KeyCode keyCode = key.getCode();
-                if (keyCode.equals(KeyCode.ENTER)) {
-                    highScoreList.getList().add(new HighScore(nameField.getText(), w.getCoins()));
-                    nameStage.close();
-                    pauseState = false;
-                    for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
-                        item.start();
-                    }
-                    // this is where all the saving gets excecuted
-                    highScoreList.save();
-                    timer.play();
-                }
-            });
+            
+            Button btnResume = new Button("RESUME");
+            btnResume.setOnAction(e -> onResumeClicked(e));
+
+            btnEnd = new Button("END GAME");
+            btnEnd.setOnAction(e -> onEndClicked(e));
+
+
+            
         }
         // } else {
         //     for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
         //         item.start();
         //     }
         // }
+    }
+
+    static void onResumeClicked(ActionEvent event) {
+
+    }
+
+    static void onEndClicked(ActionEvent event) {
+        TextField nameField = new TextField();
+        Label lblName = new Label();
+        lblName.setText("Enter Your Name:");
+        vboxName.getChildren().add(lblName);
+        vboxName.getChildren().add(nameField);
+        nameField.requestFocus();
+        nameScene.setOnKeyPressed(key -> {
+                KeyCode keyCode = key.getCode();
+                if (keyCode.equals(KeyCode.ENTER)) {
+                    highScoreList.getList().add(new HighScore(nameField.getText(), w.getCoins()));
+                    pauseState = false;
+                    // close the current window
+                    Stage stage = (Stage) btnEnd.getScene().getWindow();
+                    stage.close();
+                    // this is where all the saving gets excecuted
+                    highScoreList.save();
+
+                }
+            });
     }
 
     // close the timer
