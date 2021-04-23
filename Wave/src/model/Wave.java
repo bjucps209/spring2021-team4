@@ -328,62 +328,64 @@ public class Wave {
                 String[] instanceInfo = instance.split(Pattern.quote(","));
                 GameObject object;
                 // enemy entities
-                if (instanceInfo[0].equals("Bouncer")) {
-                    object = EnemyObject.create(EnemyTypes.BOUNCER, level);
-                } else if (instanceInfo[0].equals("Ghost")) {
-                    object = EnemyObject.create(EnemyTypes.GHOST, level);
-                } else if (instanceInfo[0].equals("Tracker")) {
-                    object = EnemyObject.create(EnemyTypes.TRACKER, level);
-                } else if (instanceInfo[0].equals("ShapeShifter")) {
-                    object = EnemyObject.create(EnemyTypes.SHAPESHIFTER, level);
-                } else if (instanceInfo[0].equals("Laser")) {
-                    object = EnemyObject.create(EnemyTypes.LASER, level);
-                }
-                // powerups
-                else if (instanceInfo[0].equals("DestroyShip")) {
-                    object = PowerUp.create(PowerUps.DestroyShip, level);
-                } else if (instanceInfo[0].equals("Freeze")) {
-                    object = PowerUp.create(PowerUps.Freeze, level);
-                } else if (instanceInfo[0].equals("HealthGainSmall")) {
-                    object = PowerUp.create(PowerUps.HealthGainSmall, level);
-                } else if (instanceInfo[0].equals("TemporaryInvincible")) {
-                    object = PowerUp.create(PowerUps.TemporaryInvincible, level);
-                } else if (instanceInfo[0].equals("HealthGainBig")) {
-                    object = PowerUp.create(PowerUps.HealthGainBig, level);
-                } else if (instanceInfo[0].equals("Player")) {
-                    object = new Player(level);
-                    level.setPlayer((Player)object);
-                }
-                // obstacles
-                else if (instanceInfo[0].equals("SQUARE")) {
-                    object = Obstacle.create(ObstacleTypes.SQUARE, level);
-                }
-                else if (instanceInfo[0].equals("NARROW")) {
-                    object = Obstacle.create(ObstacleTypes.NARROW, level);
-                }
-                else if (instanceInfo[0].equals("CORNER")) {
-                    object = Obstacle.create(ObstacleTypes.CORNER, level);
-                }
-                else {
-                    object = Obstacle.create(ObstacleTypes.LARGE, level);
-                }
-                object.setAppearTime(Integer.parseInt(instanceInfo[3]));
-                object.setX(Integer.parseInt(instanceInfo[1]));
-                object.setY(Integer.parseInt(instanceInfo[2]));
-                level.getAllObjects().add(object);
+                if (instanceInfo.length == 4) {
+                    if (instanceInfo[0].equals("Bouncer")) {
+                        object = EnemyObject.create(EnemyTypes.BOUNCER, level);
+                    } else if (instanceInfo[0].equals("Ghost")) {
+                        object = EnemyObject.create(EnemyTypes.GHOST, level);
+                    } else if (instanceInfo[0].equals("Tracker")) {
+                        object = EnemyObject.create(EnemyTypes.TRACKER, level);
+                    } else if (instanceInfo[0].equals("ShapeShifter")) {
+                        object = EnemyObject.create(EnemyTypes.SHAPESHIFTER, level);
+                    } else if (instanceInfo[0].equals("Laser")) {
+                        object = EnemyObject.create(EnemyTypes.LASER, level);
+                    }
+                    // powerups
+                    else if (instanceInfo[0].equals("DestroyShip")) {
+                        object = PowerUp.create(PowerUps.DestroyShip, level);
+                    } else if (instanceInfo[0].equals("Freeze")) {
+                        object = PowerUp.create(PowerUps.Freeze, level);
+                    } else if (instanceInfo[0].equals("HealthGainSmall")) {
+                        object = PowerUp.create(PowerUps.HealthGainSmall, level);
+                    } else if (instanceInfo[0].equals("TemporaryInvincible")) {
+                        object = PowerUp.create(PowerUps.TemporaryInvincible, level);
+                    } else if (instanceInfo[0].equals("HealthGainBig")) {
+                        object = PowerUp.create(PowerUps.HealthGainBig, level);
+                    } else if (instanceInfo[0].equals("Player")) {
+                        object = new Player(level);
+                        level.setPlayer((Player)object);
+                    }
+                    // obstacles
+                    else if (instanceInfo[0].equals("Square")) {
+                        object = Obstacle.create(ObstacleTypes.SQUARE, level);
+                    }
+                    else if (instanceInfo[0].equals("Narrow")) {
+                        object = Obstacle.create(ObstacleTypes.NARROW, level);
+                    }
+                    else if (instanceInfo[0].equals("Corner")) {
+                        object = Obstacle.create(ObstacleTypes.CORNER, level);
+                    }
+                    else {
+                        object = Obstacle.create(ObstacleTypes.LARGE, level);
+                    }
+                    object.setAppearTime(Integer.parseInt(instanceInfo[3]));
+                    object.setX(Integer.parseInt(instanceInfo[1]));
+                    object.setY(Integer.parseInt(instanceInfo[2]));
+                    level.getAllObjects().add(object);
 
-                // add object to corresponding part of the level
-                if (object instanceof PowerUp) {
-                    level.getPowerUps().add((PowerUp) object);
-                } 
-                else if (object instanceof Obstacle) {
-                    level.getObstacles().add((Obstacle) object);
-                } 
-                else if (object instanceof EnemyObject) {
-                    level.getEnemies().add((EnemyObject) object);
-                } 
-                else if (object instanceof Player) {
-                    level.setPlayer((Player) object);
+                    // add object to corresponding part of the level
+                    if (object instanceof PowerUp) {
+                        level.getPowerUps().add((PowerUp) object);
+                    } 
+                    else if (object instanceof Obstacle) {
+                        level.getObstacles().add((Obstacle) object);
+                    } 
+                    else if (object instanceof EnemyObject) {
+                        level.getEnemies().add((EnemyObject) object);
+                    } 
+                    else if (object instanceof Player) {
+                        level.setPlayer((Player) object);
+                    }
                 }
             }
             return level;

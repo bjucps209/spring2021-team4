@@ -232,7 +232,7 @@ public class MainWindow {
                     int x = Integer.parseInt(txtFXValue.getText());
                     int y = Integer.parseInt(txtFYValue.getText());
                     int time = Integer.parseInt(txtFAppearanceTime.getText());
-                    if (x < 0 || y < 0 || time < 0 || time > 60 || x > 1000 || y > 800) {
+                    if (x < 7 || y < 7 || time < 0 || time > 60 || x > 993 || y > 793) {
                         throw new IllegalArgumentException("An integer value is either too big or too small. Please check your text fields.");
                     }
                     else {
