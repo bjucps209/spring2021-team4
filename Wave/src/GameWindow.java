@@ -115,6 +115,9 @@ public class GameWindow {
             if (nodeToRemove != null) {
                 pane.getChildren().remove(nodeToRemove);
             }
+            
+            // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL g.currentLevel().setIsFinished(true);
+
             if (g.getCurrentLevel().isFinished()) {
                 stopLevel();
             }
