@@ -7,28 +7,20 @@
 <VBox alignment="CENTER" spacing="10" stylesheets="@MainWindow.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.2-internal" fx:controller="MainWindow">
 
     <HBox spacing="20">
-    <!-- Possibly needed textfields to select certain attributes about an object being inserted -->
         <VBox fx:id="vbox1">
             <Label text="type"/>
             
         </VBox>
 
-        <!--<VBox fx:id="vbox2">
-            <Label text="orientation (for laser only)"/>
-            <Label text="if horizontal, enter a y value, if vertical, enter an x value"/>
-
-        </VBox>-->
-
-
         <VBox>
             <Label text="x val:"/>
-            <Label text="int value 0-1000"/>
+            <Label text="int value 7-993"/>
             <TextField fx:id="txtFXValue"/>
         </VBox>
 
         <VBox>
             <Label text="y val:"/>
-            <Label text="int value 0-800"/>
+            <Label text="int value 7-793"/>
             <TextField fx:id="txtFYValue"/>
         </VBox>
 
@@ -59,7 +51,6 @@
                 <Button text="save level" styleClass="leftbutton" onAction="#onSaveLevelClicked"/>
                 <Label text="Name of File:"/>
                 <TextField fx:id="txtFFileName"/>
-                <!-- <Button text="load level" styleClass="leftbutton" onAction="#loadCustomLevel"/> -->
             </VBox>
             <VBox spacing="10" minWidth="50">
                 <Label fx:id="lblLoc" text="" />
