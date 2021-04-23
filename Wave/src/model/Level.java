@@ -44,6 +44,8 @@ public class Level {
 
     private IntegerProperty remainingTime = new SimpleIntegerProperty(); // possible connect to TimeLine() with data binding technique
 
+    public boolean finished = false;
+
     // This construction should only be use in unit test
 
     public Level() {
@@ -54,6 +56,14 @@ public class Level {
     public void initialize() {
         spawnPlayer();
         spawnEnemies();
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 
     // spawns player

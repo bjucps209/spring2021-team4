@@ -59,7 +59,10 @@ public class Game {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+        }
+
+        if (currentLevel.isFinished()) {
+            nextLevel();
         }
     }
 
@@ -91,8 +94,13 @@ public class Game {
 
     // progresses to next level information
     public void nextLevel() {
-        levelNum++;
-        currentLevel = levels.get(levelNum);
+        if (levelNum != levels.size() - 1) {
+            levelNum++;
+            currentLevel = levels.get(levelNum);
+        } else {
+            // TODO: COMPLETED ALL LEVES
+        }
+        
     }
 
     // --- setters ---

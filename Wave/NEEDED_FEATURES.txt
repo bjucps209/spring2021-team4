@@ -1,9 +1,9 @@
 High Priority:
 Level Progression - conner
 Saving and Loading - joel work with nick on implementing methods in gui
-GUI remove destroyed ship - conner
+GUI remove destroyed ship - conner COMPLETED - NEEDS CHECKING
 sound effects - nick
-Cheat mode - conner
+Cheat mode - nick/conner
 
 Medium:
 One more enemy - conner/ryan

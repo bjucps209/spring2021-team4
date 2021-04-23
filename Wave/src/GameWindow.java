@@ -36,6 +36,9 @@ public class GameWindow {
     static HighScoreList highScoreList = new HighScoreList();
     static boolean pauseState = false;
 
+    public boolean levelStopped = false;
+    public boolean levelIsNext = false;
+
     @FXML
     Pane pane;
 
@@ -108,6 +111,12 @@ public class GameWindow {
             if (nodeToRemove != null) {
                 pane.getChildren().remove(nodeToRemove);
             }
+            if (g.getCurrentLevel().isFinished()) {
+                stopLevel();
+            }
+            if (g.getCurrentLevel().getPlayer().moveOn) {
+                startLevel();
+            }
             var s = pane.getChildren();
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
@@ -115,7 +124,30 @@ public class GameWindow {
         // Platform.exit();
     }
 
-    
+    public void stopLevel() {
+        
+        if (!levelStopped) {
+            // Code for stopping level and preparing for move on
+
+
+            // lets next level be stopped
+            levelStopped = true;
+        }
+    }
+
+    public void startLevel() {
+        // Code to start a level
+        if (!levelIsNext) {
+            g.nextLevel();
+
+            // Code for starting a Level
+            
+
+            levelStopped = false;
+            levelIsNext = false;
+        }
+        
+    }
 
     public void spawnEntities() {
         // code to combine all spawn function below

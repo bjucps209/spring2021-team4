@@ -23,6 +23,8 @@ public class Player extends GameObject {
     private ShipSkins currentShipSkins;
     // private ArrayList<GameObject> activatedAffects = new ArrayList<>();
     private boolean temporaryInvincible;
+    public boolean winState = false;
+    public boolean moveOn = false;
 
     public Player(Level l) {
         super(l);
@@ -83,21 +85,43 @@ public class Player extends GameObject {
 
     }
 
+    public void changeWallDetection() {
+        hitDetection.stop();
+    }
+
     @Override
     public void checkWallCollision() {
-        if (getX() <= 0 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 20) {
-            dx.set(0);
-            if (getX() < 10) {
-                x.set(1);
-            } else {
-                x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 19);
+        if (winState) {
+            if (getX() <= 0 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 20) {
+                dx.set(0);
+                if (getX() < 10) {
+                    x.set(1);
+                } else {
+                    this.moveOn = true;
+                }
+            } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 9) {
+                dy.set(0);
+                if (getY() < 10) {
+                    y.set(1);
+                } else {
+                    y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 10);
+                }
             }
-        } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 9) {
-            dy.set(0);
-            if (getY() < 10) {
-                y.set(1);
-            } else {
-                y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 10);
+        } else {
+            if (getX() <= 0 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 20) {
+                dx.set(0);
+                if (getX() < 10) {
+                    x.set(1);
+                } else {
+                    x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 19);
+                }
+            } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 9) {
+                dy.set(0);
+                if (getY() < 10) {
+                    y.set(1);
+                } else {
+                    y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 10);
+                }
             }
         }
     }
