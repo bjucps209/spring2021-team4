@@ -60,10 +60,6 @@ public class Game {
                 e.printStackTrace();
             }
         }
-
-        if (currentLevel.isFinished()) {
-            nextLevel();
-        }
     }
 
     public void startHitDetection() {
