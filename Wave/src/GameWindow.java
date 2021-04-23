@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.*;
 import javafx.scene.Scene;
@@ -39,6 +40,9 @@ public class GameWindow {
 
     static Timeline timer;
     Timeline countDown;
+    static VBox vboxName;
+    static Scene nameScene;
+    static Button btnEnd;
 
     @FXML
     public void initialize() {
@@ -295,12 +299,12 @@ public class GameWindow {
             timer.pause();
 
             // Opens window to allow player to enter their name
-            VBox vboxName = new VBox();
+            vboxName = new VBox();
             vboxName.setPadding(new Insets(10));
             vboxName.setSpacing(10);
             vboxName.setAlignment(Pos.CENTER);
 
-            Scene nameScene = new Scene(vboxName, 800, 600);
+            nameScene = new Scene(vboxName, 800, 600);
             Stage nameStage = new Stage();
             nameStage.setScene(nameScene); // set the scene
             nameStage.setTitle("Name Menu");
@@ -309,32 +313,47 @@ public class GameWindow {
 
             nameScene.getStylesheets().add("GameWindow.css");
 
-            TextField nameField = new TextField();
-            Label lblName = new Label();
-            lblName.setText("Enter Your Name:");
-            vboxName.getChildren().add(lblName);
-            vboxName.getChildren().add(nameField);
-            nameField.requestFocus();
-            nameScene.setOnKeyPressed(key -> {
-                KeyCode keyCode = key.getCode();
-                if (keyCode.equals(KeyCode.ENTER)) {
-                    highScoreList.getList().add(new HighScore(nameField.getText(), w.getCoins()));
-                    nameStage.close();
-                    pauseState = false;
-                    for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
-                        item.start();
-                    }
-                    // this is where all the saving gets excecuted
-                    highScoreList.save();
-                    timer.play();
-                }
-            });
+            
+            Button btnResume = new Button("RESUME");
+            btnResume.setOnAction(e -> onResumeClicked(e));
+
+            btnEnd = new Button("END GAME");
+            btnEnd.setOnAction(e -> onEndClicked(e));
+
+
+            
         }
         // } else {
         //     for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
         //         item.start();
         //     }
         // }
+    }
+
+    static void onResumeClicked(ActionEvent event) {
+
+    }
+
+    static void onEndClicked(ActionEvent event) {
+        TextField nameField = new TextField();
+        Label lblName = new Label();
+        lblName.setText("Enter Your Name:");
+        vboxName.getChildren().add(lblName);
+        vboxName.getChildren().add(nameField);
+        nameField.requestFocus();
+        nameScene.setOnKeyPressed(key -> {
+                KeyCode keyCode = key.getCode();
+                if (keyCode.equals(KeyCode.ENTER)) {
+                    highScoreList.getList().add(new HighScore(nameField.getText(), w.getCoins()));
+                    pauseState = false;
+                    // close the current window
+                    Stage stage = (Stage) btnEnd.getScene().getWindow();
+                    stage.close();
+                    // this is where all the saving gets excecuted
+                    highScoreList.save();
+
+                }
+            });
     }
 
     // close the timer
