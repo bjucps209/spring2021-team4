@@ -188,14 +188,10 @@ public class MainWindow {
         user.setCoins(10000);
         w.setCurrentUser(user);
         
-        ShipSkins[] faultyShop = ShipSkins.values(); // remove the first one from this list - playerShip1_blue
-        ShipSkins[] shop = new ShipSkins[faultyShop.length - 1]; // take one off because of size method and one extra because this array will be one smaller
-        for (int i = 1; i < faultyShop.length; i++) {
-            shop[i - 1] = faultyShop[i];
-        }
+        ShipSkins[] shop = ShipSkins.values(); // remove the first one from this list - playerShip1_blue
         // all ImageViews to be iterated over for the shop appearance.
         try {
-            ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
+            ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_blue.png")), new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
             ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};
             ImageView[] playerShip3Images = {new ImageView(new Image("/Images/playerShip3_blue.png")), new ImageView(new Image("/Images/playerShip3_green.png")), new ImageView(new Image("/Images/playerShip3_orange.png")), new ImageView(new Image("/Images/playerShip3_red.png"))};
             ImageView[] ufoImages = {new ImageView(new Image("/Images/ufoBlue.png")), new ImageView(new Image("/Images/ufoGreen.png")), new ImageView(new Image("/Images/ufoYellow.png")), new ImageView(new Image("/Images/ufoRed.png"))};
@@ -207,7 +203,7 @@ public class MainWindow {
             vbox.setAlignment(Pos.CENTER);
             vbox.setSpacing(25);
 
-            Label shopLabel = new Label("SKIN SHOP");
+            Label shopLabel = new Label("SKIN SHOP/SELECT SKIN");
             vbox.getChildren().add(shopLabel);
 
             int i = 0;
@@ -235,6 +231,11 @@ public class MainWindow {
                 }
                 vbox.getChildren().add(hbox);
             }
+
+            HBox firstHBox = (HBox) vbox.getChildren().get(1);
+            VBox pairVBox = (VBox) firstHBox.getChildren().get(0);
+            Label ownedShipLabel = (Label) pairVBox.getChildren().get(1);
+            ownedShipLabel.setText("OWNED");
 
             Scene skinShopScene = new Scene(vbox, 800, 600);
             Stage skinShopStage = new Stage();
