@@ -183,13 +183,60 @@ public class MainWindow {
     }
 
     @FXML
-    void onSkinShopClicked() {
-        User user = new User("Ryan");
-        user.setCoins(10000);
-        w.setCurrentUser(user);
+    void onLogInScreenClicked() {
+        ArrayList<User> list = new ArrayList<User>();
+        list.add(new User("joel"));
+        list.add(new User("ryan"));
         
-        ShipSkins[] shop = ShipSkins.values(); // remove the first one from this list - playerShip1_blue
-        // all ImageViews to be iterated over for the shop appearance.
+        w.setUsers(list);
+        VBox vbox = new VBox();
+        vbox.setId("menu-background");
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(25);
+
+        ComboBox<String> users = new ComboBox<>();
+        String[] userNames = new String[w.getUsers().size()];
+        for (int i = 0; i < w.getUsers().size(); i++) {
+            userNames[i] = w.getUsers().get(i).getName();
+        }
+        users.getItems().addAll(userNames);
+
+        Button button = new Button("LOG IN");
+        button.setOnAction(this::onLogInClicked);
+
+        vbox.getChildren().add(users);
+        vbox.getChildren().add(button);
+        
+        Scene logInScene = new Scene(vbox, 800, 600);
+        Stage logInStage = new Stage();
+        logInStage.setScene(logInScene);
+        logInStage.setTitle("Log In/Sign Up");
+
+        logInStage.show();
+        logInScene.getStylesheets().add("MainWindow.css");
+    }
+
+    @FXML
+    <Node> void onLogInClicked(ActionEvent e) {
+        Button button = (Button) e.getSource();
+        VBox vbox = (VBox) button.getParent();
+
+        // allows me to cast to a ComboBox with generic type string
+        @SuppressWarnings("unchecked")
+        ComboBox<String> cBox = (ComboBox<String>) vbox.getChildren().get(0);
+        String name = cBox.getValue();
+        for (User u : w.getUsers()) {
+            if (u.getName().equals(name)) {
+                w.setCurrentUser(u);
+                return;
+            }
+        }
+    }
+
+    @FXML
+    void onSkinShopClicked() {
+
+        ShipSkins[] shop = ShipSkins.values();
         try {
             ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_blue.png")), new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
             ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};

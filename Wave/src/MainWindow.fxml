@@ -13,7 +13,8 @@
     </ImageView>
 
     <Button text="NEW GAME" onAction="#onNewGameClicked" />
-    <Button text="LOAD GAME" onAction="#onLoadCustomGameClicked" />
+    <Button text="LOG IN" onAction="#onLogInScreenClicked" />
+    <Button text="CUSTOM GAME" onAction="#onLoadCustomGameClicked" />
     <Button text="SKIN SHOP" onAction="#onSkinShopClicked" />
     <Button text="ABOUT" onAction="#onAboutClicked" />
     <Button text="HELP" onAction="#onHelpClicked" />
