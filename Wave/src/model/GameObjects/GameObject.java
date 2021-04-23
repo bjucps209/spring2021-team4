@@ -36,6 +36,10 @@ public abstract class GameObject {
 
     protected int appearTime = 60;
 
+    protected int speedPanelSpeed = 0;
+
+
+
     public abstract String serialize();
 
     public abstract boolean deserialize(String info);
@@ -66,10 +70,10 @@ public abstract class GameObject {
     public void initializeDifficulty() {
         increaseSpeed = Wave.getInstance().getGame().getDifficultyLevel().difficultyAffect();
         if (this instanceof Player) {
-            Player.setSpeed(5 + increaseSpeed);
+            Player.setSpeed(5 + increaseSpeed + this.speedPanelSpeed);
         } else {
-            setDx(getDx() + increaseSpeed);
-            setDy(getDy() + increaseSpeed);
+            setDx(getDx() + increaseSpeed+this.speedPanelSpeed);
+            setDy(getDy() + increaseSpeed+this.speedPanelSpeed);
         }
     }
 
@@ -360,5 +364,11 @@ public abstract class GameObject {
     public void setHits(ArrayList<GameObject> hits) {
         this.hits = hits;
     }
+    public int getSpeedPanelSpeed() {
+        return speedPanelSpeed;
+    }
 
+    public void setSpeedPanelSpeed(int speedPanelSpeed) {
+        this.speedPanelSpeed = speedPanelSpeed;
+    }
 }

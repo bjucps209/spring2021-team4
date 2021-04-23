@@ -7,6 +7,8 @@ import model.GameObjects.Enemies.EnemyObject;
 
 public class Freeze extends PowerUp {
 
+
+
   public Freeze(Level l) {
     super(l);
     this.type = PowerUps.Freeze;

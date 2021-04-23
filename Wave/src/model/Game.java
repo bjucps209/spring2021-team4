@@ -1,10 +1,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.io.*;
 import model.GameObjects.GameObject;
 import model.GameObjects.Obstacles.*;
+import model.GameObjects.Powerups.PowerUp;
+import model.GameObjects.SpeedPanels.SpeedPanel;
 import model.Enums.DifficultyLevel;
+import model.Enums.SpeedPanelTypes;
 import model.GameObjects.*;
 import model.GameObjects.Enemies.EnemyObject;
 
@@ -85,6 +89,17 @@ public class Game {
     // creates all hard-coded levels and stores in arraylist
     public void createLevels() throws IOException {
         Level l = w.loadCustomLevel("testPowerUp");
+        
+        // add speed panels
+        // level 1-5, 3 panels
+        // level 6-10, 5 panels
+        int futureIndex = levels.size();
+        if(futureIndex <5){
+            randomGeneratePanels(3, l);
+        }else{
+            randomGeneratePanels(5, l);
+        }
+        
         levels.add(l);
     }
 
@@ -98,6 +113,21 @@ public class Game {
         }
         
     }
+
+
+    public void randomGeneratePanels(int totalPanels, Level lev){
+        // level 1-5, 3 panels
+        // level6-10. 4 panels
+        Random rand = new Random();
+        for(int i= 0; i < totalPanels; i++){
+          int s = rand.nextInt(2);
+          if(s == 0){
+            lev.getSpeedPanels().add(SpeedPanel.create(SpeedPanelTypes.speedDown, lev));
+          }else{
+            lev.getSpeedPanels().add(SpeedPanel.create(SpeedPanelTypes.speedUp, lev));
+          }
+        }
+      }
 
     // --- setters ---
 
@@ -174,7 +204,9 @@ public class Game {
                 this.currentLevel.setAllObjects(new ArrayList<GameObject>());
                 this.currentLevel.setEnemies(new ArrayList<EnemyObject>());
                 this.currentLevel.setObstacles(new ArrayList<Obstacle>());
-                // TODO: power up
+                this.currentLevel.setPowerUps(new ArrayList<PowerUp>());
+                this.currentLevel.setSpeedPanels(new ArrayList<SpeedPanel>());
+            
 
                 // set to last level in game, but yet already at the end of that level
                 // TODO: still need further discussion on how to handle it later
@@ -192,7 +224,8 @@ public class Game {
             this.currentLevel.setAllObjects(new ArrayList<GameObject>());
             this.currentLevel.setEnemies(new ArrayList<EnemyObject>());
             this.currentLevel.setObstacles(new ArrayList<Obstacle>());
-
+           this.difficulty.deserialization( rd.readLine());
+            
             boolean result = currentLevel.deserialization(rd);
 
             String nextLine = rd.readLine();
@@ -241,7 +274,7 @@ public class Game {
             // need to change in beta version, when there is a difficulty level
             // right not assume is in easy mode
             // TODO: difficutly level
-            wd.println("easy");
+            wd.println(this.difficulty.serialization());
 
             // need to change when two player mode add
             /*
