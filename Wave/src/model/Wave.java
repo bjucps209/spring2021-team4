@@ -45,6 +45,7 @@ public class Wave {
     // Shop variables
     private ShipSkins currentShip;
 
+    private DifficultyLevel userChoiceDifficulty =DifficultyLevel.Easy;
     // Singleton constructor
     private Wave() {
 
@@ -440,6 +441,14 @@ public class Wave {
             }
         }
         return false;
+    }
+
+    public DifficultyLevel getUserChoiceDifficulty() {
+        return userChoiceDifficulty;
+    }
+
+    public void setUserChoiceDifficulty(DifficultyLevel userChoiceDifficulty) {
+        this.userChoiceDifficulty = userChoiceDifficulty;
     }
 
 }
