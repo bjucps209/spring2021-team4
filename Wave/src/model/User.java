@@ -28,6 +28,7 @@ public class User {
             isValidUser = true;
         }
         ownedShipSkins.add(ShipSkins.SHIP1);
+        ship = ShipSkins.SHIP1;
     }
     
     /**
