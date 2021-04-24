@@ -28,6 +28,14 @@ public class Game {
     private Level currentLevel;
     private int levelNum = 0;
 
+    //This constructor should only be use for unit test
+    public Game(){
+        w = Wave.getInstance();
+        gameWidth = 1000;
+        gameHeight = 1000;
+        this.levels = new ArrayList<Level>();
+        this.difficulty = new Difficulty(DifficultyLevel.Easy);
+    }
     // Constructor
     public Game(int width, int height, ArrayList<Level> levels) {
         w = Wave.getInstance();
@@ -193,9 +201,14 @@ public class Game {
             // TODO potential cause problem here if all level is been loaded
             // TODO: need to call and load all level from level editor first
             this.levels = new ArrayList<Level>();
-            for (int i = 0; i < 10; i++) {
+            /*for (int i = 0; i < 10; i++) {
                 levels.add(new Level());
-            }
+            }*/
+            levels.add(w.loadCustomLevel("level0"));
+            levels.add(w.loadCustomLevel("level1"));
+            levels.add(w.loadCustomLevel("level2"));
+            levels.add(w.loadCustomLevel("level3"));
+            levels.add(w.loadCustomLevel("level4"));
 
             String firstLine = rd.readLine();
             if (firstLine.equals("###END###")) {
@@ -228,7 +241,13 @@ public class Game {
             this.currentLevel.setAllObjects(new ArrayList<GameObject>());
             this.currentLevel.setEnemies(new ArrayList<EnemyObject>());
             this.currentLevel.setObstacles(new ArrayList<Obstacle>());
-           this.difficulty.deserialization( rd.readLine());
+            this.currentLevel.setPowerUps(new ArrayList<PowerUp>());
+            this.currentLevel.setSpeedPanels(new ArrayList<SpeedPanel>());
+
+            int score = Integer.parseInt(rd.readLine());
+            Wave.getInstance().setCoins(score);
+            String difficult = rd.readLine();
+           this.difficulty.deserialization( difficult);
             
             boolean result = currentLevel.deserialization(rd);
 
@@ -264,6 +283,7 @@ public class Game {
                 // automatically move to next leve
                 wd.println("60"); // write remaining time for each level to be 60
                 wd.println(this.levelNum + 1); // move to next level
+                wd.println("0");// 0 score
             } else if (remainingTime <= 0 && this.levelNum + 1 == this.levels.size()) {
                 // Means the player save at the end of last level of the game
                 wd.print("###END###");
@@ -272,12 +292,14 @@ public class Game {
                 // means save during the game
                 wd.println(remainingTime);
                 wd.println(this.levelNum);
+                wd.println(w.getCoins());  // save current score
             }
 
             // Hard coding here, since only have one player mode
             // need to change in beta version, when there is a difficulty level
             // right not assume is in easy mode
             // TODO: difficutly level
+            
             wd.println(this.difficulty.serialization());
 
             // need to change when two player mode add

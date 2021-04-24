@@ -47,7 +47,7 @@ public class GameWindow {
     Pane pane;
 
     static Timeline timer;
-    Timeline countDown;
+    static Timeline countDown;
     static VBox vboxName;
     static Scene nameScene;
     static Button btnEnd;
@@ -68,7 +68,18 @@ public class GameWindow {
 
         w = Wave.getInstance();
         int test = MainWindow.customGameLevels.size();
-        if (MainWindow.customGameLevels.size() != 0) {
+        if(Wave.getInstance().isResumeGame()){
+            Wave.getInstance().setResumeGame(false);
+            ArrayList<Level>s = new ArrayList<>();
+            s.add(new Level());
+            
+            w.setGame( new Game(1000, 800, s));
+            g = w.getGame();
+            g.load(Wave.getInstance().getCurrentUser().getName());
+            g.startHitDetection();
+
+        }
+        else if (MainWindow.customGameLevels.size() != 0) {
             w.gameStart(MainWindow.customGameLevels);
         } else {
             ArrayList<Level> levels = w.getDefaultLevels();
@@ -76,6 +87,10 @@ public class GameWindow {
         }
         
         g = w.getGame();
+        /*if(Wave.getInstance().isResumeGame()){
+            // means resume game
+            g.load(Wave.getInstance().getCurrentUser().getName());
+        }*/
         p = g.getCurrentLevel().getPlayer();
         spawnEntities();
         
@@ -84,7 +99,7 @@ public class GameWindow {
 
         // Label to represent the timer
         // lblTimer = new Label();
-        g.getCurrentLevel().setRemainingTime(60);
+        g.getCurrentLevel().setRemainingTime(g.getCurrentLevel().getRemainingTime());
         lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
         pane.getChildren().add(lblTime);
         pane.getChildren().add(lblTimer);
@@ -95,7 +110,7 @@ public class GameWindow {
             g.getCurrentLevel().setRemainingTime(g.getCurrentLevel().getRemainingTime() - 1);
             w.setCoins(w.getCoins() + 10);
         }));
-        countDown.setCycleCount(60);
+        countDown.setCycleCount(g.getCurrentLevel().getRemainingTime());
         countDown.play();
 
         // health label and bar with binding
@@ -390,6 +405,7 @@ public class GameWindow {
                 item.pause();
             }
             timer.pause();
+            countDown.pause();
 
             // Opens window to allow player to enter their name
             vboxName = new VBox();
@@ -452,6 +468,7 @@ public class GameWindow {
     // close the timer
     public static void onClosed() {
         timer.stop();
+        countDown.stop();
 
     }
 

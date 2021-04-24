@@ -28,6 +28,58 @@ public class Player extends GameObject {
     public boolean moveOn = false;
     
 
+
+    public Thread changeThread(){
+        return hitDetection = new Thread(() -> {
+            while (true) {
+                checkWallCollision();
+                var collisionEnemy = checkCollision(currentLevel.getEnemies());
+                if (currentLevel.getEnemies() != null && collisionEnemy != null) {
+                    hits.add(collisionEnemy);
+                } 
+                
+                //System.out.println(currentLevel.getObstacles());
+                var collisionObstacle = checkCollision(currentLevel.getObstacles());
+                if (currentLevel.getObstacles() != null && collisionObstacle!= null) {
+                    hits.add(collisionObstacle);
+                }
+
+                var collisionPowerUp = checkCollision(currentLevel.getPowerUps());
+                if (currentLevel.getPowerUps()!= null && collisionPowerUp != null ) {
+                    hits.add(collisionPowerUp);
+                    this.currentLevel.getPowerUps().remove(collisionPowerUp);
+                    //this.currentLevel.getAllObjects().remove(collisionPowerUp);
+                    
+                    
+                }
+                int i = 0;
+                while (hits.size() != 0 && i < hits.size()) {
+
+                    
+                    if( processHit(hits.get(0), this, this)){
+                        if(hits.get(0) instanceof PowerUp){
+                            //this.currentLevel.getPowerUps().remove(hits.get(0));
+                            this.currentLevel.getAllObjects().remove(hits.get(0));
+                        }
+                        hits.remove(hits.get(0)); 
+                    }
+                    //processHit(hits.get(0), this, this);
+                    
+                    hits.removeIf( (GameObject o) -> (o instanceof PowerUp) == false ); 
+                   i++;
+                }
+                
+                //for(GameObject)
+
+                try {
+                    Thread.sleep(33);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     public Player(Level l) {
         super(l);
         setX(500);
@@ -36,6 +88,7 @@ public class Player extends GameObject {
         setDy(0);
         setWidth(50);
         setHeight(50);
+        this.currentShipSkins = Wave.getInstance().getCurrentUser().getShip();
         hitDetection = new Thread(() -> {
             while (true) {
                 checkWallCollision();
@@ -277,6 +330,10 @@ public class Player extends GameObject {
                 }
             }
 
+
+
+          this.hitDetection = changeThread();
+     
             return true;
         } catch (Exception e) {
             // means error in converting

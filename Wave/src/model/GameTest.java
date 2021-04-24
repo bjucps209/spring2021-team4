@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 import org.junit.Test;
+
+import model.Enums.DifficultyLevel;
 import model.Enums.EnemyTypes;
 import model.Enums.ShipSkins;
 import model.Enums.ObstacleTypes;
@@ -22,10 +24,15 @@ public class GameTest {
 
 
   @Test
-  public void testLoad_example1_expectResult() {
+  public void testLoad_example1_expectResult() throws IOException{
     // Example 1
-    Wave.getInstance().gameStart(new ArrayList<Level>());
-    Game game = Wave.getInstance().getGame();
+    Wave.getInstance().loadAllUsers();
+    Wave.getInstance().setCurrentUser(new User("AndrewTest"));
+    Game game = new Game();
+    for(int i = 0; i < 9; i++){  // already has one level when Wave.getInstance().gameStart()
+      game.getLevels().add(new Level());
+    }
+
 
     
 
@@ -34,7 +41,9 @@ public class GameTest {
     User user = Wave.getInstance().getCurrentUser();
     Player player = game.getCurrentLevel().getPlayer();
     assertTrue(game.getLevelNum() == 2);
-    // assert True that difficulty level is easy TODO
+    assertTrue(Wave.getInstance().getCoins() == 20);
+    assertTrue(game.getDifficultyLevel().getDifficulty() == DifficultyLevel.Easy);
+
     assertTrue(game.getCurrentLevel().getRemainingTime() == 15);
     
     assertTrue(user.getName().equals("Jack"));
@@ -103,12 +112,23 @@ public class GameTest {
   }
 
   @Test
-  public void testLoad_example2_expectResult() {
+  public void testLoad_example2_expectResult() throws IOException {
     // Example 2
-    Wave.getInstance().gameStart(new ArrayList<Level>());
-    Game game = Wave.getInstance().getGame();
     
-   
+    /*ArrayList<Level> levels = new ArrayList<>();
+    levels.add(Wave.loadCustomLevel("level0"));
+    levels.add(Wave.loadCustomLevel("level1"));
+    levels.add(Wave.loadCustomLevel("level2"));
+    levels.add(Wave.loadCustomLevel("level3"));
+    levels.add(Wave.loadCustomLevel("level4"));
+    Wave.getInstance().gameStart(new ArrayList<Level>());
+    Game game = Wave.getInstance().getGame();*/
+    Wave.getInstance().loadAllUsers();
+    Wave.getInstance().setCurrentUser(new User("AndrewTest"));
+    Game game = new Game();
+    for(int i = 0; i < 9; i++){  // already has one level when Wave.getInstance().gameStart()
+      game.getLevels().add(new Level());
+    }
 
     assertTrue(game.load("Example2Serialization")); 
 
@@ -119,9 +139,10 @@ public class GameTest {
     assertTrue(game.getLevelNum() == 4);
     assertTrue(currentLevel.getRemainingTime() == 60);
 
-    //TODO: check difficulty level
-    // assertTrue to easy
-    assertTrue(user.getName().equals("Andrew"));
+    
+    assertTrue(Wave.getInstance().getCoins() == 40);
+    assertTrue(game.getDifficultyLevel().getDifficulty() == DifficultyLevel.Easy);
+    assertTrue(user.getName().equals("AndrewTest"));
     assertTrue(user.getCoins() == 200);
     assertTrue(currentLevel.getScore() == 25);
     
@@ -146,28 +167,27 @@ public class GameTest {
 
   @Test
   public void testLoad_example4_correctResult(){
-    Wave.getInstance().gameStart(new ArrayList<Level>());
-    Game game = Wave.getInstance().getGame();
-    
+    Wave.getInstance().loadAllUsers();
+    Wave.getInstance().setCurrentUser(new User("AndrewTest"));
+    Game game = new Game();
     for(int i = 0; i < 9; i++){  // already has one level when Wave.getInstance().gameStart()
       game.getLevels().add(new Level());
     }
-
     assertTrue(game.load("Example4Serialization")); 
 
     Level currentLevel = game.getCurrentLevel();
 
-    assertTrue(game.getLevelNum() == 9); // the last game level
+    assertTrue(game.getLevelNum() == 4); // the last game level
     assertTrue(currentLevel.getRemainingTime() == 0); // no more remaing time
   }
 
   @Test
   public void testSave_middlleOfGameSingelPlayer_correctResult(){
     //TODO: need implement same thing for multiple player
-    Wave.getInstance().gameStart(new ArrayList<Level>());
-    Game game = Wave.getInstance().getGame();
-    
-    for(int i = 0; i < 9; i++){
+    Wave.getInstance().loadAllUsers();
+    Wave.getInstance().setCurrentUser(new User("AndrewTest"));
+    Game game = new Game();
+    for(int i = 0; i < 9; i++){  // already has one level when Wave.getInstance().gameStart()
       game.getLevels().add(new Level());
     }
 
@@ -226,6 +246,8 @@ public class GameTest {
     currentLevel.getObstacles().add(ob);
     currentLevel.getPowerUps().add(pow);
 
+    // set points
+    Wave.getInstance().setCoins(45);
 
     game.save("SinglePlayerofMiddleGame");
 
@@ -233,10 +255,11 @@ public class GameTest {
 
       assertTrue(rd.readLine().equals("20"));
       assertTrue(rd.readLine().equals("4"));
-      assertTrue(rd.readLine().equals("easy"));
+      assertTrue(rd.readLine().equals("45"));  
+      assertTrue(rd.readLine().equals("Easy"));
       assertTrue(rd.readLine().equals("1"));
       assertTrue(rd.readLine().equals("###user"));
-      assertTrue(rd.readLine().equals("Andrew;130;30;20;SHIP1;350;380;5;5;200;200;PowerUp,TemporaryInvincible,5,1,20"));
+      assertTrue(rd.readLine().equals("AndrewTest;130;30;20;SHIP1;350;380;5;5;200;200;PowerUp,TemporaryInvincible,5,1,20"));
       assertTrue(rd.readLine().equals("3")); // should be 3 if add in powerup
       assertTrue(rd.readLine().equals("###gameobject"));
       assertTrue(rd.readLine().equals("EnemyObject;BOUNCER;20;20;5;5;4;4;60"));  //TODO: test for speical affects later on
@@ -257,16 +280,16 @@ public class GameTest {
 
 
   @Test
-  public void testSave_endOfGameSinglePlauer_correctResult(){
+  public void testSave_endOfGameSinglePlayer_correctResult(){
         //TODO: need implement same thing for multiple player
-        Wave.getInstance().gameStart(new ArrayList<Level>());
-        Game game = Wave.getInstance().getGame();
-        
-        for(int i = 0; i < 9; i++){
+        Wave.getInstance().loadAllUsers();
+        Wave.getInstance().setCurrentUser(new User("AndrewTest"));
+        Game game = new Game();
+        for(int i = 0; i < 9; i++){  // already has one level when Wave.getInstance().gameStart()
           game.getLevels().add(new Level());
         }
     
-        assertTrue(game.load("Example2Serialization")); 
+        assertTrue(game.load("endOfGame")); 
         Level currentLevel = game.getCurrentLevel();
         User currentUser = Wave.getInstance().getCurrentUser();
         Player player = currentLevel.getPlayer();
@@ -276,11 +299,12 @@ public class GameTest {
         game.save("SinglePlayerEndGame");
         try(BufferedReader rd = new BufferedReader(new FileReader("SinglePlayerEndGame.txt"))){
           assertTrue(rd.readLine().equals("60"));
-          assertTrue(rd.readLine().equals("5"));
-          assertTrue(rd.readLine().equals("easy"));
+          assertTrue(rd.readLine().equals("4"));
+          assertTrue(rd.readLine().equals("0"));
+          assertTrue(rd.readLine().equals("Easy"));
           assertTrue(rd.readLine().equals("1"));
           assertTrue(rd.readLine().equals("###user"));
-          assertTrue(rd.readLine().equals("Andrew;200;25;30;SHIP1;300;450;5;5;10;10"));
+          assertTrue(rd.readLine().equals("AndrewTest;200;25;30;SHIP1;300;450;5;5;10;10"));
           assertTrue(rd.readLine().equals("0"));
           assertTrue(rd.readLine().equals("ENDL#"));
         }catch( IOException e){

@@ -18,6 +18,10 @@ import javafx.scene.control.Alert.AlertType;
 
 public class Wave {
 
+    // indicate resume game
+    private boolean resumeGame = false;
+   
+
     // Singleton variable
     private static Wave wave = null;
 
@@ -59,6 +63,8 @@ public class Wave {
 
     public void onClosed() {
         game.stopHitDetection();
+        game.save(this.currentUser.getName());
+        saveAllUsers();
     }
 
     // Singleton get instance method
@@ -132,6 +138,7 @@ public class Wave {
             // means this is a new user that does not exist in the ArrayList
             this.users.add(this.currentUser);
         }
+        this.currentUser.setCoins(this.coins.get());
     }
 
     /**
@@ -309,7 +316,13 @@ public class Wave {
     public void setGame(Game game) {
         this.game = game;
     }
+    public boolean isResumeGame() {
+        return resumeGame;
+    }
 
+    public void setResumeGame(boolean resumeGame) {
+        this.resumeGame = resumeGame;
+    }
     // method to load custom levels - RTR
     public Level loadCustomLevel(String fileName) throws IOException {
 
