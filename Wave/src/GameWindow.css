@@ -9,6 +9,12 @@
     -fx-text-fill: white;
 }
 
+.button {
+    -fx-background-image: url("./Images/metal.jpg");
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+}
+
 #menu-background {
     -fx-background-image: url("./Images/space.png");
     -fx-background-size: 800 600;
