@@ -155,6 +155,11 @@ public class GameWindow {
                 startLevel();
             }
             var s = pane.getChildren();
+
+            // Checks to see if player died
+            if (healthBar.getProgress() == 0) {
+                endGameOnHealth();
+            }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
@@ -165,7 +170,13 @@ public class GameWindow {
         
         if (!levelStopped) {
             // Code for stopping level and preparing for move on
+            if (countDown.getCycleCount() == 0) {
+                countDown.stop();
+                g.stopHitDetection();
+                // for () {
 
+                // }
+            }
 
             // lets next level be stopped
             levelStopped = true;
@@ -391,6 +402,33 @@ public class GameWindow {
                     break;
             }
         }
+    }
+
+    void endGameOnHealth() {
+        timer.stop();
+        countDown.stop();
+        for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+            item.pause();
+        }
+
+        var vboxEnd = new VBox();
+        vboxEnd.setPadding(new Insets(10));
+        vboxEnd.setSpacing(10);
+        vboxEnd.setAlignment(Pos.CENTER);
+
+        var endScene = new Scene(vboxEnd, 800, 600);
+        Stage endStage = new Stage();
+        endStage.setScene(endScene); // set the scene
+        endStage.setTitle("End Screen");
+        endStage.setAlwaysOnTop(true);
+        endStage.show();
+
+        endScene.getStylesheets().add("GameWindow.css");
+
+        Label label = new Label("GAME OVER!");
+        Label label2 = new Label("Please return to the title screen");
+        vboxEnd.getChildren().add(label);
+        vboxEnd.getChildren().add(label2);
     }
 
     // Method for pausing the game and ending the game

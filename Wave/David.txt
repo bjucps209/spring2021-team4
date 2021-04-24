@@ -1,10 +1,10 @@
-59
+54
 0
-10
+60
 Medium
 1
 ###user
-David;1310;0;-3961;SHIP1;440;708;50;50;0;0;
+David;1650;0;-109;SHIP1;578;552;50;50;0;0
 8
 ###gameobject
 Obstacle;SQUARE;446;507;50;50;1;1;60
@@ -19,7 +19,7 @@ PowerUp;TemporaryInvincible;646;238;0;0;1;1;60
 ###gameobject
 PowerUp;Freeze;256;496;0;0;1;1;60
 ###gameobject
-EnemyObject;TRACKER;439;309;50;50;-2;2;60
+EnemyObject;TRACKER;577;551;50;50;-2;-2;60
 ###gameobject
-EnemyObject;BOUNCER;463;722;50;50;-6;6;60
+EnemyObject;BOUNCER;631;530;50;50;-6;-6;60
 ENDL#
