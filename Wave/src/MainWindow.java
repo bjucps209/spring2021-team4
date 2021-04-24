@@ -42,6 +42,7 @@ public class MainWindow {
 
     HighScoreList highScoreList = new HighScoreList();
     AudioClip titleMusic;
+    AudioClip battleMusic;
 
     // list to be given to game if the user wants to play their custom games
     static ArrayList<Level> customGameLevels = new ArrayList<>();
@@ -53,6 +54,8 @@ public class MainWindow {
     Button btnMedium = new Button();
     Button btnHard = new Button();
     Button btnCheat = new Button();
+
+    @FXML VBox vboxTitle;
 
     @FXML
     public void initialize() {
@@ -112,8 +115,13 @@ public class MainWindow {
             stage.show();
 
             titleMusic.stop();
-            AudioClip battleMusic = new AudioClip(getClass().getResource("./Sound/alexander-nakarada-ussr.mp3").toString());
+            battleMusic = new AudioClip(getClass().getResource("./Sound/alexander-nakarada-ussr.mp3").toString());
             battleMusic.play();
+
+            if (!stage.isShowing()) {
+                titleMusic.stop();
+                battleMusic.stop();
+            }
 
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override

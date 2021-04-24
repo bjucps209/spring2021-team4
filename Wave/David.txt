@@ -1,10 +1,10 @@
-56
+59
 0
-130
+10
 Easy
 1
 ###user
-David;1485;0;53;SHIP1;370;493;50;50;0;0
+David;1620;0;100;SHIP1;440;708;50;50;0;0
 8
 ###gameobject
 Obstacle;SQUARE;446;507;50;50;0;0;60
@@ -19,7 +19,7 @@ PowerUp;TemporaryInvincible;646;238;0;0;0;0;60
 ###gameobject
 PowerUp;Freeze;256;496;0;0;0;0;60
 ###gameobject
-EnemyObject;TRACKER;371;493;50;50;2;0;60
+EnemyObject;TRACKER;439;313;50;50;-2;2;60
 ###gameobject
-EnemyObject;BOUNCER;246;34;50;50;5;-5;60
+EnemyObject;BOUNCER;551;639;50;50;-5;5;60
 ENDL#
