@@ -44,7 +44,7 @@ public class GameWindow {
     public boolean levelIsNext = false;
 
     @FXML
-    static
+
     Pane pane;
 
     static Timeline timer;
@@ -445,8 +445,9 @@ public class GameWindow {
         // close the current window and game window
         Stage stage = (Stage) btnEnd.getScene().getWindow();
         stage.close();
-        Stage gameStage = (Stage) pane.getScene().getWindow();
-        gameStage.close();
+
+        //Stage gameStage = (Stage) pane.getScene().getWindow();
+        //gameStage.close();
         // this is where all the saving gets excecuted
         highScoreList.save();
     }
