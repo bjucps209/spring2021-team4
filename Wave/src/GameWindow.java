@@ -174,10 +174,15 @@ public class GameWindow {
             if (countDown.getCycleCount() == 0) {
                 countDown.stop();
                 g.stopHitDetection();
-                // for () {
-
-                // }
+                for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+                    item.pause();
+                }
             }
+
+            Label arrow = new Label("->");
+            arrow.setPrefSize(100, 100);
+            pane.getChildren().add(arrow);
+            arrow.relocate(900, 100);
 
             // lets next level be stopped
             levelStopped = true;
@@ -190,7 +195,7 @@ public class GameWindow {
             g.nextLevel();
 
             // Code for starting a Level
-            
+            spawnEntities();
 
             levelStopped = false;
             levelIsNext = false;
