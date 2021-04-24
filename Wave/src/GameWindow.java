@@ -193,7 +193,7 @@ public class GameWindow {
         spawnPowerups();
         spawnPlayer();
         spawnEnemies();
-        spawnPowerPanels();
+        //spawnPowerPanels();
     }
 
     // spawns the player image and then binds that image to the player object
@@ -260,7 +260,7 @@ public class GameWindow {
         pane.getChildren().add(playerImageView);
     }
 
-    public void spawnPowerPanels(){
+    /*public void spawnPowerPanels(){
         // determine number in each level   
         g.randomGeneratePanels();
         for (SpeedPanel sp : g.getLevels().get(g.getLevelNum()).getSpeedPanels()){
@@ -286,7 +286,7 @@ public class GameWindow {
         }
 
     
-    }
+    }*/
 
     public void spawnEnemies() {
         for (EnemyObject o : g.getLevels().get(g.getLevelNum()).getEnemies()) {
