@@ -47,8 +47,8 @@ public class MainWindow {
 
     @FXML
     ComboBox<String> typeBox = new ComboBox<>();
-    @FXML
-    ComboBox<String> orientationBox = new ComboBox<>();
+    // @FXML
+    // ComboBox<String> orientationBox = new ComboBox<>();
 
     @FXML
     TextField txtFXValue;

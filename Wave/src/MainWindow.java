@@ -21,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.Game;
 import model.HighScore;
 import model.HighScoreList;
 import model.Level;
@@ -103,6 +104,19 @@ public class MainWindow {
             }
         });
 
+    }
+
+    @FXML
+    void onResumeGameClicked() {
+        if (w.getCurrentUser() == null) {
+            var alert = new Alert(AlertType.WARNING, "You are not currently logged in as a user. Please log in.");
+            alert.show();
+        }
+        else {
+            w.setGame(new Game(1000, 800, new ArrayList<Level>()));
+            w.getGame().load(w.getCurrentUser().getName());
+            
+        }
     }
 
     @FXML
