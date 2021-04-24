@@ -44,12 +44,14 @@ public class GameWindow {
     public boolean levelIsNext = false;
 
     @FXML
+    static
     Pane pane;
 
     static Timeline timer;
     static Timeline countDown;
     static VBox vboxName;
     static Scene nameScene;
+    static Button btnResume;
     static Button btnEnd;
 
     // GUI needed for every level
@@ -338,11 +340,6 @@ public class GameWindow {
     }
 
     public void spawnPowerups() {
-        // Image powerupsImage = new Image("./Images/powerupBlue_bolt.png");
-        // ImageView powerupsImageView = new ImageView(powerupsImage);
-        // powerupsImageView.setLayoutX(600);
-        // powerupsImageView.setLayoutY(300);
-        // pane.getChildren().add(powerupsImageView);
         for(PowerUp power : g.getLevels().get(g.getLevelNum()).getPowerUps()){
             switch(power.getType()){
                 case HealthGainBig:
@@ -422,47 +419,36 @@ public class GameWindow {
 
             nameScene.getStylesheets().add("GameWindow.css");
 
-            
             Button btnResume = new Button("RESUME");
             btnResume.setOnAction(e -> onResumeClicked(e));
 
             btnEnd = new Button("END GAME");
             btnEnd.setOnAction(e -> onEndClicked(e));
-
-
-            
         }
-        // } else {
-        //     for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
-        //         item.start();
-        //     }
-        // }
     }
 
+    // close the window and start all the necessary game timers
     static void onResumeClicked(ActionEvent event) {
-
+        Stage stage = (Stage) btnResume.getScene().getWindow();
+        stage.close();
+        for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+            item.start();
+        }
+        timer.play();
+        countDown.play();
     }
 
+    // Close the window and end the game, saving everything
     static void onEndClicked(ActionEvent event) {
-        TextField nameField = new TextField();
-        Label lblName = new Label();
-        lblName.setText("Enter Your Name:");
-        vboxName.getChildren().add(lblName);
-        vboxName.getChildren().add(nameField);
-        nameField.requestFocus();
-        nameScene.setOnKeyPressed(key -> {
-                KeyCode keyCode = key.getCode();
-                if (keyCode.equals(KeyCode.ENTER)) {
-                    highScoreList.getList().add(new HighScore(nameField.getText(), w.getCoins()));
-                    pauseState = false;
-                    // close the current window
-                    Stage stage = (Stage) btnEnd.getScene().getWindow();
-                    stage.close();
-                    // this is where all the saving gets excecuted
-                    highScoreList.save();
-
-                }
-            });
+        highScoreList.getList().add(new HighScore(w.getCurrentUser().getName(), w.getCoins()));
+        pauseState = false;
+        // close the current window and game window
+        Stage stage = (Stage) btnEnd.getScene().getWindow();
+        stage.close();
+        Stage gameStage = (Stage) pane.getScene().getWindow();
+        gameStage.close();
+        // this is where all the saving gets excecuted
+        highScoreList.save();
     }
 
     // close the timer

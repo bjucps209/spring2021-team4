@@ -14,6 +14,7 @@ import model.Enums.ShipSkins;
 import model.GameObjects.Powerups.Freeze;
 import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
+import model.GameObjects.SpeedPanels.SpeedPanel;
 
 public class Player extends GameObject {
     // contains info for a Player during the game
@@ -107,9 +108,17 @@ public class Player extends GameObject {
                 if (currentLevel.getPowerUps()!= null && collisionPowerUp != null ) {
                     hits.add(collisionPowerUp);
                     this.currentLevel.getPowerUps().remove(collisionPowerUp);
+
+                    // TODO remove GUI
                     //this.currentLevel.getAllObjects().remove(collisionPowerUp);
                     
                     
+                }
+
+                var speedPanel = checkCollision(currentLevel.getSpeedPanels());
+                if(currentLevel.getSpeedPanels() != null && speedPanel != null ){
+                    this.hits.removeIf( (GameObject o) -> o instanceof SpeedPanel);// remove all other speedPanels in affect
+                    this.hits.add(speedPanel);
                 }
                 int i = 0;
                 while (hits.size() != 0 && i < hits.size()) {
@@ -124,7 +133,7 @@ public class Player extends GameObject {
                     }
                     //processHit(hits.get(0), this, this);
                     
-                    hits.removeIf( (GameObject o) -> (o instanceof PowerUp) == false ); 
+                    hits.removeIf( (GameObject o) -> ((o instanceof PowerUp) == false  && (o instanceof SpeedPanel) == false ) ); 
                    i++;
                 }
                 
@@ -273,7 +282,7 @@ public class Player extends GameObject {
             String data = "";
             if (affObject instanceof PowerUp) {
                 PowerUp ob = (PowerUp) affObject;
-                data += "PowerUp," + ob.getType() + "," + ob.getEffectiveTime() + "," + ob.getPassedTime()+","+ob.getAppearTime();
+                data += "PowerUp," + ob.getType() + "," + ob.getEffectiveTime() + "," + ob.getPassedTime()+","+ob.getStartTime();
 
             } else {
                 // should be a panel
@@ -314,12 +323,14 @@ public class Player extends GameObject {
                             pow.setPassedTime(Integer.parseInt(data[3]));
                             pow.setStartTime(Integer.parseInt(data[4]));
                             this.hits.add(pow);
+                            this.currentLevel.getAllObjects().add(pow);
                         } else if (type == PowerUps.TemporaryInvincible) {
                             TemporaryInvincible pow = new TemporaryInvincible(this.currentLevel);
                             pow.setEffectiveTime(Integer.parseInt(data[2]));
                             pow.setPassedTime(Integer.parseInt(data[3]));
                             pow.setStartTime(Integer.parseInt(data[4]));
                             this.hits.add(pow);
+                            this.currentLevel.getAllObjects().add(pow);
                         } else {
                             // should not be the case
                             return false;

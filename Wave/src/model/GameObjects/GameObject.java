@@ -22,6 +22,7 @@ import model.GameObjects.Powerups.HealthGainBig;
 import model.GameObjects.Powerups.HealthGainSmall;
 import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
+import model.GameObjects.SpeedPanels.SpeedUpPanel;
 import model.GameObjects.Obstacles.*;
 
 public abstract class GameObject {
@@ -182,6 +183,10 @@ public abstract class GameObject {
                 hitter.setDx(-getDx());
                 hitter.setDy(-getDy());
             }
+        }else if(gc.equals(SpeedUpPanel.class)){
+            SpeedUpPanel sp = (SpeedUpPanel) hit;
+            sp.collisionWithObject(p);
+            return sp.isFinished();
         }
         // the default case
         return true;

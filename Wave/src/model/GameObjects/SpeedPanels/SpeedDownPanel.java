@@ -20,7 +20,7 @@ public class SpeedDownPanel extends SpeedPanel{
 
     }
     if(isFinished == false){
-      ob.setSpeedPanelSpeed(-5);
+      ob.setSpeedPanelSpeed(-50);
     }else{
       ob.setSpeedPanelSpeed(0);
     }

@@ -23,7 +23,7 @@ public class SpeedUpPanel extends SpeedPanel {
       this.startTime = this.currentLevel.getRemainingTime();
     }
     if(isFinished == false){
-      ob.setSpeedPanelSpeed(3);
+      ob.setSpeedPanelSpeed(50);
     }else{
       ob.setSpeedPanelSpeed(0);
     }

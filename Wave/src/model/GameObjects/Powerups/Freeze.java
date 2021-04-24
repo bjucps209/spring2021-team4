@@ -13,6 +13,7 @@ public class Freeze extends PowerUp {
     super(l);
     this.type = PowerUps.Freeze;
     this.effectiveTime = 5;
+    this.isFinished = false;
 
   }
 
