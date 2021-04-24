@@ -138,7 +138,7 @@ public class Wave {
             // means this is a new user that does not exist in the ArrayList
             this.users.add(this.currentUser);
         }
-        this.currentUser.setCoins(this.coins.get());
+        this.currentUser.setCoins(this.coins.get()/2 + this.currentUser.getCoins());
     }
 
     /**
