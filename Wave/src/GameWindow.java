@@ -440,27 +440,15 @@ public class GameWindow {
 
     // Close the window and end the game, saving everything
     static void onEndClicked(ActionEvent event) {
-        TextField nameField = new TextField();
-        Label lblName = new Label();
-        lblName.setText("Enter Your Name:");
-        vboxName.getChildren().add(lblName);
-        vboxName.getChildren().add(nameField);
-        nameField.requestFocus();
-        nameScene.setOnKeyPressed(key -> {
-                KeyCode keyCode = key.getCode();
-                if (keyCode.equals(KeyCode.ENTER)) {
-                    highScoreList.getList().add(new HighScore(nameField.getText(), w.getCoins()));
-                    pauseState = false;
-                    // close the current window and game window
-                    Stage stage = (Stage) btnEnd.getScene().getWindow();
-                    stage.close();
-                    Stage gameStage = (Stage) pane.getScene().getWindow();
-                    gameStage.close();
-                    // this is where all the saving gets excecuted
-                    highScoreList.save();
-
-                }
-            });
+        highScoreList.getList().add(new HighScore(w.getCurrentUser().getName(), w.getCoins()));
+        pauseState = false;
+        // close the current window and game window
+        Stage stage = (Stage) btnEnd.getScene().getWindow();
+        stage.close();
+        Stage gameStage = (Stage) pane.getScene().getWindow();
+        gameStage.close();
+        // this is where all the saving gets excecuted
+        highScoreList.save();
     }
 
     // close the timer
