@@ -99,8 +99,9 @@ public class MainWindow {
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                w.onClosed();
                 GameWindow.onClosed();
+                w.onClosed();
+                
             }
         });
 
@@ -113,8 +114,11 @@ public class MainWindow {
             alert.show();
         }
         else {
-            w.setGame(new Game(1000, 800, new ArrayList<Level>()));
-            w.getGame().load(w.getCurrentUser().getName());
+            //ArrayList <Level> s = new ArrayList<>();
+            //s.add(new Level());
+            //w.setGame(new Game(1000, 800, s));
+            //w.getGame().load(w.getCurrentUser().getName());
+            w.setResumeGame(true);
             
         }
     }

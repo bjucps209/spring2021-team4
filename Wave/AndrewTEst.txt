@@ -3,6 +3,6 @@
 easy
 1
 ###user
-Andrew;200;25;30;SHIP1;300;450;5;5;10;10
+AndrewTest;200;25;30;SHIP1;300;450;5;5;10;10
 0
 ENDL#

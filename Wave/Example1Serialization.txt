@@ -1,6 +1,7 @@
 15
 2
-easy
+20
+Easy
 1
 ###user
 Jack;100;20;58;SHIP1;300;450;5;5;10;10;PowerUp,TemporaryInvincible,5,3,18
