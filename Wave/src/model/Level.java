@@ -26,6 +26,7 @@ import model.GameObjects.Powerups.HealthGainBig;
 import model.GameObjects.Powerups.HealthGainSmall;
 import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
+import model.GameObjects.SpeedPanels.SpeedPanel;
 
 public class Level {
     // Class that holds all info for 1 level
@@ -35,7 +36,17 @@ public class Level {
     private ArrayList<EnemyObject> enemies = new ArrayList<EnemyObject>();
     private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
     private ArrayList<PowerUp> powerups = new ArrayList<PowerUp>();
-    
+    private ArrayList<SpeedPanel> speedPanels  = new ArrayList<>();
+  
+
+    public ArrayList<SpeedPanel> getSpeedPanels() {
+        return speedPanels;
+    }
+
+    public void setSpeedPanels(ArrayList<SpeedPanel> speedPanels) {
+        this.speedPanels = speedPanels;
+    }
+
     // Data info
     private int score;
 
@@ -182,6 +193,8 @@ public class Level {
         this.remainingTime.set(remainingTime);
     }
 
+
+
     /**
      * The function retursn a String consist of information about this level()
      * @return - String represent the data of leve() 
@@ -209,6 +222,8 @@ public class Level {
             }
         }
 
+
+        //TODO: also add power panels and their affect on player
         info += allObjects.size()-numberPlayer + "/n";  //TODO: note allObject also contains player
         for (GameObject object : allObjects) {
             if(object instanceof Player){
@@ -243,7 +258,7 @@ public class Level {
     public boolean deserialization(BufferedReader rd) throws IOException {
 
         // TODO: handle difficulty level
-        String difficultyLevel = rd.readLine();
+        //String difficultyLevel = rd.readLine();
         boolean success = true;
 
         int totalPlayer = Integer.parseInt(rd.readLine());
@@ -271,6 +286,7 @@ public class Level {
                 }
             }
 
+            //TODO: also add power panel and their affect on player
             if (player.deserialize(restInfo) == false) {
                 throw new IOException("Error in converting user data");
                 // means error in converting user data
@@ -449,11 +465,5 @@ public class Level {
 
     }
 
-    public ArrayList<PowerUp> getPowerups() {
-        return powerups;
-    }
-
-    public void setPowerups(ArrayList<PowerUp> powerups) {
-        this.powerups = powerups;
-    }
+    
 }

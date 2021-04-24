@@ -24,6 +24,8 @@ public class User {
         this.name = name;
         if (name.equals("")) {
             isValidUser = false;
+        }else{
+            isValidUser = true;
         }
         ownedShipSkins.add(ShipSkins.SHIP1);
     }

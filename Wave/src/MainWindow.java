@@ -198,11 +198,11 @@ public class MainWindow {
 
     @FXML
     void onLogInScreenClicked() {
-        ArrayList<User> list = new ArrayList<User>();
-        list.add(new User("joel"));
-        list.add(new User("ryan"));
+        //sArrayList<User> list = new ArrayList<User>();
+        //list.add(new User("joel"));
+        //list.add(new User("ryan"));
         
-        w.setUsers(list);
+        //w.setUsers(list);
         VBox vbox = new VBox();
         vbox.setId("menu-background");
         vbox.setAlignment(Pos.CENTER);

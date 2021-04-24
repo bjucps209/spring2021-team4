@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.util.Duration;
+import jdk.nashorn.api.tree.PropertyTree;
 import model.Level;
 import model.Wave;
 import model.Enums.PowerUps;
@@ -25,6 +26,7 @@ public class Player extends GameObject {
     private boolean temporaryInvincible;
     public boolean winState = false;
     public boolean moveOn = false;
+    
 
     public Player(Level l) {
         super(l);

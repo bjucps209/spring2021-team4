@@ -65,6 +65,7 @@ public class Wave {
     public static Wave getInstance() {
         if (wave == null) {
             wave = new Wave();
+            wave.loadAllUsers();
         }
 
         return wave;

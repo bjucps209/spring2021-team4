@@ -57,7 +57,7 @@ public class WaveTest {
     User newUSer = new User("HEllo");
     newUSer.setCoins(20);
     newUSer.setShip(ShipSkins.SHIP1);
-    newUSer.getOwnedShipSkins().add(ShipSkins.SHIP1);
+    //newUSer.getOwnedShipSkins().add(ShipSkins.SHIP1);
     Wave.getInstance().setCurrentUser(newUSer);
 
     Wave.getInstance().getUsers().add(newUSer);

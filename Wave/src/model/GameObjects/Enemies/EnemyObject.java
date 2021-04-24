@@ -12,7 +12,7 @@ public abstract class EnemyObject extends GameObject {
     protected boolean temporaryFreeze = false;
     protected Player player;
     protected boolean isRemoved = false;
-        
+   
 
     public EnemyObject(Level l) {
         super(l);

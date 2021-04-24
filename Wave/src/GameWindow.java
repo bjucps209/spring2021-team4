@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,6 +23,7 @@ import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 import model.GameObjects.Obstacles.Obstacle;
 import model.GameObjects.Powerups.PowerUp;
+import model.GameObjects.SpeedPanels.SpeedPanel;
 import model.Game;
 import model.HighScore;
 import model.HighScoreList;
@@ -183,6 +185,14 @@ public class GameWindow {
         playerImageView.layoutXProperty().bind(p.xProperty());
         playerImageView.layoutYProperty().bind(p.yProperty());
         pane.getChildren().add(playerImageView);
+    }
+
+    public void spawnPowerPanels(){
+        // determine number in each level   
+    
+        
+
+    
     }
 
     public void spawnEnemies() {
