@@ -1,10 +1,10 @@
 58
 0
-20
+310
 Easy
 1
 ###user
-Jack;1190;0;100;SHIP2;215;708;50;50;0;0
+hi;770;0;93;SHIP1;440;683;50;50;0;0
 8
 ###gameobject
 Obstacle;SQUARE;446;507;50;50;0;0;60
@@ -19,7 +19,7 @@ PowerUp;TemporaryInvincible;646;238;0;0;0;0;60
 ###gameobject
 PowerUp;Freeze;256;496;0;0;0;0;60
 ###gameobject
-EnemyObject;TRACKER;259;413;50;50;-2;2;60
+EnemyObject;TRACKER;439;377;50;50;-2;2;60
 ###gameobject
-EnemyObject;BOUNCER;301;584;50;50;-5;-5;60
+EnemyObject;BOUNCER;391;679;50;50;-5;-5;60
 ENDL#

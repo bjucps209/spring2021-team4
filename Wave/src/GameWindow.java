@@ -464,7 +464,8 @@ public class GameWindow {
         for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
             item.pause();
         }
-
+        Wave.getInstance().saveAllUsers(); // save user
+        Wave.getInstance().setCoins(0); // the running score
         var vboxEnd = new VBox();
         vboxEnd.setPadding(new Insets(10));
         vboxEnd.setSpacing(10);
@@ -518,6 +519,9 @@ public class GameWindow {
             btnEnd = new Button("END GAME");
             btnEnd.setOnAction(e -> onEndClicked(e));
             vboxName.getChildren().add(btnEnd);
+            
+            
+ 
         }
     }
 
@@ -534,6 +538,8 @@ public class GameWindow {
 
     // Close the window and end the game, saving everything
     static void onEndClicked(ActionEvent event) {
+        Wave.getInstance().getGame().save(Wave.getInstance().getCurrentUser().getName());
+        Wave.getInstance().saveAllUsers();
         highScoreList.getList().add(new HighScore(w.getCurrentUser().getName(), w.getCoins()));
         pauseState = false;
         // close the current window and game window
