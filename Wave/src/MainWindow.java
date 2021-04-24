@@ -48,6 +48,7 @@ public class MainWindow {
     @FXML
     public void initialize() {
         w = Wave.getInstance();
+        highScoreList.load();
     }
 
     @FXML
