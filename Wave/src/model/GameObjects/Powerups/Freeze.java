@@ -39,7 +39,7 @@ public class Freeze extends PowerUp {
 
   public void update() {
     // TODO Auto-generated method stub
-    System.out.println(startTime + "   " + passedTime);
+    //System.out.println(startTime + "   " + passedTime);
     if (this.startTime != -1) {
       this.passedTime = this.startTime - this.currentLevel.getRemainingTime();
       if (passedTime >= effectiveTime) {

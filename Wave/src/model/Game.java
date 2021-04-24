@@ -50,7 +50,7 @@ public class Game {
         currentLevel = levels.get(levelNum);
 
         //TODO: set the difficulty here
-        difficulty = new Difficulty(DifficultyLevel.Medium);
+        difficulty = new Difficulty(Wave.getInstance().getUserChoiceDifficulty());
     }
 
     public void initializeDifficulty() {

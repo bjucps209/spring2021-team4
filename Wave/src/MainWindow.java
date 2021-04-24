@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Dictionary;
 
 import javax.swing.Action;
 
@@ -21,12 +22,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import model.Difficulty;
 import model.Game;
 import model.HighScore;
 import model.HighScoreList;
 import model.Level;
 import model.User;
 import model.Wave;
+import model.Enums.DifficultyLevel;
 import model.Enums.ShipSkins;
 
 public class MainWindow {
@@ -496,15 +499,15 @@ public class MainWindow {
     }
 
     void onEasyClicked(ActionEvent event) {
-
+        Wave.getInstance().setUserChoiceDifficulty(DifficultyLevel.Easy);
     }
 
     void onMediumClicked(ActionEvent event) {
-
+        Wave.getInstance().setUserChoiceDifficulty(DifficultyLevel.Medium);
     }
 
     void onHardClicked(ActionEvent event) {
-
+        Wave.getInstance().setUserChoiceDifficulty(DifficultyLevel.Hard);
     }
 
     void onCheatClicked(ActionEvent event) {
