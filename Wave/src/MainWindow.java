@@ -113,7 +113,7 @@ public class MainWindow {
             alert.show();
         }
         else {
-            w.setGame(new Game(1000, 800, null));
+            w.setGame(new Game(1000, 800, new ArrayList<Level>()));
             w.getGame().load(w.getCurrentUser().getName());
             
         }
