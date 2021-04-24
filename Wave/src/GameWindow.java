@@ -29,6 +29,7 @@ import model.HighScore;
 import model.HighScoreList;
 import model.Level;
 import model.Wave;
+import model.Enums.ShipSkins;
 import model.Enums.SpeedPanelTypes;
 
 public class GameWindow {
@@ -197,7 +198,60 @@ public class GameWindow {
 
     // spawns the player image and then binds that image to the player object
     public void spawnPlayer() {
-        Image playerImage = new Image("./Images/playerShip1_blue.png");
+        Image playerImage;
+        ShipSkins currentSkin = w.getCurrentUser().getShip();
+        switch (currentSkin) {
+            case SHIP2:
+                playerImage = new Image("./Images/playerShip1_green.png");
+                break;
+            case SHIP3:
+                playerImage = new Image("./Images/playerShip1_orange.png");
+                break;
+            case SHIP4:
+                playerImage = new Image("./Images/playerShip1_red.png");
+                break;
+            case SHIP5:
+                playerImage = new Image("./Images/playerShip2_blue.png");
+                break;
+            case SHIP6:
+                playerImage = new Image("./Images/playerShip2_green.png");
+                break;
+            case SHIP7:
+                playerImage = new Image("./Images/playerShip2_orange.png");
+                break;
+            case SHIP8:
+                playerImage = new Image("./Images/playerShip2_red.png");
+                break;
+            case SHIP9:
+                playerImage = new Image("./Images/playerShip3_blue.png");
+                break;
+            case SHIP10:
+                playerImage = new Image("./Images/playerShip3_green.png");
+                break;
+            case SHIP11:
+                playerImage = new Image("./Images/playerShip3_orange.png");
+                break;
+            case SHIP12:
+                playerImage = new Image("./Images/playerShip3_red.png");
+                break;
+            case SHIP13:
+                playerImage = new Image("./Images/ufoBlue.png");
+                break;
+            case SHIP14:
+                playerImage = new Image("./Images/ufoGreen.png");
+                break;
+            case SHIP15:
+                playerImage = new Image("./Images/ufoYellow.png");
+                break;
+            case SHIP16:
+                playerImage = new Image("./Images/ufoRed.png");
+                break;
+            default:
+                playerImage = new Image("./Images/playerShip1_blue.png");
+                break;
+        }
+        
+        // playerImage = new Image("./Images/playerShip1_blue.png");
         ImageView playerImageView = new ImageView(playerImage);
         playerImageView.setFitWidth(p.getWidth());
         playerImageView.setFitHeight(p.getHeight());
