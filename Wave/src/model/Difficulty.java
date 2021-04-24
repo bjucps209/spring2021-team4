@@ -29,9 +29,9 @@ public class Difficulty {
     case Easy:
       return 0;
     case Medium:
-      return 1;
-    case Hard:
       return 3;
+    case Hard:
+      return 5;
     default:
       return -1;
     }

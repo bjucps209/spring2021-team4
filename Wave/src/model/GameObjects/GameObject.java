@@ -116,28 +116,28 @@ public abstract class GameObject {
         Class gc = hit.getClass();
         Class hitterClass = hitter.getClass();
         if (gc.equals(Bouncer.class)) {
-            if (p.isTemporaryInvincible() == false) {
+            if (p.isTemporaryInvincible() == false && Wave.getInstance().isCheatMode() == false) {
                 Platform.runLater(() -> {
                     p.setHealth(p.getHealth() - 1);
                 });
             }
             return true;
         } else if (gc.equals(Ghost.class)) {
-            if (p.isTemporaryInvincible() == false) {
+            if (p.isTemporaryInvincible() == false && Wave.getInstance().isCheatMode() == false) {
                 Platform.runLater(() -> {
                     p.setHealth(p.getHealth() - 1);
                 });
             }
             return true;
         } else if (gc.equals(Laser.class)) {
-            if (p.isTemporaryInvincible() == false) {
+            if (p.isTemporaryInvincible() == false && Wave.getInstance().isCheatMode() == false) {
                 Platform.runLater(() -> {
                     p.setHealth(p.getHealth() - 1);
                 });
             }
             return true;
         } else if (gc.equals(Shapeshifter.class)) {
-            if (p.isTemporaryInvincible() == false) {
+            if (p.isTemporaryInvincible() == false && Wave.getInstance().isCheatMode() == false) {
                 Platform.runLater(() -> {
                     p.setHealth(p.getHealth() - 1);
                 });
@@ -145,7 +145,7 @@ public abstract class GameObject {
             return true;
         } else if (gc.equals(Tracker.class) ) {
 
-            if (p.isTemporaryInvincible() == false) {
+            if (p.isTemporaryInvincible() == false && Wave.getInstance().isCheatMode() == false) {
                 Platform.runLater(() -> {
                     p.setHealth(p.getHealth() - 1);
                 });
