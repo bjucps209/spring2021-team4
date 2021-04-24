@@ -11,6 +11,7 @@ import model.GameObjects.*;
 import model.GameObjects.Enemies.*;
 import model.GameObjects.Powerups.*;
 import model.GameObjects.Obstacles.*;
+import model.GameObjects.SpeedPanels.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Alert;
@@ -367,7 +368,14 @@ public class Wave {
                         object = PowerUp.create(PowerUps.HealthGainBig, level);
                     } else if (instanceInfo[0].equals("Player")) {
                         object = new Player(level);
-                        level.setPlayer((Player)object);
+                        // level.setPlayer((Player)object);
+                    }
+
+                    else if (instanceInfo[0].equals("SpeedUpPanel")) {
+                        object = SpeedPanel.create(SpeedPanelTypes.speedUp, level);
+                    }
+                    else if (instanceInfo[0].equals("SpeedDownPanel")) {
+                        object = SpeedPanel.create(SpeedPanelTypes.speedDown, level);
                     }
                     // obstacles
                     else if (instanceInfo[0].equals("Square")) {
