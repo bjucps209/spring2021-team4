@@ -33,22 +33,12 @@ public class MainWindow {
     @FXML
     Label lblLoc;
 
-    @FXML
-    Label lblTime;
-
-    @FXML
-    Button btnEasy;
-    @FXML
-    Button btnMedium;
-    @FXML
-    Button btnHard;
 
 
 
     @FXML
     ComboBox<String> typeBox = new ComboBox<>();
-    // @FXML
-    // ComboBox<String> orientationBox = new ComboBox<>();
+
 
     @FXML
     TextField txtFXValue;
@@ -56,8 +46,6 @@ public class MainWindow {
     @FXML
     TextField txtFYValue;
 
-    @FXML
-    TextField txtFAppearanceTime;
 
     @FXML
     TextField txtFFileName;
@@ -75,10 +63,6 @@ public class MainWindow {
         String[] types = {"Player playerShip1_blue", "Square block_square", "Large block_large", "Narrow block_narrow", "Freeze powerupBlue_bolt", "HealthGainBig pill_yellow", "TemporaryInvincible shield_gold", "DestroyShip bolt_gold", "HealthGainSmall pill_blue", "Bouncer enemyBlack4", "Tracker enemyBlack1", "Ghost enemyBlack2", "Laser cockpitGreen_0", "Shapeshifter enemyBlack4"};
         typeBox.getItems().addAll(types);
         vbox1.getChildren().add(typeBox);
-
-        // String[] orientations = {"Horizontal", "Vertical"};
-        // orientationBox.getItems().addAll(orientations);
-        // vbox2.getChildren().add(orientationBox);
         
         pane.getStyleClass().add("backGround");
         
@@ -147,7 +131,7 @@ public class MainWindow {
 
     // scaleable method to set the position  for an imageview and its corresponding object
     @FXML
-    void setDataValues(ImageView imgView, int x, int y, int appearTime) {
+    void setDataValues(ImageView imgView, int x, int y) {
 
         if (x < 0) {
             x  = 0;
@@ -168,7 +152,7 @@ public class MainWindow {
         GameObject obj = (GameObject) imgView.getUserData();
         obj.setX(x);
         obj.setY(y);
-        obj.setAppearTime(appearTime);
+        obj.setAppearTime(60);
         }
 
     // scaleable method to set the current image for the user.
@@ -191,11 +175,11 @@ public class MainWindow {
     void onUpdateValuesClicked() {
         if (currentImage != null && currentObject != null) {
             if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
-                setDataValues(currentImage, 0, 0, 60);
+                setDataValues(currentImage, 7, 7);
             }
             else {
                 try {
-                    setDataValues(currentImage, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()), Integer.parseInt(txtFAppearanceTime.getText()));
+                    setDataValues(currentImage, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
                 }
                 catch (NumberFormatException e) {
                     var alert = new Alert(AlertType.ERROR, "Please supply Integer values only.");
@@ -224,26 +208,25 @@ public class MainWindow {
             var obj = createGameObjects(split[1]);
             imgView.setUserData(obj);
         
-            if (!txtFXValue.getText().equals("") && !txtFYValue.getText().equals("") && !txtFAppearanceTime.getText().equals("")) {
+            if (!txtFXValue.getText().equals("") && !txtFYValue.getText().equals("")) {
                 try {
                     int x = Integer.parseInt(txtFXValue.getText());
                     int y = Integer.parseInt(txtFYValue.getText());
-                    int time = Integer.parseInt(txtFAppearanceTime.getText());
-                    if (x < 7 || y < 7 || time < 0 || time > 60 || x > 993 || y > 793) {
+                    if (x < 7 || y < 7 || x > 993 || y > 793) {
                         throw new IllegalArgumentException("An integer value is either too big or too small. Please check your text fields.");
                     }
                     else {
-                        setDataValues(imgView, x, y, time);
+                        setDataValues(imgView, x, y);
                     }
                 }
                 catch (NumberFormatException e) {
-                    setDataValues(imgView, 0, 0, 60);
+                    setDataValues(imgView, 7, 7);
                     var alert = new Alert(AlertType.ERROR, "You entered in invalid data or forgot to fill an area.");
                     alert.show();
                 }
             }
-            else if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("") && txtFAppearanceTime.getText().equals("")) {
-                setDataValues(imgView, 0, 0, 60);
+            else if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
+                setDataValues(imgView, 7, 7);
             }
             
             
@@ -351,11 +334,9 @@ public class MainWindow {
     void setLabels() {
         if (currentImage != null) {
             lblLoc.setText("(" + String.valueOf(currentImage.getX()) + "," + String.valueOf(currentImage.getY()) + ")");
-            lblTime.setText(String.valueOf(currentObject.getAppearTime() + " secs"));
         }
         else {
             lblLoc.setText("");
-            lblTime.setText("");
         }
     }
 }

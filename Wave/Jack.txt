@@ -1,10 +1,10 @@
-59
+53
 0
-10
-Easy
+70
+Medium
 1
 ###user
-Jack;890;0;96;SHIP2;440;708;50;50;0;0
+Jack;890;0;7;SHIP2;440;708;50;50;0;0
 8
 ###gameobject
 Obstacle;SQUARE;446;507;50;50;0;0;60
@@ -19,7 +19,7 @@ PowerUp;TemporaryInvincible;646;238;0;0;0;0;60
 ###gameobject
 PowerUp;Freeze;256;496;0;0;0;0;60
 ###gameobject
-EnemyObject;TRACKER;439;357;50;50;-2;2;60
+EnemyObject;TRACKER;441;707;50;50;2;-2;60
 ###gameobject
-EnemyObject;BOUNCER;441;729;50;50;-5;-5;60
+EnemyObject;BOUNCER;223;122;50;50;-6;-6;60
 ENDL#

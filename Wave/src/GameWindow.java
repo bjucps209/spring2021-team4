@@ -421,9 +421,11 @@ public class GameWindow {
 
             Button btnResume = new Button("RESUME");
             btnResume.setOnAction(e -> onResumeClicked(e));
+            vboxName.getChildren().add(btnResume);
 
             btnEnd = new Button("END GAME");
             btnEnd.setOnAction(e -> onEndClicked(e));
+            vboxName.getChildren().add(btnEnd);
         }
     }
 
