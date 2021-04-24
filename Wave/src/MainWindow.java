@@ -32,7 +32,7 @@ import model.Enums.ShipSkins;
 public class MainWindow {
     Wave w;
 
-    HighScoreList highScoreList;
+    HighScoreList highScoreList = new HighScoreList();
 
     // list to be given to game if the user wants to play their custom games
     static ArrayList<Level> customGameLevels = new ArrayList<>();
