@@ -198,11 +198,6 @@ public class MainWindow {
 
     @FXML
     void onLogInScreenClicked() {
-        //sArrayList<User> list = new ArrayList<User>();
-        //list.add(new User("joel"));
-        //list.add(new User("ryan"));
-        
-        //w.setUsers(list);
         VBox vbox = new VBox();
         vbox.setId("menu-background");
         vbox.setAlignment(Pos.CENTER);
@@ -231,17 +226,20 @@ public class MainWindow {
     }
 
     @FXML
-    <Node> void onLogInClicked(ActionEvent e) {
+    void onLogInClicked(ActionEvent e) {
         Button button = (Button) e.getSource();
         VBox vbox = (VBox) button.getParent();
 
         // allows me to cast to a ComboBox with generic type string
+        // https://www.baeldung.com/java-warning-unchecked-cast
         @SuppressWarnings("unchecked")
         ComboBox<String> cBox = (ComboBox<String>) vbox.getChildren().get(0);
         String name = cBox.getValue();
         for (User u : w.getUsers()) {
             if (u.getName().equals(name)) {
                 w.setCurrentUser(u);
+                var alert = new Alert(AlertType.INFORMATION, "Current user has been set to " + name);
+                alert.show();
                 return;
             }
         }

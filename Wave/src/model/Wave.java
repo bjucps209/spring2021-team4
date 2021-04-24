@@ -363,9 +363,9 @@ public class Wave {
                     else if (instanceInfo[0].equals("Narrow")) {
                         object = Obstacle.create(ObstacleTypes.NARROW, level);
                     }
-                    else if (instanceInfo[0].equals("Corner")) {
-                        object = Obstacle.create(ObstacleTypes.CORNER, level);
-                    }
+                    // else if (instanceInfo[0].equals("Corner")) {
+                    //     object = Obstacle.create(ObstacleTypes.CORNER, level);
+                    // }
                     else {
                         object = Obstacle.create(ObstacleTypes.LARGE, level);
                     }

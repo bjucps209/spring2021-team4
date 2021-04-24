@@ -28,9 +28,6 @@ public abstract class Obstacle extends GameObject {
             case NARROW:
                 obstacle = new Narrow();
                 break;
-            case CORNER:
-                obstacle = new Corner();
-                break;
             case LARGE:
                 obstacle = new Large();
                 break;

@@ -72,7 +72,7 @@ public class MainWindow {
     
     @FXML
     void initialize() {
-        String[] types = {"Player playerShip1_blue", "Square block_square", "Corner block_corner", "Large block_large", "Narrow block_narrow", "Freeze powerupBlue_bolt", "HealthGainBig pill_yellow", "TemporaryInvincible shield_gold", "DestroyShip bolt_gold", "HealthGainSmall pill_blue", "Bouncer enemyBlack4", "Tracker enemyBlack1", "Ghost enemyBlack2", "Laser cockpitGreen_0", "Shapeshifter enemyBlack4"};
+        String[] types = {"Player playerShip1_blue", "Square block_square", "Large block_large", "Narrow block_narrow", "Freeze powerupBlue_bolt", "HealthGainBig pill_yellow", "TemporaryInvincible shield_gold", "DestroyShip bolt_gold", "HealthGainSmall pill_blue", "Bouncer enemyBlack4", "Tracker enemyBlack1", "Ghost enemyBlack2", "Laser cockpitGreen_0", "Shapeshifter enemyBlack4"};
         typeBox.getItems().addAll(types);
         vbox1.getChildren().add(typeBox);
 
@@ -91,9 +91,6 @@ public class MainWindow {
         GameObject object;
         if (identifier.equals("block_square")) {
             object = Obstacle.create(ObstacleTypes.SQUARE);
-        }
-        else if (identifier.equals("block_corner")) {
-            object = Obstacle.create(ObstacleTypes.CORNER);
         }
         else if (identifier.equals("block_large")) {
             object = Obstacle.create(ObstacleTypes.LARGE);

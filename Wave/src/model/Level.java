@@ -390,11 +390,11 @@ public class Level {
                             obstacle.setType(ObstacleTypes.valueOf(type));
                             break;
                         }
-                        case CORNER:{
-                            obstacle = new Corner(this);
-                            obstacle.setType(ObstacleTypes.valueOf(type));
-                            break;
-                        }
+                        // case CORNER:{
+                        //     obstacle = new Corner(this);
+                        //     obstacle.setType(ObstacleTypes.valueOf(type));
+                        //     break;
+                        // }
                         default:
                             success = false;
                             break;
