@@ -492,7 +492,12 @@ public class MainWindow {
         btnHard.setOnAction(e -> onHardClicked(e));
         vbox.getChildren().add(btnHard);
 
-        btnCheat.setText("CHEAT");
+        if(Wave.getInstance().isCheatMode() == false){
+            btnCheat.setText("Turn On CHEAT Mode");
+        }else{
+            btnCheat.setText("Turn Off CHEAT Mode");
+        }
+        
         btnCheat.setPrefWidth(200);
         btnCheat.setOnAction(e -> onCheatClicked(e));
         vbox.getChildren().add(btnCheat);
@@ -511,7 +516,13 @@ public class MainWindow {
     }
 
     void onCheatClicked(ActionEvent event) {
-
+        if(Wave.getInstance().isCheatMode() == false){
+            Wave.getInstance().setCheatMode(true);
+            btnCheat.setText("Turn Off CHEAT Mode");
+        }else{
+            btnCheat.setText("Turn On CHEAT Mode");
+            Wave.getInstance().setCheatMode(false);
+        }
     }
 
     // Screen to display High Scores

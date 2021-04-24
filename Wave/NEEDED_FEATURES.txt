@@ -4,7 +4,7 @@ Saving and Loading - joel work with nick on implementing methods in gui - COMPLE
 GUI remove destroyed ship - conner COMPLETED - NEEDS CHECKING  okay Joel
 GUI removes powerups and pads 
 sound effects - nick
-Cheat mode - nick/conner
+Cheat mode - nick/conner - completed, need checking
 Width height of obstacle - conner
 
 Medium:

@@ -46,6 +46,9 @@ public class Wave {
     private ShipSkins currentShip;
 
     private DifficultyLevel userChoiceDifficulty =DifficultyLevel.Easy;
+    private boolean cheatMode = false;
+
+
     // Singleton constructor
     private Wave() {
 
@@ -450,5 +453,11 @@ public class Wave {
     public void setUserChoiceDifficulty(DifficultyLevel userChoiceDifficulty) {
         this.userChoiceDifficulty = userChoiceDifficulty;
     }
+    public boolean isCheatMode() {
+        return cheatMode;
+    }
 
+    public void setCheatMode(boolean cheatMode) {
+        this.cheatMode = cheatMode;
+    }
 }
