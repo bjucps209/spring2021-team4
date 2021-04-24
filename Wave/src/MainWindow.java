@@ -52,58 +52,63 @@ public class MainWindow {
 
     @FXML
     public void onNewGameClicked() throws IOException {
+        if (w.getCurrentUser() != null) {
+            if (defaultLevels) {
+                customGameLevels.removeAll(customGameLevels);
+            }
 
-        if (defaultLevels) {
-            customGameLevels.removeAll(customGameLevels);
-        }
+            // opens up new window which is GameWindow
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
+            Scene scene = new Scene(loader.load());
 
-        // opens up new window which is GameWindow
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
-        Scene scene = new Scene(loader.load());
-
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent k) {
-                if (k.getEventType() == KeyEvent.KEY_PRESSED) {
-                    switch (k.getCode()) {
-                    case UP:
-                        GameWindow.moveUp();
-                        break;
-                    case DOWN:
-                        GameWindow.moveDown();
-                        break;
-                    case LEFT:
-                        GameWindow.moveLeft();
-                        break;
-                    case RIGHT:
-                        GameWindow.moveRight();
-                        break;
-                    case P:
-                        GameWindow.pause();
-                    default:
-                        break;
+            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent k) {
+                    if (k.getEventType() == KeyEvent.KEY_PRESSED) {
+                        switch (k.getCode()) {
+                        case UP:
+                            GameWindow.moveUp();
+                            break;
+                        case DOWN:
+                            GameWindow.moveDown();
+                            break;
+                        case LEFT:
+                            GameWindow.moveLeft();
+                            break;
+                        case RIGHT:
+                            GameWindow.moveRight();
+                            break;
+                        case P:
+                            GameWindow.pause();
+                        default:
+                            break;
+                        }
                     }
                 }
-            }
-        });
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent k) {
-                GameWindow.moveNeutral();
-            }
-        });
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Wave");
-        stage.show();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                GameWindow.onClosed();
-                w.onClosed();
-                
-            }
-        });
+            });
+            scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent k) {
+                    GameWindow.moveNeutral();
+                }
+            });
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Wave");
+            stage.show();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    GameWindow.onClosed();
+                    w.onClosed();
+                    
+                }
+            });
+        }
+        else {
+            var alert = new Alert(AlertType.ERROR, "You must log in or create a user first.");
+            alert.show();
+        }
 
     }
 
@@ -119,6 +124,12 @@ public class MainWindow {
             //w.setGame(new Game(1000, 800, s));
             //w.getGame().load(w.getCurrentUser().getName());
             w.setResumeGame(true);
+            try {
+                onNewGameClicked();
+            }
+            catch (IOException e) {
+                System.out.println("failed");
+            }
             
         }
     }
@@ -202,16 +213,16 @@ public class MainWindow {
 
     @FXML
     void onLogInScreenClicked() {
-        //sArrayList<User> list = new ArrayList<User>();
-        //list.add(new User("joel"));
-        //list.add(new User("ryan"));
-        
-        //w.setUsers(list);
-        VBox vbox = new VBox();
-        vbox.setId("menu-background");
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(25);
+        HBox hbox = new HBox();
+        hbox.setId("menu-background");
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(25);
 
+        VBox leftVBox = new VBox();
+        leftVBox.setAlignment(Pos.CENTER);
+        leftVBox.setSpacing(10);
+
+        Label label = new Label("Log in here:");
         ComboBox<String> users = new ComboBox<>();
         String[] userNames = new String[w.getUsers().size()];
         for (int i = 0; i < w.getUsers().size(); i++) {
@@ -221,11 +232,29 @@ public class MainWindow {
 
         Button button = new Button("LOG IN");
         button.setOnAction(this::onLogInClicked);
-
-        vbox.getChildren().add(users);
-        vbox.getChildren().add(button);
         
-        Scene logInScene = new Scene(vbox, 800, 600);
+        leftVBox.getChildren().add(label);
+        leftVBox.getChildren().add(users);
+        leftVBox.getChildren().add(button);
+
+
+        VBox rightVBox = new VBox();
+        rightVBox.setAlignment(Pos.CENTER);
+        rightVBox.setSpacing(10);
+
+        Label rightLabel = new Label("Create a new account here:");
+        TextField textField = new TextField();
+        Button rightButton = new Button("CREATE ACCOUNT");
+        rightButton.setOnAction(this::onCreateAccountClicked);
+
+        rightVBox.getChildren().add(rightLabel);
+        rightVBox.getChildren().add(textField);
+        rightVBox.getChildren().add(rightButton);
+
+        hbox.getChildren().add(leftVBox);
+        hbox.getChildren().add(rightVBox);
+        
+        Scene logInScene = new Scene(hbox, 800, 600);
         Stage logInStage = new Stage();
         logInStage.setScene(logInScene);
         logInStage.setTitle("Log In/Sign Up");
@@ -235,20 +264,47 @@ public class MainWindow {
     }
 
     @FXML
-    <Node> void onLogInClicked(ActionEvent e) {
+    void onLogInClicked(ActionEvent e) {
         Button button = (Button) e.getSource();
         VBox vbox = (VBox) button.getParent();
 
         // allows me to cast to a ComboBox with generic type string
+        // https://www.baeldung.com/java-warning-unchecked-cast
         @SuppressWarnings("unchecked")
-        ComboBox<String> cBox = (ComboBox<String>) vbox.getChildren().get(0);
+        ComboBox<String> cBox = (ComboBox<String>) vbox.getChildren().get(1);
         String name = cBox.getValue();
         for (User u : w.getUsers()) {
             if (u.getName().equals(name)) {
                 w.setCurrentUser(u);
+                var alert = new Alert(AlertType.INFORMATION, "Current user has been set to " + name);
+                alert.show();
                 return;
             }
         }
+    }
+
+    @FXML
+    void onCreateAccountClicked(ActionEvent e) {
+        Button button = (Button) e.getSource();
+        VBox vbox = (VBox) button.getParent();
+        HBox hbox = (HBox) vbox.getParent();
+        
+        VBox leftVBox = (VBox) hbox.getChildren().get(0);
+        
+        
+
+        TextField textField = (TextField) vbox.getChildren().get(1);
+        String userName = textField.getText();
+        User user = new User(userName);
+        w.setCurrentUser(user);
+        w.getUsers().add(user);
+
+        @SuppressWarnings("unchecked")
+        ComboBox<String> cBox = (ComboBox<String>) leftVBox.getChildren().get(1);
+        cBox.getItems().add(userName);
+
+        var alert = new Alert(AlertType.INFORMATION, "New user created with name '" + userName + "'");
+        alert.show();
     }
 
     @FXML

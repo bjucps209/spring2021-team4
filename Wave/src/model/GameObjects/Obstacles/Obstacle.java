@@ -38,10 +38,10 @@ public class Obstacle extends GameObject {
                 obstacle = new Narrow(l);
                 //TODO: set width and height
                 break;
-            case CORNER:
-                obstacle = new Corner(l);
-                //TODO: set width and height        
-                break;
+            // case CORNER:
+            //     obstacle = new Corner(l);
+            //     //TODO: set width and height        
+                // break;
             case LARGE:
                 obstacle = new Large(l);
                 //TODO: set width and height

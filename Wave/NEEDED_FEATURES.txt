@@ -1,14 +1,15 @@
 High Priority:
 Level Progression - conner
-Saving and Loading - joel work with nick on implementing methods in gui
+Saving and Loading - joel work with nick on implementing methods in gui - COMPLETED RYAN/JOEL (resume game creates levels but doesnt start game)
 GUI remove destroyed ship - conner COMPLETED - NEEDS CHECKING
+GUI removes powerups and pads 
 sound effects - nick
 Cheat mode - nick/conner
 Width height of obstacle - conner
 
 Medium:
 One more enemy - conner/ryan
-Remove Corner - conner
+Remove Corner - conner - COMPLETED RYAN (NEED TO UPDATE LEVELS)
 Difficulty - conner
 
 Low:

@@ -322,15 +322,15 @@ public class GameWindow {
                 laserImageView.layoutXProperty().bind(o.xProperty());
                 laserImageView.layoutYProperty().bind(o.yProperty());
                 break;
-            case CORNER:
-                Image shapeshifterImage = new Image("./Images/block_corner.png");
-                ImageView shapeshifterImageView = new ImageView(shapeshifterImage);
-                shapeshifterImageView.setFitWidth(o.getWidth());
-                shapeshifterImageView.setFitHeight(o.getHeight());
-                pane.getChildren().add(shapeshifterImageView);
-                shapeshifterImageView.layoutXProperty().bind(o.xProperty());
-                shapeshifterImageView.layoutYProperty().bind(o.yProperty());
-                break;
+            // case CORNER:
+            //     Image shapeshifterImage = new Image("./Images/block_corner.png");
+            //     ImageView shapeshifterImageView = new ImageView(shapeshifterImage);
+            //     shapeshifterImageView.setFitWidth(o.getWidth());
+            //     shapeshifterImageView.setFitHeight(o.getHeight());
+            //     pane.getChildren().add(shapeshifterImageView);
+            //     shapeshifterImageView.layoutXProperty().bind(o.xProperty());
+            //     shapeshifterImageView.layoutYProperty().bind(o.yProperty());
+            //     break;
             default:
                 break;
             }
