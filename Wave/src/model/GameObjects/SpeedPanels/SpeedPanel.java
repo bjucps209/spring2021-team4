@@ -16,10 +16,15 @@ public class SpeedPanel extends GameObject{
   
   public static SpeedPanel create(SpeedPanelTypes type, Level l){
     if(type == SpeedPanelTypes.speedDown){
-      return new SpeedDownPanel(l);
+      SpeedDownPanel s = new SpeedDownPanel(l);
+      s.generatePosition();
+      return s;
+      //return new SpeedDownPanel(l);
     }
     else{
-      return new SpeedUpPanel(l);
+      SpeedUpPanel s = new SpeedUpPanel(l);
+      s.generatePosition();
+      return s;
     }
     
   }
@@ -32,9 +37,69 @@ public class SpeedPanel extends GameObject{
     this.dx.set(0);
     this.dy.set(0);
 
-    this.height.set(4);
-    this.width.set(4);
+    this.height.set(50);
+    this.width.set(50);
     }   
+
+  public SpeedPanelTypes getType() {
+    return type;
+  }
+
+
+
+  public void setType(SpeedPanelTypes type) {
+    this.type = type;
+  }
+
+
+
+  public boolean isFinished() {
+    return isFinished;
+  }
+
+
+
+  public void setFinished(boolean isFinished) {
+    this.isFinished = isFinished;
+  }
+
+
+
+  public int getEffectiveTime() {
+    return effectiveTime;
+  }
+
+
+
+  public void setEffectiveTime(int effectiveTime) {
+    this.effectiveTime = effectiveTime;
+  }
+
+
+
+  public int getPassedTime() {
+    return passedTime;
+  }
+
+
+
+  public void setPassedTime(int passedTime) {
+    this.passedTime = passedTime;
+  }
+
+
+
+  public int getStartTime() {
+    return startTime;
+  }
+
+
+
+  public void setStartTime(int startTime) {
+    this.startTime = startTime;
+  }
+
+
 
   @Override
   public void update(){
@@ -60,11 +125,12 @@ public class SpeedPanel extends GameObject{
     int possibleX;
     int possibleY;
     GameObject o;
+    GameObject s;
     do{
       possibleX =rand.nextInt( ( (width-6) - 6 ) + 1) + 6;
       possibleY =rand.nextInt( ( (height-6) - 6 ) + 1) + 6;
       o = checkCollision(this.currentLevel.getObstacles()); // make sure not collapse with obstacle
-      
+      s = checkCollision(this.currentLevel.getSpeedPanels());
     }while(o != null);
 
     this.x.set(possibleX);

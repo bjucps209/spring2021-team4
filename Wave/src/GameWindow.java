@@ -29,6 +29,7 @@ import model.HighScore;
 import model.HighScoreList;
 import model.Level;
 import model.Wave;
+import model.Enums.SpeedPanelTypes;
 
 public class GameWindow {
 
@@ -174,6 +175,7 @@ public class GameWindow {
         spawnPowerups();
         spawnPlayer();
         spawnEnemies();
+        spawnPowerPanels();
     }
 
     // spawns the player image and then binds that image to the player object
@@ -189,8 +191,28 @@ public class GameWindow {
 
     public void spawnPowerPanels(){
         // determine number in each level   
-    
-        
+        g.randomGeneratePanels();
+        for (SpeedPanel sp : g.getLevels().get(g.getLevelNum()).getSpeedPanels()){
+            if(sp.getType() == SpeedPanelTypes.speedUp){
+                Image speedUpImage = new Image("./Images/bluePanel.png");
+                ImageView speedUpImageView = new ImageView(speedUpImage);
+                speedUpImageView.setFitWidth(sp.getWidth());
+                speedUpImageView.setFitHeight(sp.getHeight());
+                pane.getChildren().add(speedUpImageView);
+                speedUpImageView.layoutXProperty().bind(sp.xProperty());
+                speedUpImageView.layoutYProperty().bind(sp.yProperty());
+                speedUpImageView.setUserData(sp);
+            }else{
+                Image speedDownImage = new Image("./Images/redPanel.png");
+                ImageView speedDownImageView = new ImageView(speedDownImage);
+                speedDownImageView.setFitWidth(sp.getWidth());
+                speedDownImageView.setFitHeight(sp.getHeight());
+                pane.getChildren().add(speedDownImageView);
+                speedDownImageView.layoutXProperty().bind(sp.xProperty());
+                speedDownImageView.layoutYProperty().bind(sp.yProperty());
+                speedDownImageView.setUserData(sp);
+            }
+        }
 
     
     }

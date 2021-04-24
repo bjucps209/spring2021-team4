@@ -93,12 +93,7 @@ public class Game {
         // add speed panels
         // level 1-5, 3 panels
         // level 6-10, 5 panels
-        int futureIndex = levels.size();
-        if(futureIndex <5){
-            randomGeneratePanels(3, l);
-        }else{
-            randomGeneratePanels(5, l);
-        }
+
         
         levels.add(l);
     }
@@ -115,9 +110,18 @@ public class Game {
     }
 
 
-    public void randomGeneratePanels(int totalPanels, Level lev){
+    public void randomGeneratePanels(){
         // level 1-5, 3 panels
         // level6-10. 4 panels
+        int totalPanels =0;
+     
+        if(this.levelNum < 5){
+            totalPanels = 3;
+        }else{
+            totalPanels = 5;
+        }
+        
+        Level lev = this.currentLevel;
         Random rand = new Random();
         for(int i= 0; i < totalPanels; i++){
           int s = rand.nextInt(2);
