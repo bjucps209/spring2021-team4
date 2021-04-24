@@ -1,4 +1,6 @@
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,6 +22,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.Difficulty;
@@ -36,6 +41,7 @@ public class MainWindow {
     Wave w;
 
     HighScoreList highScoreList = new HighScoreList();
+    AudioClip titleMusic;
 
     // list to be given to game if the user wants to play their custom games
     static ArrayList<Level> customGameLevels = new ArrayList<>();
@@ -52,6 +58,10 @@ public class MainWindow {
     public void initialize() {
         w = Wave.getInstance();
         highScoreList.load();
+
+        // play music
+        titleMusic = new AudioClip(getClass().getResource("./Sound/scott-buckley-where-stars-fall.mp3").toString());
+        titleMusic.play();
     }
 
     @FXML
@@ -100,6 +110,11 @@ public class MainWindow {
             stage.setScene(scene);
             stage.setTitle("Wave");
             stage.show();
+
+            titleMusic.stop();
+            AudioClip battleMusic = new AudioClip(getClass().getResource("./Sound/alexander-nakarada-ussr.mp3").toString());
+            battleMusic.play();
+
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
