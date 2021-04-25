@@ -295,7 +295,6 @@ public class GameWindow {
         playerImageView.layoutXProperty().bind(p.xProperty());
         playerImageView.layoutYProperty().bind(p.yProperty());
         pane.getChildren().add(playerImageView);
-        playerImageView.setUserData(o);
     }
 
     /*public void spawnPowerPanels(){
