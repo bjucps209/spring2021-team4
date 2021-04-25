@@ -1,7 +1,7 @@
 # spring2021-team4
 
 ## Instructions
-Begin the game by clicking NEW GAME. To play all you will need are the four directional arrow buttons on your keyboard. The Goal is to survive.
+Begin the game by clicking NEW GAME. To play all you will need are the four directional arrow buttons on your keyboard. The Goal is to survive. Pick up powerups to help you, and make sure to use obstacles to your advantage. Once a level is completed, follow the arrow to continue through the game.
 
 ## Work Completed
 | Feature | Type | Assignee(s) | Status |
