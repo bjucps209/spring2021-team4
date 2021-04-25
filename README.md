@@ -13,7 +13,7 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 |Different enemies | Optional | Conner |done |
 | Collision Detection | Optional | Conner |done |
 | High Scores | Required | Nick | done |
-| Serialization | Required | Joel | In progress |
+| Serialization | Required | Joel |  |
 | Level Progression | Required | Conner | done |
 | Users | Extra | Nick/Joel | done |
 
