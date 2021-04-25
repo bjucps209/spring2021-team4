@@ -219,6 +219,10 @@ public class GameWindow {
             // }
 
             pane.getChildren().remove(arrow);
+            
+            // start the timer
+            countDown.play();
+
             pane.getChildren().remove(playerImageView);
             spawnEntities();
 
