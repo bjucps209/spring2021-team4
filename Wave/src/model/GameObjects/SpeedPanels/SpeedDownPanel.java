@@ -11,6 +11,8 @@ public class SpeedDownPanel extends SpeedPanel{
     //TODO Auto-generated constructor stub
     this.effectiveTime = 5;
     this.type = SpeedPanelTypes.speedDown;
+    setWidth(50);
+    setHeight(50);
   }
 
   @Override

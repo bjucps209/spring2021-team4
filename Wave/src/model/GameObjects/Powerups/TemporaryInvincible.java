@@ -11,7 +11,8 @@ public class TemporaryInvincible extends PowerUp {
     super(l);
     this.type = PowerUps.TemporaryInvincible;
     this.effectiveTime = 5;
-
+    setWidth(50);
+    setHeight(50);
   }
 
   @Override

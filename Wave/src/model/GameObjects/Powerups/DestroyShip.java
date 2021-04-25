@@ -15,6 +15,8 @@ public class DestroyShip extends PowerUp {
     super(l);
     this.type = PowerUps.DestroyShip;
     this.effectiveTime = 0;
+    setWidth(50);
+    setHeight(50);
   }
 
   @Override

@@ -1,7 +1,7 @@
 High Priority:
 Level Progression - conner
 Saving and Loading - joel work with nick on implementing methods in gui - COMPLETED RYAN/JOEL (resume game creates levels but doesnt start game)
-GUI removes powerups
+GUI removes powerups - Conner DONE NEEDS CHECK
 sound effects - nick
 Cheat mode - nick/conner - completed, need checking
 Width height of obstacle - conner

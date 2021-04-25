@@ -8,7 +8,8 @@ public class Large extends Obstacle{
   public Large( Level l) {
     super(l);
     this.type = ObstacleTypes.LARGE;
-    
+    setWidth(50);
+    setHeight(100);
   }
   
 }
