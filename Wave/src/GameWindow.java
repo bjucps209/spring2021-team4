@@ -67,6 +67,7 @@ public class GameWindow {
     Label lblScore = new Label();
 
     Label arrow;
+    ImageView playerImageView;
 
     @FXML
     public void initialize() {
@@ -210,18 +211,19 @@ public class GameWindow {
             g.nextLevel();
             g.startHitDetection();
 
-            // Code for starting a Level
-            for (var item : pane.getChildren()) {
-                if ((Object) item instanceof Player) {
-                    playerToRemove = item;
-                }
-            }
-            pane.getChildren().remove(playerToRemove);
+            // // Code for starting a Level
+            // for (var item : pane.getChildren()) {
+            //     if ((Object) item instanceof Player) {
+            //         playerToRemove = item;
+            //     }
+            // }
+
             pane.getChildren().remove(arrow);
             
             // start the timer
             countDown.play();
 
+            pane.getChildren().remove(playerImageView);
             spawnEntities();
 
             levelStopped = false;
@@ -296,7 +298,7 @@ public class GameWindow {
         }
         
         // playerImage = new Image("./Images/playerShip1_blue.png");
-        ImageView playerImageView = new ImageView(playerImage);
+        playerImageView = new ImageView(playerImage);
         playerImageView.setFitWidth(p.getWidth());
         playerImageView.setFitHeight(p.getHeight());
         playerImageView.layoutXProperty().bind(p.xProperty());
