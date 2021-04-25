@@ -227,6 +227,7 @@ public class GameWindow {
 
     // spawns the player image and then binds that image to the player object
     public void spawnPlayer() {
+        p = g.getCurrentLevel().getPlayer();
         Image playerImage;
         ShipSkins currentSkin = w.getCurrentUser().getShip();
         switch (currentSkin) {
