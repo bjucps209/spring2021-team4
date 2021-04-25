@@ -14,6 +14,8 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 | Collision Detection | Optional | Conner |done |
 | High Scores | Required | Nick | done |
 | Serialization | Required | Joel | In progress |
+| Level Progression | Required | Conner | done |
+| Users | Extra | Nick/Joel | done |
 
 ## Known Issues
 * See issue tracker
