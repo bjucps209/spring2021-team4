@@ -68,6 +68,7 @@ public class Wave {
 
     public void onClosed() {
         game.stopHitDetection();
+        game.stopPlayerHitDetection();
         game.save(this.currentUser.getName());
         saveAllUsers();
     }

@@ -85,12 +85,20 @@ public class Game {
     public void stopHitDetection() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
             try {
-                if (!(g instanceof Obstacle)) {
+                if (!(g instanceof Obstacle) && !(g instanceof Player)) {
                     g.stopHitDetection();
                 } 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void stopPlayerHitDetection() {
+        try {
+            getCurrentLevel().getPlayer().stopHitDetection();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
