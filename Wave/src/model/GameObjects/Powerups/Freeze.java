@@ -14,8 +14,8 @@ public class Freeze extends PowerUp {
     this.type = PowerUps.Freeze;
     this.effectiveTime = 5;
     this.isFinished = false;
-    setWidth(50);
-    setHeight(50);
+    setWidth(25);
+    setHeight(25);
   }
 
   @Override
