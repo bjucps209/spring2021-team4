@@ -1,0 +1,17 @@
+9
+2
+210
+Easy
+1
+###user
+Bob;0;0;90;SHIP1;465;708;50;50;0;0
+4
+###gameobject
+Obstacle;SQUARE;452;364;50;50;0;0;60
+###gameobject
+EnemyObject;BOUNCER;291;257;50;50;-5;-5;60
+###gameobject
+EnemyObject;BOUNCER;626;499;50;50;-5;5;60
+###gameobject
+EnemyObject;BOUNCER;528;654;50;50;5;-5;60
+ENDL#
