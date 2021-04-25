@@ -202,7 +202,10 @@ public class GameWindow {
     public void startLevel() {
         // Code to start a level
         if (!levelIsNext) {
+            g.stopHitDetection();
+            g.stopPlayerHitDetection();
             g.nextLevel();
+            g.startHitDetection();
 
             // Code for starting a Level
             spawnEntities();
