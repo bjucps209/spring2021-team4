@@ -156,7 +156,7 @@ public class GameWindow {
             }
             
             // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL g.getCurrentLevel().setFinished(true);
-            if (countDown.getCycleCount() == 0) {
+            if (g.getCurrentLevel().getRemainingTime() <= 0) {
                 countDown.stop();
                 g.getCurrentLevel().setFinished(true);
             }
