@@ -26,6 +26,35 @@ public class Player extends GameObject {
     // private ArrayList<GameObject> activatedAffects = new ArrayList<>();
     private boolean temporaryInvincible;
     public boolean winState = false;
+
+    public boolean getTemporaryInvincible() {
+        return this.temporaryInvincible;
+    }
+
+
+    public boolean isWinState() {
+        return this.winState;
+    }
+
+    public boolean getWinState() {
+        return this.winState;
+    }
+
+    public void setWinState(boolean winState) {
+        this.winState = winState;
+    }
+
+    public boolean isMoveOn() {
+        return this.moveOn;
+    }
+
+    public boolean getMoveOn() {
+        return this.moveOn;
+    }
+
+    public void setMoveOn(boolean moveOn) {
+        this.moveOn = moveOn;
+    }
     public boolean moveOn = false;
     
 
