@@ -4,7 +4,7 @@
 Easy
 1
 ###user
-Jack;1595;0;88;SHIP2;865;213;50;50;0;0
+Jack;1695;0;82;SHIP2;855;193;50;50;0;0
 7
 ###gameobject
 Obstacle;SQUARE;446;507;50;50;0;0;60
@@ -13,11 +13,11 @@ PowerUp;HealthGainBig;657;412;50;50;0;0;60
 ###gameobject
 PowerUp;DestroyShip;304;290;50;50;0;0;60
 ###gameobject
+PowerUp;HealthGainSmall;739;605;50;50;0;0;60
+###gameobject
 PowerUp;TemporaryInvincible;646;238;50;50;0;0;60
 ###gameobject
-PowerUp;Freeze;256;496;50;50;0;0;60
+EnemyObject;TRACKER;201;441;50;50;2;-2;60
 ###gameobject
-EnemyObject;TRACKER;241;425;50;50;2;-2;60
-###gameobject
-EnemyObject;BOUNCER;246;361;50;50;5;5;60
+EnemyObject;BOUNCER;676;386;50;50;5;5;60
 ENDL#

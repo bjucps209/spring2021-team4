@@ -186,6 +186,7 @@ public class GameWindow {
             for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
                 item.pause();
             }
+            p = g.getCurrentLevel().getPlayer();
             p.setWinState(true);
 
             Label arrow = new Label("->");
