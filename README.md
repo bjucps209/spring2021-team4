@@ -26,7 +26,7 @@ https://www.youtube.com/watch?v=znqomfxDVRs
 ### Beta
 Gameplay: https://youtu.be/GO2fBVKnfZY
 
-Level Builder: https://youtu.be/YvMd14HE1-A (Youtube may still be processing a trim I had to do)
+Level Builder: https://youtu.be/YvMd14HE1-A
 
 ## Expenses
 | Name | Github Username | Ownership Area | Hours Invested | Hours Remaining | Journal Link |
