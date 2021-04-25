@@ -120,6 +120,9 @@ public class Game {
             // save all coins  
             int coins = Wave.getInstance().getCoins()/2;
             Wave.getInstance().getCurrentUser().setCoins( Wave.getInstance().getCurrentUser().getCoins() + coins + Wave.getInstance().getGame().getDifficultyLevel().rewardCoins());
+            //this.currentLevel.getPlayer().getHits().clear();
+            //this.currentLevel.getAllObjects().clear();
+            //this.currentLevel.getPlayer().setTemporaryInvincible(false);
             levelNum++;
             currentLevel = levels.get(levelNum);
         } else {

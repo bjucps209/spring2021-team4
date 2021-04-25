@@ -21,6 +21,9 @@ public class HealthGainSmall extends PowerUp {
     // TODO Auto-generated method stub
     if (this.isFinished == false) {
       p.setHealth(p.getHealth() + healthAddition);
+      if(p.getHealth()> 100){
+        p.setHealth(100);
+      }
       this.isFinished = true;
     }
 
