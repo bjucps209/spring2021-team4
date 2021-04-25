@@ -12,6 +12,7 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 |powerups | Optional | Joel | done |
 |Different enemies | Optional | Conner |done |
 | Collision Detection | Optional | Conner |done |
+| High Scores | Required | Nick | done |
 | Serialization | Required | Joel | In progress |
 
 ## Known Issues
