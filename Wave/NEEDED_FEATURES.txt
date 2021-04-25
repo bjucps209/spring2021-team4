@@ -4,7 +4,7 @@ Saving and Loading - joel work with nick on implementing methods in gui - COMPLE
 GUI removes powerups - Conner DONE NEEDS CHECK
 sound effects - nick
 Cheat mode - nick/conner - completed, need checking
-Width height of obstacle - conner
+Width height of obstacle - conner - complete needs checking
 
 Medium:
 One more enemy - conner/ryan
