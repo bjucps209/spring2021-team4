@@ -15,6 +15,10 @@
     -fx-font-size: 15px;
 }
 
+#arrow {
+    -fx-font-size: 50px;
+}
+
 #menu-background {
     -fx-background-image: url("./Images/space.png");
     -fx-background-size: 800 600;

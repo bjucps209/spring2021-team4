@@ -66,6 +66,9 @@ public class GameWindow {
     Label lblSCORE = new Label("SCORE");
     Label lblScore = new Label();
 
+    Label arrow;
+    ImageView playerImageView;
+
     @FXML
     public void initialize() {
 
@@ -189,10 +192,10 @@ public class GameWindow {
             p = g.getCurrentLevel().getPlayer();
             p.setWinState(true);
 
-            Label arrow = new Label("->");
-            arrow.setPrefSize(100, 100);
+            arrow = new Label("->");
+            arrow.setId("arrow");
             pane.getChildren().add(arrow);
-            arrow.relocate(900, 100);
+            arrow.relocate(900, 300);
 
             // lets next level be stopped
             levelStopped = true;
@@ -208,13 +211,15 @@ public class GameWindow {
             g.nextLevel();
             g.startHitDetection();
 
-            // Code for starting a Level
-            for (var item : pane.getChildren()) {
-                if ((Object) item instanceof Player) {
-                    playerToRemove = item;
-                }
-            }
-            pane.getChildren().remove(playerToRemove);
+            // // Code for starting a Level
+            // for (var item : pane.getChildren()) {
+            //     if ((Object) item instanceof Player) {
+            //         playerToRemove = item;
+            //     }
+            // }
+
+            pane.getChildren().remove(arrow);
+            pane.getChildren().remove(playerImageView);
             spawnEntities();
 
             levelStopped = false;
@@ -289,7 +294,7 @@ public class GameWindow {
         }
         
         // playerImage = new Image("./Images/playerShip1_blue.png");
-        ImageView playerImageView = new ImageView(playerImage);
+        playerImageView = new ImageView(playerImage);
         playerImageView.setFitWidth(p.getWidth());
         playerImageView.setFitHeight(p.getHeight());
         playerImageView.layoutXProperty().bind(p.xProperty());
