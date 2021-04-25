@@ -66,6 +66,8 @@ public class GameWindow {
     Label lblSCORE = new Label("SCORE");
     Label lblScore = new Label();
 
+    Label arrow;
+
     @FXML
     public void initialize() {
 
@@ -189,10 +191,10 @@ public class GameWindow {
             p = g.getCurrentLevel().getPlayer();
             p.setWinState(true);
 
-            Label arrow = new Label("->");
-            arrow.setPrefSize(100, 100);
+            arrow = new Label("->");
+            arrow.setId("arrow");
             pane.getChildren().add(arrow);
-            arrow.relocate(900, 100);
+            arrow.relocate(900, 300);
 
             // lets next level be stopped
             levelStopped = true;
@@ -215,6 +217,7 @@ public class GameWindow {
                 }
             }
             pane.getChildren().remove(playerToRemove);
+            pane.getChildren().remove(arrow);
             spawnEntities();
 
             levelStopped = false;
