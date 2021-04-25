@@ -210,7 +210,7 @@ public class GameWindow {
             g.stopPlayerHitDetection();
             g.nextLevel();
             g.startHitDetection();
-
+            lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
             // // Code for starting a Level
             // for (var item : pane.getChildren()) {
             //     if ((Object) item instanceof Player) {

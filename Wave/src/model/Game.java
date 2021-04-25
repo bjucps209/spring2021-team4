@@ -117,6 +117,9 @@ public class Game {
     // progresses to next level information
     public void nextLevel() {
         if (levelNum != levels.size() - 1) {
+            // save all coins  
+            int coins = Wave.getInstance().getCoins()/2;
+            Wave.getInstance().getCurrentUser().setCoins( Wave.getInstance().getCurrentUser().getCoins() + coins + Wave.getInstance().getGame().getDifficultyLevel().rewardCoins());
             levelNum++;
             currentLevel = levels.get(levelNum);
         } else {
