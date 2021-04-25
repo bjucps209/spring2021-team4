@@ -1,44 +1,17 @@
-<<<<<<< HEAD
-60
-1
-0
-Easy
-1
-###user
-David;2095;0;59;SHIP1;931;678;50;50;0;0
-8
-=======
 10
 1
 100
 Easy
 1
 ###user
-David;2145;0;100;SHIP1;437;711;50;50;0;0
+David;2290;0;100;SHIP1;437;711;50;50;0;0
 4
 ###gameobject
-EnemyObject;BOUNCER;2648;2265;50;50;5;5;60
+EnemyObject;BOUNCER;908;525;50;50;5;5;60
 ###gameobject
-EnemyObject;TRACKER;436;710;50;50;-2;-2;60
->>>>>>> c8d1abf686e55ffcafca164d9e446406cbd0b804
+EnemyObject;TRACKER;416;326;50;50;2;2;60
 ###gameobject
-EnemyObject;GHOST;1182;1282;50;50;2;2;60
+EnemyObject;GHOST;486;586;50;50;2;2;60
 ###gameobject
-<<<<<<< HEAD
-PowerUp;HealthGainBig;657;412;50;50;0;0;60
-###gameobject
-PowerUp;DestroyShip;304;290;50;50;0;0;60
-###gameobject
-PowerUp;HealthGainSmall;739;605;50;50;0;0;60
-###gameobject
-PowerUp;TemporaryInvincible;646;238;50;50;0;0;60
-###gameobject
-PowerUp;Freeze;256;496;50;50;0;0;60
-###gameobject
-EnemyObject;TRACKER;931;677;50;50;0;-2;60
-###gameobject
-EnemyObject;BOUNCER;286;166;50;50;5;5;60
-=======
 Obstacle;LARGE;150;200;50;100;0;0;60
->>>>>>> c8d1abf686e55ffcafca164d9e446406cbd0b804
 ENDL#
