@@ -200,6 +200,7 @@ public class GameWindow {
     }
 
     public void startLevel() {
+        Node playerToRemove = null;
         // Code to start a level
         if (!levelIsNext) {
             g.stopHitDetection();
@@ -208,6 +209,12 @@ public class GameWindow {
             g.startHitDetection();
 
             // Code for starting a Level
+            for (var item : pane.getChildren()) {
+                if ((Object) item instanceof Player) {
+                    playerToRemove = item;
+                }
+            }
+            pane.getChildren().remove(playerToRemove);
             spawnEntities();
 
             levelStopped = false;
@@ -288,6 +295,7 @@ public class GameWindow {
         playerImageView.layoutXProperty().bind(p.xProperty());
         playerImageView.layoutYProperty().bind(p.yProperty());
         pane.getChildren().add(playerImageView);
+        playerImageView.setUserData(o);
     }
 
     /*public void spawnPowerPanels(){
