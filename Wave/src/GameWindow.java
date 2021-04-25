@@ -146,6 +146,14 @@ public class GameWindow {
             if (nodeToRemove != null) {
                 pane.getChildren().remove(nodeToRemove);
             }
+            for (Node n : pane.getChildren()) {
+                if (n.getUserData() instanceof PowerUp && !g.getCurrentLevel().getPowerUps().contains(n.getUserData())) {
+                    nodeToRemove = n;
+                }
+            }
+            if (nodeToRemove != null) {
+                pane.getChildren().remove(nodeToRemove);
+            }
             
             // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL g.getCurrentLevel().setFinished(true);
             if (countDown.getCycleCount() == 0) {
@@ -421,6 +429,7 @@ public class GameWindow {
                     pane.getChildren().add(healthBigImageView);
                     healthBigImageView.layoutXProperty().bind(power.xProperty());
                     healthBigImageView.layoutYProperty().bind(power.yProperty());
+                    healthBigImageView.setUserData(power);
                     break;
                 case HealthGainSmall:
                     Image healthSmall = new Image("./Images/pill_blue.png");
@@ -430,6 +439,7 @@ public class GameWindow {
                     pane.getChildren().add(healthImageView);
                     healthImageView.layoutXProperty().bind(power.xProperty());
                     healthImageView.layoutYProperty().bind(power.yProperty());
+                    healthImageView.setUserData(power);
                     break;
                 case DestroyShip:
                     Image destroyShip = new Image("./Images/bolt_gold.png");
@@ -439,6 +449,7 @@ public class GameWindow {
                     pane.getChildren().add(destroyShipImageView);
                     destroyShipImageView.layoutXProperty().bind(power.xProperty());
                     destroyShipImageView.layoutYProperty().bind(power.yProperty());
+                    destroyShipImageView.setUserData(power);
                     break;
                 case Freeze:
                     Image freeze = new Image("./Images/powerupBlue_bolt.png");
@@ -448,6 +459,7 @@ public class GameWindow {
                     pane.getChildren().add(freezeImageView);
                     freezeImageView.layoutXProperty().bind(power.xProperty());
                     freezeImageView.layoutYProperty().bind(power.yProperty());
+                    freezeImageView.setUserData(power);
                     break;
                 case TemporaryInvincible:
                     Image tempInvincible = new Image("./Images/shield_gold.png");
@@ -457,6 +469,7 @@ public class GameWindow {
                     pane.getChildren().add(invincibleImageView);
                     invincibleImageView.layoutXProperty().bind(power.xProperty());
                     invincibleImageView.layoutYProperty().bind(power.yProperty());
+                    invincibleImageView.setUserData(power);
                     break;
                 default:
                     break;

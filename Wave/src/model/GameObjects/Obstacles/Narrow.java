@@ -8,6 +8,8 @@ public class Narrow extends Obstacle{
   public Narrow(Level l) {
     super(l);
     this.type = ObstacleTypes.NARROW;
+    setWidth(25);
+    setHeight(100);
   }
   
 }
