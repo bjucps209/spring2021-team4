@@ -148,7 +148,10 @@ public class GameWindow {
             }
             
             // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL g.getCurrentLevel().setFinished(true);
-
+            if (countDown.getCycleCount() == 0) {
+                countDown.stop();
+                g.getCurrentLevel().setFinished(true);
+            }
             if (g.getCurrentLevel().isFinished()) {
                 stopLevel();
             }
@@ -171,13 +174,11 @@ public class GameWindow {
         
         if (!levelStopped) {
             // Code for stopping level and preparing for move on
-            if (countDown.getCycleCount() == 0) {
-                countDown.stop();
-                g.stopHitDetection();
-                for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
-                    item.pause();
-                }
+            g.stopHitDetection();
+            for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+                item.pause();
             }
+            p.setWinState(true);
 
             Label arrow = new Label("->");
             arrow.setPrefSize(100, 100);
