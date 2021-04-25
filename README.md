@@ -6,8 +6,8 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 ## Work Completed
 | Feature | Type | Assignee(s) | Status |
 |---------|------|-------------|--------|
-|Scoring | Required | Conner/Nick | done|
-|Level | Required | Conner | in progress |
+|Scoring | Required | Conner/Nick | done |
+|Level | Required | Conner/Nick | done |
 |Level Designer | Required | Ryan | done |
 |powerups | Optional | Joel | done |
 |Different enemies | Optional | Conner |done |
