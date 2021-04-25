@@ -218,6 +218,10 @@ public class GameWindow {
             }
             pane.getChildren().remove(playerToRemove);
             pane.getChildren().remove(arrow);
+            
+            // start the timer
+            countDown.play();
+
             spawnEntities();
 
             levelStopped = false;
