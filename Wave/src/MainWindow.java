@@ -349,10 +349,13 @@ public class MainWindow {
             VBox vbox = new VBox();
             vbox.setId("menu-background");
             vbox.setAlignment(Pos.CENTER);
-            vbox.setSpacing(25);
+            vbox.setSpacing(10);
 
             Label shopLabel = new Label("SKIN SHOP/SELECT SKIN");
             vbox.getChildren().add(shopLabel);
+
+            Label coinsLabel = new Label(String.valueOf(w.getCurrentUser().getCoins()) + " COINS");
+            vbox.getChildren().add(coinsLabel);
 
             int i = 0;
             for (ImageView[] row : allImages) {
@@ -380,7 +383,7 @@ public class MainWindow {
                 vbox.getChildren().add(hbox);
             }
 
-            HBox firstHBox = (HBox) vbox.getChildren().get(1);
+            HBox firstHBox = (HBox) vbox.getChildren().get(2);
             VBox pairVBox = (VBox) firstHBox.getChildren().get(0);
             Label ownedShipLabel = (Label) pairVBox.getChildren().get(1);
             ownedShipLabel.setText("OWNED");
@@ -408,6 +411,10 @@ public class MainWindow {
             try {
                 boolean ownership = user.buy((ShipSkins) button.getUserData());
                 VBox vbox = (VBox) button.getParent();
+                HBox row = (HBox) vbox.getParent();
+                VBox topVBox = (VBox) row.getParent();
+                Label coinsLabel = (Label) topVBox.getChildren().get(1);
+                coinsLabel.setText(String.valueOf(user.getCoins()) + " COINS");
                 try {
                     Label label = (Label) vbox.getChildren().get(1);
                     label.setText(ownership ? "OWNED" : "1000 COINS");
