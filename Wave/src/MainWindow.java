@@ -303,7 +303,7 @@ public class MainWindow {
         for (User u : w.getUsers()) {
             if (u.getName().equals(name)) {
                 w.setCurrentUser(u);
-                var alert = new Alert(AlertType.INFORMATION, "Current user has been set to " + name);
+                var alert = new Alert(AlertType.INFORMATION, "Current user has been set to '" + name + "'");
                 alert.show();
                 return;
             }
@@ -322,6 +322,15 @@ public class MainWindow {
 
         TextField textField = (TextField) vbox.getChildren().get(1);
         String userName = textField.getText();
+        // ----
+        for (User u : w.getUsers()) {
+            if (u.getName().equals(userName)) {
+                var alert = new Alert(AlertType.INFORMATION, "A user with the name '" + userName + "' already exists, please choose a different name.");
+                alert.show();
+                return;
+            }
+        }
+        // ----
         User user = new User(userName);
         w.setCurrentUser(user);
         w.getUsers().add(user);
@@ -336,68 +345,81 @@ public class MainWindow {
 
     @FXML
     void onSkinShopClicked() {
+        if (w.getCurrentUser() != null) {
+            ShipSkins[] shop = ShipSkins.values();
+            try {
+                ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_blue.png")), new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
+                ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};
+                ImageView[] playerShip3Images = {new ImageView(new Image("/Images/playerShip3_blue.png")), new ImageView(new Image("/Images/playerShip3_green.png")), new ImageView(new Image("/Images/playerShip3_orange.png")), new ImageView(new Image("/Images/playerShip3_red.png"))};
+                ImageView[] ufoImages = {new ImageView(new Image("/Images/ufoBlue.png")), new ImageView(new Image("/Images/ufoGreen.png")), new ImageView(new Image("/Images/ufoYellow.png")), new ImageView(new Image("/Images/ufoRed.png"))};
+                ImageView[][] allImages = {playerShip1Images, playerShip2Images, playerShip3Images, ufoImages};
+            
 
-        ShipSkins[] shop = ShipSkins.values();
-        try {
-            ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_blue.png")), new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
-            ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};
-            ImageView[] playerShip3Images = {new ImageView(new Image("/Images/playerShip3_blue.png")), new ImageView(new Image("/Images/playerShip3_green.png")), new ImageView(new Image("/Images/playerShip3_orange.png")), new ImageView(new Image("/Images/playerShip3_red.png"))};
-            ImageView[] ufoImages = {new ImageView(new Image("/Images/ufoBlue.png")), new ImageView(new Image("/Images/ufoGreen.png")), new ImageView(new Image("/Images/ufoYellow.png")), new ImageView(new Image("/Images/ufoRed.png"))};
-            ImageView[][] allImages = {playerShip1Images, playerShip2Images, playerShip3Images, ufoImages};
-        
+                VBox vbox = new VBox();
+                vbox.setId("menu-background");
+                vbox.setAlignment(Pos.CENTER);
+                vbox.setSpacing(10);
 
-            VBox vbox = new VBox();
-            vbox.setId("menu-background");
-            vbox.setAlignment(Pos.CENTER);
-            vbox.setSpacing(10);
+                Label shopLabel = new Label("SKIN SHOP/SELECT SKIN");
+                vbox.getChildren().add(shopLabel);
 
-            Label shopLabel = new Label("SKIN SHOP/SELECT SKIN");
-            vbox.getChildren().add(shopLabel);
+                Label coinsLabel = new Label(String.valueOf(w.getCurrentUser().getCoins()) + " COINS");
+                vbox.getChildren().add(coinsLabel);
 
-            Label coinsLabel = new Label(String.valueOf(w.getCurrentUser().getCoins()) + " COINS");
-            vbox.getChildren().add(coinsLabel);
+                int i = 0;
+                for (ImageView[] row : allImages) {
+                    
+                    HBox hbox = new HBox();
+                    hbox.setAlignment(Pos.CENTER);
+                    hbox.setSpacing(20);
+                    for (ImageView imageView : row) {
+                        VBox pair = new VBox();
+                        pair.setAlignment(Pos.CENTER);
+                        boolean ownerShipBool = false;
+                        for (ShipSkins skin : w.getCurrentUser().getOwnedShipSkins()) {
+                            if (skin.equals(shop[i])) {
+                                ownerShipBool = true;
+                            }
+                        }
+                        Label label;
+                        if (ownerShipBool) {
+                            label = new Label("OWNED");
+                            label.setId("shop-label");
+                        }
+                        else {
+                            label = new Label("1000 COINS");
+                            label.setId("shop-label");
+                        }
+                        
 
-            int i = 0;
-            for (ImageView[] row : allImages) {
-                
-                HBox hbox = new HBox();
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setSpacing(20);
-                for (ImageView imageView : row) {
-                    VBox pair = new VBox();
-                    pair.setAlignment(Pos.CENTER);
+                        Button button = new Button();
+                        button.setGraphic(imageView);
+                        button.setOnAction(this::onSkinClicked);
+                        button.setUserData(shop[i]);
 
-                    Label label = new Label("1000 COINS");
-                    label.setId("shop-label");
-
-                    Button button = new Button();
-                    button.setGraphic(imageView);
-                    button.setOnAction(this::onSkinClicked);
-                    button.setUserData(shop[i]);
-
-                    pair.getChildren().add(button);
-                    pair.getChildren().add(label);
-                    hbox.getChildren().add(pair);
-                    i++;
+                        pair.getChildren().add(button);
+                        pair.getChildren().add(label);
+                        hbox.getChildren().add(pair);
+                        i++;
+                    }
+                    vbox.getChildren().add(hbox);
                 }
-                vbox.getChildren().add(hbox);
+
+                Scene skinShopScene = new Scene(vbox, 800, 600);
+                Stage skinShopStage = new Stage();
+                skinShopStage.setScene(skinShopScene);
+                skinShopStage.setTitle("Skin Shop");
+
+                skinShopStage.show();
+                skinShopScene.getStylesheets().add("MainWindow.css");
             }
-
-            HBox firstHBox = (HBox) vbox.getChildren().get(2);
-            VBox pairVBox = (VBox) firstHBox.getChildren().get(0);
-            Label ownedShipLabel = (Label) pairVBox.getChildren().get(1);
-            ownedShipLabel.setText("OWNED");
-
-            Scene skinShopScene = new Scene(vbox, 800, 600);
-            Stage skinShopStage = new Stage();
-            skinShopStage.setScene(skinShopScene);
-            skinShopStage.setTitle("Skin Shop");
-
-            skinShopStage.show();
-            skinShopScene.getStylesheets().add("MainWindow.css");
+            catch (IllegalArgumentException e) {
+                var alert = new Alert(AlertType.ERROR, "Error in loading shop.");
+                alert.show();
+            }
         }
-        catch (IllegalArgumentException e) {
-            var alert = new Alert(AlertType.ERROR, "Error in loading shop.");
+        else {
+            var alert = new Alert(AlertType.WARNING, "You must log in or create an account to access the shop.");
             alert.show();
         }
 
