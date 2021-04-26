@@ -203,7 +203,6 @@ public class Level {
     public String serialization() {
         String info = "";
 
-        // TODO: detect in more than one player mode
         int numberPlayer = 1;
         info += numberPlayer + "/n";
 
@@ -224,8 +223,8 @@ public class Level {
         }
 
 
-        //TODO: also add power panels and their affect on player
-        info += allObjects.size()-numberPlayer + "/n";  //TODO: note allObject also contains player
+       
+        info += allObjects.size()-numberPlayer + "/n";  
         for (GameObject object : allObjects) {
             if(object instanceof Player){
                 continue;
@@ -258,7 +257,7 @@ public class Level {
      */
     public boolean deserialization(BufferedReader rd) throws IOException {
 
-        // TODO: handle difficulty level
+
         //String difficultyLevel = rd.readLine();
         boolean success = true;
 
@@ -287,7 +286,7 @@ public class Level {
                 }
             }
 
-            //TODO: also add power panel and their affect on player
+
             if (player.deserialize(restInfo) == false) {
                 throw new IOException("Error in converting user data");
                 // means error in converting user data
@@ -371,9 +370,8 @@ public class Level {
                     }
 
                 } else if (object.equals("Obstacle")) {
-                    // TODO have to determine if obstalce will have different type or not
+                   
 
-                    // assumenot in this calse
                     Obstacle obstacle = new Obstacle(this);
                     switch(ObstacleTypes.valueOf(type)){
                         case SQUARE:{
@@ -410,7 +408,6 @@ public class Level {
                     PowerUp power = new PowerUp(this){
                         @Override
                         public void collisionWithPlayer(Player p) {
-                            // TODO Auto-generated method stub
                             
                         }    
                     };
