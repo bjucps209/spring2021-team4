@@ -122,19 +122,19 @@ public class MainWindow {
 
     // scaleable method to set the position  for an imageview and its corresponding object
     @FXML
-    void setDataValues(ImageView imgView, int x, int y) {
+    void setPosition(ImageView imgView, int x, int y) {
 
-        if (x < 0) {
-            x  = 0;
+        if (x < 7) {
+            x  = 7;
         }
-        if (x >= (int) pane.getWidth()) {
-            x = (int) pane.getWidth();
+        if (x >= (int) pane.getWidth() - 7) {
+            x = (int) pane.getWidth() - 7;
         }
-        if (y < 0) {
-            y = 0;
+        if (y < 7) {
+            y = 7;
         }
-        if (y >= (int) pane.getHeight()) {
-            y = (int) pane.getHeight();
+        if (y >= (int) pane.getHeight() - 7) {
+            y = (int) pane.getHeight() - 7;
         }
 
         imgView.setX(x);
@@ -165,18 +165,32 @@ public class MainWindow {
     @FXML
     void onUpdateValuesClicked() {
         if (currentImage != null && currentObject != null) {
-            if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
-                setDataValues(currentImage, 7, 7);
+            
+            int x, y;
+
+            if (txtFXValue.getText().equals("")) {
+                x = 7;
             }
             else {
                 try {
-                    setDataValues(currentImage, Integer.parseInt(txtFXValue.getText()), Integer.parseInt(txtFYValue.getText()));
+                    x = Integer.parseInt(txtFXValue.getText());
                 }
                 catch (NumberFormatException e) {
-                    var alert = new Alert(AlertType.ERROR, "Please supply Integer values only.");
-                    alert.show();
+                    x = 7;
                 }
             }
+            if (txtFYValue.getText().equals("")) {
+                y = 7;
+            }
+            else {
+                try {
+                    y = Integer.parseInt(txtFYValue.getText());
+                }
+                catch (NumberFormatException e) {
+                    y = 7;
+                }
+            }
+            setPosition(currentImage, x, y);
         }
         setLabels();
         
@@ -199,30 +213,32 @@ public class MainWindow {
             var obj = createGameObjects(split[1]);
             imgView.setUserData(obj);
         
-            if (!txtFXValue.getText().equals("") && !txtFYValue.getText().equals("")) {
-                try {
-                    int x = Integer.parseInt(txtFXValue.getText());
-                    int y = Integer.parseInt(txtFYValue.getText());
-                    if (x < 7 || y < 7 || x > 993 || y > 793) {
-                        throw new IllegalArgumentException("An integer value is either too big or too small. Please check your text fields.");
-                    }
-                    else {
-                        setDataValues(imgView, x, y);
-                    }
-                }
-                catch (NumberFormatException e) {
-                    setDataValues(imgView, 7, 7);
-                    var alert = new Alert(AlertType.ERROR, "You entered in invalid data or forgot to fill an area.");
-                    alert.show();
-                }
-            }
-            else if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
-                setDataValues(imgView, 7, 7);
+            int x, y;
+
+            if (txtFXValue.getText().equals("")) {
+                x = 7;
             }
             else {
-                setDataValues(imgView, 7, 7);
+                try {
+                    x = Integer.parseInt(txtFXValue.getText());
+                }
+                catch (NumberFormatException e) {
+                    x = 7;
+                }
             }
-            
+
+            if (txtFYValue.getText().equals("")) {
+                y = 7;
+            }
+            else {
+                try {
+                    y = Integer.parseInt(txtFYValue.getText());
+                }
+                catch (NumberFormatException e) {
+                    y = 7;
+                }
+            }
+            setPosition(imgView, x, y);
             
             pane.getChildren().add(imgView);
             setCurrent(imgView);
