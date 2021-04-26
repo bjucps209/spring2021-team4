@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   HighScoreList.java
+//Desc:   holds a list of all high scores
+//        
+//-----------------------------------------------------------
+
 package model;
 
 import java.io.BufferedReader;
@@ -17,7 +23,11 @@ public class HighScoreList {
         
     }
 
-    // Use collections to properly sort the list
+    /**
+     * Use Collections to properly sort the list of highscores
+     * @param none
+     * @return list of sorted high scores
+     */
     public ArrayList<HighScore> sort() {
         Collections.sort(list);
         Collections.reverse(list);
@@ -32,7 +42,11 @@ public class HighScoreList {
         this.list = list;
     }
 
-    // Save the name and score to a file 
+    /**
+     * Save the name and score to scores.txt
+     * @param none
+     * @return none
+     */
     public void save() {
         try (var writer = new PrintWriter(new FileWriter("scores.txt"))) {
             for (HighScore o : list) {
@@ -43,7 +57,11 @@ public class HighScoreList {
         }
     }
 
-    // Update the list with information from the save file
+    /**
+     * Update the list of highscores with information from the save file
+     * @param none
+     * @return none
+     */
     public void load() {
         try (var reader = new BufferedReader(new FileReader("scores.txt"))) {
             String line = reader.readLine();

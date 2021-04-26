@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   PowerUp.java
+//Desc:   class that all powerups inherit from
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Powerups;
 
 import model.GameObjects.GameObject;
@@ -15,6 +21,11 @@ public abstract class PowerUp extends GameObject {
   protected int passedTime = 0; // might not be a int depent on implementation of running clock
   protected int startTime = -1;
 
+    /**
+     * set the spawn time of this powerup?
+     * @param p ??
+     * @return none
+     */
   public  void collisionWithPlayer(Player p){
     startTime = this.currentLevel.getRemainingTime();
   }
@@ -60,7 +71,12 @@ public abstract class PowerUp extends GameObject {
     }
   }
 
-  // A factory method for all powerups
+    /**
+     * A factory method for all powerups
+     * @param type the type of power up to be created
+     * @param l the level this powerup is being created for
+     * @return an instance of the respective power up type
+     */
   public static PowerUp create(PowerUps type, Level l) {
     PowerUp power;
     switch (type) {

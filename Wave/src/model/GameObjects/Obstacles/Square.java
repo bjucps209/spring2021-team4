@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Square.java
+//Desc:   square obstacle
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Obstacles;
 
 import model.Level;

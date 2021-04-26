@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Ghost.java
+//Desc:   tracks the player but does not interact with obstacles
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Enemies;
 
 import model.Level;

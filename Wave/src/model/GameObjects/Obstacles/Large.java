@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Large.java
+//Desc:   large obstacle
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Obstacles;
 
 import model.Level;

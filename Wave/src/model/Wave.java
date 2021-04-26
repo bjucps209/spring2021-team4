@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Wave.java
+//Desc:   this file holds references to the user, game, and
+//        other attributes of the whole app such as high scores
+//-----------------------------------------------------------
+
 package model;
 
 import java.util.ArrayList;
@@ -58,7 +64,11 @@ public class Wave {
         setCoins(currentUser.getCoins());
     }
 
-    // Starts the game, does all calculations and initializes lists
+    /**
+     * loads the game, does all calculations and populates the lists
+     * @param none
+     * @return none
+     */
     public void gameStart(ArrayList<Level> levels) {
         game = new Game(1000, 800, levels);
         game.setLevels(levels);
@@ -66,6 +76,11 @@ public class Wave {
         game.startHitDetection();
     }
 
+    /**
+     * method to close the game, stop the game, and save all users
+     * @param none
+     * @return none
+     */
     public void onClosed() {
         game.stopHitDetection();
         game.stopPlayerHitDetection();
@@ -83,6 +98,11 @@ public class Wave {
         return wave;
     }
 
+    /**
+     * method to load our list of default levels and return them in an arraylist
+     * @param none
+     * @return our list of default levels
+     */
     public ArrayList<Level> getDefaultLevels() {
         ArrayList<Level> levels = new ArrayList<Level>();
         for (int i = 0; i < 5; i++) {
@@ -133,6 +153,8 @@ public class Wave {
      * the list. If exist, will connect the reference of that User() to
      * this.currentUser Condition for exist: one of User() in this.users has the
      * same Name as this.currentUser
+     * @param none
+     * @return none
      */
     public void saveCurrentUser() {
         // Simply replace this.user with the same user name in this.users
@@ -155,6 +177,7 @@ public class Wave {
      * This function will load and save all User() in this.users into a file named
      * "userInfo.txt"
      * 
+     * @param none
      * @return - True if successfully save all User() in this.users into txt file -
      *         False otherwise
      */
@@ -176,8 +199,8 @@ public class Wave {
      * The method should only be called for the usage of unit testing In order to
      * prevent the overid of userInfo.txt
      * 
-     * @param fileName
-     * @return
+     * @param fileName file to be written to
+     * @return true if file loaded successfully, false if not
      */
     public boolean saveAllUsersTest(String fileName) {
         saveCurrentUser(); // First load the current login user into the data file
@@ -196,6 +219,7 @@ public class Wave {
     /**
      * This function will try to load information from userInfo.txt into this.user
      * 
+     * @param none
      * @return - True if successfully load all information - False if error occurs
      *         during loading informations.
      */
@@ -234,8 +258,8 @@ public class Wave {
     /**
      * This method should only be called and use in case of unit testing!
      * 
-     * @param fileName
-     * @return
+     * @param fileName file to be read from
+     * @return true if file read successfully, false if not
      */
     public boolean loadAllUsersTest(String fileName) {
         try (BufferedReader rd = new BufferedReader(new FileReader(fileName))) {
@@ -333,11 +357,15 @@ public class Wave {
     public void setResumeGame(boolean resumeGame) {
         this.resumeGame = resumeGame;
     }
-    // method to load custom levels - RTR
+    /**
+     * searches the current directory for a file, if it exists, it attempts to read it into a level
+     * @param fileName name of the file to be read in
+     * @return a level populated with all information read from file
+     */
     public Level loadCustomLevel(String fileName) throws IOException {
 
-        try (var stream = new FileInputStream(fileName + ".dat");) {
-            var f = new File(fileName + ".dat");
+        try (var stream = new FileInputStream(fileName);) {
+            var f = new File(fileName);
             int lengthOfLevel = (int) f.length();
             
             var level = new Level();
@@ -421,15 +449,16 @@ public class Wave {
             }
             return level;
         } catch (IOException e) {
-            var alert = new Alert(AlertType.INFORMATION, "You have not created that level yet.");
-            alert.show();
             return null;
         }
     }
 
-    // method to search the directory of Wave for a file with the name supplied in the parameter. if it does exist, return true, if it does not, return false.
+    /**
+     * searches through the current directory to ensure a file with the name represented by fileName exists
+     * @param fileName file to be searched for in the current directory
+     * @return true if the file exists, false if it doe snot exist
+     */
     public boolean searchDirectoryForFile(String fileName) {
-        // make a file out of this file, get its path, find the path of the directory this file is in, create a file with that directory name, search that directory for the file we want
 
         // some ideas from:
         // https://stackoverflow.com/questions/15624226/java-search-for-files-in-a-directory
@@ -437,10 +466,11 @@ public class Wave {
         String basePath = file.getAbsolutePath();
         int dirIndex = basePath.indexOf("Wave.java");
         String dirString = basePath.substring(0, dirIndex);
+        
         File directory = new File(dirString);
         File[] listOfFiles = directory.listFiles();
         for (File f : listOfFiles) {
-            if (f.getName().equals(fileName + ".dat")) {
+            if (f.getName().equals(fileName)) {
                 return true;
             }
         }

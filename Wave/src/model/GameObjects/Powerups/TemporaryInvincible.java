@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   TemporaryInvincible.java
+//Desc:   powerup that gives the player 5 seconds of invincibility
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Powerups;
 
 import javafx.util.Duration;

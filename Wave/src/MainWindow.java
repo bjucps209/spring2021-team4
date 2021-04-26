@@ -1,4 +1,11 @@
+//-----------------------------------------------------------
+//File:   MainWindow.java
+//Desc:   this file represents the main window where the user
+//        can log in, access auxiliary screens, and start a game
+//-----------------------------------------------------------
+
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -57,6 +64,11 @@ public class MainWindow {
 
     @FXML VBox vboxTitle;
 
+    /**
+     * initialize method of MainWindow. starts playing music for the user and loads the list of high scores
+     * @param none 
+     * @return none
+     */
     @FXML
     public void initialize() {
         w = Wave.getInstance();
@@ -67,6 +79,11 @@ public class MainWindow {
         titleMusic.play();
     }
 
+    /**
+     * method to start a game of 10 default levels
+     * @param none 
+     * @return none
+     */
     @FXML
     public void onNewGameClicked() throws IOException {
         if (w.getCurrentUser() != null) {
@@ -139,6 +156,11 @@ public class MainWindow {
 
     }
 
+    /**
+     * if a user is currently logged in, loads their saved game
+     * @param none 
+     * @return none
+     */
     @FXML
     void onResumeGameClicked() {
         if (w.getCurrentUser() == null) {
@@ -161,9 +183,12 @@ public class MainWindow {
         }
     }
 
+    /**
+     * method to load the screen in which any amount of custom levels can be loaded
+     * @param none 
+     * @return none
+     */
     @FXML
-    // click on load level to open a screen that will allow the user to search the
-    // directory for a file and if it exists, load that file
     void onLoadCustomGameClicked() {
 
         VBox vbox = new VBox();
@@ -171,7 +196,7 @@ public class MainWindow {
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
 
-        Label lbl = new Label("Please enter the name of the file you'd like to load.(don't worry about the .dat)");
+        Label lbl = new Label("Please enter the name of the file you'd like to load.");
         vbox.getChildren().add(lbl);
         TextField txtFieldFileChooser = new TextField();
         txtFieldFileChooser.setId("TEXTFIELD");
@@ -197,18 +222,31 @@ public class MainWindow {
 
     }
 
-    // method that calls loadCustomLevel(String levelName) in Wave.java
+    /**
+     * method used to call load custom level in wave
+     * @param e  used to get the textfield in which the name of the level to be loaded lies
+     * @return none
+     */
     @FXML
     void callLoadCustomLevel(ActionEvent e) {
         Button button = (Button) e.getSource();
         Scene scene = button.getScene();
         TextField txtFileChoice = (TextField) scene.lookup("#TEXTFIELD");
         String fileName = txtFileChoice.getText();
+        if (!fileName.endsWith(".dat")) {
+            fileName += ".dat";
+        }
         if (w.searchDirectoryForFile(fileName)) {
             try {
                 Level l = w.loadCustomLevel(fileName);
                 if (l != null) {
                     customGameLevels.add(l);
+                    var alert = new Alert(AlertType.INFORMATION, "level '" + fileName + "' has been added.");
+                    alert.show();
+                }
+                else {
+                    var alert = new Alert(AlertType.WARNING, "You have not created that level yet.");
+                    alert.show();
                 }
 
             } catch (IOException exception) {
@@ -220,6 +258,11 @@ public class MainWindow {
         }
     }
 
+    /**
+     * uses the list of custom levels and starts a game out of it
+     * @param e allows btn.setOnAction(this::startCustomGame) to compile
+     * @return none
+     */
     @FXML
     void startCustomGame(ActionEvent e) {
 
@@ -238,6 +281,11 @@ public class MainWindow {
         }
     }
 
+    /**
+     * method to load the login screen where the user can log in or sign up a new account
+     * @param none 
+     * @return none
+     */
     @FXML
     void onLogInScreenClicked() {
         HBox hbox = new HBox();
@@ -290,6 +338,11 @@ public class MainWindow {
         logInScene.getStylesheets().add("MainWindow.css");
     }
 
+    /**
+     * method to set the current user of Wave to an already existing user
+     * @param e is used to find the combobox and get its selected value
+     * @return none
+     */
     @FXML
     void onLogInClicked(ActionEvent e) {
         Button button = (Button) e.getSource();
@@ -310,6 +363,11 @@ public class MainWindow {
         }
     }
 
+    /**
+     * create a new instance of User and add it to Wave as the current user and add it to the list of all users
+     * @param e is used to find the text field in which the new instance of user's name lies
+     * @return none
+     */
     @FXML
     void onCreateAccountClicked(ActionEvent e) {
         Button button = (Button) e.getSource();
@@ -343,6 +401,11 @@ public class MainWindow {
         alert.show();
     }
 
+    /**
+     * method to load the skin shop of the main menu. doesnt load if no user is logged in
+     * @param none 
+     * @return none
+     */
     @FXML
     void onSkinShopClicked() {
         if (w.getCurrentUser() != null) {
@@ -425,6 +488,11 @@ public class MainWindow {
 
     }
 
+    /**
+     * method to buy a skin and add it to a user's owned skin list
+     * @param e is used to find the button and respective user data for the method
+     * @return none
+     */
     @FXML
     void onSkinClicked(ActionEvent e) {
         Button button = (Button) e.getSource();
@@ -454,8 +522,12 @@ public class MainWindow {
     }
 
 
+    /**
+     * method to load the about screen of the main menu
+     * @param none 
+     * @return none
+     */
     @FXML
-    // Screen to show how to play the game
     public void onAboutClicked() {
         VBox vbox = new VBox();
         vbox.setId("menu-background");
@@ -479,7 +551,12 @@ public class MainWindow {
         vbox.getChildren().add(lblInfo);
     }
 
-    // screen to show the controls of the game
+    /**
+     * method to open the help screen giving information on how to control the character, etc
+     * @param none
+     * @return void
+     */
+    @FXML
     public void onHelpClicked() {
         VBox vbox = new VBox();
         vbox.setId("menu-background");
@@ -508,8 +585,12 @@ public class MainWindow {
         vbox.getChildren().add(lblPlayer);
     }
 
+    /**
+     * method to load a screen of buttons in which the user can select a game difficulty
+     * @param none
+     * @return void
+     */
     @FXML
-    // Options for game difficulty
     public void onOptionsClicked() {
         VBox vbox = new VBox();
         vbox.setId("menu-background");
@@ -555,6 +636,11 @@ public class MainWindow {
         vbox.getChildren().add(btnCheat);
     }
 
+    /**
+     * methods to set the game difficulty to respective values
+     * @param event used to easily call btn.setOnAction for the respective buttons
+     * @return void
+     */
     void onEasyClicked(ActionEvent event) {
         Wave.getInstance().setUserChoiceDifficulty(DifficultyLevel.Easy);
     }
@@ -576,8 +662,13 @@ public class MainWindow {
             Wave.getInstance().setCheatMode(false);
         }
     }
+    // ----
 
-    // Screen to display High Scores
+    /**
+     * method to load the screen of high scores
+     * @param none
+     * @return void
+     */
     public void onScoresClicked() {
         VBox vbox = new VBox();
         vbox.setId("menu-background");
