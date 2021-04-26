@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   User.java
+//Desc:   represents a user who has coins and lists of owned
+//        ship skins
+//-----------------------------------------------------------
+
 package model;
 
 
@@ -20,6 +26,7 @@ public class User {
     public User(){
 
     }
+    
     public User(String name) {
         this.name = name;
         if (name.equals("")) {
@@ -33,6 +40,7 @@ public class User {
     
     /**
      * This function will return a string value correspond to the saving format in serialization design
+     * @param none
      * @return String value
      */
     public String serialization(){
@@ -68,7 +76,11 @@ public class User {
 
     }
 
-    // method to buy a ship skin from the shop. used in mainwindow's onSkinClicked method
+    /**
+     * method to load our list of default levels and return them in an arraylist
+     * @param skin the type of skin the user wants to buy
+     * @return true if the user has bought the skin, false if the user does not have enough coins
+     */
     public boolean buy(ShipSkins skin) {
         for (ShipSkins s : ownedShipSkins) {
             if (skin.equals(s)) {

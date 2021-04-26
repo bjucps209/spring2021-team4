@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Level.java
+//Desc:   this file represents one level and holds information
+//        of lists of all gameobjects in the level
+//-----------------------------------------------------------
+
 package model;
 
 import java.io.BufferedReader;
@@ -97,8 +103,14 @@ public class Level {
 
     }
 
-    // Takes the enemy type, x, and y. creates an enemy
-    // and adds it to enemy list and all object list
+    
+    /**
+     * Takes the enemy type, x, and y. creates an enemy
+     * and adds it to enemy list and all object list
+     * @param type the type of enemy to create
+     * @param x,y x and y location of the entity
+     * @return none
+     */
     public void spawnEnemy(EnemyTypes type, int x, int y) {
         EnemyObject e = EnemyObject.create(type, this);
         int speed = calcEnemySpeed(type);
@@ -112,6 +124,11 @@ public class Level {
         allObjects.add(e);
     }
 
+    /**
+     * calculates an enemy's speed based on their type
+     * @param type the type of enemy 
+     * @return the entity's speed
+     */
     public int calcEnemySpeed(EnemyTypes type) {
         switch (type) {
             case BOUNCER:
@@ -198,6 +215,7 @@ public class Level {
 
     /**
      * The function retursn a String consist of information about this level()
+     * @param none
      * @return - String represent the data of leve() 
      */
     public String serialization() {

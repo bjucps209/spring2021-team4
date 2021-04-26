@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   EnemyObject.java
+//Desc:   class that all enemyobjects inherit from
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Enemies;
 
 
@@ -39,6 +45,12 @@ public abstract class EnemyObject extends GameObject {
         this.type = type;
     }
 
+    /**
+     * A factory method for all enemyobjects
+     * @param type the type of enemyobject to be created
+     * @param l the level this powerup is being created for
+     * @return an instance of the respective enemyobject type
+     */
     public static EnemyObject create(EnemyTypes e, Level l) {
         EnemyObject enemy;
         switch (e) {

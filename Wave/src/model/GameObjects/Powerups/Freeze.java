@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Freeze.java
+//Desc:   class that freezes all entities in a level for 5 
+//        seconds
+//-----------------------------------------------------------
+
 package model.GameObjects.Powerups;
 
 import model.Level;

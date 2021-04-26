@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Game.java
+//Desc:   file that represents one game to be played. holds
+//        information such as a list of levels and game size
+//-----------------------------------------------------------
+
 package model;
 
 import java.util.ArrayList;
@@ -51,8 +57,14 @@ public class Game {
 
         //TODO: set the difficulty here
         difficulty = new Difficulty(Wave.getInstance().getUserChoiceDifficulty());
+        
     }
 
+    /**
+     * method to set the difficulty of the game
+     * @param none
+     * @return none
+     */
     public void initializeDifficulty() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
             try {
@@ -63,7 +75,11 @@ public class Game {
         }
     }
 
-    // Main game update function for updating each object
+    /**
+     * Main game method to update each object
+     * @param none
+     * @return none
+     */
     public void update() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
             try {
@@ -74,6 +90,11 @@ public class Game {
         }
     }
 
+    /**
+     * method to start hit detection of each object in the game
+     * @param none
+     * @return none
+     */
     public void startHitDetection() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
             if (!(g instanceof Obstacle)) {
@@ -82,6 +103,11 @@ public class Game {
         }
     }
 
+    /**
+     * method to stop hit detection of each object in the game
+     * @param none
+     * @return none
+     */
     public void stopHitDetection() {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
             try {
@@ -94,6 +120,11 @@ public class Game {
         }
     }
 
+    /**
+     * method to stop the player's hit detection only
+     * @param none
+     * @return none
+     */
     public void stopPlayerHitDetection() {
         try {
             getCurrentLevel().getPlayer().stopHitDetection();
@@ -102,7 +133,11 @@ public class Game {
         }
     }
 
-    // creates all hard-coded levels and stores in arraylist
+    /**
+     * method to load 5 default levels
+     * @param none
+     * @return none
+     */
     public void createLevels() throws IOException {
         Level l = w.loadCustomLevel("testPowerUp");
         
@@ -114,7 +149,11 @@ public class Game {
         levels.add(l);
     }
 
-    // progresses to next level information
+    /**
+     * method called to progress to the next level in the game
+     * @param none
+     * @return none
+     */
     public void nextLevel() {
         if (levelNum != levels.size() - 1) {
             // save all coins  
@@ -132,28 +171,28 @@ public class Game {
     }
 
 
-    public void randomGeneratePanels(){
-        // level 1-5, 3 panels
-        // level6-10. 4 panels
-        int totalPanels =0;
+    // public void randomGeneratePanels(){
+    //     // level 1-5, 3 panels
+    //     // level6-10. 4 panels
+    //     int totalPanels =0;
      
-        if(this.levelNum < 5){
-            totalPanels = 3;
-        }else{
-            totalPanels = 5;
-        }
+    //     if(this.levelNum < 5){
+    //         totalPanels = 3;
+    //     }else{
+    //         totalPanels = 5;
+    //     }
         
-        Level lev = this.currentLevel;
-        Random rand = new Random();
-        for(int i= 0; i < totalPanels; i++){
-          int s = rand.nextInt(2);
-          if(s == 0){
-            lev.getSpeedPanels().add(SpeedPanel.create(SpeedPanelTypes.speedDown, lev));
-          }else{
-            lev.getSpeedPanels().add(SpeedPanel.create(SpeedPanelTypes.speedUp, lev));
-          }
-        }
-      }
+    //     Level lev = this.currentLevel;
+    //     Random rand = new Random();
+    //     for(int i= 0; i < totalPanels; i++){
+    //       int s = rand.nextInt(2);
+    //       if(s == 0){
+    //         lev.getSpeedPanels().add(SpeedPanel.create(SpeedPanelTypes.speedDown, lev));
+    //       }else{
+    //         lev.getSpeedPanels().add(SpeedPanel.create(SpeedPanelTypes.speedUp, lev));
+    //       }
+    //     }
+    //   }
 
     // --- setters ---
 

@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   HealthGainBig.java
+//Desc:   powerup that gives the playe 50 health
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Powerups;
 
 import model.Level;

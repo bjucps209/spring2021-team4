@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   GameWindow.java
+//Desc:   this file represents the window in which the game 
+//        will be played
+//-----------------------------------------------------------
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -69,6 +75,11 @@ public class GameWindow {
     Label arrow;
     ImageView playerImageView;
 
+    /**
+     * initialize method to load the current level of the instance of game
+     * @param none 
+     * @return none
+     */
     @FXML
     public void initialize() {
 
@@ -181,6 +192,11 @@ public class GameWindow {
         // Platform.exit();
     }
 
+    /**
+     * method called to showt stop the level. it also shows how to proceed to the next level
+     * @param none 
+     * @return none
+     */
     public void stopLevel() {
         
         if (!levelStopped) {
@@ -202,6 +218,11 @@ public class GameWindow {
         }
     }
 
+    /**
+     * used in GameWindow's initialize to start the game
+     * @param none 
+     * @return none
+     */
     public void startLevel() {
         Node playerToRemove = null;
         // Code to start a level
@@ -232,6 +253,11 @@ public class GameWindow {
         
     }
 
+    /**
+     * calls the methods to spawn all types of entities in the pane
+     * @param none 
+     * @return none
+     */
     public void spawnEntities() {
         // code to combine all spawn function below
         spawnObstacles();
@@ -241,7 +267,11 @@ public class GameWindow {
         //spawnPowerPanels();
     }
 
-    // spawns the player image and then binds that image to the player object
+    /**
+     * spawns the player and binds a corresponding imageView to it
+     * @param none 
+     * @return none
+     */
     public void spawnPlayer() {
         p = g.getCurrentLevel().getPlayer();
         Image playerImage;
@@ -334,6 +364,11 @@ public class GameWindow {
     
     }*/
 
+    /**
+     * iterates through the list of enemy entities in the current level and 'spawns' them in the pane
+     * @param none 
+     * @return none
+     */
     public void spawnEnemies() {
         for (EnemyObject o : g.getLevels().get(g.getLevelNum()).getEnemies()) {
             switch (o.getType()) {
@@ -393,6 +428,11 @@ public class GameWindow {
         }
     }
 
+    /**
+     * iterates through the list of obstacles in the current level and 'spawns' them in the pane
+     * @param none 
+     * @return none
+     */
     public void spawnObstacles() {
         System.out.println(System.getProperty("user.dir"));
         for (Obstacle o : g.getLevels().get(g.getLevelNum()).getObstacles()) {
@@ -439,6 +479,11 @@ public class GameWindow {
         }
     }
 
+    /**
+     * iterates through the list of powerups in the current level and 'spawns' them in the pane
+     * @param none 
+     * @return none
+     */
     public void spawnPowerups() {
         for(PowerUp power : g.getLevels().get(g.getLevelNum()).getPowerUps()){
             switch(power.getType()){
@@ -498,6 +543,11 @@ public class GameWindow {
         }
     }
 
+    /**
+     * method that detects if the player is out of health. if so, ends the game and notifies the user
+     * @param none 
+     * @return none
+     */
     void endGameOnHealth() {
         timer.stop();
         countDown.stop();
@@ -526,8 +576,11 @@ public class GameWindow {
         vboxEnd.getChildren().add(label2);
     }
 
-    // Method for pausing the game and ending the game
-    
+    /**
+     * method for pausing the game and ending the game
+     * @param none 
+     * @return none
+     */
     public static void pause() {
         if (pauseState == false) {
             pauseState = true;
@@ -565,7 +618,11 @@ public class GameWindow {
         }
     }
 
-    // close the window and start all the necessary game timers
+    /**
+     * close the window and start all necessary game timers
+     * @param e is used to allow for btn.setOnAction(e -> onResumeClicked(e)) to compile
+     * @return none
+     */
     static void onResumeClicked(ActionEvent event) {
         Stage stage = (Stage) btnResume.getScene().getWindow();
         stage.close();
@@ -576,7 +633,11 @@ public class GameWindow {
         countDown.play();
     }
 
-    // Close the window and end the game, saving everything
+    /**
+     * close the window and end the game, saving everything
+     * @param e is used to allow for btn.setOnAction( e -> onEndClicked(e)) to compile
+     * @return none
+     */
     static void onEndClicked(ActionEvent event) {
         Wave.getInstance().getGame().save(Wave.getInstance().getCurrentUser().getName());
         Wave.getInstance().saveAllUsers();
@@ -592,13 +653,22 @@ public class GameWindow {
         highScoreList.save();
     }
 
-    // close the timer
+    /**
+     * close the timer
+     * @param none 
+     * @return none
+     */
     public static void onClosed() {
         timer.stop();
         countDown.stop();
 
     }
 
+    /**
+     * move methods of GameWindow that correspond with moving the player 
+     * @param none 
+     * @return none
+     */
     public static void moveUp() {
         if (p.getDy() == 0) {
             p.moveUp();
@@ -631,4 +701,5 @@ public class GameWindow {
         p.moveNeutral();
         g.update();
     }
+    // ----
 }

@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   DestroyShip.java
+//Desc:   powerup that destroys a random ship in the current level
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Powerups;
 
 import java.util.ArrayList;

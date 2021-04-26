@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   ShipSkins.java
+//Desc:   enumeration for each of the 16 ship skins
+//        
+//-----------------------------------------------------------
+
 package model.Enums;
 
 public enum ShipSkins {

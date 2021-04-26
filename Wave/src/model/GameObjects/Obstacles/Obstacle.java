@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   Obstacle.java
+//Desc:    file that all obstacles inherit from
+//        
+//-----------------------------------------------------------
 
 package model.GameObjects.Obstacles;
 import model.Level;
@@ -26,6 +31,12 @@ public class Obstacle extends GameObject {
         });
     }
 
+    /**
+     * A factory method for all obstacles
+     * @param type the type of obstacle to be created
+     * @param l the level this powerup is being created for
+     * @return an instance of the respective obstacle type
+     */
     public static Obstacle create(ObstacleTypes type, Level l) {
         Obstacle obstacle;
         switch (type) {
