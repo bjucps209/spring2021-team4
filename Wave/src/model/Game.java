@@ -227,7 +227,7 @@ public class Game {
             String firstLine = rd.readLine();
             if (firstLine.equals("###END###")) {
                 // means already end of game
-                this.levelNum = this.levels.size() - 1;
+                /*this.levelNum = this.levels.size() - 1;
                 this.currentLevel = this.levels.get(levelNum);
                 this.currentLevel.setRemainingTime(0);
 
@@ -241,7 +241,7 @@ public class Game {
 
                 // set to last level in game, but yet already at the end of that level
                 // TODO: still need further discussion on how to handle it later
-
+                */
                 return true;
             }
 
