@@ -57,6 +57,7 @@ public class Game {
 
         //TODO: set the difficulty here
         difficulty = new Difficulty(Wave.getInstance().getUserChoiceDifficulty());
+        
     }
 
     /**

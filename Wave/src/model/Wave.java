@@ -361,6 +361,9 @@ public class Wave {
      * @return a level populated with all information read from file
      */
     public Level loadCustomLevel(String fileName) throws IOException {
+        if (!fileName.endsWith(".dat")) {
+            fileName += ".dat";
+        }
 
         try (var stream = new FileInputStream(fileName);) {
             var f = new File(fileName);
@@ -447,6 +450,8 @@ public class Wave {
             }
             return level;
         } catch (IOException e) {
+            System.out.println(fileName);
+            // System.out.println("exception" + e.getMessage());
             return null;
         }
     }
