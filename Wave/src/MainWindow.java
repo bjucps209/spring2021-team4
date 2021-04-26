@@ -339,6 +339,8 @@ public class MainWindow {
         ComboBox<String> cBox = (ComboBox<String>) leftVBox.getChildren().get(1);
         cBox.getItems().add(userName);
 
+        Wave.getInstance().saveCurrentUser();
+        Wave.getInstance().saveAllUsers();
         var alert = new Alert(AlertType.INFORMATION, "New user created with name '" + userName + "'");
         alert.show();
     }
