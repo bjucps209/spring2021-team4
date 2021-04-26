@@ -25,7 +25,7 @@
         </VBox>
 
 
-    <Label text="When creating an entity or updating its values, please input an integer for the x and y value"/>
+    <Label text="When creating an entity or updating its values, an empty text field represents the value 7."/>
 
     </HBox>
     <HBox spacing="10">
@@ -37,7 +37,7 @@
             
 
         </VBox>
-        <Pane fx:id="pane" prefHeight="800" prefWidth="1000" style="-fx-background-color: lightgray"/>
+        <Pane fx:id="pane" prefHeight="800" prefWidth="1000"/>
         <HBox spacing="10" styleClass="propview">
             <VBox spacing="10">
                 <Label text="Position:" />

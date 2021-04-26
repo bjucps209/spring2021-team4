@@ -1,7 +1,5 @@
 package model.GameObjects.Enemies;
 
-import org.junit.rules.TestRule;
-
 import model.Enums.EnemyTypes;
 import model.GameObjects.GameObject;
 
@@ -29,14 +27,6 @@ public abstract class EnemyObject extends GameObject {
         case GHOST:
             enemy = new Ghost();
             enemy.setType(e);
-            break;
-        case LASER:
-            enemy = new Laser();
-            enemy.setType(e);
-            break;
-        case SHAPESHIFTER:
-            enemy = new Shapeshifter();
-            enemy.setType(EnemyTypes.BOUNCER);
             break;
         case TRACKER:
             enemy = new Tracker();
