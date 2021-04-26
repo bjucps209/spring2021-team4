@@ -16,8 +16,6 @@ import model.GameObjects.Enemies.*;
 import model.GameObjects.Powerups.*;
 import model.GameObjects.Obstacles.*;
 
-
-// when saving a laser, add in H or V for Horizontal/ vertical 
 public class MainWindow {
 
     @FXML
@@ -32,8 +30,6 @@ public class MainWindow {
 
     @FXML
     Label lblLoc;
-
-
 
 
     @FXML
@@ -60,7 +56,7 @@ public class MainWindow {
     
     @FXML
     void initialize() {
-        String[] types = {"Player playerShip1_blue", "Square block_square", "Large block_large", "Narrow block_narrow", "Freeze powerupBlue_bolt", "HealthGainBig pill_yellow", "TemporaryInvincible shield_gold", "DestroyShip bolt_gold", "HealthGainSmall pill_blue", "Bouncer enemyBlack4", "Tracker enemyBlack1", "Ghost enemyBlack2", "Laser cockpitGreen_0", "Shapeshifter enemyBlack4"};
+        String[] types = {"Player playerShip1_blue", "Square block_square", "Large block_large", "Narrow block_narrow", "Freeze powerupBlue_bolt", "HealthGainBig pill_yellow", "TemporaryInvincible shield_gold", "DestroyShip bolt_gold", "HealthGainSmall pill_blue", "Bouncer enemyBlack4", "Tracker enemyBlack1", "Ghost enemyBlack2"};
         typeBox.getItems().addAll(types);
         vbox1.getChildren().add(typeBox);
         
@@ -110,21 +106,16 @@ public class MainWindow {
         }
 
         // enemies
-        else if (identifier.equals("cockpitGreen_0")) {
-            object = EnemyObject.create(EnemyTypes.LASER);
-        }
         else if (identifier.equals("enemyBlack4")) {
             object = EnemyObject.create(EnemyTypes.BOUNCER);
         }
         else if (identifier.equals("enemyBlack1")) {
             object = EnemyObject.create(EnemyTypes.TRACKER);
         }
-        else if (identifier.equals("enemyBlack2")) {
+        else {
             object = EnemyObject.create(EnemyTypes.GHOST);
         }
-        else {
-            object = EnemyObject.create(EnemyTypes.SHAPESHIFTER);
-        }
+
 
         return object;
     }
@@ -226,6 +217,9 @@ public class MainWindow {
                 }
             }
             else if (txtFXValue.getText().equals("") && txtFYValue.getText().equals("")) {
+                setDataValues(imgView, 7, 7);
+            }
+            else {
                 setDataValues(imgView, 7, 7);
             }
             

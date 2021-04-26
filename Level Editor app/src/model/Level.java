@@ -3,20 +3,16 @@ package model;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-// import java.util.stream.Stream;
 
 import model.Enums.EnemyTypes;
 import model.Enums.ObstacleTypes;
 import model.Enums.ShipSkins;
 import model.GameObjects.GameObject;
-// import model.GameObjects.Obstacle;
 import model.GameObjects.Obstacles.*;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.Bouncer;
 import model.GameObjects.Enemies.EnemyObject;
 import model.GameObjects.Enemies.Ghost;
-import model.GameObjects.Enemies.Laser;
-import model.GameObjects.Enemies.Shapeshifter;
 import model.GameObjects.Enemies.Tracker;
 import model.GameObjects.Powerups.PowerUp;
 
@@ -92,10 +88,6 @@ public class Level {
                 return Bouncer.speed;
             case GHOST:
                 return Ghost.speed;
-            case LASER:
-                return Laser.speed;
-            case SHAPESHIFTER:
-                return Shapeshifter.speed;
             case TRACKER:
                 return Tracker.speed;
             default:
@@ -224,7 +216,7 @@ public class Level {
     public boolean deserialization(BufferedReader rd) throws IOException {
 
         // TODO: handle difficulty level
-        String difficultyLevel = rd.readLine();
+        // String difficultyLevel = rd.readLine();
 
         int totalPlayer = Integer.parseInt(rd.readLine());
         if (totalPlayer == 1) {
