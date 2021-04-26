@@ -167,9 +167,7 @@ public class Wave {
             this.users.add(this.currentUser);
         }
         //TODO: add coins for different level
-        if(game.getDifficultyLevel().getDifficulty() == DifficultyLevel.Easy){
 
-        }
         this.currentUser.setCoins(this.coins.get()/2 + this.currentUser.getCoins() );
     }
 
