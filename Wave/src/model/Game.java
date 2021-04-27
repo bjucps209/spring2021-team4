@@ -23,6 +23,7 @@ public class Game {
     // Visual variables
     private int gameWidth;
     private int gameHeight;
+    private boolean isWon = false;
 
     // Data variables
     private ArrayList<Level> levels = new ArrayList<Level>();
@@ -164,7 +165,8 @@ public class Game {
             levelNum++;
             currentLevel = levels.get(levelNum);
         } else {
-            // TODO: COMPLETED ALL LEVES
+            // TODO: COMPLETED ALL LEVELS
+            setIsWon(true);
         }
         
     }
@@ -234,6 +236,14 @@ public class Game {
 
     public ArrayList<Level> getLevels() {
         return this.levels;
+    }
+
+    public void setIsWon(boolean won) {
+        isWon = won;
+    }
+
+    public boolean isWon() {
+        return isWon();
     }
 
     // Methods for serialization
