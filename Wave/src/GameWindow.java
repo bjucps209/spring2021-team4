@@ -226,9 +226,14 @@ public class GameWindow {
         if (!levelIsNext) {
             g.stopHitDetection();
             g.stopPlayerHitDetection();
+            int health = p.getHealth();
             g.nextLevel();
+            p = g.getCurrentLevel().getPlayer();
+            p.setHealth(health);
+            healthBar.progressProperty().bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
             g.startHitDetection();
             lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
+
 
             pane.getChildren().remove(arrow);
             for (var item : pane.getChildren()) {
