@@ -184,7 +184,7 @@ public class MainWindow {
     }
 
     /**
-     * method to load the screen in which any amount of custom levels can be loaded
+     * method to load the screen in which any amount of custom levels can be loaded, no user needs to be logged in
      * @param none 
      * @return none
      */
@@ -446,15 +446,15 @@ public class MainWindow {
                                 ownerShipBool = true;
                             }
                         }
-                        Label label;
-                        if (ownerShipBool) {
-                            label = new Label("OWNED");
-                            label.setId("shop-label");
-                        }
-                        else {
-                            label = new Label("1000 COINS");
-                            label.setId("shop-label");
-                        }
+                        Label label = new Label();
+                        label.setId("shop-label");
+                        // if (ownerShipBool) {
+                        //     label.setText("OWNED");
+                        // }
+                        // else {
+                        //     label.setText("1000 COINS");
+                        // }
+                        label.setText(ownerShipBool ? "OWNED" : "1000 COINS");
                         
 
                         Button button = new Button();

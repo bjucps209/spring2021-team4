@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   GUIApplication.java
+//Desc:   file that launches the initial main menu
+//        
+//-----------------------------------------------------------
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   HighScoreTest.java
+//Desc:   unit tests for HighScore
+//        
+//-----------------------------------------------------------
+
 package model;
 
 import static org.junit.Assert.assertEquals;
