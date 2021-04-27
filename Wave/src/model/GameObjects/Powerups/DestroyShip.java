@@ -27,7 +27,6 @@ public class DestroyShip extends PowerUp {
 
   @Override
   public void collisionWithPlayer(Player p) {
-    // TODO Auto-generated method stub
     if (this.isFinished == false) {
       Random ran = new Random();
       ArrayList<EnemyObject> enemies = Wave.getInstance().getGame().getCurrentLevel().getEnemies();

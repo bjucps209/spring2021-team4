@@ -5,11 +5,8 @@
 //-----------------------------------------------------------
 
 import java.util.ArrayList;
-import java.util.Random;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,8 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -29,14 +24,12 @@ import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 import model.GameObjects.Obstacles.Obstacle;
 import model.GameObjects.Powerups.PowerUp;
-import model.GameObjects.SpeedPanels.SpeedPanel;
 import model.Game;
 import model.HighScore;
 import model.HighScoreList;
 import model.Level;
 import model.Wave;
 import model.Enums.ShipSkins;
-import model.Enums.SpeedPanelTypes;
 
 public class GameWindow {
 
@@ -228,7 +221,7 @@ public class GameWindow {
      * @return none
      */
     public void startLevel() {
-        Node playerToRemove = null;
+        ArrayList<Node> toRemove = new ArrayList<Node>();
         // Code to start a level
         if (!levelIsNext) {
             g.stopHitDetection();
@@ -236,14 +229,19 @@ public class GameWindow {
             g.nextLevel();
             g.startHitDetection();
             lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
-            // // Code for starting a Level
-            // for (var item : pane.getChildren()) {
-            //     if ((Object) item instanceof Player) {
-            //         playerToRemove = item;
-            //     }
-            // }
 
             pane.getChildren().remove(arrow);
+            for (var item : pane.getChildren()) {
+                if (item.getUserData() instanceof GameObject) {
+                    toRemove.add(item);
+                }
+            }
+
+            for (Node n : toRemove) {
+                pane.getChildren().remove(n);
+            }
+
+            toRemove = new ArrayList<Node>();
             
             // start the timer
             countDown.play();
@@ -337,6 +335,7 @@ public class GameWindow {
         playerImageView.setFitHeight(p.getHeight());
         playerImageView.layoutXProperty().bind(p.xProperty());
         playerImageView.layoutYProperty().bind(p.yProperty());
+        playerImageView.setUserData(p);
         pane.getChildren().add(playerImageView);
     }
 
@@ -449,6 +448,7 @@ public class GameWindow {
                 pane.getChildren().add(squareImageView);
                 squareImageView.layoutXProperty().bind(o.xProperty());
                 squareImageView.layoutYProperty().bind(o.yProperty());
+                squareImageView.setUserData(o);
                 break;
             case LARGE:
                 Image ghostImage = new Image("./Images/block_large.png");
@@ -458,6 +458,7 @@ public class GameWindow {
                 pane.getChildren().add(ghostImageView);
                 ghostImageView.layoutXProperty().bind(o.xProperty());
                 ghostImageView.layoutYProperty().bind(o.yProperty());
+                ghostImageView.setUserData(o);
                 break;
             case NARROW:
                 Image laserImage = new Image("./Images/block_narrow.png");
@@ -467,6 +468,7 @@ public class GameWindow {
                 pane.getChildren().add(laserImageView);
                 laserImageView.layoutXProperty().bind(o.xProperty());
                 laserImageView.layoutYProperty().bind(o.yProperty());
+                laserImageView.setUserData(o);
                 break;
             // case CORNER:
             //     Image shapeshifterImage = new Image("./Images/block_corner.png");

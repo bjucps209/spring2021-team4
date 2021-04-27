@@ -7,13 +7,9 @@
 package model.GameObjects;
 
 import java.util.ArrayList;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.util.Duration;
 import model.Level;
 import model.Wave;
 import model.GameObjects.Enemies.Bouncer;
@@ -278,14 +274,14 @@ public abstract class GameObject {
         if (getX() <= 0 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 20) {
             dx.set(-getDx());
             if (getX() < 10) {
-                x.set(1);
+                x.set(2);
             } else {
                 x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 19);
             }
         } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 15) {
             dy.set(-getDy());
             if (getY() < 10) {
-                y.set(1);
+                y.set(2);
             } else {
                 y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 16);
             }

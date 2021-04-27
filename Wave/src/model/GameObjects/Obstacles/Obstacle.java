@@ -71,18 +71,15 @@ public class Obstacle extends GameObject {
     }
     @Override
     public String serialize() {
-        // TODO Auto-generated method stub
         // TODO: do we have different type of obstacles
 
         return "Obstacle;"+type.toString()+";"+x.get()+";"+y.get()+";" + width.get()+";" + height.get()+";"+dx.get()+";"+dy.get() + ";"+appearTime;
-         //TODO: special affect on obstacles?
     }
 
     @Override
     public boolean deserialize(String info) {
         // info contains
         // x,y,width,height,dx,dy,special effect
-        // TODO Auto-generated method stub
         // TODO handle special effects
         try{
         String [] restInfo = info.split(";");

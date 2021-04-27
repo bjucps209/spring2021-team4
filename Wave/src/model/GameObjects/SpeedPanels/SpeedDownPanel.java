@@ -8,7 +8,6 @@ public class SpeedDownPanel extends SpeedPanel{
 
   public SpeedDownPanel(Level l) {
     super(l);
-    //TODO Auto-generated constructor stub
     this.effectiveTime = 5;
     this.type = SpeedPanelTypes.speedDown;
     setWidth(50);
