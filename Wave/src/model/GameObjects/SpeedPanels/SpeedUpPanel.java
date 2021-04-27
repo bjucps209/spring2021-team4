@@ -9,7 +9,6 @@ public class SpeedUpPanel extends SpeedPanel {
 
   public SpeedUpPanel(Level l) {
     super(l);
-    //TODO Auto-generated constructor stubt
     this.type = SpeedPanelTypes.speedUp;
     this.effectiveTime = 5;
     setWidth(50);
@@ -20,7 +19,6 @@ public class SpeedUpPanel extends SpeedPanel {
 
   @Override
   public void collisionWithObject(GameObject ob) {
-    // TODO Auto-generated method stub
     if(this.startTime == -1){
       this.startTime = this.currentLevel.getRemainingTime();
     }
@@ -33,7 +31,6 @@ public class SpeedUpPanel extends SpeedPanel {
 
   @Override
   public void update() {
-    // TODO Auto-generated method stub
     if(this.startTime != -1){
       this.passedTime = this.startTime - this.currentLevel.getRemainingTime();
       if(passedTime >= effectiveTime){

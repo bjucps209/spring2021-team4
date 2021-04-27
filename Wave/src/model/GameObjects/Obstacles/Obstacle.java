@@ -1,3 +1,8 @@
+//-----------------------------------------------------------
+//File:   Obstacle.java
+//Desc:    file that all obstacles inherit from
+//        
+//-----------------------------------------------------------
 
 package model.GameObjects.Obstacles;
 import model.Level;
@@ -26,6 +31,12 @@ public class Obstacle extends GameObject {
         });
     }
 
+    /**
+     * A factory method for all obstacles
+     * @param type the type of obstacle to be created
+     * @param l the level this powerup is being created for
+     * @return an instance of the respective obstacle type
+     */
     public static Obstacle create(ObstacleTypes type, Level l) {
         Obstacle obstacle;
         switch (type) {
@@ -60,18 +71,15 @@ public class Obstacle extends GameObject {
     }
     @Override
     public String serialize() {
-        // TODO Auto-generated method stub
         // TODO: do we have different type of obstacles
 
         return "Obstacle;"+type.toString()+";"+x.get()+";"+y.get()+";" + width.get()+";" + height.get()+";"+dx.get()+";"+dy.get() + ";"+appearTime;
-         //TODO: special affect on obstacles?
     }
 
     @Override
     public boolean deserialize(String info) {
         // info contains
         // x,y,width,height,dx,dy,special effect
-        // TODO Auto-generated method stub
         // TODO handle special effects
         try{
         String [] restInfo = info.split(";");

@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   DestroyShip.java
+//Desc:   powerup that destroys a random ship in the current level
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Powerups;
 
 import java.util.ArrayList;
@@ -21,7 +27,6 @@ public class DestroyShip extends PowerUp {
 
   @Override
   public void collisionWithPlayer(Player p) {
-    // TODO Auto-generated method stub
     if (this.isFinished == false) {
       Random ran = new Random();
       ArrayList<EnemyObject> enemies = Wave.getInstance().getGame().getCurrentLevel().getEnemies();

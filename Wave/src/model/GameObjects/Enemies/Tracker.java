@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Tracker.java
+//Desc:   tracks the player but interacts with obstacles in 
+//        the map
+//-----------------------------------------------------------
+
 package model.GameObjects.Enemies;
 
 import model.Level;

@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Bouncer.java
+//Desc:   entity that does not track, only bounces off of 
+//        obstacles and walls
+//-----------------------------------------------------------
+
 package model.GameObjects.Enemies;
 
 import model.Level;

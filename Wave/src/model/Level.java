@@ -1,10 +1,14 @@
+//-----------------------------------------------------------
+//File:   Level.java
+//Desc:   this file represents one level and holds information
+//        of lists of all gameobjects in the level
+//-----------------------------------------------------------
+
 package model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javafx.animation.KeyFrame;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.Enums.EnemyTypes;
@@ -53,7 +57,7 @@ public class Level {
     // Gameplay variables
     private Player player = new Player(this);
 
-    private IntegerProperty remainingTime = new SimpleIntegerProperty(30); // possible connect to TimeLine() with data binding technique
+    private IntegerProperty remainingTime = new SimpleIntegerProperty(5); // possible connect to TimeLine() with data binding technique
 
     public boolean finished = false;
 
@@ -97,8 +101,14 @@ public class Level {
 
     }
 
-    // Takes the enemy type, x, and y. creates an enemy
-    // and adds it to enemy list and all object list
+    
+    /**
+     * Takes the enemy type, x, and y. creates an enemy
+     * and adds it to enemy list and all object list
+     * @param type the type of enemy to create
+     * @param x,y x and y location of the entity
+     * @return none
+     */
     public void spawnEnemy(EnemyTypes type, int x, int y) {
         EnemyObject e = EnemyObject.create(type, this);
         int speed = calcEnemySpeed(type);
@@ -112,6 +122,11 @@ public class Level {
         allObjects.add(e);
     }
 
+    /**
+     * calculates an enemy's speed based on their type
+     * @param type the type of enemy 
+     * @return the entity's speed
+     */
     public int calcEnemySpeed(EnemyTypes type) {
         switch (type) {
             case BOUNCER:
@@ -198,12 +213,12 @@ public class Level {
 
     /**
      * The function retursn a String consist of information about this level()
+     * @param none
      * @return - String represent the data of leve() 
      */
     public String serialization() {
         String info = "";
 
-        // TODO: detect in more than one player mode
         int numberPlayer = 1;
         info += numberPlayer + "/n";
 
@@ -224,8 +239,8 @@ public class Level {
         }
 
 
-        //TODO: also add power panels and their affect on player
-        info += allObjects.size()-numberPlayer + "/n";  //TODO: note allObject also contains player
+       
+        info += allObjects.size()-numberPlayer + "/n";  
         for (GameObject object : allObjects) {
             if(object instanceof Player){
                 continue;
@@ -258,7 +273,7 @@ public class Level {
      */
     public boolean deserialization(BufferedReader rd) throws IOException {
 
-        // TODO: handle difficulty level
+
         //String difficultyLevel = rd.readLine();
         boolean success = true;
 
@@ -287,7 +302,7 @@ public class Level {
                 }
             }
 
-            //TODO: also add power panel and their affect on player
+
             if (player.deserialize(restInfo) == false) {
                 throw new IOException("Error in converting user data");
                 // means error in converting user data
@@ -371,9 +386,8 @@ public class Level {
                     }
 
                 } else if (object.equals("Obstacle")) {
-                    // TODO have to determine if obstalce will have different type or not
+                   
 
-                    // assumenot in this calse
                     Obstacle obstacle = new Obstacle(this);
                     switch(ObstacleTypes.valueOf(type)){
                         case SQUARE:{
@@ -410,7 +424,6 @@ public class Level {
                     PowerUp power = new PowerUp(this){
                         @Override
                         public void collisionWithPlayer(Player p) {
-                            // TODO Auto-generated method stub
                             
                         }    
                     };

@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   PowerUps.java
+//Desc:   enumeration for each of the 5 powerups
+//        
+//-----------------------------------------------------------
+
 package model.Enums;
 
 

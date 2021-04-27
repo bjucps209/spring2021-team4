@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Difficulty.java
+//Desc:   file used to calculate attributes of the game affected
+//        by difficulty selection
+//-----------------------------------------------------------s
+
 package model;
 
 import model.Enums.DifficultyLevel;
@@ -10,6 +16,11 @@ public class Difficulty {
     this.difficulty = choice;
   }
 
+  /**
+   * method to reward a player with a number of coins based on the difficulty level
+   * @param none
+   * @return the number of coins to be rewarded
+   */
   public int rewardCoins() {
     switch (difficulty) {
     case Easy:
@@ -23,6 +34,11 @@ public class Difficulty {
     }
   }
 
+  /**
+   * method to calculate a damage multiplier based on the difficulty of the game
+   * @param none
+   * @return a multiplier representing the extra damage to be done to the player
+   */
   public int difficultyAffect() {
 
     switch (difficulty) {

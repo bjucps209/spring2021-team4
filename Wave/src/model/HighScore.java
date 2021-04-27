@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   HighScore.java
+//Desc:   represents one individual highscore
+//        this is correlated with a user's name attribute
+//-----------------------------------------------------------
+
 package model;
 
 public class HighScore implements Comparable<HighScore> {

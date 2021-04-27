@@ -1,12 +1,13 @@
+//-----------------------------------------------------------
+//File:   Player.java
+//Desc:   file that represents the player. attributes include
+//        currentskin, health, speed, invincibility, and winstate
+//-----------------------------------------------------------
+
 package model.GameObjects;
 
-import java.util.ArrayList;
-
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.util.Duration;
-import jdk.nashorn.api.tree.PropertyTree;
 import model.Level;
 import model.Wave;
 import model.Enums.PowerUps;
@@ -58,7 +59,11 @@ public class Player extends GameObject {
     public boolean moveOn = false;
     
 
-
+    /**
+     * creates a new thread for the attribute hit detection
+     * @param none
+     * @return a new hit detection thread
+     */
     public Thread changeThread(){
         return hitDetection = new Thread(() -> {
             while (true) {
@@ -118,7 +123,12 @@ public class Player extends GameObject {
         setDy(0);
         setWidth(50);
         setHeight(50);
-        this.currentShipSkins = Wave.getInstance().getCurrentUser().getShip();
+        try {
+            this.currentShipSkins = Wave.getInstance().getCurrentUser().getShip();
+        }
+        catch (NullPointerException e) {
+            this.currentShipSkins = ShipSkins.SHIP1;
+        }
         hitDetection = new Thread(() -> {
             while (true) {
                 checkWallCollision();
@@ -162,7 +172,7 @@ public class Player extends GameObject {
                     }
                     //processHit(hits.get(0), this, this);
                     
-                    hits.removeIf( (GameObject o) -> ((o instanceof PowerUp) == false  && (o instanceof SpeedPanel) == false ) ); 
+                    hits.removeIf( (GameObject o) -> ((o instanceof PowerUp) == false ) ); 
                    i++;
                 }
                 
@@ -178,10 +188,20 @@ public class Player extends GameObject {
 
     }
 
+    /**
+     * method that stops wall hit detection
+     * @param none
+     * @return none
+     */
     public void changeWallDetection() {
         hitDetection.stop();
     }
 
+    /**
+     * method that checks if the player has run into a wall
+     * @param none
+     * @return none
+     */
     @Override
     public void checkWallCollision() {
         if (winState) {
@@ -219,6 +239,11 @@ public class Player extends GameObject {
         }
     }
 
+    /**
+     * method through which the player takes damage
+     * @param damage the value for which the player is damaged
+     * @return none
+     */
     public void takeDamage(int damage){
 
         if(this.temporaryInvincible == false){

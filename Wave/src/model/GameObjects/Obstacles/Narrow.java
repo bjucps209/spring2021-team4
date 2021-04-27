@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Narrow.java
+//Desc:   narrow obstacle
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Obstacles;
 
 import model.Level;

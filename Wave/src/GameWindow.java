@@ -1,9 +1,12 @@
-import java.util.ArrayList;
-import java.util.Random;
+//-----------------------------------------------------------
+//File:   GameWindow.java
+//Desc:   this file represents the window in which the game 
+//        will be played
+//-----------------------------------------------------------
 
+import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,8 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -23,14 +24,12 @@ import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 import model.GameObjects.Obstacles.Obstacle;
 import model.GameObjects.Powerups.PowerUp;
-import model.GameObjects.SpeedPanels.SpeedPanel;
 import model.Game;
 import model.HighScore;
 import model.HighScoreList;
 import model.Level;
 import model.Wave;
 import model.Enums.ShipSkins;
-import model.Enums.SpeedPanelTypes;
 
 public class GameWindow {
 
@@ -69,6 +68,11 @@ public class GameWindow {
     Label arrow;
     ImageView playerImageView;
 
+    /**
+     * initialize method to load the current level of the instance of game
+     * @param none 
+     * @return none
+     */
     @FXML
     public void initialize() {
 
@@ -86,8 +90,11 @@ public class GameWindow {
 
         }
         else if (MainWindow.customGameLevels.size() != 0) {
+            w.setCoins(0);
             w.gameStart(MainWindow.customGameLevels);
+           
         } else {
+            w.setCoins(0);
             ArrayList<Level> levels = w.getDefaultLevels();
             w.gameStart(levels);
         }
@@ -131,6 +138,7 @@ public class GameWindow {
         // Score label and binding
         // Label lblSCORE = new Label("SCORE");
         // Label lblScore = new Label();
+
         lblScore.textProperty().bind(w.coinsProperty().asString());
         pane.getChildren().add(lblSCORE);
         pane.getChildren().add(lblScore);
@@ -175,12 +183,21 @@ public class GameWindow {
             if (healthBar.getProgress() == 0) {
                 endGameOnHealth();
             }
+
+            if (g.isWon()) {
+                // TODO: LAUNCH WON WINDOW
+            }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
         // Platform.exit();
     }
 
+    /**
+     * method called to showt stop the level. it also shows how to proceed to the next level
+     * @param none 
+     * @return none
+     */
     public void stopLevel() {
         
         if (!levelStopped) {
@@ -202,23 +219,38 @@ public class GameWindow {
         }
     }
 
+    /**
+     * used in GameWindow's initialize to start the game
+     * @param none 
+     * @return none
+     */
     public void startLevel() {
-        Node playerToRemove = null;
+        ArrayList<Node> toRemove = new ArrayList<Node>();
         // Code to start a level
         if (!levelIsNext) {
             g.stopHitDetection();
             g.stopPlayerHitDetection();
+            int health = p.getHealth();
             g.nextLevel();
+            p = g.getCurrentLevel().getPlayer();
+            p.setHealth(health);
+            healthBar.progressProperty().bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
             g.startHitDetection();
             lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
-            // // Code for starting a Level
-            // for (var item : pane.getChildren()) {
-            //     if ((Object) item instanceof Player) {
-            //         playerToRemove = item;
-            //     }
-            // }
+
 
             pane.getChildren().remove(arrow);
+            for (var item : pane.getChildren()) {
+                if (item.getUserData() instanceof GameObject) {
+                    toRemove.add(item);
+                }
+            }
+
+            for (Node n : toRemove) {
+                pane.getChildren().remove(n);
+            }
+
+            toRemove = new ArrayList<Node>();
             
             // start the timer
             countDown.play();
@@ -232,6 +264,11 @@ public class GameWindow {
         
     }
 
+    /**
+     * calls the methods to spawn all types of entities in the pane
+     * @param none 
+     * @return none
+     */
     public void spawnEntities() {
         // code to combine all spawn function below
         spawnObstacles();
@@ -241,7 +278,11 @@ public class GameWindow {
         //spawnPowerPanels();
     }
 
-    // spawns the player image and then binds that image to the player object
+    /**
+     * spawns the player and binds a corresponding imageView to it
+     * @param none 
+     * @return none
+     */
     public void spawnPlayer() {
         p = g.getCurrentLevel().getPlayer();
         Image playerImage;
@@ -303,6 +344,7 @@ public class GameWindow {
         playerImageView.setFitHeight(p.getHeight());
         playerImageView.layoutXProperty().bind(p.xProperty());
         playerImageView.layoutYProperty().bind(p.yProperty());
+        playerImageView.setUserData(p);
         pane.getChildren().add(playerImageView);
     }
 
@@ -334,6 +376,11 @@ public class GameWindow {
     
     }*/
 
+    /**
+     * iterates through the list of enemy entities in the current level and 'spawns' them in the pane
+     * @param none 
+     * @return none
+     */
     public void spawnEnemies() {
         for (EnemyObject o : g.getLevels().get(g.getLevelNum()).getEnemies()) {
             switch (o.getType()) {
@@ -393,6 +440,11 @@ public class GameWindow {
         }
     }
 
+    /**
+     * iterates through the list of obstacles in the current level and 'spawns' them in the pane
+     * @param none 
+     * @return none
+     */
     public void spawnObstacles() {
         System.out.println(System.getProperty("user.dir"));
         for (Obstacle o : g.getLevels().get(g.getLevelNum()).getObstacles()) {
@@ -405,6 +457,7 @@ public class GameWindow {
                 pane.getChildren().add(squareImageView);
                 squareImageView.layoutXProperty().bind(o.xProperty());
                 squareImageView.layoutYProperty().bind(o.yProperty());
+                squareImageView.setUserData(o);
                 break;
             case LARGE:
                 Image ghostImage = new Image("./Images/block_large.png");
@@ -414,6 +467,7 @@ public class GameWindow {
                 pane.getChildren().add(ghostImageView);
                 ghostImageView.layoutXProperty().bind(o.xProperty());
                 ghostImageView.layoutYProperty().bind(o.yProperty());
+                ghostImageView.setUserData(o);
                 break;
             case NARROW:
                 Image laserImage = new Image("./Images/block_narrow.png");
@@ -423,6 +477,7 @@ public class GameWindow {
                 pane.getChildren().add(laserImageView);
                 laserImageView.layoutXProperty().bind(o.xProperty());
                 laserImageView.layoutYProperty().bind(o.yProperty());
+                laserImageView.setUserData(o);
                 break;
             // case CORNER:
             //     Image shapeshifterImage = new Image("./Images/block_corner.png");
@@ -439,6 +494,11 @@ public class GameWindow {
         }
     }
 
+    /**
+     * iterates through the list of powerups in the current level and 'spawns' them in the pane
+     * @param none 
+     * @return none
+     */
     public void spawnPowerups() {
         for(PowerUp power : g.getLevels().get(g.getLevelNum()).getPowerUps()){
             switch(power.getType()){
@@ -498,6 +558,11 @@ public class GameWindow {
         }
     }
 
+    /**
+     * method that detects if the player is out of health. if so, ends the game and notifies the user
+     * @param none 
+     * @return none
+     */
     void endGameOnHealth() {
         timer.stop();
         countDown.stop();
@@ -526,8 +591,11 @@ public class GameWindow {
         vboxEnd.getChildren().add(label2);
     }
 
-    // Method for pausing the game and ending the game
-    
+    /**
+     * method for pausing the game and ending the game
+     * @param none 
+     * @return none
+     */
     public static void pause() {
         if (pauseState == false) {
             pauseState = true;
@@ -552,7 +620,7 @@ public class GameWindow {
 
             nameScene.getStylesheets().add("GameWindow.css");
 
-            Button btnResume = new Button("RESUME");
+            btnResume = new Button("RESUME");
             btnResume.setOnAction(e -> onResumeClicked(e));
             vboxName.getChildren().add(btnResume);
 
@@ -565,18 +633,29 @@ public class GameWindow {
         }
     }
 
-    // close the window and start all the necessary game timers
+    /**
+     * close the window and start all necessary game timers
+     * @param e is used to allow for btn.setOnAction(e -> onResumeClicked(e)) to compile
+     * @return none
+     */
     static void onResumeClicked(ActionEvent event) {
-        Stage stage = (Stage) btnResume.getScene().getWindow();
-        stage.close();
+
         for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
             item.start();
         }
         timer.play();
         countDown.play();
+        Stage stage = (Stage) btnResume.getScene().getWindow();
+        stage.close();
+        pauseState = false;
+        
     }
 
-    // Close the window and end the game, saving everything
+    /**
+     * close the window and end the game, saving everything
+     * @param e is used to allow for btn.setOnAction( e -> onEndClicked(e)) to compile
+     * @return none
+     */
     static void onEndClicked(ActionEvent event) {
         Wave.getInstance().getGame().save(Wave.getInstance().getCurrentUser().getName());
         Wave.getInstance().saveAllUsers();
@@ -592,13 +671,22 @@ public class GameWindow {
         highScoreList.save();
     }
 
-    // close the timer
+    /**
+     * close the timer
+     * @param none 
+     * @return none
+     */
     public static void onClosed() {
         timer.stop();
         countDown.stop();
 
     }
 
+    /**
+     * move methods of GameWindow that correspond with moving the player 
+     * @param none 
+     * @return none
+     */
     public static void moveUp() {
         if (p.getDy() == 0) {
             p.moveUp();
@@ -631,4 +719,5 @@ public class GameWindow {
         p.moveNeutral();
         g.update();
     }
+    // ----
 }

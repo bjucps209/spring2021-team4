@@ -1,13 +1,15 @@
+//-----------------------------------------------------------
+//File:   GameObject.java
+//Desc:   class that all objects in the game inherit from
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects;
 
 import java.util.ArrayList;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.util.Duration;
 import model.Level;
 import model.Wave;
 import model.GameObjects.Enemies.Bouncer;
@@ -68,6 +70,11 @@ public abstract class GameObject {
         currentLevel = l;
     }
 
+    /**
+     * method to initialize whatever attributes of the object that are affected by the game difficulty
+     * @param none
+     * @return none
+     */
     public void initializeDifficulty() {
         increaseSpeed = Wave.getInstance().getGame().getDifficultyLevel().difficultyAffect();
         if (this instanceof Player) {
@@ -78,7 +85,11 @@ public abstract class GameObject {
         }
     }
 
-    // update method each object needs
+    /**
+     * method to update each object so long as it isnt paused
+     * @param none
+     * @return none
+     */
     public void update() {
         if (!paused) {
             if (this instanceof Player) {
@@ -108,8 +119,14 @@ public abstract class GameObject {
         setPaused(false);
     }
 
-    // First gameobject is the object hit, second is the object hitting the first
-    // (usually a moving enemy or player), and third is the levels player
+    /**
+     * First gameobject is the object hit, second is the object hitting the first
+     * (usually a moving enemy or player), and third is the levels player
+     * @param hit the object that has been hit by hitter
+     * @param hitter the object that hit something
+     * @param p the player
+     * @return true when hit is done being processed, false if it is not processed
+     */
     public boolean processHit(GameObject hit, GameObject hitter, Player p) {
         int playerX = p.getX();
         int playerY = p.getY();
@@ -192,6 +209,12 @@ public abstract class GameObject {
         return true;
     }
 
+    /**
+     * method to change the player position based on what side of an object they have hit
+     * @param p the player that is hit
+     * @param o  the obstacle being run into
+     * @return none
+     */
     public void changePlayerPosition(Player p, Obstacle o) {
         // left
         if (p.getX() <= o.getX() + 10) {
@@ -218,6 +241,11 @@ public abstract class GameObject {
         }
     }
 
+    /**
+     * method to check collsion of objects in a level
+     * @param g the arraylist of objects being checked
+     * @return the object that was hit
+     */
     public GameObject checkCollision(ArrayList<? extends GameObject> g) {
         for (GameObject e : g) {
             for (int i = e.getX(); i <= e.getX() + e.getWidth(); i++) {
@@ -237,18 +265,23 @@ public abstract class GameObject {
         return null;
     }
 
+    /**
+     * checks to make sure no objects have come into collision with any wall.
+     * @param none
+     * @return none
+     */
     public void checkWallCollision() {
         if (getX() <= 0 || getX() >= Wave.getInstance().getGame().getGameWidth() - getWidth() - 20) {
             dx.set(-getDx());
             if (getX() < 10) {
-                x.set(1);
+                x.set(2);
             } else {
                 x.set(Wave.getInstance().getGame().getGameWidth() - getWidth() - 19);
             }
         } else if (getY() <= 0 || getY() >= Wave.getInstance().getGame().getGameHeight() - getHeight() - 15) {
             dy.set(-getDy());
             if (getY() < 10) {
-                y.set(1);
+                y.set(2);
             } else {
                 y.set(Wave.getInstance().getGame().getGameHeight() - getHeight() - 16);
             }

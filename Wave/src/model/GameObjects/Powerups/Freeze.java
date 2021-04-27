@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   Freeze.java
+//Desc:   class that freezes all entities in a level for 5 
+//        seconds
+//-----------------------------------------------------------
+
 package model.GameObjects.Powerups;
 
 import model.Level;
@@ -20,7 +26,6 @@ public class Freeze extends PowerUp {
 
   @Override
   public void collisionWithPlayer(Player p) {
-    // TODO Auto-generated method stub
     if (this.startTime == -1) {
       this.startTime = this.currentLevel.getRemainingTime();
     }
@@ -39,8 +44,6 @@ public class Freeze extends PowerUp {
   @Override
 
   public void update() {
-    // TODO Auto-generated method stub
-    //System.out.println(startTime + "   " + passedTime);
     if (this.startTime != -1) {
       this.passedTime = this.startTime - this.currentLevel.getRemainingTime();
       if (passedTime >= effectiveTime) {

@@ -1,3 +1,9 @@
+//-----------------------------------------------------------
+//File:   HealthGainSmall.java
+//Desc:   powerup that gives the player 10 health
+//        
+//-----------------------------------------------------------
+
 package model.GameObjects.Powerups;
 
 import model.Level;
@@ -18,7 +24,6 @@ public class HealthGainSmall extends PowerUp {
 
   @Override
   public void collisionWithPlayer(Player p) {
-    // TODO Auto-generated method stub
     if (this.isFinished == false) {
       p.setHealth(p.getHealth() + healthAddition);
       if(p.getHealth()> 100){

@@ -1,14 +1,10 @@
-import java.io.File;
+//-----------------------------------------------------------
+//File:   MainWindow.java
+//Desc:   this file represents the main window where the user
+//        can log in, access auxiliary screens, and start a game
+//-----------------------------------------------------------
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Dictionary;
-
-import javax.swing.Action;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,16 +15,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.Difficulty;
-import model.Game;
 import model.HighScore;
 import model.HighScoreList;
 import model.Level;
@@ -57,6 +48,11 @@ public class MainWindow {
 
     @FXML VBox vboxTitle;
 
+    /**
+     * initialize method of MainWindow. starts playing music for the user and loads the list of high scores
+     * @param none 
+     * @return none
+     */
     @FXML
     public void initialize() {
         w = Wave.getInstance();
@@ -67,6 +63,11 @@ public class MainWindow {
         titleMusic.play();
     }
 
+    /**
+     * method to start a game of 10 default levels
+     * @param none 
+     * @return none
+     */
     @FXML
     public void onNewGameClicked() throws IOException {
         if (w.getCurrentUser() != null) {
@@ -139,6 +140,11 @@ public class MainWindow {
 
     }
 
+    /**
+     * if a user is currently logged in, loads their saved game
+     * @param none 
+     * @return none
+     */
     @FXML
     void onResumeGameClicked() {
         if (w.getCurrentUser() == null) {
@@ -161,9 +167,12 @@ public class MainWindow {
         }
     }
 
+    /**
+     * method to load the screen in which any amount of custom levels can be loaded
+     * @param none 
+     * @return none
+     */
     @FXML
-    // click on load level to open a screen that will allow the user to search the
-    // directory for a file and if it exists, load that file
     void onLoadCustomGameClicked() {
 
         VBox vbox = new VBox();
@@ -171,7 +180,7 @@ public class MainWindow {
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(10);
 
-        Label lbl = new Label("Please enter the name of the file you'd like to load.(don't worry about the .dat)");
+        Label lbl = new Label("Please enter the name of the file you'd like to load.");
         vbox.getChildren().add(lbl);
         TextField txtFieldFileChooser = new TextField();
         txtFieldFileChooser.setId("TEXTFIELD");
@@ -197,18 +206,31 @@ public class MainWindow {
 
     }
 
-    // method that calls loadCustomLevel(String levelName) in Wave.java
+    /**
+     * method used to call load custom level in wave
+     * @param e  used to get the textfield in which the name of the level to be loaded lies
+     * @return none
+     */
     @FXML
     void callLoadCustomLevel(ActionEvent e) {
         Button button = (Button) e.getSource();
         Scene scene = button.getScene();
         TextField txtFileChoice = (TextField) scene.lookup("#TEXTFIELD");
         String fileName = txtFileChoice.getText();
+        if (!fileName.endsWith(".dat")) {
+            fileName += ".dat";
+        }
         if (w.searchDirectoryForFile(fileName)) {
             try {
                 Level l = w.loadCustomLevel(fileName);
                 if (l != null) {
                     customGameLevels.add(l);
+                    var alert = new Alert(AlertType.INFORMATION, "level '" + fileName + "' has been added.");
+                    alert.show();
+                }
+                else {
+                    var alert = new Alert(AlertType.WARNING, "You have not created that level yet.");
+                    alert.show();
                 }
 
             } catch (IOException exception) {
@@ -220,6 +242,11 @@ public class MainWindow {
         }
     }
 
+    /**
+     * uses the list of custom levels and starts a game out of it
+     * @param e allows btn.setOnAction(this::startCustomGame) to compile
+     * @return none
+     */
     @FXML
     void startCustomGame(ActionEvent e) {
 
@@ -238,6 +265,11 @@ public class MainWindow {
         }
     }
 
+    /**
+     * method to load the login screen where the user can log in or sign up a new account
+     * @param none 
+     * @return none
+     */
     @FXML
     void onLogInScreenClicked() {
         HBox hbox = new HBox();
@@ -290,6 +322,11 @@ public class MainWindow {
         logInScene.getStylesheets().add("MainWindow.css");
     }
 
+    /**
+     * method to set the current user of Wave to an already existing user
+     * @param e is used to find the combobox and get its selected value
+     * @return none
+     */
     @FXML
     void onLogInClicked(ActionEvent e) {
         Button button = (Button) e.getSource();
@@ -303,13 +340,18 @@ public class MainWindow {
         for (User u : w.getUsers()) {
             if (u.getName().equals(name)) {
                 w.setCurrentUser(u);
-                var alert = new Alert(AlertType.INFORMATION, "Current user has been set to " + name);
+                var alert = new Alert(AlertType.INFORMATION, "Current user has been set to '" + name + "'");
                 alert.show();
                 return;
             }
         }
     }
 
+    /**
+     * create a new instance of User and add it to Wave as the current user and add it to the list of all users
+     * @param e is used to find the text field in which the new instance of user's name lies
+     * @return none
+     */
     @FXML
     void onCreateAccountClicked(ActionEvent e) {
         Button button = (Button) e.getSource();
@@ -322,6 +364,15 @@ public class MainWindow {
 
         TextField textField = (TextField) vbox.getChildren().get(1);
         String userName = textField.getText();
+        // ----
+        for (User u : w.getUsers()) {
+            if (u.getName().equals(userName)) {
+                var alert = new Alert(AlertType.INFORMATION, "A user with the name '" + userName + "' already exists, please choose a different name.");
+                alert.show();
+                return;
+            }
+        }
+        // ----
         User user = new User(userName);
         w.setCurrentUser(user);
         w.getUsers().add(user);
@@ -330,79 +381,104 @@ public class MainWindow {
         ComboBox<String> cBox = (ComboBox<String>) leftVBox.getChildren().get(1);
         cBox.getItems().add(userName);
 
+        Wave.getInstance().saveCurrentUser();
+        Wave.getInstance().saveAllUsers();
         var alert = new Alert(AlertType.INFORMATION, "New user created with name '" + userName + "'");
         alert.show();
     }
 
+    /**
+     * method to load the skin shop of the main menu. doesnt load if no user is logged in
+     * @param none 
+     * @return none
+     */
     @FXML
     void onSkinShopClicked() {
+        if (w.getCurrentUser() != null) {
+            ShipSkins[] shop = ShipSkins.values();
+            try {
+                ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_blue.png")), new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
+                ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};
+                ImageView[] playerShip3Images = {new ImageView(new Image("/Images/playerShip3_blue.png")), new ImageView(new Image("/Images/playerShip3_green.png")), new ImageView(new Image("/Images/playerShip3_orange.png")), new ImageView(new Image("/Images/playerShip3_red.png"))};
+                ImageView[] ufoImages = {new ImageView(new Image("/Images/ufoBlue.png")), new ImageView(new Image("/Images/ufoGreen.png")), new ImageView(new Image("/Images/ufoYellow.png")), new ImageView(new Image("/Images/ufoRed.png"))};
+                ImageView[][] allImages = {playerShip1Images, playerShip2Images, playerShip3Images, ufoImages};
+            
 
-        ShipSkins[] shop = ShipSkins.values();
-        try {
-            ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_blue.png")), new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
-            ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};
-            ImageView[] playerShip3Images = {new ImageView(new Image("/Images/playerShip3_blue.png")), new ImageView(new Image("/Images/playerShip3_green.png")), new ImageView(new Image("/Images/playerShip3_orange.png")), new ImageView(new Image("/Images/playerShip3_red.png"))};
-            ImageView[] ufoImages = {new ImageView(new Image("/Images/ufoBlue.png")), new ImageView(new Image("/Images/ufoGreen.png")), new ImageView(new Image("/Images/ufoYellow.png")), new ImageView(new Image("/Images/ufoRed.png"))};
-            ImageView[][] allImages = {playerShip1Images, playerShip2Images, playerShip3Images, ufoImages};
-        
+                VBox vbox = new VBox();
+                vbox.setId("menu-background");
+                vbox.setAlignment(Pos.CENTER);
+                vbox.setSpacing(10);
 
-            VBox vbox = new VBox();
-            vbox.setId("menu-background");
-            vbox.setAlignment(Pos.CENTER);
-            vbox.setSpacing(10);
+                Label shopLabel = new Label("SKIN SHOP/SELECT SKIN");
+                vbox.getChildren().add(shopLabel);
 
-            Label shopLabel = new Label("SKIN SHOP/SELECT SKIN");
-            vbox.getChildren().add(shopLabel);
+                Label coinsLabel = new Label(String.valueOf(w.getCurrentUser().getCoins()) + " COINS");
+                vbox.getChildren().add(coinsLabel);
 
-            Label coinsLabel = new Label(String.valueOf(w.getCurrentUser().getCoins()) + " COINS");
-            vbox.getChildren().add(coinsLabel);
+                int i = 0;
+                for (ImageView[] row : allImages) {
+                    
+                    HBox hbox = new HBox();
+                    hbox.setAlignment(Pos.CENTER);
+                    hbox.setSpacing(20);
+                    for (ImageView imageView : row) {
+                        VBox pair = new VBox();
+                        pair.setAlignment(Pos.CENTER);
+                        boolean ownerShipBool = false;
+                        for (ShipSkins skin : w.getCurrentUser().getOwnedShipSkins()) {
+                            if (skin.equals(shop[i])) {
+                                ownerShipBool = true;
+                            }
+                        }
+                        Label label;
+                        if (ownerShipBool) {
+                            label = new Label("OWNED");
+                            label.setId("shop-label");
+                        }
+                        else {
+                            label = new Label("1000 COINS");
+                            label.setId("shop-label");
+                        }
+                        
 
-            int i = 0;
-            for (ImageView[] row : allImages) {
-                
-                HBox hbox = new HBox();
-                hbox.setAlignment(Pos.CENTER);
-                hbox.setSpacing(20);
-                for (ImageView imageView : row) {
-                    VBox pair = new VBox();
-                    pair.setAlignment(Pos.CENTER);
+                        Button button = new Button();
+                        button.setGraphic(imageView);
+                        button.setOnAction(this::onSkinClicked);
+                        button.setUserData(shop[i]);
 
-                    Label label = new Label("1000 COINS");
-                    label.setId("shop-label");
-
-                    Button button = new Button();
-                    button.setGraphic(imageView);
-                    button.setOnAction(this::onSkinClicked);
-                    button.setUserData(shop[i]);
-
-                    pair.getChildren().add(button);
-                    pair.getChildren().add(label);
-                    hbox.getChildren().add(pair);
-                    i++;
+                        pair.getChildren().add(button);
+                        pair.getChildren().add(label);
+                        hbox.getChildren().add(pair);
+                        i++;
+                    }
+                    vbox.getChildren().add(hbox);
                 }
-                vbox.getChildren().add(hbox);
+
+                Scene skinShopScene = new Scene(vbox, 800, 600);
+                Stage skinShopStage = new Stage();
+                skinShopStage.setScene(skinShopScene);
+                skinShopStage.setTitle("Skin Shop");
+
+                skinShopStage.show();
+                skinShopScene.getStylesheets().add("MainWindow.css");
             }
-
-            HBox firstHBox = (HBox) vbox.getChildren().get(2);
-            VBox pairVBox = (VBox) firstHBox.getChildren().get(0);
-            Label ownedShipLabel = (Label) pairVBox.getChildren().get(1);
-            ownedShipLabel.setText("OWNED");
-
-            Scene skinShopScene = new Scene(vbox, 800, 600);
-            Stage skinShopStage = new Stage();
-            skinShopStage.setScene(skinShopScene);
-            skinShopStage.setTitle("Skin Shop");
-
-            skinShopStage.show();
-            skinShopScene.getStylesheets().add("MainWindow.css");
+            catch (IllegalArgumentException e) {
+                var alert = new Alert(AlertType.ERROR, "Error in loading shop.");
+                alert.show();
+            }
         }
-        catch (IllegalArgumentException e) {
-            var alert = new Alert(AlertType.ERROR, "Error in loading shop.");
+        else {
+            var alert = new Alert(AlertType.WARNING, "You must log in or create an account to access the shop.");
             alert.show();
         }
 
     }
 
+    /**
+     * method to buy a skin and add it to a user's owned skin list
+     * @param e is used to find the button and respective user data for the method
+     * @return none
+     */
     @FXML
     void onSkinClicked(ActionEvent e) {
         Button button = (Button) e.getSource();
@@ -432,8 +508,12 @@ public class MainWindow {
     }
 
 
+    /**
+     * method to load the about screen of the main menu
+     * @param none 
+     * @return none
+     */
     @FXML
-    // Screen to show how to play the game
     public void onAboutClicked() {
         VBox vbox = new VBox();
         vbox.setId("menu-background");
@@ -457,7 +537,12 @@ public class MainWindow {
         vbox.getChildren().add(lblInfo);
     }
 
-    // screen to show the controls of the game
+    /**
+     * method to open the help screen giving information on how to control the character, etc
+     * @param none
+     * @return void
+     */
+    @FXML
     public void onHelpClicked() {
         VBox vbox = new VBox();
         vbox.setId("menu-background");
@@ -486,8 +571,12 @@ public class MainWindow {
         vbox.getChildren().add(lblPlayer);
     }
 
+    /**
+     * method to load a screen of buttons in which the user can select a game difficulty
+     * @param none
+     * @return void
+     */
     @FXML
-    // Options for game difficulty
     public void onOptionsClicked() {
         VBox vbox = new VBox();
         vbox.setId("menu-background");
@@ -533,6 +622,11 @@ public class MainWindow {
         vbox.getChildren().add(btnCheat);
     }
 
+    /**
+     * methods to set the game difficulty to respective values
+     * @param event used to easily call btn.setOnAction for the respective buttons
+     * @return void
+     */
     void onEasyClicked(ActionEvent event) {
         Wave.getInstance().setUserChoiceDifficulty(DifficultyLevel.Easy);
     }
@@ -554,8 +648,13 @@ public class MainWindow {
             Wave.getInstance().setCheatMode(false);
         }
     }
+    // ----
 
-    // Screen to display High Scores
+    /**
+     * method to load the screen of high scores
+     * @param none
+     * @return void
+     */
     public void onScoresClicked() {
         VBox vbox = new VBox();
         vbox.setId("menu-background");
