@@ -4,21 +4,34 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 
-<VBox fx:id="vboxTitle" fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml" stylesheets="@MainWindow.css" spacing="10" prefWidth="800" prefHeight="600" alignment="CENTER">
+<VBox fx:id="vboxTitle" fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml" stylesheets="@MainWindow.css" spacing="10" prefWidth="800" prefHeight="600">
 
-    <ImageView>
-        <image>
-            <Image url="@./images/text.png" />
-        </image>
-    </ImageView>
+    <HBox spacing="10" alignment="TOP_RIGHT">
+        <Button fx:id="btnLogIn" text="LOG IN" onAction="#onLogInScreenClicked" />
+    </HBox>
 
-    <Button text="NEW GAME" onAction="#onNewGameClicked" />
-    <Button text="RESUME GAME" onAction="#onResumeGameClicked" />
-    <Button text="LOG IN" onAction="#onLogInScreenClicked" />
-    <Button text="CUSTOM GAME" onAction="#onLoadCustomGameClicked" />
-    <Button text="SKIN SHOP" onAction="#onSkinShopClicked" />
-    <Button text="ABOUT" onAction="#onAboutClicked" />
-    <Button text="HELP" onAction="#onHelpClicked" />
-    <Button text="OPTIONS" onAction="#onOptionsClicked" />
-    <Button text="HIGH SCORES" onAction="#onScoresClicked" />
+
+    <HBox spacing="10" alignment="CENTER" prefHeight="200">
+       <ImageView>
+            <image>
+                <Image url="@./images/text.png" />
+            </image>
+        </ImageView>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <VBox spacing="10" alignment="CENTER">
+            <Button text="NEW GAME" onAction="#onNewGameClicked" />
+            <Button text="RESUME GAME" onAction="#onResumeGameClicked" />
+            <Button text="CUSTOM GAME" onAction="#onLoadCustomGameClicked" />
+            <Button text="SKIN SHOP" onAction="#onSkinShopClicked" />
+        </VBox>
+
+        <VBox spacing="10" alignment="CENTER">
+            <Button text="ABOUT" onAction="#onAboutClicked" />
+            <Button text="HELP" onAction="#onHelpClicked" />
+            <Button text="OPTIONS" onAction="#onOptionsClicked" />
+            <Button text="HIGH SCORES" onAction="#onScoresClicked" />
+        </VBox>
+    </HBox>
 </VBox>
