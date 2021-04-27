@@ -1,10 +1,7 @@
 package model;
 
 import java.io.*;
-import java.util.ArrayList;
-
 import org.junit.Test;
-
 import model.Enums.DifficultyLevel;
 import model.Enums.EnemyTypes;
 import model.Enums.ShipSkins;
@@ -14,7 +11,6 @@ import model.GameObjects.Obstacles.*;
 import model.GameObjects.Powerups.Freeze;
 import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
-import model.GameObjects.*  ;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.Bouncer;
 import model.GameObjects.Enemies.EnemyObject;

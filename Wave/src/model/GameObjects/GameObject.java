@@ -7,13 +7,9 @@
 package model.GameObjects;
 
 import java.util.ArrayList;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.util.Duration;
 import model.Level;
 import model.Wave;
 import model.GameObjects.Enemies.Bouncer;

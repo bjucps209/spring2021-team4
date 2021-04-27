@@ -5,11 +5,8 @@
 //-----------------------------------------------------------
 
 import java.util.ArrayList;
-import java.util.Random;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,24 +16,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.GameObjects.GameObject;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 import model.GameObjects.Obstacles.Obstacle;
 import model.GameObjects.Powerups.PowerUp;
-import model.GameObjects.SpeedPanels.SpeedPanel;
 import model.Game;
 import model.HighScore;
 import model.HighScoreList;
 import model.Level;
 import model.Wave;
 import model.Enums.ShipSkins;
-import model.Enums.SpeedPanelTypes;
 
 public class GameWindow {
 

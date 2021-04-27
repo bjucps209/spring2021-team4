@@ -6,13 +6,8 @@
 
 package model.GameObjects;
 
-import java.util.ArrayList;
-
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.util.Duration;
-import jdk.nashorn.api.tree.PropertyTree;
 import model.Level;
 import model.Wave;
 import model.Enums.PowerUps;

@@ -7,14 +7,12 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.io.*;
 import model.GameObjects.GameObject;
 import model.GameObjects.Obstacles.*;
 import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.SpeedPanels.SpeedPanel;
 import model.Enums.DifficultyLevel;
-import model.Enums.SpeedPanelTypes;
 import model.GameObjects.*;
 import model.GameObjects.Enemies.EnemyObject;
 
