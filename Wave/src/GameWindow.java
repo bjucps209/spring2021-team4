@@ -90,7 +90,7 @@ public class GameWindow {
 
         }
         else if (MainWindow.customGameLevels.size() != 0) {
-             w.setCoins(0);
+            w.setCoins(0);
             w.gameStart(MainWindow.customGameLevels);
            
         } else {
@@ -182,6 +182,10 @@ public class GameWindow {
             // Checks to see if player died
             if (healthBar.getProgress() == 0) {
                 endGameOnHealth();
+            }
+
+            if (g.isWon()) {
+                // TODO: LAUNCH WON WINDOW
             }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
