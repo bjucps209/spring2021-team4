@@ -243,7 +243,7 @@ public class Game {
     }
 
     public boolean isWon() {
-        return isWon();
+        return isWon;
     }
 
     // Methods for serialization
