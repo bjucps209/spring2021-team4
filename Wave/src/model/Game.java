@@ -162,6 +162,7 @@ public class Game {
             //this.currentLevel.getPlayer().getHits().clear();
             //this.currentLevel.getAllObjects().clear();
             //this.currentLevel.getPlayer().setTemporaryInvincible(false);
+            //this.currentLevel.getPlayer().get
             levelNum++;
             currentLevel = levels.get(levelNum);
         } else {

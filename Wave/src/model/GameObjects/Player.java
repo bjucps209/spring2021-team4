@@ -177,7 +177,7 @@ public class Player extends GameObject {
                     }
                     //processHit(hits.get(0), this, this);
                     
-                    hits.removeIf( (GameObject o) -> ((o instanceof PowerUp) == false  && (o instanceof SpeedPanel) == false ) ); 
+                    hits.removeIf( (GameObject o) -> ((o instanceof PowerUp) == false ) ); 
                    i++;
                 }
                 

@@ -97,8 +97,11 @@ public class GameWindow {
 
         }
         else if (MainWindow.customGameLevels.size() != 0) {
+             w.setCoins(0);
             w.gameStart(MainWindow.customGameLevels);
+           
         } else {
+            w.setCoins(0);
             ArrayList<Level> levels = w.getDefaultLevels();
             w.gameStart(levels);
         }
@@ -142,6 +145,7 @@ public class GameWindow {
         // Score label and binding
         // Label lblSCORE = new Label("SCORE");
         // Label lblScore = new Label();
+
         lblScore.textProperty().bind(w.coinsProperty().asString());
         pane.getChildren().add(lblSCORE);
         pane.getChildren().add(lblScore);
@@ -605,7 +609,7 @@ public class GameWindow {
 
             nameScene.getStylesheets().add("GameWindow.css");
 
-            Button btnResume = new Button("RESUME");
+            btnResume = new Button("RESUME");
             btnResume.setOnAction(e -> onResumeClicked(e));
             vboxName.getChildren().add(btnResume);
 
@@ -624,13 +628,16 @@ public class GameWindow {
      * @return none
      */
     static void onResumeClicked(ActionEvent event) {
-        Stage stage = (Stage) btnResume.getScene().getWindow();
-        stage.close();
+
         for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
             item.start();
         }
         timer.play();
         countDown.play();
+        Stage stage = (Stage) btnResume.getScene().getWindow();
+        stage.close();
+        pauseState = false;
+        
     }
 
     /**
