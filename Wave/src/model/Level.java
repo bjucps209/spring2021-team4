@@ -32,8 +32,9 @@ import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
 import model.GameObjects.SpeedPanels.SpeedPanel;
 
+// Class that holds all info for 1 level
 public class Level {
-    // Class that holds all info for 1 level
+    
 
     // Object lists
     private ArrayList<GameObject> allObjects = new ArrayList<GameObject>();

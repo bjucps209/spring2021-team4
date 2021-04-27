@@ -17,8 +17,8 @@ import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
 import model.GameObjects.SpeedPanels.SpeedPanel;
 
+// contains info for a Player during the game
 public class Player extends GameObject {
-    // contains info for a Player during the game
 
     // instance variables
     private IntegerProperty health = new SimpleIntegerProperty(100);

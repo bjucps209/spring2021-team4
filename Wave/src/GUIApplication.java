@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+// class that launches MainWindow
 public class GUIApplication extends Application{
 
     @Override

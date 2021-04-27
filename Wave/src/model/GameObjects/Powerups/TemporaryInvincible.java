@@ -11,6 +11,7 @@ import model.Level;
 import model.Enums.PowerUps;
 import model.GameObjects.Player;
 
+// class that gives the player temporary invincibility, contains methods that will be called if one coming in contact with the player
 public class TemporaryInvincible extends PowerUp {
 
   public TemporaryInvincible(Level l) {

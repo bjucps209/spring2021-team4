@@ -11,9 +11,9 @@ import model.Level;
 import model.Enums.EnemyTypes;
 import model.GameObjects.GameObject;
 import model.GameObjects.Player;
-
+// abstract class for Enemy objects in game
 public abstract class EnemyObject extends GameObject {
-    // abstract class for Enemy objects in game
+
     protected EnemyTypes type;
     protected boolean temporaryFreeze = false;
     protected Player player;

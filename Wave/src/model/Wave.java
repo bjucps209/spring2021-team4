@@ -21,6 +21,7 @@ import model.GameObjects.SpeedPanels.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+// wave class holds variables needed when accessing the main menu such as an instance of game and lists of high scores
 public class Wave {
 
     // indicate resume game

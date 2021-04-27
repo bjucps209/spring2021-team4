@@ -27,8 +27,9 @@ import model.GameObjects.Powerups.TemporaryInvincible;
 import model.GameObjects.SpeedPanels.SpeedUpPanel;
 import model.GameObjects.Obstacles.*;
 
+// abstract class for all game objects
 public abstract class GameObject {
-    // abstract class for all game objects
+
     protected IntegerProperty x = new SimpleIntegerProperty();
     protected IntegerProperty y = new SimpleIntegerProperty();
     protected IntegerProperty dx = new SimpleIntegerProperty(); // delta X (added to x every update (speed))

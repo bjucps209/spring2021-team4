@@ -10,6 +10,7 @@ import model.Level;
 import model.Enums.PowerUps;
 import model.GameObjects.Player;
 
+// class that gives the player 10 health and contains methods how to interact with the player
 public class HealthGainSmall extends PowerUp {
   // Note: this implement the small gain package in the game specification
   private final static int healthAddition = 10;

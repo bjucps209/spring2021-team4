@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+// class that houses unit tests for the highscore class
 public class HighScoreTest {
     
     ArrayList<HighScore> list = new ArrayList<HighScore>();

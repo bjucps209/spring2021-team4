@@ -9,8 +9,9 @@ import model.Level;
 import model.Enums.ObstacleTypes;
 import model.GameObjects.GameObject;
 
+// abstract class for each Obstacle instance during the game
 public class Obstacle extends GameObject {
-    // class for each Obstacle instance during the game
+
     protected ObstacleTypes type;
     public Obstacle(Level l){
         super(l);

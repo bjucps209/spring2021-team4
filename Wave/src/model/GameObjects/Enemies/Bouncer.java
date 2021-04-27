@@ -8,6 +8,7 @@ package model.GameObjects.Enemies;
 
 import model.Level;
 
+// enemy entity that bounces off of obstacles and walls but has no tracking capabilities
 public class Bouncer extends EnemyObject {
 
     public static int speed = 5;

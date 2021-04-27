@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import model.Enums.ShipSkins;
 
+// class that is created when someone creates an account in the game. holds variables such as coins, a name, and owned skins
 public class User {
     // contains all necessary info for a Player (coins, currentShip, name)
     private String name;

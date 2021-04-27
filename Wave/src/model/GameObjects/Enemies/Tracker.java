@@ -9,6 +9,7 @@ package model.GameObjects.Enemies;
 import model.Level;
 import model.GameObjects.Player;
 
+// tracker class contains an update method to update the tracker's direction based on its position relative to the player. will interact with obstacles
 public class Tracker extends EnemyObject {
     public static int speed = 2;
     

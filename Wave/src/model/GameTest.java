@@ -22,6 +22,7 @@ import model.GameObjects.Enemies.Bouncer;
 import model.GameObjects.Enemies.EnemyObject;
 import static org.junit.Assert.*;
 
+//class that houses tests for the Game class
 public class GameTest {
 
 

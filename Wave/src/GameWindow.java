@@ -31,6 +31,7 @@ import model.Level;
 import model.Wave;
 import model.Enums.ShipSkins;
 
+// the controller for the fxml file on which the game is played out
 public class GameWindow {
 
     static Wave w;

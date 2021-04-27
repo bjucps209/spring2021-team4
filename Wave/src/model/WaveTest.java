@@ -12,6 +12,7 @@ import org.junit.Test;
 import model.Enums.ShipSkins;
 import static org.junit.Assert.*;
 
+// class that houses unit tests for the Wave class
 public class WaveTest {
 
   /*@Test

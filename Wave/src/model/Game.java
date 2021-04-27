@@ -16,8 +16,8 @@ import model.Enums.DifficultyLevel;
 import model.GameObjects.*;
 import model.GameObjects.Enemies.EnemyObject;
 
+// Class that handles all game parts after game has started
 public class Game {
-    // Class that handles all game parts after game has started
     Wave w;
 
     // Visual variables

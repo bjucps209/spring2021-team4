@@ -8,6 +8,7 @@ package model;
 
 import model.Enums.DifficultyLevel;
 
+// class that computes certain aspects of the game instance based on the selected difficulty level
 public class Difficulty {
 
   protected DifficultyLevel difficulty ;

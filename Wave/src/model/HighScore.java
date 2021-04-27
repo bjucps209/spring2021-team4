@@ -6,6 +6,7 @@
 
 package model;
 
+// class that associates a username with a score to be displayed in the high scores auxiliary screen
 public class HighScore implements Comparable<HighScore> {
     String name;
     int score;

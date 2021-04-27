@@ -11,6 +11,7 @@ import model.GameObjects.Player;
 import model.Level;
 import model.Enums.PowerUps;
 
+// abstract class that powerups inherit from
 public abstract class PowerUp extends GameObject {
 
   // Note: powerups will be position by the level editors.

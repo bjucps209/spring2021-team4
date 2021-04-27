@@ -15,6 +15,7 @@ import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 import java.util.Random;
 
+// destroys one enemy entity in the game when hit
 public class DestroyShip extends PowerUp {
 
   public DestroyShip(Level l) {

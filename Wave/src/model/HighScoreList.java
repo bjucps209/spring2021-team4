@@ -14,8 +14,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 
+// class that holds a list of instances of the HighScore class
 public class HighScoreList {
-    // List containing player name and score
 
     private ArrayList<HighScore> list = new ArrayList<HighScore>();
 

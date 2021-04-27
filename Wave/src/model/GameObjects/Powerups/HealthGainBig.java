@@ -10,6 +10,7 @@ import model.Level;
 import model.Enums.PowerUps;
 import model.GameObjects.Player;
 
+// gives the player 50 health when hit by the user
 public class HealthGainBig extends PowerUp {
   private final static int healthAddition = 50;
 

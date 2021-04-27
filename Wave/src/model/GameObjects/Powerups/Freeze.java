@@ -11,6 +11,7 @@ import model.Enums.PowerUps;
 import model.GameObjects.Player;
 import model.GameObjects.Enemies.EnemyObject;
 
+// freezes all entities in the game for 5 seconds when hit
 public class Freeze extends PowerUp {
 
 

@@ -28,6 +28,7 @@ import model.Wave;
 import model.Enums.DifficultyLevel;
 import model.Enums.ShipSkins;
 
+// the controller for the main menu window where the user can log in, start games, or visit other auxiliary screens
 public class MainWindow {
     Wave w;
 
@@ -432,12 +433,6 @@ public class MainWindow {
                         }
                         Label label = new Label();
                         label.setId("shop-label");
-                        // if (ownerShipBool) {
-                        //     label.setText("OWNED");
-                        // }
-                        // else {
-                        //     label.setText("1000 COINS");
-                        // }
                         label.setText(ownerShipBool ? "OWNED" : "1000 COINS");
                         
 
