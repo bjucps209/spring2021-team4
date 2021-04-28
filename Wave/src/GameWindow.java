@@ -7,6 +7,7 @@
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -71,7 +73,8 @@ public class GameWindow {
 
     /**
      * initialize method to load the current level of the instance of game
-     * @param none 
+     * 
+     * @param none
      * @return none
      */
     @FXML
@@ -79,36 +82,49 @@ public class GameWindow {
 
         w = Wave.getInstance();
         int test = MainWindow.customGameLevels.size();
-        if(Wave.getInstance().isResumeGame()){
+        Boolean loadSuccess = false; // to see if the file load successfully
+        if (Wave.getInstance().isResumeGame()) {
             Wave.getInstance().setResumeGame(false);
-            ArrayList<Level>s = new ArrayList<>();
+            ArrayList<Level> s = new ArrayList<>();
             s.add(new Level());
-            
-            w.setGame( new Game(1000, 800, s));
-            g = w.getGame();
-            g.load(Wave.getInstance().getCurrentUser().getName());
-            g.startHitDetection();
 
-        }
-        else if (MainWindow.customGameLevels.size() != 0) {
+            w.setGame(new Game(1000, 800, s));
+            g = w.getGame();
+            loadSuccess = g.load(Wave.getInstance().getCurrentUser().getName());
+            if (loadSuccess) {
+                g.startHitDetection();
+
+            } else {
+                var alert = new Alert(AlertType.ERROR, "Error occurs while loading the file, start a new game instead!");
+               
+                alert.show();
+            
+                // start new game
+                w.setCoins(0);
+                ArrayList<Level> levels = w.getDefaultLevels();
+                w.gameStart(levels);
+
+            }
+
+        } else if (MainWindow.customGameLevels.size() != 0) {
             w.setCoins(0);
             w.gameStart(MainWindow.customGameLevels);
-           
+
         } else {
             w.setCoins(0);
             ArrayList<Level> levels = w.getDefaultLevels();
             w.gameStart(levels);
         }
-        
+
         g = w.getGame();
-        /*if(Wave.getInstance().isResumeGame()){
-            // means resume game
-            g.load(Wave.getInstance().getCurrentUser().getName());
-        }*/
+        /*
+         * if(Wave.getInstance().isResumeGame()){ // means resume game
+         * g.load(Wave.getInstance().getCurrentUser().getName()); }
+         */
         p = g.getCurrentLevel().getPlayer();
         spawnEntities();
-        
-        //pane dimensions
+
+        // pane dimensions
         pane.setPrefSize(1000, 800);
 
         // Label to represent the timer
@@ -131,7 +147,8 @@ public class GameWindow {
         // Label lblHealth = new Label("HEALTH");
 
         // ProgressBar healthBar = new ProgressBar();
-        healthBar.progressProperty().bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
+        healthBar.progressProperty()
+                .bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
         pane.getChildren().add(lblHealth);
         pane.getChildren().add(healthBar);
         healthBar.relocate(0, 30);
@@ -151,7 +168,8 @@ public class GameWindow {
             g.update();
             Node nodeToRemove = null;
             for (Node n : pane.getChildren()) {
-                if (n.getUserData() instanceof EnemyObject && !g.getCurrentLevel().getEnemies().contains(n.getUserData())) {
+                if (n.getUserData() instanceof EnemyObject
+                        && !g.getCurrentLevel().getEnemies().contains(n.getUserData())) {
                     nodeToRemove = n;
                 }
             }
@@ -159,15 +177,17 @@ public class GameWindow {
                 pane.getChildren().remove(nodeToRemove);
             }
             for (Node n : pane.getChildren()) {
-                if (n.getUserData() instanceof PowerUp && !g.getCurrentLevel().getPowerUps().contains(n.getUserData())) {
+                if (n.getUserData() instanceof PowerUp
+                        && !g.getCurrentLevel().getPowerUps().contains(n.getUserData())) {
                     nodeToRemove = n;
                 }
             }
             if (nodeToRemove != null) {
                 pane.getChildren().remove(nodeToRemove);
             }
-            
-            // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL g.getCurrentLevel().setFinished(true);
+
+            // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL
+            // g.getCurrentLevel().setFinished(true);
             if (g.getCurrentLevel().getRemainingTime() <= 0) {
                 countDown.stop();
                 g.getCurrentLevel().setFinished(true);
@@ -195,12 +215,14 @@ public class GameWindow {
     }
 
     /**
-     * method called to showt stop the level. it also shows how to proceed to the next level
-     * @param none 
+     * method called to showt stop the level. it also shows how to proceed to the
+     * next level
+     * 
+     * @param none
      * @return none
      */
     public void stopLevel() {
-        
+
         if (!levelStopped) {
             // Code for stopping level and preparing for move on
             g.stopHitDetection();
@@ -222,7 +244,8 @@ public class GameWindow {
 
     /**
      * used in GameWindow's initialize to start the game
-     * @param none 
+     * 
+     * @param none
      * @return none
      */
     public void startLevel() {
@@ -235,10 +258,10 @@ public class GameWindow {
             g.nextLevel();
             p = g.getCurrentLevel().getPlayer();
             p.setHealth(health);
-            healthBar.progressProperty().bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
+            healthBar.progressProperty()
+                    .bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
             g.startHitDetection();
             lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
-
 
             pane.getChildren().remove(arrow);
             for (var item : pane.getChildren()) {
@@ -252,7 +275,7 @@ public class GameWindow {
             }
 
             toRemove = new ArrayList<Node>();
-            
+
             // start the timer
             countDown.play();
 
@@ -262,12 +285,13 @@ public class GameWindow {
             levelStopped = false;
             levelIsNext = false;
         }
-        
+
     }
 
     /**
      * calls the methods to spawn all types of entities in the pane
-     * @param none 
+     * 
+     * @param none
      * @return none
      */
     public void spawnEntities() {
@@ -276,12 +300,13 @@ public class GameWindow {
         spawnPowerups();
         spawnPlayer();
         spawnEnemies();
-        //spawnPowerPanels();
+        // spawnPowerPanels();
     }
 
     /**
      * spawns the player and binds a corresponding imageView to it
-     * @param none 
+     * 
+     * @param none
      * @return none
      */
     public void spawnPlayer() {
@@ -289,56 +314,56 @@ public class GameWindow {
         Image playerImage;
         ShipSkins currentSkin = w.getCurrentUser().getShip();
         switch (currentSkin) {
-            case SHIP2:
-                playerImage = new Image("./Images/playerShip1_green.png");
-                break;
-            case SHIP3:
-                playerImage = new Image("./Images/playerShip1_orange.png");
-                break;
-            case SHIP4:
-                playerImage = new Image("./Images/playerShip1_red.png");
-                break;
-            case SHIP5:
-                playerImage = new Image("./Images/playerShip2_blue.png");
-                break;
-            case SHIP6:
-                playerImage = new Image("./Images/playerShip2_green.png");
-                break;
-            case SHIP7:
-                playerImage = new Image("./Images/playerShip2_orange.png");
-                break;
-            case SHIP8:
-                playerImage = new Image("./Images/playerShip2_red.png");
-                break;
-            case SHIP9:
-                playerImage = new Image("./Images/playerShip3_blue.png");
-                break;
-            case SHIP10:
-                playerImage = new Image("./Images/playerShip3_green.png");
-                break;
-            case SHIP11:
-                playerImage = new Image("./Images/playerShip3_orange.png");
-                break;
-            case SHIP12:
-                playerImage = new Image("./Images/playerShip3_red.png");
-                break;
-            case SHIP13:
-                playerImage = new Image("./Images/ufoBlue.png");
-                break;
-            case SHIP14:
-                playerImage = new Image("./Images/ufoGreen.png");
-                break;
-            case SHIP15:
-                playerImage = new Image("./Images/ufoYellow.png");
-                break;
-            case SHIP16:
-                playerImage = new Image("./Images/ufoRed.png");
-                break;
-            default:
-                playerImage = new Image("./Images/playerShip1_blue.png");
-                break;
+        case SHIP2:
+            playerImage = new Image("./Images/playerShip1_green.png");
+            break;
+        case SHIP3:
+            playerImage = new Image("./Images/playerShip1_orange.png");
+            break;
+        case SHIP4:
+            playerImage = new Image("./Images/playerShip1_red.png");
+            break;
+        case SHIP5:
+            playerImage = new Image("./Images/playerShip2_blue.png");
+            break;
+        case SHIP6:
+            playerImage = new Image("./Images/playerShip2_green.png");
+            break;
+        case SHIP7:
+            playerImage = new Image("./Images/playerShip2_orange.png");
+            break;
+        case SHIP8:
+            playerImage = new Image("./Images/playerShip2_red.png");
+            break;
+        case SHIP9:
+            playerImage = new Image("./Images/playerShip3_blue.png");
+            break;
+        case SHIP10:
+            playerImage = new Image("./Images/playerShip3_green.png");
+            break;
+        case SHIP11:
+            playerImage = new Image("./Images/playerShip3_orange.png");
+            break;
+        case SHIP12:
+            playerImage = new Image("./Images/playerShip3_red.png");
+            break;
+        case SHIP13:
+            playerImage = new Image("./Images/ufoBlue.png");
+            break;
+        case SHIP14:
+            playerImage = new Image("./Images/ufoGreen.png");
+            break;
+        case SHIP15:
+            playerImage = new Image("./Images/ufoYellow.png");
+            break;
+        case SHIP16:
+            playerImage = new Image("./Images/ufoRed.png");
+            break;
+        default:
+            playerImage = new Image("./Images/playerShip1_blue.png");
+            break;
         }
-        
+
         // playerImage = new Image("./Images/playerShip1_blue.png");
         playerImageView = new ImageView(playerImage);
         playerImageView.setFitWidth(p.getWidth());
@@ -349,37 +374,35 @@ public class GameWindow {
         pane.getChildren().add(playerImageView);
     }
 
-    /*public void spawnPowerPanels(){
-        // determine number in each level   
-        g.randomGeneratePanels();
-        for (SpeedPanel sp : g.getLevels().get(g.getLevelNum()).getSpeedPanels()){
-            if(sp.getType() == SpeedPanelTypes.speedUp){
-                Image speedUpImage = new Image("./Images/bluePanel.png");
-                ImageView speedUpImageView = new ImageView(speedUpImage);
-                speedUpImageView.setFitWidth(sp.getWidth());
-                speedUpImageView.setFitHeight(sp.getHeight());
-                pane.getChildren().add(speedUpImageView);
-                speedUpImageView.layoutXProperty().bind(sp.xProperty());
-                speedUpImageView.layoutYProperty().bind(sp.yProperty());
-                speedUpImageView.setUserData(sp);
-            }else{
-                Image speedDownImage = new Image("./Images/redPanel.png");
-                ImageView speedDownImageView = new ImageView(speedDownImage);
-                speedDownImageView.setFitWidth(sp.getWidth());
-                speedDownImageView.setFitHeight(sp.getHeight());
-                pane.getChildren().add(speedDownImageView);
-                speedDownImageView.layoutXProperty().bind(sp.xProperty());
-                speedDownImageView.layoutYProperty().bind(sp.yProperty());
-                speedDownImageView.setUserData(sp);
-            }
-        }
-
-    
-    }*/
+    /*
+     * public void spawnPowerPanels(){ // determine number in each level
+     * g.randomGeneratePanels(); for (SpeedPanel sp :
+     * g.getLevels().get(g.getLevelNum()).getSpeedPanels()){ if(sp.getType() ==
+     * SpeedPanelTypes.speedUp){ Image speedUpImage = new
+     * Image("./Images/bluePanel.png"); ImageView speedUpImageView = new
+     * ImageView(speedUpImage); speedUpImageView.setFitWidth(sp.getWidth());
+     * speedUpImageView.setFitHeight(sp.getHeight());
+     * pane.getChildren().add(speedUpImageView);
+     * speedUpImageView.layoutXProperty().bind(sp.xProperty());
+     * speedUpImageView.layoutYProperty().bind(sp.yProperty());
+     * speedUpImageView.setUserData(sp); }else{ Image speedDownImage = new
+     * Image("./Images/redPanel.png"); ImageView speedDownImageView = new
+     * ImageView(speedDownImage); speedDownImageView.setFitWidth(sp.getWidth());
+     * speedDownImageView.setFitHeight(sp.getHeight());
+     * pane.getChildren().add(speedDownImageView);
+     * speedDownImageView.layoutXProperty().bind(sp.xProperty());
+     * speedDownImageView.layoutYProperty().bind(sp.yProperty());
+     * speedDownImageView.setUserData(sp); } }
+     * 
+     * 
+     * }
+     */
 
     /**
-     * iterates through the list of enemy entities in the current level and 'spawns' them in the pane
-     * @param none 
+     * iterates through the list of enemy entities in the current level and 'spawns'
+     * them in the pane
+     * 
+     * @param none
      * @return none
      */
     public void spawnEnemies() {
@@ -442,8 +465,10 @@ public class GameWindow {
     }
 
     /**
-     * iterates through the list of obstacles in the current level and 'spawns' them in the pane
-     * @param none 
+     * iterates through the list of obstacles in the current level and 'spawns' them
+     * in the pane
+     * 
+     * @param none
      * @return none
      */
     public void spawnObstacles() {
@@ -481,14 +506,14 @@ public class GameWindow {
                 laserImageView.setUserData(o);
                 break;
             // case CORNER:
-            //     Image shapeshifterImage = new Image("./Images/block_corner.png");
-            //     ImageView shapeshifterImageView = new ImageView(shapeshifterImage);
-            //     shapeshifterImageView.setFitWidth(o.getWidth());
-            //     shapeshifterImageView.setFitHeight(o.getHeight());
-            //     pane.getChildren().add(shapeshifterImageView);
-            //     shapeshifterImageView.layoutXProperty().bind(o.xProperty());
-            //     shapeshifterImageView.layoutYProperty().bind(o.yProperty());
-            //     break;
+            // Image shapeshifterImage = new Image("./Images/block_corner.png");
+            // ImageView shapeshifterImageView = new ImageView(shapeshifterImage);
+            // shapeshifterImageView.setFitWidth(o.getWidth());
+            // shapeshifterImageView.setFitHeight(o.getHeight());
+            // pane.getChildren().add(shapeshifterImageView);
+            // shapeshifterImageView.layoutXProperty().bind(o.xProperty());
+            // shapeshifterImageView.layoutYProperty().bind(o.yProperty());
+            // break;
             default:
                 break;
             }
@@ -496,72 +521,76 @@ public class GameWindow {
     }
 
     /**
-     * iterates through the list of powerups in the current level and 'spawns' them in the pane
-     * @param none 
+     * iterates through the list of powerups in the current level and 'spawns' them
+     * in the pane
+     * 
+     * @param none
      * @return none
      */
     public void spawnPowerups() {
-        for(PowerUp power : g.getLevels().get(g.getLevelNum()).getPowerUps()){
-            switch(power.getType()){
-                case HealthGainBig:
-                    Image healthBig = new Image("./Images/pill_yellow.png");
-                    ImageView healthBigImageView = new ImageView(healthBig);
-                    healthBigImageView.setFitWidth(power.getWidth());
-                    healthBigImageView.setFitHeight(power.getHeight());
-                    pane.getChildren().add(healthBigImageView);
-                    healthBigImageView.layoutXProperty().bind(power.xProperty());
-                    healthBigImageView.layoutYProperty().bind(power.yProperty());
-                    healthBigImageView.setUserData(power);
-                    break;
-                case HealthGainSmall:
-                    Image healthSmall = new Image("./Images/pill_blue.png");
-                    ImageView healthImageView = new ImageView(healthSmall);
-                    healthImageView.setFitWidth(power.getWidth());
-                    healthImageView.setFitHeight(power.getHeight());
-                    pane.getChildren().add(healthImageView);
-                    healthImageView.layoutXProperty().bind(power.xProperty());
-                    healthImageView.layoutYProperty().bind(power.yProperty());
-                    healthImageView.setUserData(power);
-                    break;
-                case DestroyShip:
-                    Image destroyShip = new Image("./Images/bolt_gold.png");
-                    ImageView destroyShipImageView = new ImageView(destroyShip);
-                    destroyShipImageView.setFitWidth(power.getWidth());
-                    destroyShipImageView.setFitHeight(power.getHeight());
-                    pane.getChildren().add(destroyShipImageView);
-                    destroyShipImageView.layoutXProperty().bind(power.xProperty());
-                    destroyShipImageView.layoutYProperty().bind(power.yProperty());
-                    destroyShipImageView.setUserData(power);
-                    break;
-                case Freeze:
-                    Image freeze = new Image("./Images/powerupBlue_bolt.png");
-                    ImageView freezeImageView = new ImageView(freeze);
-                    freezeImageView.setFitWidth(power.getWidth());
-                    freezeImageView.setFitHeight(power.getHeight());
-                    pane.getChildren().add(freezeImageView);
-                    freezeImageView.layoutXProperty().bind(power.xProperty());
-                    freezeImageView.layoutYProperty().bind(power.yProperty());
-                    freezeImageView.setUserData(power);
-                    break;
-                case TemporaryInvincible:
-                    Image tempInvincible = new Image("./Images/shield_gold.png");
-                    ImageView invincibleImageView = new ImageView(tempInvincible);
-                    invincibleImageView.setFitWidth(power.getWidth());
-                    invincibleImageView.setFitHeight(power.getHeight());
-                    pane.getChildren().add(invincibleImageView);
-                    invincibleImageView.layoutXProperty().bind(power.xProperty());
-                    invincibleImageView.layoutYProperty().bind(power.yProperty());
-                    invincibleImageView.setUserData(power);
-                    break;
-                default:
-                    break;
+        for (PowerUp power : g.getLevels().get(g.getLevelNum()).getPowerUps()) {
+            switch (power.getType()) {
+            case HealthGainBig:
+                Image healthBig = new Image("./Images/pill_yellow.png");
+                ImageView healthBigImageView = new ImageView(healthBig);
+                healthBigImageView.setFitWidth(power.getWidth());
+                healthBigImageView.setFitHeight(power.getHeight());
+                pane.getChildren().add(healthBigImageView);
+                healthBigImageView.layoutXProperty().bind(power.xProperty());
+                healthBigImageView.layoutYProperty().bind(power.yProperty());
+                healthBigImageView.setUserData(power);
+                break;
+            case HealthGainSmall:
+                Image healthSmall = new Image("./Images/pill_blue.png");
+                ImageView healthImageView = new ImageView(healthSmall);
+                healthImageView.setFitWidth(power.getWidth());
+                healthImageView.setFitHeight(power.getHeight());
+                pane.getChildren().add(healthImageView);
+                healthImageView.layoutXProperty().bind(power.xProperty());
+                healthImageView.layoutYProperty().bind(power.yProperty());
+                healthImageView.setUserData(power);
+                break;
+            case DestroyShip:
+                Image destroyShip = new Image("./Images/bolt_gold.png");
+                ImageView destroyShipImageView = new ImageView(destroyShip);
+                destroyShipImageView.setFitWidth(power.getWidth());
+                destroyShipImageView.setFitHeight(power.getHeight());
+                pane.getChildren().add(destroyShipImageView);
+                destroyShipImageView.layoutXProperty().bind(power.xProperty());
+                destroyShipImageView.layoutYProperty().bind(power.yProperty());
+                destroyShipImageView.setUserData(power);
+                break;
+            case Freeze:
+                Image freeze = new Image("./Images/powerupBlue_bolt.png");
+                ImageView freezeImageView = new ImageView(freeze);
+                freezeImageView.setFitWidth(power.getWidth());
+                freezeImageView.setFitHeight(power.getHeight());
+                pane.getChildren().add(freezeImageView);
+                freezeImageView.layoutXProperty().bind(power.xProperty());
+                freezeImageView.layoutYProperty().bind(power.yProperty());
+                freezeImageView.setUserData(power);
+                break;
+            case TemporaryInvincible:
+                Image tempInvincible = new Image("./Images/shield_gold.png");
+                ImageView invincibleImageView = new ImageView(tempInvincible);
+                invincibleImageView.setFitWidth(power.getWidth());
+                invincibleImageView.setFitHeight(power.getHeight());
+                pane.getChildren().add(invincibleImageView);
+                invincibleImageView.layoutXProperty().bind(power.xProperty());
+                invincibleImageView.layoutYProperty().bind(power.yProperty());
+                invincibleImageView.setUserData(power);
+                break;
+            default:
+                break;
             }
         }
     }
 
     /**
-     * method that detects if the player is out of health. if so, ends the game and notifies the user
-     * @param none 
+     * method that detects if the player is out of health. if so, ends the game and
+     * notifies the user
+     * 
+     * @param none
      * @return none
      */
     void endGameOnHealth() {
@@ -594,7 +623,8 @@ public class GameWindow {
 
     /**
      * method for pausing the game and ending the game
-     * @param none 
+     * 
+     * @param none
      * @return none
      */
     public static void pause() {
@@ -628,15 +658,15 @@ public class GameWindow {
             btnEnd = new Button("END GAME");
             btnEnd.setOnAction(e -> onEndClicked(e));
             vboxName.getChildren().add(btnEnd);
-            
-            
- 
+
         }
     }
 
     /**
      * close the window and start all necessary game timers
-     * @param e is used to allow for btn.setOnAction(e -> onResumeClicked(e)) to compile
+     * 
+     * @param e is used to allow for btn.setOnAction(e -> onResumeClicked(e)) to
+     *          compile
      * @return none
      */
     static void onResumeClicked(ActionEvent event) {
@@ -649,12 +679,14 @@ public class GameWindow {
         Stage stage = (Stage) btnResume.getScene().getWindow();
         stage.close();
         pauseState = false;
-        
+
     }
 
     /**
      * close the window and end the game, saving everything
-     * @param e is used to allow for btn.setOnAction( e -> onEndClicked(e)) to compile
+     * 
+     * @param e is used to allow for btn.setOnAction( e -> onEndClicked(e)) to
+     *          compile
      * @return none
      */
     static void onEndClicked(ActionEvent event) {
@@ -666,15 +698,16 @@ public class GameWindow {
         Stage stage = (Stage) btnEnd.getScene().getWindow();
         stage.close();
 
-        //Stage gameStage = (Stage) pane.getScene().getWindow();
-        //gameStage.close();
+        // Stage gameStage = (Stage) pane.getScene().getWindow();
+        // gameStage.close();
         // this is where all the saving gets excecuted
         highScoreList.save();
     }
 
     /**
      * close the timer
-     * @param none 
+     * 
+     * @param none
      * @return none
      */
     public static void onClosed() {
@@ -684,8 +717,9 @@ public class GameWindow {
     }
 
     /**
-     * move methods of GameWindow that correspond with moving the player 
-     * @param none 
+     * move methods of GameWindow that correspond with moving the player
+     * 
+     * @param none
      * @return none
      */
     public static void moveUp() {
