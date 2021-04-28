@@ -171,30 +171,6 @@ public class Game {
         
     }
 
-
-    // public void randomGeneratePanels(){
-    //     // level 1-5, 3 panels
-    //     // level6-10. 4 panels
-    //     int totalPanels =0;
-     
-    //     if(this.levelNum < 5){
-    //         totalPanels = 3;
-    //     }else{
-    //         totalPanels = 5;
-    //     }
-        
-    //     Level lev = this.currentLevel;
-    //     Random rand = new Random();
-    //     for(int i= 0; i < totalPanels; i++){
-    //       int s = rand.nextInt(2);
-    //       if(s == 0){
-    //         lev.getSpeedPanels().add(SpeedPanel.create(SpeedPanelTypes.speedDown, lev));
-    //       }else{
-    //         lev.getSpeedPanels().add(SpeedPanel.create(SpeedPanelTypes.speedUp, lev));
-    //       }
-    //     }
-    //   }
-
     // --- setters ---
 
     public void setCurrentLevel(Level currentLevel) {

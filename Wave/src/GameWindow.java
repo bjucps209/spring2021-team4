@@ -204,6 +204,7 @@ public class GameWindow {
         if (!levelStopped) {
             // Code for stopping level and preparing for move on
             g.stopHitDetection();
+            p.setTemporaryInvincible(true);
             for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
                 item.pause();
             }
@@ -229,6 +230,7 @@ public class GameWindow {
         ArrayList<Node> toRemove = new ArrayList<Node>();
         // Code to start a level
         if (!levelIsNext) {
+            p.setTemporaryInvincible(false);
             g.stopHitDetection();
             g.stopPlayerHitDetection();
             int health = p.getHealth();
@@ -348,34 +350,6 @@ public class GameWindow {
         playerImageView.setUserData(p);
         pane.getChildren().add(playerImageView);
     }
-
-    /*public void spawnPowerPanels(){
-        // determine number in each level   
-        g.randomGeneratePanels();
-        for (SpeedPanel sp : g.getLevels().get(g.getLevelNum()).getSpeedPanels()){
-            if(sp.getType() == SpeedPanelTypes.speedUp){
-                Image speedUpImage = new Image("./Images/bluePanel.png");
-                ImageView speedUpImageView = new ImageView(speedUpImage);
-                speedUpImageView.setFitWidth(sp.getWidth());
-                speedUpImageView.setFitHeight(sp.getHeight());
-                pane.getChildren().add(speedUpImageView);
-                speedUpImageView.layoutXProperty().bind(sp.xProperty());
-                speedUpImageView.layoutYProperty().bind(sp.yProperty());
-                speedUpImageView.setUserData(sp);
-            }else{
-                Image speedDownImage = new Image("./Images/redPanel.png");
-                ImageView speedDownImageView = new ImageView(speedDownImage);
-                speedDownImageView.setFitWidth(sp.getWidth());
-                speedDownImageView.setFitHeight(sp.getHeight());
-                pane.getChildren().add(speedDownImageView);
-                speedDownImageView.layoutXProperty().bind(sp.xProperty());
-                speedDownImageView.layoutYProperty().bind(sp.yProperty());
-                speedDownImageView.setUserData(sp);
-            }
-        }
-
-    
-    }*/
 
     /**
      * iterates through the list of enemy entities in the current level and 'spawns' them in the pane

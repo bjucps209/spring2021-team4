@@ -70,21 +70,14 @@ public class MainWindow {
      * @return none
      */
     @FXML
-    public void onNewGameClicked(ActionEvent e) throws IOException {
-        //parameter plus next line
-        Button button = (Button) e.getSource();
-        // extra condition
-        if (w.getCurrentUser() != null || button.getId().equals("customGameButton")) {
-            System.out.println("passed2");
+    public void onNewGameClicked() throws IOException {
+        if (w.getCurrentUser() != null) {
             if (defaultLevels) {
                 customGameLevels.removeAll(customGameLevels);
             }
-
             // opens up new window which is GameWindow
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
-            System.out.println("loader");
             Scene scene = new Scene(loader.load());
-            System.out.println("passed3");
 
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
@@ -141,7 +134,7 @@ public class MainWindow {
             });
         }
         else {
-            var alert = new Alert(AlertType.ERROR, "You must log in or create a user first.");
+            var alert = new Alert(AlertType.WARNING, "You must log in or create a user first.");
             alert.show();
         }
 
@@ -155,20 +148,17 @@ public class MainWindow {
     @FXML
     void onResumeGameClicked(ActionEvent event) {
         if (w.getCurrentUser() == null) {
-            var alert = new Alert(AlertType.ERROR, "You must log in to an existing account first.");
+            var alert = new Alert(AlertType.WARNING, "You must log in to an existing account first.");
             alert.show();
         }
         else {
-            //ArrayList <Level> s = new ArrayList<>();
-            //s.add(new Level());
-            //w.setGame(new Game(1000, 800, s));
-            //w.getGame().load(w.getCurrentUser().getName());
             w.setResumeGame(true);
             try {
-                onNewGameClicked(event); // parameter
+                onNewGameClicked();
             }
             catch (IOException e) {
-                System.out.println("failed");
+                var alert = new Alert(AlertType.ERROR, "Failed in loading a saved game.");
+                alert.show();
             }
             
         }
@@ -191,7 +181,7 @@ public class MainWindow {
         vbox.getChildren().add(lbl);
         TextField txtFieldFileChooser = new TextField();
         txtFieldFileChooser.setId("TEXTFIELD");
-        txtFieldFileChooser.setMaxWidth(125);
+        txtFieldFileChooser.setMaxWidth(150);
         vbox.getChildren().add(txtFieldFileChooser);
 
         Button button = new Button("Add Level");
@@ -200,8 +190,7 @@ public class MainWindow {
         vbox.getChildren().add(button);
 
         Button startGameButton = new Button("Start Custom Game");
-        startGameButton.setId("customGameButton"); // this id plus 2 more
-        startGameButton.setOnAction(this::startCustomGame);
+        startGameButton.setOnAction(this::callInitiateCustomGame);
         vbox.getChildren().add(startGameButton);
 
         Scene loadLevelScene = new Scene(vbox, 800, 600);
@@ -256,13 +245,11 @@ public class MainWindow {
      * @return none
      */
     @FXML
-    void startCustomGame(ActionEvent e) {
+    void callInitiateCustomGame(ActionEvent e) {
         if (customGameLevels.size() > 0) {
             try {
-                System.out.println("passed1");
                 defaultLevels = false;
-                onNewGameClicked(e); // paramter
-                System.out.println("passed4");
+                onNewGameClicked();
                 defaultLevels = true;         
             } catch (IOException exception) {
 
