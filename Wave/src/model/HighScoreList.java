@@ -7,6 +7,9 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,10 +51,12 @@ public class HighScoreList {
      * @return none
      */
     public void save() {
-        try (var writer = new PrintWriter(new FileWriter("scores.txt"))) {
-            for (HighScore o : list) {
+        try (var writer = new PrintWriter(new FileOutputStream( new File("scores.txt"), true  ))) {
+            /*for (HighScore o : list) {
                 writer.write(o.serialize());
-            } 
+            } */
+            writer.append("jack-123");
+            
         } catch (IOException e) {
             System.out.println("Error writing scores file");
         }
