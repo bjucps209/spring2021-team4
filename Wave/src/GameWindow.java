@@ -68,7 +68,7 @@ public class GameWindow {
     Label lblSCORE = new Label("SCORE");
     Label lblScore = new Label();
 
-    Label arrow;
+    ImageView rightArrowImageView;
     ImageView playerImageView;
 
     /**
@@ -258,10 +258,12 @@ public class GameWindow {
             p = g.getCurrentLevel().getPlayer();
             p.setWinState(true);
 
-            arrow = new Label("->");
-            arrow.setId("arrow");
-            pane.getChildren().add(arrow);
-            arrow.relocate(900, 300);
+            Image rightArrowImage = new Image("./Images/arrow.png");
+            rightArrowImageView = new ImageView(rightArrowImage);
+            rightArrowImageView.setFitWidth(50);
+            rightArrowImageView.setFitHeight(50);
+            pane.getChildren().add(rightArrowImageView);
+            rightArrowImageView.relocate(900, 300);
 
             // lets next level be stopped
             levelStopped = true;
@@ -290,7 +292,7 @@ public class GameWindow {
             g.startHitDetection();
             lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
 
-            pane.getChildren().remove(arrow);
+            pane.getChildren().remove(rightArrowImageView);
             for (var item : pane.getChildren()) {
                 if (item.getUserData() instanceof GameObject) {
                     toRemove.add(item);
