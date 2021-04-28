@@ -224,8 +224,8 @@ public class GameTest {
     
         assertTrue(game.load("Example2Serialization")); 
         Level currentLevel = game.getCurrentLevel();
-        User currentUser = Wave.getInstance().getCurrentUser();
-        Player player = currentLevel.getPlayer();
+        // User currentUser = Wave.getInstance().getCurrentUser();
+        // Player player = currentLevel.getPlayer();
 
         currentLevel.setRemainingTime(0);
 

@@ -49,6 +49,10 @@ public class MainWindow {
     Button btnHard = new Button();
     Button btnCheat = new Button();
 
+    // welcome label in main menu
+    @FXML
+    Label lblWelcome;
+
     @FXML
     VBox vboxTitle;
 
@@ -63,6 +67,7 @@ public class MainWindow {
     public void initialize() {
         w = Wave.getInstance();
         highScoreList.load();
+
 
         // play music
         titleMusic = new AudioClip(getClass().getResource("./Sound/scott-buckley-where-stars-fall.mp3").toString());
@@ -199,7 +204,7 @@ public class MainWindow {
         vbox.getChildren().add(button);
 
         Button startGameButton = new Button("Start Custom Game");
-        startGameButton.setOnAction(this::callInitiateCustomGame);
+        startGameButton.setOnAction(this::startCustomGame);
         vbox.getChildren().add(startGameButton);
 
         Scene loadLevelScene = new Scene(vbox, 800, 600);
@@ -251,12 +256,11 @@ public class MainWindow {
 
     /**
      * uses the list of custom levels and starts a game out of it
-     * 
      * @param e allows btn.setOnAction(this::startCustomGame) to compile
      * @return none
      */
     @FXML
-    void callInitiateCustomGame(ActionEvent e) {
+    void startCustomGame(ActionEvent e) {
         if (customGameLevels.size() > 0) {
             try {
                 defaultLevels = false;
@@ -291,6 +295,7 @@ public class MainWindow {
 
         Label label = new Label("Log in here:");
         ComboBox<String> users = new ComboBox<>();
+        users.setMaxWidth(150);
         String[] userNames = new String[w.getUsers().size()];
         for (int i = 0; i < w.getUsers().size(); i++) {
             userNames[i] = w.getUsers().get(i).getName();
@@ -310,6 +315,7 @@ public class MainWindow {
 
         Label rightLabel = new Label("Create a new account here:");
         TextField textField = new TextField();
+        textField.setMaxWidth(150);
         Button rightButton = new Button("CREATE ACCOUNT");
         rightButton.setOnAction(this::onCreateAccountClicked);
 
@@ -348,8 +354,9 @@ public class MainWindow {
         for (User u : w.getUsers()) {
             if (u.getName().equals(name)) {
                 w.setCurrentUser(u);
-                var alert = new Alert(AlertType.INFORMATION, "Current user has been set to '" + name + "'");
-                alert.show();
+                lblWelcome.setText("Welcome, " + u.getName());
+                // var alert = new Alert(AlertType.INFORMATION, "Current user has been set to '" + name + "'");
+                // alert.show();
                 return;
             }
         }
@@ -393,8 +400,9 @@ public class MainWindow {
 
         Wave.getInstance().saveCurrentUser();
         Wave.getInstance().saveAllUsers();
-        var alert = new Alert(AlertType.INFORMATION, "New user created with name '" + userName + "'");
-        alert.show();
+        // var alert = new Alert(AlertType.INFORMATION, "New user created with name '" + userName + "'");
+        // alert.show();
+        lblWelcome.setText("Welcome, " + userName);
     }
 
     /**

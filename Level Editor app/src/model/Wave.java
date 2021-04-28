@@ -23,7 +23,7 @@ public class Wave {
 
     // User variables
     private User currentUser;
-    private int coins;
+    // private int coins;
 
     // Shop variables
     private ShipSkins currentShip;
@@ -33,9 +33,9 @@ public class Wave {
 
     }
 
-    public void loadUser() {
-        coins = currentUser.getCoins();
-    }
+    // public void loadUser() {
+    //     coins = currentUser.getCoins();
+    // }
 
     // Starts the game, does all calculations and initializes lists
     public void gameStart() {
