@@ -1,8 +1,10 @@
+
 //-----------------------------------------------------------
 //File:   MainWindow.java
 //Desc:   this file represents the main window where the user
 //        can log in, access auxiliary screens, and start a game
 //-----------------------------------------------------------
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
@@ -47,11 +49,14 @@ public class MainWindow {
     Button btnHard = new Button();
     Button btnCheat = new Button();
 
-    @FXML VBox vboxTitle;
+    @FXML
+    VBox vboxTitle;
 
     /**
-     * initialize method of MainWindow. starts playing music for the user and loads the list of high scores
-     * @param none 
+     * initialize method of MainWindow. starts playing music for the user and loads
+     * the list of high scores
+     * 
+     * @param none
      * @return none
      */
     @FXML
@@ -66,7 +71,8 @@ public class MainWindow {
 
     /**
      * method to start a game - used in resume game and custom game also
-     * @param none 
+     * 
+     * @param none
      * @return none
      */
     @FXML
@@ -129,7 +135,7 @@ public class MainWindow {
                 public void handle(WindowEvent event) {
                     GameWindow.onClosed();
                     w.onClosed();
-                    
+
                 }
             });
         }
@@ -142,7 +148,8 @@ public class MainWindow {
 
     /**
      * if a user is currently logged in, loads their saved game
-     * @param none 
+     * 
+     * @param none
      * @return none
      */
     @FXML
@@ -160,13 +167,15 @@ public class MainWindow {
                 var alert = new Alert(AlertType.ERROR, "Failed in loading a saved game.");
                 alert.show();
             }
-            
+
         }
     }
 
     /**
-     * method to load the screen in which any amount of custom levels can be loaded, no user needs to be logged in
-     * @param none 
+     * method to load the screen in which any amount of custom levels can be loaded,
+     * no user needs to be logged in
+     * 
+     * @param none
      * @return none
      */
     @FXML
@@ -205,7 +214,9 @@ public class MainWindow {
 
     /**
      * method used to call load custom level in wave
-     * @param e  used to get the textfield in which the name of the level to be loaded lies
+     * 
+     * @param e used to get the textfield in which the name of the level to be
+     *          loaded lies
      * @return none
      */
     @FXML
@@ -224,8 +235,7 @@ public class MainWindow {
                     customGameLevels.add(l);
                     var alert = new Alert(AlertType.INFORMATION, "level '" + fileName + "' has been added.");
                     alert.show();
-                }
-                else {
+                } else {
                     var alert = new Alert(AlertType.WARNING, "You have not created that level yet.");
                     alert.show();
                 }
@@ -241,6 +251,7 @@ public class MainWindow {
 
     /**
      * uses the list of custom levels and starts a game out of it
+     * 
      * @param e allows btn.setOnAction(this::startCustomGame) to compile
      * @return none
      */
@@ -261,8 +272,10 @@ public class MainWindow {
     }
 
     /**
-     * method to load the login screen where the user can log in or sign up a new account
-     * @param none 
+     * method to load the login screen where the user can log in or sign up a new
+     * account
+     * 
+     * @param none
      * @return none
      */
     @FXML
@@ -286,11 +299,10 @@ public class MainWindow {
 
         Button button = new Button("LOG IN");
         button.setOnAction(this::onLogInClicked);
-        
+
         leftVBox.getChildren().add(label);
         leftVBox.getChildren().add(users);
         leftVBox.getChildren().add(button);
-
 
         VBox rightVBox = new VBox();
         rightVBox.setAlignment(Pos.CENTER);
@@ -307,7 +319,7 @@ public class MainWindow {
 
         hbox.getChildren().add(leftVBox);
         hbox.getChildren().add(rightVBox);
-        
+
         Scene logInScene = new Scene(hbox, 800, 600);
         Stage logInStage = new Stage();
         logInStage.setScene(logInScene);
@@ -319,6 +331,7 @@ public class MainWindow {
 
     /**
      * method to set the current user of Wave to an already existing user
+     * 
      * @param e is used to find the combobox and get its selected value
      * @return none
      */
@@ -343,8 +356,11 @@ public class MainWindow {
     }
 
     /**
-     * create a new instance of User and add it to Wave as the current user and add it to the list of all users
-     * @param e is used to find the text field in which the new instance of user's name lies
+     * create a new instance of User and add it to Wave as the current user and add
+     * it to the list of all users
+     * 
+     * @param e is used to find the text field in which the new instance of user's
+     *          name lies
      * @return none
      */
     @FXML
@@ -352,17 +368,16 @@ public class MainWindow {
         Button button = (Button) e.getSource();
         VBox vbox = (VBox) button.getParent();
         HBox hbox = (HBox) vbox.getParent();
-        
+
         VBox leftVBox = (VBox) hbox.getChildren().get(0);
-        
-        
 
         TextField textField = (TextField) vbox.getChildren().get(1);
         String userName = textField.getText();
         // ----
         for (User u : w.getUsers()) {
             if (u.getName().equals(userName)) {
-                var alert = new Alert(AlertType.INFORMATION, "A user with the name '" + userName + "' already exists, please choose a different name.");
+                var alert = new Alert(AlertType.INFORMATION,
+                        "A user with the name '" + userName + "' already exists, please choose a different name.");
                 alert.show();
                 return;
             }
@@ -383,8 +398,10 @@ public class MainWindow {
     }
 
     /**
-     * method to load the skin shop of the main menu. doesnt load if no user is logged in
-     * @param none 
+     * method to load the skin shop of the main menu. doesnt load if no user is
+     * logged in
+     * 
+     * @param none
      * @return none
      */
     @FXML
@@ -392,12 +409,23 @@ public class MainWindow {
         if (w.getCurrentUser() != null) {
             ShipSkins[] shop = ShipSkins.values();
             try {
-                ImageView[] playerShip1Images = {new ImageView(new Image("/Images/playerShip1_blue.png")), new ImageView(new Image("/Images/playerShip1_green.png")), new ImageView(new Image("/Images/playerShip1_orange.png")), new ImageView(new Image("/Images/playerShip1_red.png"))};
-                ImageView[] playerShip2Images = {new ImageView(new Image("/Images/playerShip2_blue.png")), new ImageView(new Image("/Images/playerShip2_green.png")), new ImageView(new Image("/Images/playerShip2_orange.png")), new ImageView(new Image("/Images/playerShip2_red.png"))};
-                ImageView[] playerShip3Images = {new ImageView(new Image("/Images/playerShip3_blue.png")), new ImageView(new Image("/Images/playerShip3_green.png")), new ImageView(new Image("/Images/playerShip3_orange.png")), new ImageView(new Image("/Images/playerShip3_red.png"))};
-                ImageView[] ufoImages = {new ImageView(new Image("/Images/ufoBlue.png")), new ImageView(new Image("/Images/ufoGreen.png")), new ImageView(new Image("/Images/ufoYellow.png")), new ImageView(new Image("/Images/ufoRed.png"))};
-                ImageView[][] allImages = {playerShip1Images, playerShip2Images, playerShip3Images, ufoImages};
-            
+                ImageView[] playerShip1Images = { new ImageView(new Image("/Images/playerShip1_blue.png")),
+                        new ImageView(new Image("/Images/playerShip1_green.png")),
+                        new ImageView(new Image("/Images/playerShip1_orange.png")),
+                        new ImageView(new Image("/Images/playerShip1_red.png")) };
+                ImageView[] playerShip2Images = { new ImageView(new Image("/Images/playerShip2_blue.png")),
+                        new ImageView(new Image("/Images/playerShip2_green.png")),
+                        new ImageView(new Image("/Images/playerShip2_orange.png")),
+                        new ImageView(new Image("/Images/playerShip2_red.png")) };
+                ImageView[] playerShip3Images = { new ImageView(new Image("/Images/playerShip3_blue.png")),
+                        new ImageView(new Image("/Images/playerShip3_green.png")),
+                        new ImageView(new Image("/Images/playerShip3_orange.png")),
+                        new ImageView(new Image("/Images/playerShip3_red.png")) };
+                ImageView[] ufoImages = { new ImageView(new Image("/Images/ufoBlue.png")),
+                        new ImageView(new Image("/Images/ufoGreen.png")),
+                        new ImageView(new Image("/Images/ufoYellow.png")),
+                        new ImageView(new Image("/Images/ufoRed.png")) };
+                ImageView[][] allImages = { playerShip1Images, playerShip2Images, playerShip3Images, ufoImages };
 
                 VBox vbox = new VBox();
                 vbox.setId("menu-background");
@@ -412,7 +440,7 @@ public class MainWindow {
 
                 int i = 0;
                 for (ImageView[] row : allImages) {
-                    
+
                     HBox hbox = new HBox();
                     hbox.setAlignment(Pos.CENTER);
                     hbox.setSpacing(20);
@@ -428,7 +456,6 @@ public class MainWindow {
                         Label label = new Label();
                         label.setId("shop-label");
                         label.setText(ownerShipBool ? "OWNED" : "1000 COINS");
-                        
 
                         Button button = new Button();
                         button.setGraphic(imageView);
@@ -450,13 +477,11 @@ public class MainWindow {
 
                 skinShopStage.show();
                 skinShopScene.getStylesheets().add("MainWindow.css");
-            }
-            catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException e) {
                 var alert = new Alert(AlertType.ERROR, "Error in loading shop.");
                 alert.show();
             }
-        }
-        else {
+        } else {
             var alert = new Alert(AlertType.WARNING, "You must log in or create an account to access the shop.");
             alert.show();
         }
@@ -465,6 +490,7 @@ public class MainWindow {
 
     /**
      * method to buy a skin and add it to a user's owned skin list
+     * 
      * @param e is used to find the button and respective user data for the method
      * @return none
      */
@@ -483,23 +509,22 @@ public class MainWindow {
                 try {
                     Label label = (Label) vbox.getChildren().get(1);
                     label.setText(ownership ? "OWNED" : "1000 COINS");
-                    
-                }
-                catch (ClassCastException ex) {
+
+                } catch (ClassCastException ex) {
 
                 }
-            }
-            catch (IllegalArgumentException error) {
-                var alert = new Alert(AlertType.INFORMATION, "You own that already and it should be set as your current skin.");
+            } catch (IllegalArgumentException error) {
+                var alert = new Alert(AlertType.INFORMATION,
+                        "You own that already and it should be set as your current skin.");
                 alert.show();
             }
         }
     }
 
-
     /**
      * method to load the about screen of the main menu
-     * @param none 
+     * 
+     * @param none
      * @return none
      */
     @FXML
@@ -527,7 +552,9 @@ public class MainWindow {
     }
 
     /**
-     * method to open the help screen giving information on how to control the character, etc
+     * method to open the help screen giving information on how to control the
+     * character, etc
+     * 
      * @param none
      * @return void
      */
@@ -561,7 +588,9 @@ public class MainWindow {
     }
 
     /**
-     * method to load a screen of buttons in which the user can select a game difficulty
+     * method to load a screen of buttons in which the user can select a game
+     * difficulty
+     * 
      * @param none
      * @return void
      */
@@ -600,12 +629,12 @@ public class MainWindow {
         btnHard.setOnAction(e -> onHardClicked(e));
         vbox.getChildren().add(btnHard);
 
-        if(Wave.getInstance().isCheatMode() == false){
+        if (Wave.getInstance().isCheatMode() == false) {
             btnCheat.setText("Turn On CHEAT Mode");
-        }else{
+        } else {
             btnCheat.setText("Turn Off CHEAT Mode");
         }
-        
+
         btnCheat.setPrefWidth(200);
         btnCheat.setOnAction(e -> onCheatClicked(e));
         vbox.getChildren().add(btnCheat);
@@ -613,6 +642,7 @@ public class MainWindow {
 
     /**
      * methods to set the game difficulty to respective values
+     * 
      * @param event used to easily call btn.setOnAction for the respective buttons
      * @return void
      */
@@ -629,10 +659,10 @@ public class MainWindow {
     }
 
     void onCheatClicked(ActionEvent event) {
-        if(Wave.getInstance().isCheatMode() == false){
+        if (Wave.getInstance().isCheatMode() == false) {
             Wave.getInstance().setCheatMode(true);
             btnCheat.setText("Turn Off CHEAT Mode");
-        }else{
+        } else {
             btnCheat.setText("Turn On CHEAT Mode");
             Wave.getInstance().setCheatMode(false);
         }
@@ -641,6 +671,7 @@ public class MainWindow {
 
     /**
      * method to load the screen of high scores
+     * 
      * @param none
      * @return void
      */
