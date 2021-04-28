@@ -206,7 +206,32 @@ public class GameWindow {
             }
 
             if (g.isWon()) {
-                // TODO: LAUNCH WON WINDOW
+                timer.stop();
+                countDown.stop();
+                for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+                    item.pause();
+                }
+                highScoreList.save();
+                Wave.getInstance().saveAllUsers(); // save user
+                Wave.getInstance().setCoins(0); // the running score
+                var vboxEnd = new VBox();
+                vboxEnd.setPadding(new Insets(10));
+                vboxEnd.setSpacing(10);
+                vboxEnd.setAlignment(Pos.CENTER);
+        
+                var endScene = new Scene(vboxEnd, 800, 600);
+                Stage endStage = new Stage();
+                endStage.setScene(endScene); // set the scene
+                endStage.setTitle("End Screen");
+                endStage.setAlwaysOnTop(true);
+                endStage.show();
+        
+                endScene.getStylesheets().add("GameWindow.css");
+        
+                Label label = new Label("YOU WIN!");
+                Label label2 = new Label("Please return to the title screen");
+                vboxEnd.getChildren().add(label);
+                vboxEnd.getChildren().add(label2);
             }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
@@ -696,14 +721,10 @@ public class GameWindow {
         Wave.getInstance().saveAllUsers();
         highScoreList.getList().add(new HighScore(w.getCurrentUser().getName(), w.getCoins()));
         pauseState = false;
+        highScoreList.save();
         // close the current window and game window
         Stage stage = (Stage) btnEnd.getScene().getWindow();
         stage.close();
-
-        // Stage gameStage = (Stage) pane.getScene().getWindow();
-        // gameStage.close();
-        // this is where all the saving gets excecuted
-        highScoreList.save();
     }
 
     /**
