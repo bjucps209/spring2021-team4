@@ -92,13 +92,13 @@ public abstract class GameObject {
         this.height.set(height);
     }
 
-    public int getSpeed() {
-        return this.speed.get();
-    }
+    // public int getSpeed() {
+    //     return this.speed.get();
+    // }
 
-    public void setSpeed(int speed) {
-        this.speed.set(speed);
-    }
+    // public void setSpeed(int speed) {
+    //     this.speed.set(speed);
+    // }
 
     public IntegerProperty speed() {
         return speed;

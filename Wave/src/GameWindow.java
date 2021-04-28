@@ -68,7 +68,7 @@ public class GameWindow {
     Label lblSCORE = new Label("SCORE");
     Label lblScore = new Label();
 
-    Label arrow;
+    ImageView rightArrowImageView;
     ImageView playerImageView;
 
     /**
@@ -206,7 +206,32 @@ public class GameWindow {
             }
 
             if (g.isWon()) {
-                // TODO: LAUNCH WON WINDOW
+                timer.stop();
+                countDown.stop();
+                for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
+                    item.pause();
+                }
+                highScoreList.save();
+                Wave.getInstance().saveAllUsers(); // save user
+                Wave.getInstance().setCoins(0); // the running score
+                var vboxEnd = new VBox();
+                vboxEnd.setPadding(new Insets(10));
+                vboxEnd.setSpacing(10);
+                vboxEnd.setAlignment(Pos.CENTER);
+        
+                var endScene = new Scene(vboxEnd, 800, 600);
+                Stage endStage = new Stage();
+                endStage.setScene(endScene); // set the scene
+                endStage.setTitle("End Screen");
+                endStage.setAlwaysOnTop(true);
+                endStage.show();
+        
+                endScene.getStylesheets().add("GameWindow.css");
+        
+                Label label = new Label("YOU WIN!");
+                Label label2 = new Label("Please return to the title screen");
+                vboxEnd.getChildren().add(label);
+                vboxEnd.getChildren().add(label2);
             }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
@@ -226,16 +251,19 @@ public class GameWindow {
         if (!levelStopped) {
             // Code for stopping level and preparing for move on
             g.stopHitDetection();
+            p.setTemporaryInvincible(true);
             for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
                 item.pause();
             }
             p = g.getCurrentLevel().getPlayer();
             p.setWinState(true);
 
-            arrow = new Label("->");
-            arrow.setId("arrow");
-            pane.getChildren().add(arrow);
-            arrow.relocate(900, 300);
+            Image rightArrowImage = new Image("./Images/arrow.png");
+            rightArrowImageView = new ImageView(rightArrowImage);
+            rightArrowImageView.setFitWidth(50);
+            rightArrowImageView.setFitHeight(50);
+            pane.getChildren().add(rightArrowImageView);
+            rightArrowImageView.relocate(900, 300);
 
             // lets next level be stopped
             levelStopped = true;
@@ -252,6 +280,7 @@ public class GameWindow {
         ArrayList<Node> toRemove = new ArrayList<Node>();
         // Code to start a level
         if (!levelIsNext) {
+            p.setTemporaryInvincible(false);
             g.stopHitDetection();
             g.stopPlayerHitDetection();
             int health = p.getHealth();
@@ -263,7 +292,7 @@ public class GameWindow {
             g.startHitDetection();
             lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
 
-            pane.getChildren().remove(arrow);
+            pane.getChildren().remove(rightArrowImageView);
             for (var item : pane.getChildren()) {
                 if (item.getUserData() instanceof GameObject) {
                     toRemove.add(item);
@@ -694,14 +723,10 @@ public class GameWindow {
         Wave.getInstance().saveAllUsers();
         highScoreList.getList().add(new HighScore(w.getCurrentUser().getName(), w.getCoins()));
         pauseState = false;
+        highScoreList.save();
         // close the current window and game window
         Stage stage = (Stage) btnEnd.getScene().getWindow();
         stage.close();
-
-        // Stage gameStage = (Stage) pane.getScene().getWindow();
-        // gameStage.close();
-        // this is where all the saving gets excecuted
-        highScoreList.save();
     }
 
     /**

@@ -7,7 +7,10 @@
 <VBox fx:id="vboxTitle" fx:controller="MainWindow" xmlns:fx="http://javafx.com/fxml" stylesheets="@MainWindow.css" spacing="10" prefWidth="800" prefHeight="600">
 
     <HBox spacing="10" alignment="TOP_RIGHT">
-        <Button fx:id="btnLogIn" text="LOG IN" onAction="#onLogInScreenClicked" />
+        <VBox spacing="5">
+            <Button fx:id="btnLogIn" text="LOG IN" onAction="#onLogInScreenClicked" />
+            <Label text="Please sign in" fx:id="lblWelcome" alignment="CENTER_RIGHT"/>
+        </VBox>
     </HBox>
 
 
@@ -21,8 +24,8 @@
 
     <HBox spacing="10" alignment="CENTER">
         <VBox spacing="10" alignment="CENTER">
-            <Button text="NEW GAME" onAction="#onNewGameClicked" id="newGameButton" />
-            <Button text="RESUME GAME" onAction="#onResumeGameClicked" id="resumeGameButton"/>
+            <Button text="NEW GAME" onAction="#onNewGameClicked" />
+            <Button text="RESUME GAME" onAction="#onResumeGameClicked"/>
             <Button text="CUSTOM GAME" onAction="#onLoadCustomGameClicked" />
             <Button text="SKIN SHOP" onAction="#onSkinShopClicked" />
         </VBox>

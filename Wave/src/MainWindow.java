@@ -49,6 +49,10 @@ public class MainWindow {
     Button btnHard = new Button();
     Button btnCheat = new Button();
 
+    // welcome label in main menu
+    @FXML
+    Label lblWelcome;
+
     @FXML
     VBox vboxTitle;
 
@@ -64,6 +68,7 @@ public class MainWindow {
         w = Wave.getInstance();
         highScoreList.load();
 
+
         // play music
         titleMusic = new AudioClip(getClass().getResource("./Sound/scott-buckley-where-stars-fall.mp3").toString());
         titleMusic.play();
@@ -76,21 +81,14 @@ public class MainWindow {
      * @return none
      */
     @FXML
-    public void onNewGameClicked(ActionEvent e) throws IOException {
-        // parameter plus next line
-        Button button = (Button) e.getSource();
-        // extra condition
-        if (w.getCurrentUser() != null || button.getId().equals("customGameButton")) {
-            System.out.println("passed2");
+    public void onNewGameClicked() throws IOException {
+        if (w.getCurrentUser() != null) {
             if (defaultLevels) {
                 customGameLevels.removeAll(customGameLevels);
             }
-
             // opens up new window which is GameWindow
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
-            System.out.println("loader");
             Scene scene = new Scene(loader.load());
-            System.out.println("passed3");
 
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
@@ -145,8 +143,9 @@ public class MainWindow {
 
                 }
             });
-        } else {
-            var alert = new Alert(AlertType.ERROR, "You must log in or create a user first.");
+        }
+        else {
+            var alert = new Alert(AlertType.WARNING, "You must log in or create a user first.");
             alert.show();
         }
 
@@ -161,23 +160,16 @@ public class MainWindow {
     @FXML
     void onResumeGameClicked(ActionEvent event) {
         if (w.getCurrentUser() == null) {
-            var alert = new Alert(AlertType.ERROR, "You must log in to an existing account first.");
+            var alert = new Alert(AlertType.WARNING, "You must log in to an existing account first.");
             alert.show();
-        } else {
-            // ArrayList <Level> s = new ArrayList<>();
-            // s.add(new Level());
-            // w.setGame(new Game(1000, 800, s));
-            // w.getGame().load(w.getCurrentUser().getName());
-            File fil = new File(w.getCurrentUser().getName() + ".txt");
-            if (fil.exists()) {
-                w.setResumeGame(true);
-                try {
-                    onNewGameClicked(event); // parameter
-                } catch (IOException e) {
-                    System.out.println("failed");
-                }
-            }else{
-                var alert = new Alert(AlertType.ERROR, "There is not a saved game file exists.");
+        }
+        else {
+            w.setResumeGame(true);
+            try {
+                onNewGameClicked();
+            }
+            catch (IOException e) {
+                var alert = new Alert(AlertType.ERROR, "Failed in loading a saved game.");
                 alert.show();
             }
 
@@ -203,7 +195,7 @@ public class MainWindow {
         vbox.getChildren().add(lbl);
         TextField txtFieldFileChooser = new TextField();
         txtFieldFileChooser.setId("TEXTFIELD");
-        txtFieldFileChooser.setMaxWidth(125);
+        txtFieldFileChooser.setMaxWidth(150);
         vbox.getChildren().add(txtFieldFileChooser);
 
         Button button = new Button("Add Level");
@@ -212,7 +204,6 @@ public class MainWindow {
         vbox.getChildren().add(button);
 
         Button startGameButton = new Button("Start Custom Game");
-        startGameButton.setId("customGameButton"); // this id plus 2 more
         startGameButton.setOnAction(this::startCustomGame);
         vbox.getChildren().add(startGameButton);
 
@@ -265,7 +256,6 @@ public class MainWindow {
 
     /**
      * uses the list of custom levels and starts a game out of it
-     * 
      * @param e allows btn.setOnAction(this::startCustomGame) to compile
      * @return none
      */
@@ -273,11 +263,9 @@ public class MainWindow {
     void startCustomGame(ActionEvent e) {
         if (customGameLevels.size() > 0) {
             try {
-                System.out.println("passed1");
                 defaultLevels = false;
-                onNewGameClicked(e); // paramter
-                System.out.println("passed4");
-                defaultLevels = true;
+                onNewGameClicked();
+                defaultLevels = true;         
             } catch (IOException exception) {
 
             }
@@ -307,6 +295,7 @@ public class MainWindow {
 
         Label label = new Label("Log in here:");
         ComboBox<String> users = new ComboBox<>();
+        users.setMaxWidth(150);
         String[] userNames = new String[w.getUsers().size()];
         for (int i = 0; i < w.getUsers().size(); i++) {
             userNames[i] = w.getUsers().get(i).getName();
@@ -326,6 +315,7 @@ public class MainWindow {
 
         Label rightLabel = new Label("Create a new account here:");
         TextField textField = new TextField();
+        textField.setMaxWidth(150);
         Button rightButton = new Button("CREATE ACCOUNT");
         rightButton.setOnAction(this::onCreateAccountClicked);
 
@@ -364,8 +354,9 @@ public class MainWindow {
         for (User u : w.getUsers()) {
             if (u.getName().equals(name)) {
                 w.setCurrentUser(u);
-                var alert = new Alert(AlertType.INFORMATION, "Current user has been set to '" + name + "'");
-                alert.show();
+                lblWelcome.setText("Welcome, " + u.getName());
+                // var alert = new Alert(AlertType.INFORMATION, "Current user has been set to '" + name + "'");
+                // alert.show();
                 return;
             }
         }
@@ -409,8 +400,9 @@ public class MainWindow {
 
         Wave.getInstance().saveCurrentUser();
         Wave.getInstance().saveAllUsers();
-        var alert = new Alert(AlertType.INFORMATION, "New user created with name '" + userName + "'");
-        alert.show();
+        // var alert = new Alert(AlertType.INFORMATION, "New user created with name '" + userName + "'");
+        // alert.show();
+        lblWelcome.setText("Welcome, " + userName);
     }
 
     /**
@@ -559,9 +551,17 @@ public class MainWindow {
 
         aboutScene.getStylesheets().add("MainWindow.css");
 
-        String INFO = "You can begin the game by clicking on NEW GAME.\n" + "\n"
-                + "When playing the game keep this in mind:\n" + "- You will lose health if you are hit by an enemy.\n"
-                + "- You can run into powerups that will give you an advantage.\n";
+        String INFO = "You will be asked at the Title screen to log in.\n"
+                + "Log in or create a new user, then you can proceed to start a new game.\n"
+                + "You may also Resume a previous played game by clicking on RESUME GAME.\n"
+                + "Feel free to choose your prefered difficulty in the OPTIONS menu.\n"
+                + "Also, visit the skin shop if you have built up some points in the game and wish to \n" 
+                + "buy a new skin.\n"
+                + "\n"
+                + "When playing the game keep this in mind:\n" 
+                + "- You will lose health if you are hit by an enemy.\n"
+                + "- You can run into powerups that will give you an advantage.\n"
+                + "- Press p to pause the game at anytime.";
 
         Label lblInfo = new Label(INFO);
         vbox.getChildren().add(lblInfo);
@@ -594,13 +594,53 @@ public class MainWindow {
         lblTitle.setText("Controls");
         Label space = new Label();
         space.setText(" ");
-        Label lblPlayer = new Label();
-        lblPlayer
-                .setText("Move Left and Right: left arrow / right arrow\n" + "Move up and down: up arrow / down arrow");
+
+        HBox hbox1 = new HBox();
+        hbox1.setId("menu-background");
+        hbox1.setPadding(new Insets(10));
+        hbox1.setSpacing(10);
+        hbox1.setAlignment(Pos.TOP_CENTER);
+        
+        HBox hbox2 = new HBox();
+        hbox2.setId("menu-background");
+        hbox2.setPadding(new Insets(10));
+        hbox2.setSpacing(10);
+        hbox2.setAlignment(Pos.TOP_CENTER);
+
+        Image rightArrowImage = new Image("./Images/arrow.png");
+        Image leftArrowImage = new Image("./Images/leftArrow.png");
+        Image downArrowImage = new Image("./Images/downArrow.png");
+        Image upArrowImage = new Image("./Images/upArrow.png");
+        ImageView rightArrowImageView = new ImageView(rightArrowImage);
+        ImageView leftArrowImageView = new ImageView(leftArrowImage);
+        ImageView downArrowImageView = new ImageView(downArrowImage);
+        ImageView upArrowImageView = new ImageView(upArrowImage);
+        rightArrowImageView.setFitWidth(50);
+        rightArrowImageView.setFitHeight(50);
+        leftArrowImageView.setFitWidth(50);
+        leftArrowImageView.setFitHeight(50);
+        downArrowImageView.setFitWidth(50);
+        downArrowImageView.setFitHeight(50);
+        upArrowImageView.setFitWidth(50);
+        upArrowImageView.setFitHeight(50);
+        
+        Label lblLateral = new Label("Move Left and Right: ");
+        Label lblVertical = new Label("Move up and down: ");
+        Label lblPause = new Label("Press P to pause.");
 
         vbox.getChildren().add(lblTitle);
         vbox.getChildren().add(space);
-        vbox.getChildren().add(lblPlayer);
+        vbox.getChildren().add(hbox1);
+        vbox.getChildren().add(hbox2);
+        vbox.getChildren().add(lblPause);
+
+        hbox1.getChildren().add(lblLateral);
+        hbox1.getChildren().add(leftArrowImageView);
+        hbox1.getChildren().add(rightArrowImageView);
+
+        hbox2.getChildren().add(lblVertical);
+        hbox2.getChildren().add(upArrowImageView);
+        hbox2.getChildren().add(downArrowImageView);
     }
 
     /**
@@ -646,9 +686,9 @@ public class MainWindow {
         vbox.getChildren().add(btnHard);
 
         if (Wave.getInstance().isCheatMode() == false) {
-            btnCheat.setText("Turn On CHEAT Mode");
+            btnCheat.setText("CHEAT ON");
         } else {
-            btnCheat.setText("Turn Off CHEAT Mode");
+            btnCheat.setText("CHEAT OFF");
         }
 
         btnCheat.setPrefWidth(200);

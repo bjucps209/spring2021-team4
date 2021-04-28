@@ -147,7 +147,7 @@ public class Game {
             this.currentLevel.setEnemies(new ArrayList<EnemyObject>());
             this.currentLevel.setObstacles(new ArrayList<Obstacle>());
 
-            boolean result = currentLevel.deserialization(rd);
+            // boolean result = currentLevel.deserialization(rd);
 
             
             String nextLine = rd.readLine();
