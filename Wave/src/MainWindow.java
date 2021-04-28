@@ -65,20 +65,26 @@ public class MainWindow {
     }
 
     /**
-     * method to start a game of 10 default levels
+     * method to start a game - used in resume game and custom game also
      * @param none 
      * @return none
      */
     @FXML
-    public void onNewGameClicked() throws IOException {
-        if (w.getCurrentUser() != null) {
+    public void onNewGameClicked(ActionEvent e) throws IOException {
+        //parameter plus next line
+        Button button = (Button) e.getSource();
+        // extra condition
+        if (w.getCurrentUser() != null || button.getId().equals("customGameButton")) {
+            System.out.println("passed2");
             if (defaultLevels) {
                 customGameLevels.removeAll(customGameLevels);
             }
 
             // opens up new window which is GameWindow
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameWindow.fxml"));
+            System.out.println("loader");
             Scene scene = new Scene(loader.load());
+            System.out.println("passed3");
 
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
@@ -147,9 +153,9 @@ public class MainWindow {
      * @return none
      */
     @FXML
-    void onResumeGameClicked() {
+    void onResumeGameClicked(ActionEvent event) {
         if (w.getCurrentUser() == null) {
-            var alert = new Alert(AlertType.WARNING, "You are not currently logged in as a user. Please log in.");
+            var alert = new Alert(AlertType.ERROR, "You must log in to an existing account first.");
             alert.show();
         }
         else {
@@ -159,7 +165,7 @@ public class MainWindow {
             //w.getGame().load(w.getCurrentUser().getName());
             w.setResumeGame(true);
             try {
-                onNewGameClicked();
+                onNewGameClicked(event); // parameter
             }
             catch (IOException e) {
                 System.out.println("failed");
@@ -194,6 +200,7 @@ public class MainWindow {
         vbox.getChildren().add(button);
 
         Button startGameButton = new Button("Start Custom Game");
+        startGameButton.setId("customGameButton"); // this id plus 2 more
         startGameButton.setOnAction(this::startCustomGame);
         vbox.getChildren().add(startGameButton);
 
@@ -250,12 +257,12 @@ public class MainWindow {
      */
     @FXML
     void startCustomGame(ActionEvent e) {
-
         if (customGameLevels.size() > 0) {
-            System.out.println("start the custom game");
             try {
+                System.out.println("passed1");
                 defaultLevels = false;
-                onNewGameClicked();
+                onNewGameClicked(e); // paramter
+                System.out.println("passed4");
                 defaultLevels = true;         
             } catch (IOException exception) {
 

@@ -21,8 +21,8 @@
 
     <HBox spacing="10" alignment="CENTER">
         <VBox spacing="10" alignment="CENTER">
-            <Button text="NEW GAME" onAction="#onNewGameClicked" />
-            <Button text="RESUME GAME" onAction="#onResumeGameClicked" />
+            <Button text="NEW GAME" onAction="#onNewGameClicked" id="newGameButton" />
+            <Button text="RESUME GAME" onAction="#onResumeGameClicked" id="resumeGameButton"/>
             <Button text="CUSTOM GAME" onAction="#onLoadCustomGameClicked" />
             <Button text="SKIN SHOP" onAction="#onSkinShopClicked" />
         </VBox>
