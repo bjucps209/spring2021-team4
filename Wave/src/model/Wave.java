@@ -206,7 +206,6 @@ public class Wave {
     public boolean saveAllUsersTest(String fileName) {
         saveCurrentUser(); // First load the current login user into the data file
         try (PrintWriter wd = new PrintWriter(new FileWriter(fileName))) {
-
             wd.println(this.users.size());
             for (User existUser : this.users) {
                 wd.println(existUser.serialization());
@@ -409,7 +408,6 @@ public class Wave {
                         object = PowerUp.create(PowerUps.HealthGainBig, level);
                     } else if (instanceInfo[0].equals("Player")) {
                         object = new Player(level);
-                        // level.setPlayer((Player)object);
                     }
                     // obstacles
                     else if (instanceInfo[0].equals("Square")) {
@@ -417,9 +415,6 @@ public class Wave {
                     } else if (instanceInfo[0].equals("Narrow")) {
                         object = Obstacle.create(ObstacleTypes.NARROW, level);
                     }
-                    // else if (instanceInfo[0].equals("Corner")) {
-                    // object = Obstacle.create(ObstacleTypes.CORNER, level);
-                    // }
                     else {
                         object = Obstacle.create(ObstacleTypes.LARGE, level);
                     }
@@ -443,7 +438,6 @@ public class Wave {
             return level;
         } catch (IOException e) {
             System.out.println(fileName);
-            // System.out.println("exception" + e.getMessage());
             return null;
         }
     }

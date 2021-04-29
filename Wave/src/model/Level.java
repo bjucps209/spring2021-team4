@@ -207,19 +207,11 @@ public class Level {
         info += numberPlayer + "/n";
 
         if (numberPlayer == 1) {
-            // single player mode
-            // also need user info
-            // username;totalCoins;score;health;shipskin;x;y;dx;dy;sepcial effects
             User currentUser = Wave.getInstance().getCurrentUser();
             info += "###user/n";
             info += currentUser.getName() + ";" + currentUser.getCoins() + ";" + score + ";" + player.serialize()
                     + "/n";
 
-        } else {
-            for (int i = 0; i < numberPlayer; i++) {
-                info += "###user/n";
-                // TODO : how to handle multiple player
-            }
         }
 
         info += allObjects.size() - numberPlayer + "/n";
@@ -293,8 +285,6 @@ public class Level {
                 allObjects.add(player);
             }
 
-        } else {
-            // TODO: handle multiple player mode
         }
 
         String nextLine = rd.readLine();
@@ -321,7 +311,6 @@ public class Level {
             String type = gameObjectInfo[1];
 
             if (object.equals("EnemyObject")) {
-                // TODO: multiple other kind of enemy
                 EnemyObject enemy = new EnemyObject(this) {
                 }; // the reference will change depent on different enemy later
 
@@ -376,11 +365,6 @@ public class Level {
                     obstacle.setType(ObstacleTypes.valueOf(type));
                     break;
                 }
-                // case CORNER:{
-                // obstacle = new Corner(this);
-                // obstacle.setType(ObstacleTypes.valueOf(type));
-                // break;
-                // }
                 default:
                     success = false;
                     break;

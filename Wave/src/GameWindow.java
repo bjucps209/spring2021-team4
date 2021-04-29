@@ -7,7 +7,6 @@
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -119,10 +118,6 @@ public class GameWindow {
         }
 
         g = w.getGame();
-        /*
-         * if(Wave.getInstance().isResumeGame()){ // means resume game
-         * g.load(Wave.getInstance().getCurrentUser().getName()); }
-         */
         p = g.getCurrentLevel().getPlayer();
         spawnEntities();
 
@@ -130,7 +125,6 @@ public class GameWindow {
         pane.setPrefSize(1000, 800);
 
         // Label to represent the timer
-        // lblTimer = new Label();
         g.getCurrentLevel().setRemainingTime(g.getCurrentLevel().getRemainingTime());
         lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
         pane.getChildren().add(lblTime);
@@ -144,21 +138,11 @@ public class GameWindow {
         }));
         countDown.setCycleCount(g.getCurrentLevel().getRemainingTime());
         countDown.play();
-
-        // health label and bar with binding
-        // Label lblHealth = new Label("HEALTH");
-
-        // ProgressBar healthBar = new ProgressBar();
         healthBar.progressProperty()
                 .bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
         pane.getChildren().add(lblHealth);
         pane.getChildren().add(healthBar);
         healthBar.relocate(0, 30);
-
-        // Score label and binding
-        // Label lblSCORE = new Label("SCORE");
-        // Label lblScore = new Label();
-
         lblScore.textProperty().bind(w.coinsProperty().asString());
         pane.getChildren().add(lblSCORE);
         pane.getChildren().add(lblScore);
@@ -215,9 +199,6 @@ public class GameWindow {
                 if (nodeToRemove != null) {
                     pane.getChildren().remove(nodeToRemove);
                 }
-
-                // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL
-                // g.getCurrentLevel().setFinished(true);
                 if (g.getCurrentLevel().getRemainingTime() <= 0) {
                     countDown.stop();
                     g.getCurrentLevel().setFinished(true);
@@ -238,7 +219,6 @@ public class GameWindow {
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
-        // Platform.exit();
     }
 
     /**
@@ -336,7 +316,6 @@ public class GameWindow {
         spawnPowerups();
         spawnPlayer();
         spawnEnemies();
-        // spawnPowerPanels();
     }
 
     /**
@@ -409,30 +388,6 @@ public class GameWindow {
         playerImageView.setUserData(p);
         pane.getChildren().add(playerImageView);
     }
-
-    /*
-     * public void spawnPowerPanels(){ // determine number in each level
-     * g.randomGeneratePanels(); for (SpeedPanel sp :
-     * g.getLevels().get(g.getLevelNum()).getSpeedPanels()){ if(sp.getType() ==
-     * SpeedPanelTypes.speedUp){ Image speedUpImage = new
-     * Image("./Images/bluePanel.png"); ImageView speedUpImageView = new
-     * ImageView(speedUpImage); speedUpImageView.setFitWidth(sp.getWidth());
-     * speedUpImageView.setFitHeight(sp.getHeight());
-     * pane.getChildren().add(speedUpImageView);
-     * speedUpImageView.layoutXProperty().bind(sp.xProperty());
-     * speedUpImageView.layoutYProperty().bind(sp.yProperty());
-     * speedUpImageView.setUserData(sp); }else{ Image speedDownImage = new
-     * Image("./Images/redPanel.png"); ImageView speedDownImageView = new
-     * ImageView(speedDownImage); speedDownImageView.setFitWidth(sp.getWidth());
-     * speedDownImageView.setFitHeight(sp.getHeight());
-     * pane.getChildren().add(speedDownImageView);
-     * speedDownImageView.layoutXProperty().bind(sp.xProperty());
-     * speedDownImageView.layoutYProperty().bind(sp.yProperty());
-     * speedDownImageView.setUserData(sp); } }
-     * 
-     * 
-     * }
-     */
 
     /**
      * iterates through the list of enemy entities in the current level and 'spawns'
@@ -522,15 +477,6 @@ public class GameWindow {
                 laserImageView.layoutYProperty().bind(o.yProperty());
                 laserImageView.setUserData(o);
                 break;
-            // case CORNER:
-            // Image shapeshifterImage = new Image("./Images/block_corner.png");
-            // ImageView shapeshifterImageView = new ImageView(shapeshifterImage);
-            // shapeshifterImageView.setFitWidth(o.getWidth());
-            // shapeshifterImageView.setFitHeight(o.getHeight());
-            // pane.getChildren().add(shapeshifterImageView);
-            // shapeshifterImageView.layoutXProperty().bind(o.xProperty());
-            // shapeshifterImageView.layoutYProperty().bind(o.yProperty());
-            // break;
             default:
                 break;
             }

@@ -359,9 +359,6 @@ public class MainWindow {
             if (u.getName().equals(name)) {
                 w.setCurrentUser(u);
                 lblWelcome.setText("Welcome, " + u.getName());
-                // var alert = new Alert(AlertType.INFORMATION, "Current user has been set to '"
-                // + name + "'");
-                // alert.show();
                 return;
             }
         }
@@ -405,9 +402,6 @@ public class MainWindow {
 
         Wave.getInstance().saveCurrentUser();
         Wave.getInstance().saveAllUsers();
-        // var alert = new Alert(AlertType.INFORMATION, "New user created with name '" +
-        // userName + "'");
-        // alert.show();
         lblWelcome.setText("Welcome, " + userName);
     }
 

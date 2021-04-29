@@ -46,11 +46,6 @@ public class Game {
         w = Wave.getInstance();
         gameWidth = width;
         gameHeight = height;
-        // try {
-        // createLevels();
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
         this.levels = levels;
         currentLevel = levels.get(levelNum);
 
@@ -145,11 +140,6 @@ public class Game {
      */
     public void createLevels() throws IOException {
         Level l = w.loadCustomLevel("testPowerUp");
-
-        // add speed panels
-        // level 1-5, 3 panels
-        // level 6-10, 5 panels
-
         levels.add(l);
     }
 
@@ -165,14 +155,9 @@ public class Game {
             int coins = Wave.getInstance().getCoins() / 2;
             Wave.getInstance().getCurrentUser().setCoins(Wave.getInstance().getCurrentUser().getCoins() + coins
                     + Wave.getInstance().getGame().getDifficultyLevel().rewardCoins());
-            // this.currentLevel.getPlayer().getHits().clear();
-            // this.currentLevel.getAllObjects().clear();
-            // this.currentLevel.getPlayer().setTemporaryInvincible(false);
-            // this.currentLevel.getPlayer().get
             levelNum++;
             currentLevel = levels.get(levelNum);
         } else {
-            // TODO: COMPLETED ALL LEVELS
             setIsWon(true);
         }
 
