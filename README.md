@@ -1,6 +1,6 @@
 # spring2021-team4
 
-!(https://github.com/bjucps209/spring2021-team4/blob/main/wiki_images/title.PNG)[Wave]
+![https://github.com/bjucps209/spring2021-team4/blob/main/wiki_images/title.PNG](Wave)
 
 ## Instructions
 Begin the game by clicking NEW GAME. To play all you will need are the four directional arrow buttons on your keyboard. The Goal is to survive. Pick up powerups to help you, and make sure to use obstacles to your advantage. Once a level is completed, follow the arrow to continue through the game.
