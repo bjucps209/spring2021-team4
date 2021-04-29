@@ -70,7 +70,6 @@ public class MainWindow {
         w = Wave.getInstance();
         highScoreList.load();
 
-
         // play music
         titleMusic = new AudioClip(getClass().getResource("./Sound/scott-buckley-where-stars-fall.mp3").toString());
         titleMusic.play();
