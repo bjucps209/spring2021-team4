@@ -269,7 +269,8 @@ public class MainWindow {
                 onNewGameClicked();
                 defaultLevels = true;
             } catch (IOException exception) {
-
+                var alert = new Alert(AlertType.ERROR, "Please close the game before loading another level.");
+                alert.show();
             }
         } else {
             var alert = new Alert(AlertType.ERROR, "You haven't picked any custom levels to play yet.");
