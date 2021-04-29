@@ -156,6 +156,7 @@ public class GameWindow {
                 for (EnemyObject item : g.getCurrentLevel().getEnemies()) {
                     item.pause();
                 }
+                highScoreList.getList().add(new HighScore(w.getCurrentUser().getName(), w.getCoins()));
                 highScoreList.save();
                 Wave.getInstance().saveAllUsers(); // save user
                 Wave.getInstance().setCoins(0); // the running score
