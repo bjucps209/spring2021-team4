@@ -23,8 +23,6 @@ public abstract class EnemyObject extends GameObject {
         super(l);
         player = currentLevel.getPlayer();
 
-        // TODO: in future version, control when will enemy come in
-        // right now set default to 60 second, the beginning of game
         appearTime = 60;
     }
 
@@ -82,16 +80,12 @@ public abstract class EnemyObject extends GameObject {
 
     @Override
     public String serialize() {
-        // TODO Auto-generated method stub
         return "EnemyObject" + ";" + type.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get() + ";"
                 + height.get() + ";" + dx.get() + ";" + dy.get() + ";" + appearTime;
-        // TODO: special affect on enemy Object
     }
 
     @Override
     public boolean deserialize(String info) {
-        // TODO Auto-generated method stub
-        // TODO handle special effects later on
         try {
             String[] enemyInfo = info.split(";");
             // x,y,width,height,dx,dy,special affect

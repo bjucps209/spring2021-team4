@@ -19,8 +19,6 @@ public class Obstacle extends GameObject {
         super(l);
         this.dx.set(0);
         this.dy.set(0);
-        // TODO: specific width and height for different obstacles
-
         appearTime = 60;
         hitDetection = new Thread(() -> {
             while (true) {

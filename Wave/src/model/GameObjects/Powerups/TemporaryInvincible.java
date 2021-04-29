@@ -37,7 +37,6 @@ public class TemporaryInvincible extends PowerUp {
 
   @Override
   public void collisionWithPlayer(Player p) {
-    // TODO Auto-generated method stub
     // Add up all duration
     if (this.startTime == -1) {
       this.startTime = this.currentLevel.getRemainingTime();

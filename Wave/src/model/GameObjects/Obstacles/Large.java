@@ -18,5 +18,4 @@ public class Large extends Obstacle {
     setWidth(50);
     setHeight(100);
   }
-
 }
