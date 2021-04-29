@@ -80,7 +80,6 @@ public class GameWindow {
     public void initialize() {
 
         w = Wave.getInstance();
-        int test = MainWindow.customGameLevels.size();
         Boolean loadSuccess = false; // to see if the file load successfully
         if (Wave.getInstance().isResumeGame()) {
             Wave.getInstance().setResumeGame(false);
@@ -209,7 +208,6 @@ public class GameWindow {
                 if (g.getCurrentLevel().getPlayer().moveOn) {
                     startLevel();
                 }
-                var s = pane.getChildren();
 
                 // Checks to see if player died
                 if (healthBar.getProgress() == 0) {

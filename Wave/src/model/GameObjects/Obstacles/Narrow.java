@@ -18,5 +18,4 @@ public class Narrow extends Obstacle {
     setWidth(25);
     setHeight(100);
   }
-
 }

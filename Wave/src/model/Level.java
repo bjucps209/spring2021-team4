@@ -44,8 +44,7 @@ public class Level {
     // Gameplay variables
     private Player player = new Player(this);   // The player variable in this level
 
-    private IntegerProperty remainingTime = new SimpleIntegerProperty(5); // possible connect to TimeLine() with data
-                                                                          // binding technique
+    private IntegerProperty remainingTime = new SimpleIntegerProperty(40); // possible connect to TimeLine() with data binding technique
 
     public boolean finished = false;  // Boolean value indicate is the current level finished
 

@@ -6,7 +6,6 @@
 
 package model.GameObjects.Powerups;
 
-import javafx.util.Duration;
 import model.Level;
 import model.Enums.PowerUps;
 import model.GameObjects.Player;
@@ -25,9 +24,6 @@ public class TemporaryInvincible extends PowerUp {
   @Override
 
   public void update() {
-
-    // TODO Auto-generated method stub
-
     if (passedTime >= effectiveTime) {
       this.isFinished = true;
     }
@@ -40,7 +36,6 @@ public class TemporaryInvincible extends PowerUp {
 
   @Override
   public void collisionWithPlayer(Player p) {
-    // TODO Auto-generated method stub
     // Add up all duration
     if (this.startTime == -1) {
       this.startTime = this.currentLevel.getRemainingTime();

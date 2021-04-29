@@ -128,10 +128,7 @@ public abstract class GameObject {
      * @return true when hit is done being processed, false if it is not processed
      */
     public boolean processHit(GameObject hit, GameObject hitter, Player p) {
-        int playerX = p.getX();
-        int playerY = p.getY();
         Class gc = hit.getClass();
-        Class hitterClass = hitter.getClass();
         if (gc.equals(Bouncer.class)) {
             if (p.isTemporaryInvincible() == false && Wave.getInstance().isCheatMode() == false) {
                 Platform.runLater(() -> {
@@ -153,7 +150,6 @@ public abstract class GameObject {
                     p.setHealth(p.getHealth() - 1);
                 });
             }
-
             return true;
         } else if (gc.equals(DestroyShip.class)) {
             PowerUp power = (PowerUp) hit;
@@ -327,11 +323,7 @@ public abstract class GameObject {
     public void setHeight(int height) {
         this.height.set(height);
     }
-
-    // public int getSpeed() {
-    // return this.speed.get();
-    // }
-
+    
     public boolean isPaused() {
         return paused;
     }

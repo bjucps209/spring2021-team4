@@ -38,7 +38,6 @@ public abstract class PowerUp extends GameObject {
     this.dx.set(0);
     this.dy.set(0);
 
-    // TODO: allow customized when will powerup appear
     // in the future
     this.appearTime = 60;
   }
@@ -46,19 +45,15 @@ public abstract class PowerUp extends GameObject {
   @Override
   public void update() {
     // powerups will not move during the game
-
   }
 
   @Override
   public String serialize() {
-    // TODO: type for different power ups
-
     return "PowerUp;" + type.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get() + ";" + height.get() + ";"
         + dx.get() + ";" + dy.get() + ";" + appearTime;
   }
 
   public boolean deserialize(String info) {
-
     // Note: powerup and type has already been deserialzied at level base
     try {
       String[] infos = info.split(";");
