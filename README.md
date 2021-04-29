@@ -39,4 +39,4 @@ https://www.youtube.com/watch?v=HdpzzOT1x_A
 | Nicholas Rich | Nicholas-Rich | Auxiliary Screens | 38.25 hours | 11.75 hours | [Nick Journal](https://github.com/bjucps209/spring2021-team4/wiki/RichJournal) |
 | Ryan Raddatz | Marlowe007 | Level Builder | 50 hours | 0 hours | [Ryan Journal](https://github.com/bjucps209/spring2021-team4/wiki/RaddatzJournal) |
 | Conner Christ | ConnerPC | Game Model | 33.25 hours | 16.75 hours | [Conner Journal](https://github.com/bjucps209/spring2021-team4/wiki/ChristJournal) |
-| Shouyu Du | Joeldushouyu | Serialization | 37 hours | 13 hours | [Shouyu Journal](https://github.com/bjucps209/spring2021-team4/wiki/ShouyuJournal) |
+| Shouyu Du | Joeldushouyu | Serialization | 42 hours | 8 hours | [Shouyu Journal](https://github.com/bjucps209/spring2021-team4/wiki/ShouyuJournal) |
