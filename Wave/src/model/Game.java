@@ -213,6 +213,7 @@ public class Game {
     }
 
     // Methods for serialization
+       // Methods for serialization
     /**
      * The methods will load the file give by @param userName in txt form into
      * program
@@ -226,20 +227,20 @@ public class Game {
         try (BufferedReader rd = new BufferedReader(new FileReader(userName + ".txt"))) {
             // load data here
 
-            this.levels = new ArrayList<Level>();
 
+            this.levels = new ArrayList<Level>();
+ 
             levels.add(w.loadCustomLevel("level0"));
             levels.add(w.loadCustomLevel("level1"));
             levels.add(w.loadCustomLevel("level2"));
             levels.add(w.loadCustomLevel("level3"));
             levels.add(w.loadCustomLevel("level4"));
 
-
             String firstLine = rd.readLine();
             if (firstLine.equals("###END###")) {
                 // means already end of game
                 // let it to start a new game
-                this.currentLevel = levels.get(0);
+                this.currentLevel = levels.get(0); 
                 return true;
             }
 
@@ -254,11 +255,14 @@ public class Game {
             this.currentLevel.setEnemies(new ArrayList<EnemyObject>());
             this.currentLevel.setObstacles(new ArrayList<Obstacle>());
             this.currentLevel.setPowerUps(new ArrayList<PowerUp>());
+            //this.currentLevel.setSpeedPanels(new ArrayList<SpeedPanel>());
 
             int score = Integer.parseInt(rd.readLine());
             Wave.getInstance().setCoins(score);
             String difficult = rd.readLine();
-            this.difficulty.deserialization(difficult);
+           this.difficulty.deserialization( difficult);
+            
+            boolean result = currentLevel.deserialization(rd);
 
             String nextLine = rd.readLine();
             if (nextLine.equals("ENDL#") == false) {
@@ -266,7 +270,7 @@ public class Game {
                 throw new IOException("File format error");
             }
 
-            return true;
+            return true && result;
         } catch (IOException e) {
             return false;
         } catch (Exception e) {
