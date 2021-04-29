@@ -53,12 +53,11 @@ public class HighScoreList {
      * @return none
      */
     public void save() {
-        try (var writer = new PrintWriter(new FileOutputStream(new File("scores.txt"), true))) {
-            /*
-             * for (HighScore o : list) { writer.write(o.serialize()); }
-             */
-            writer.append("jack-123");
-
+        try (var writer = new PrintWriter(new FileOutputStream( new File("scores.txt"), true  ))) {
+            for (HighScore o : list) {
+                writer.append(o.serialize());
+            }
+            
         } catch (IOException e) {
             System.out.println("Error writing scores file");
         }
