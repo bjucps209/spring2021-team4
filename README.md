@@ -19,8 +19,7 @@ Begin the game by clicking NEW GAME. To play all you will need are the four dire
 | Level Progression | Required | Conner | done |
 | Users | Extra | Nick/Joel | done |
 
-## Known Issues
-* See issue tracker
+
 
 ## Recording
 
