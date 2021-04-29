@@ -789,4 +789,29 @@ public class MainWindow {
         scrollPane.setContent(childVbox);
         vbox.getChildren().add(scrollPane);
     }
+
+    @FXML
+    public void onCreditsClicked() {
+        VBox vbox = new VBox();
+        vbox.setId("menu-background");
+        vbox.setPadding(new Insets(10));
+        vbox.setSpacing(10);
+        vbox.setAlignment(Pos.CENTER);
+
+        Scene creditScene = new Scene(vbox, 800, 600);
+        Stage creditStage = new Stage();
+        creditStage.setScene(creditScene); // set the scene
+        creditStage.setTitle("About");
+        creditStage.show();
+
+        creditScene.getStylesheets().add("MainWindow.css");
+
+        String INFO = "Nicholas Rich - Auxilary Screens\n"
+                    + "Conner Christ - Basic Game Play\n"
+                    + "Ryan Raddatz - Level Builder\n"
+                    + "Joel Shouyu - Serialization";
+
+        Label lblInfo = new Label(INFO);
+        vbox.getChildren().add(lblInfo);
+    }
 }
