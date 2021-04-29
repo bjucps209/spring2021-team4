@@ -1,0 +1,15 @@
+36
+0
+40
+Easy
+1
+###user
+asfdfdf;0;0;90;SHIP1;539;509;50;50;0;0
+3
+###gameobject
+Obstacle;SQUARE;475;372;50;50;0;0;60
+###gameobject
+EnemyObject;BOUNCER;491;167;50;50;-5;5;60
+###gameobject
+EnemyObject;BOUNCER;81;134;50;50;-5;-5;60
+ENDL#
