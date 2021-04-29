@@ -356,7 +356,9 @@ public class MainWindow {
         for (User u : w.getUsers()) {
             if (u.getName().equals(name)) {
                 w.setCurrentUser(u);
-                lblWelcome.setText("Welcome, " + u.getName());
+                var alert = new Alert(AlertType.INFORMATION, "Logged in as '" + w.getCurrentUser().getName() + "'.");
+                alert.show();
+                lblWelcome.setText("Welcome, " + w.getCurrentUser().getName());
                 return;
             }
         }
@@ -380,7 +382,6 @@ public class MainWindow {
 
         TextField textField = (TextField) vbox.getChildren().get(1);
         String userName = textField.getText();
-        // ----
         for (User u : w.getUsers()) {
             if (u.getName().equals(userName)) {
                 var alert = new Alert(AlertType.INFORMATION,
@@ -389,10 +390,11 @@ public class MainWindow {
                 return;
             }
         }
-        // ----
         User user = new User(userName);
         w.setCurrentUser(user);
         w.getUsers().add(user);
+        var alert = new Alert(AlertType.INFORMATION, "New user with name '" + w.getCurrentUser().getName() + "' created.");
+        alert.show();
 
         @SuppressWarnings("unchecked")
         ComboBox<String> cBox = (ComboBox<String>) leftVBox.getChildren().get(1);
@@ -400,7 +402,7 @@ public class MainWindow {
 
         Wave.getInstance().saveCurrentUser();
         Wave.getInstance().saveAllUsers();
-        lblWelcome.setText("Welcome, " + userName);
+        lblWelcome.setText("Welcome, " + w.getCurrentUser().getName());
     }
 
     /**
