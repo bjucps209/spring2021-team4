@@ -37,4 +37,8 @@
             <Button text="HIGH SCORES" onAction="#onScoresClicked" />
         </VBox>
     </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="CREDITS" onAction="#onCreditsClicked"/>
+    </HBox>
 </VBox>
