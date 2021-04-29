@@ -23,7 +23,6 @@ public class Player extends GameObject {
     private IntegerProperty health = new SimpleIntegerProperty(100);
     private static int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
     private ShipSkins currentShipSkins;
-    // private ArrayList<GameObject> activatedAffects = new ArrayList<>();
     private boolean temporaryInvincible;
     public boolean winState = false;
 
@@ -72,7 +71,6 @@ public class Player extends GameObject {
                     hits.add(collisionEnemy);
                 }
 
-                // System.out.println(currentLevel.getObstacles());
                 var collisionObstacle = checkCollision(currentLevel.getObstacles());
                 if (currentLevel.getObstacles() != null && collisionObstacle != null) {
                     hits.add(collisionObstacle);
@@ -82,26 +80,20 @@ public class Player extends GameObject {
                 if (currentLevel.getPowerUps() != null && collisionPowerUp != null) {
                     hits.add(collisionPowerUp);
                     this.currentLevel.getPowerUps().remove(collisionPowerUp);
-                    // this.currentLevel.getAllObjects().remove(collisionPowerUp);
-
                 }
                 int i = 0;
                 while (hits.size() != 0 && i < hits.size()) {
 
                     if (processHit(hits.get(0), this, this)) {
                         if (hits.get(0) instanceof PowerUp) {
-                            // this.currentLevel.getPowerUps().remove(hits.get(0));
                             this.currentLevel.getAllObjects().remove(hits.get(0));
                         }
                         hits.remove(hits.get(0));
                     }
-                    // processHit(hits.get(0), this, this);
 
                     hits.removeIf((GameObject o) -> (o instanceof PowerUp) == false);
                     i++;
                 }
-
-                // for(GameObject)
 
                 try {
                     Thread.sleep(33);
@@ -133,7 +125,6 @@ public class Player extends GameObject {
                     hits.add(collisionEnemy);
                 }
 
-                // System.out.println(currentLevel.getObstacles());
                 var collisionObstacle = checkCollision(currentLevel.getObstacles());
                 if (currentLevel.getObstacles() != null && collisionObstacle != null) {
                     hits.add(collisionObstacle);
@@ -143,28 +134,18 @@ public class Player extends GameObject {
                 if (currentLevel.getPowerUps() != null && collisionPowerUp != null) {
                     hits.add(collisionPowerUp);
                     this.currentLevel.getPowerUps().remove(collisionPowerUp);
-
-                    // TODO remove GUI
-                    // this.currentLevel.getAllObjects().remove(collisionPowerUp);
-
                 }
                 int i = 0;
                 while (hits.size() != 0 && i < hits.size()) {
-
                     if (processHit(hits.get(0), this, this)) {
                         if (hits.get(0) instanceof PowerUp) {
-                            // this.currentLevel.getPowerUps().remove(hits.get(0));
                             this.currentLevel.getAllObjects().remove(hits.get(0));
                         }
                         hits.remove(hits.get(0));
                     }
-                    // processHit(hits.get(0), this, this);
-
                     hits.removeIf((GameObject o) -> ((o instanceof PowerUp) == false));
                     i++;
                 }
-
-                // for(GameObject)
 
                 try {
                     Thread.sleep(33);
@@ -307,19 +288,12 @@ public class Player extends GameObject {
         Player.speed = speed;
     }
 
-    /*
-     * public void setActivatedAffects(ArrayList<GameObject> activatedPowerUs) {
-     * this.activatedAffects = activatedPowerUs; }
-     */
-
     public void setTemporaryInvincible(boolean temporaryInvincible) {
         this.temporaryInvincible = temporaryInvincible;
     }
 
     @Override
     public String serialize() {
-        // TODO Auto-generated method stub
-        // TODO still needs to add in special effects !!!
         String returns = health.get() + ";" + currentShipSkins.toString() + ";" + x.get() + ";" + y.get() + ";"
                 + width.get() + ";" + height.get() + ";" + dx.get() + ";" + dy.get();
 
@@ -331,8 +305,6 @@ public class Player extends GameObject {
                 data += "PowerUp," + ob.getType() + "," + ob.getEffectiveTime() + "," + ob.getPassedTime() + ","
                         + ob.getStartTime();
 
-            } else {
-                // should be a panel
             }
             returns += ";" + data;
         }
@@ -342,7 +314,6 @@ public class Player extends GameObject {
 
     @Override
     public boolean deserialize(String info) {
-        // TODO Auto-generated method stub
         // info contains
         // x,y,width,height,dx,dy,special effects
         try {
@@ -356,8 +327,6 @@ public class Player extends GameObject {
             this.height.set(Integer.parseInt(restInfo[5]));
             this.dx.set(Integer.parseInt(restInfo[6]));
             this.dy.set(Integer.parseInt(restInfo[7]));
-            // TODO: handle rest of special affect on player
-
             if (restInfo.length != 8) {
                 for (int i = 8; i < restInfo.length; i++) {
                     String[] data = restInfo[i].split(",");
@@ -379,11 +348,8 @@ public class Player extends GameObject {
                             this.hits.add(pow);
                             this.currentLevel.getAllObjects().add(pow);
                         } else {
-                            // should not be the case
                             return false;
                         }
-                    } else {
-                        // TODO: panel effect for speed up and down
                     }
                 }
             }

@@ -25,9 +25,6 @@ public class TemporaryInvincible extends PowerUp {
   @Override
 
   public void update() {
-
-    // TODO Auto-generated method stub
-
     if (passedTime >= effectiveTime) {
       this.isFinished = true;
     }
