@@ -17,20 +17,20 @@ import model.GameObjects.Enemies.EnemyObject;
 
 // Class that handles all game parts after game has started
 public class Game {
-    Wave w;
+    Wave w; // Single variable for Wave.getInstance
 
     // Visual variables
-    private int gameWidth;
-    private int gameHeight;
-    private boolean isWon = false;
+    private int gameWidth;   // actual screen width
+    private int gameHeight;  // actual screen height
+    private boolean isWon = false; // boolean value indicate has player make it to the end of game
 
     // Data variables
-    private ArrayList<Level> levels = new ArrayList<Level>();
+    private ArrayList<Level> levels = new ArrayList<Level>(); // A list holds a levels in the game
 
-    private Difficulty difficulty;
+    private Difficulty difficulty;  // Variable that indicate the difficulty level of the game
     // Gameplay variables
-    private Level currentLevel;
-    private int levelNum = 0;
+    private Level currentLevel;    // variable holds the current leve the player is on
+    private int levelNum = 0;     // a int value indicate the index of this.currentLevel in this.levcels
 
     // This constructor should only be use for unit test
     public Game() {

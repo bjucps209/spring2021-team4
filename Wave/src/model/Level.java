@@ -33,21 +33,21 @@ import model.GameObjects.Powerups.TemporaryInvincible;
 public class Level {
 
     // Object lists
-    private ArrayList<GameObject> allObjects = new ArrayList<GameObject>();
-    private ArrayList<EnemyObject> enemies = new ArrayList<EnemyObject>();
-    private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
-    private ArrayList<PowerUp> powerups = new ArrayList<PowerUp>();
+    private ArrayList<GameObject> allObjects = new ArrayList<GameObject>();  // List contains all powerUps, obstacles, enemys, and player in this level
+    private ArrayList<EnemyObject> enemies = new ArrayList<EnemyObject>();   // List contains all enemies at this level
+    private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();       // List contains all obstacles at thsi level
+    private ArrayList<PowerUp> powerups = new ArrayList<PowerUp>();          // List contains all powerups at this level
 
     // Data info
-    private int score;
+    private int score;   // should be use to keep track of the score in this level
 
     // Gameplay variables
-    private Player player = new Player(this);
+    private Player player = new Player(this);   // The player variable in this level
 
     private IntegerProperty remainingTime = new SimpleIntegerProperty(5); // possible connect to TimeLine() with data
                                                                           // binding technique
 
-    public boolean finished = false;
+    public boolean finished = false;  // Boolean value indicate is the current level finished
 
     // This construction should only be use in unit test
 

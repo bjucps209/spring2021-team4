@@ -11,7 +11,7 @@ import model.Enums.DifficultyLevel;
 // class that computes certain aspects of the game instance based on the selected difficulty level
 public class Difficulty {
 
-  protected DifficultyLevel difficulty;
+  protected DifficultyLevel difficulty; // Enum value of level's difficulty
 
   public Difficulty(DifficultyLevel choice) {
     this.difficulty = choice;

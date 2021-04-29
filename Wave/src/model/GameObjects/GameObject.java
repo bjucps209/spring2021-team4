@@ -27,15 +27,15 @@ import model.GameObjects.Obstacles.*;
 // abstract class for all game objects
 public abstract class GameObject {
 
-    protected IntegerProperty x = new SimpleIntegerProperty();
-    protected IntegerProperty y = new SimpleIntegerProperty();
+    protected IntegerProperty x = new SimpleIntegerProperty();  // X coordinate of this object at screen
+    protected IntegerProperty y = new SimpleIntegerProperty();  // Y coordinate of this object at screen
     protected IntegerProperty dx = new SimpleIntegerProperty(); // delta X (added to x every update (speed))
     protected IntegerProperty dy = new SimpleIntegerProperty(); // delta y (added to y every update (speed))
-    protected IntegerProperty width = new SimpleIntegerProperty();
-    protected IntegerProperty height = new SimpleIntegerProperty();
-    protected static IntegerProperty speed = new SimpleIntegerProperty();
+    protected IntegerProperty width = new SimpleIntegerProperty(); // height of this object's image
+    protected IntegerProperty height = new SimpleIntegerProperty(); // width of this object's image
+    protected static IntegerProperty speed = new SimpleIntegerProperty(); // moving speed of this object
 
-    protected int appearTime = 60;
+    protected int appearTime = 60;  // The time that this object should appear on screen
 
     protected int speedPanelSpeed = 0;
 
@@ -43,14 +43,14 @@ public abstract class GameObject {
 
     public abstract boolean deserialize(String info);
 
-    ArrayList<Obstacle> obstacles;
-    ArrayList<EnemyObject> enemies;
-    protected ArrayList<GameObject> hits = new ArrayList<GameObject>();
-    private int pauseDx;
-    private int pauseDy;
-    public Level currentLevel;
-    protected boolean paused = false;
-    protected static int increaseSpeed;
+    ArrayList<Obstacle> obstacles;      // List of obstacles at this level
+    ArrayList<EnemyObject> enemies;     // List of enemies at this level
+    protected ArrayList<GameObject> hits = new ArrayList<GameObject>();  // A list contains all other gameObject that this oject come clash with
+    private int pauseDx;                 // X coordinate of object when paused
+    private int pauseDy;                 // y coordinate of object when paused
+    public Level currentLevel;           // Holds the reference to current Level object() that this gameObject is in 
+    protected boolean paused = false;    // boolean value indicate is game stopped
+    protected static int increaseSpeed;  // change of speed cause by speed panel that has not been implement
     public Thread hitDetection = new Thread(() -> {
         while (true) {
             checkWallCollision();

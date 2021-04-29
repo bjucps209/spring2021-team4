@@ -18,7 +18,7 @@ import java.util.Collections;
 // class that holds a list of instances of the HighScore class
 public class HighScoreList {
 
-    private ArrayList<HighScore> list = new ArrayList<HighScore>();
+    private ArrayList<HighScore> list = new ArrayList<HighScore>();  // A list contains all different users and their score
 
     public HighScoreList() {
 

@@ -41,11 +41,11 @@ public class MainWindow {
     HighScoreList highScoreList = new HighScoreList();
 
     // Music
-    AudioClip titleMusic;
-    AudioClip battleMusic;
+    AudioClip titleMusic;   // music for game Play screen
+    AudioClip battleMusic;  // music during the game
 
     // list to be given to game if the user wants to play their custom games
-    static ArrayList<Level> customGameLevels = new ArrayList<>();
+    static ArrayList<Level> customGameLevels = new ArrayList<>(); 
 
     // boolean that is true if no custom levels are to be loaded
     public boolean defaultLevels = true;

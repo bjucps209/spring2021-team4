@@ -11,7 +11,7 @@ import model.GameObjects.Player;
 
 // tracker class contains an update method to update the tracker's direction based on its position relative to the player.
 public class Tracker extends EnemyObject {
-    public static int speed = 2;
+    public static int speed = 2;  // Moving speed of tracker
 
     public Tracker(Level l) {
         super(l);

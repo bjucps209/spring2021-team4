@@ -7,7 +7,7 @@
 package model.Enums;
 
 public enum EnemyTypes {
-    BOUNCER,
-    TRACKER,
-    GHOST,
+    BOUNCER,  // Bounce off the wall and obstacle
+    TRACKER,  // Track player, do not affect by obstacle
+    GHOST,    // bounce like Bouncer, but also does not affect by obstacles
 }

@@ -35,15 +35,15 @@ import model.Enums.ShipSkins;
 // the controller for the fxml file on which the game is played out
 public class GameWindow {
 
-    static Wave w;
-    static Player p;
-    static Game g;
+    static Wave w;  // Singleton variable for Wave
+    static Player p; // player variable
+    static Game g;   // the current game variable
 
-    static HighScoreList highScoreList = new HighScoreList();
-    static boolean pauseState = false;
+    static HighScoreList highScoreList = new HighScoreList(); // the List for high score screen
+    static boolean pauseState = false;                      // boolean indicator for stop/resume of game
 
-    public boolean levelStopped = false;
-    public boolean levelIsNext = false;
+    public boolean levelStopped = false;                    // boolean indicator for end game
+    public boolean levelIsNext = false;                     // boolean indicator for progressing to next level
 
     @FXML
 

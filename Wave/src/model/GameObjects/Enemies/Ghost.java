@@ -11,7 +11,7 @@ import model.Level;
 // class that can follow a player but doesnt interact with obstacles
 public class Ghost extends EnemyObject {
 
-    public static int speed = 2;
+    public static int speed = 2;  // moving speed of Ghost
 
     public Ghost(Level l) {
         super(l);

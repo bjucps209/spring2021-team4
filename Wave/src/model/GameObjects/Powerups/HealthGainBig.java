@@ -12,7 +12,7 @@ import model.GameObjects.Player;
 
 // gives the player 50 health when hit by the user
 public class HealthGainBig extends PowerUp {
-  private final static int healthAddition = 50;
+  private final static int healthAddition = 50;  // amount of health addition to player's health when activated
 
   public HealthGainBig(Level l) {
     super(l);

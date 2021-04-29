@@ -15,8 +15,8 @@ import model.Enums.ShipSkins;
 // class that is created when someone creates an account in the game. holds variables such as coins, a name, and owned skins
 public class User {
     // contains all necessary info for a Player (coins, currentShip, name)
-    private String name;
-    private int coins;
+    private String name;  // user namee
+    private int coins; // The total coins user owns
     private ShipSkins ship; // current shipSkin user is using
     private ArrayList<ShipSkins> ownedShipSkins = new ArrayList<ShipSkins>(); // use to record all shipSkins that the
                                                                               // user owned

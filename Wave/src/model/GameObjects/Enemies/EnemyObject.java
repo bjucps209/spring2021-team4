@@ -13,11 +13,12 @@ import model.GameObjects.Player;
 
 // abstract class for Enemy objects in game
 public abstract class EnemyObject extends GameObject {
-
-    protected EnemyTypes type;
-    protected boolean temporaryFreeze = false;
-    protected Player player;
-    protected boolean isRemoved = false;
+ 
+    protected EnemyTypes type;  // A enum indicate this enemy type
+    protected boolean temporaryFreeze = false;  // boolean value indicate is the enemy temporary freeze by Freeze powerUp
+    protected Player player;   // The current player at this level 
+    protected boolean isRemoved = false;  // Bpolean indicate should this enemobject be remove from the screen, 
+                                            // cause by the destroyship methods that randomly remove one enemy from the screen
 
     public EnemyObject(Level l) {
         super(l);

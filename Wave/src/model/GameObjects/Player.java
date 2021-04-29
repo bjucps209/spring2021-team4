@@ -20,12 +20,12 @@ import model.GameObjects.Powerups.TemporaryInvincible;
 public class Player extends GameObject {
 
     // instance variables
-    private IntegerProperty health = new SimpleIntegerProperty(100);
+    private IntegerProperty health = new SimpleIntegerProperty(100); // Player's HP
     private static int speed = 5; // speed that dx and dy should be (0 or whatever speed is)
-    private ShipSkins currentShipSkins;
+    private ShipSkins currentShipSkins;  // The current shipSkin the player has on
     // private ArrayList<GameObject> activatedAffects = new ArrayList<>();
-    private boolean temporaryInvincible;
-    public boolean winState = false;
+    private boolean temporaryInvincible;  // boolean value indicate is player temporary invincinble 
+    public boolean winState = false;      // boolean indicate has this player won
 
     public boolean getTemporaryInvincible() {
         return this.temporaryInvincible;

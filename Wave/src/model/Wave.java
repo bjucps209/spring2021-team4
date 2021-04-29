@@ -42,14 +42,14 @@ public class Wave {
     private Game game;
 
     // User variables
-    private User currentUser;
-    private IntegerProperty coins = new SimpleIntegerProperty();
+    private User currentUser;  // The current login user
+    private IntegerProperty coins = new SimpleIntegerProperty(); // The running score during the game, will be covert to coins later
 
     // Shop variables
-    private ShipSkins currentShip;
+    private ShipSkins currentShip;    // Variable indicate the current shipSkin the player has on at the skin shop
 
-    private DifficultyLevel userChoiceDifficulty = DifficultyLevel.Easy;
-    private boolean cheatMode = false;
+    private DifficultyLevel userChoiceDifficulty = DifficultyLevel.Easy; // Variable indicate the difficulty of the game
+    private boolean cheatMode = false;   // Indicate is cheat mode is on or not
 
     // Singleton constructor
     private Wave() {

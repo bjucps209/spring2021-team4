@@ -16,11 +16,12 @@ public abstract class PowerUp extends GameObject {
 
   // Note: powerups will be position by the level editors.
 
-  protected PowerUps type;
-  protected boolean isFinished = false;
-  protected int effectiveTime;
-  protected int passedTime = 0; // might not be a int depent on implementation of running clock
-  protected int startTime = -1;
+  protected PowerUps type;  // a enum value indicate the type of this powerup
+  protected boolean isFinished = false;  // boolean indicate has the powerup finished its affect
+  protected int effectiveTime;          // timf for how now  many seconds for this powerup's effect 
+  protected int passedTime = 0;         // int indicate number of seconds passed
+  protected int startTime = -1;         // int indicate the at what seconds of the level left is this powerup been activated, 
+                                        //-1 for default value
 
   /**
    * set the spawn time of this powerup?

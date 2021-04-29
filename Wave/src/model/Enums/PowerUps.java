@@ -9,9 +9,9 @@ package model.Enums;
 
 public enum PowerUps {
     // Enum for each skin in customization
-    Freeze,
-    DestroyShip,
-    TemporaryInvincible,
-    HealthGainSmall,
-    HealthGainBig
+    Freeze,   // Freeze enemy from moving
+    DestroyShip, // randomly destroy a enemy
+    TemporaryInvincible, // not taking damage for certain seconds
+    HealthGainSmall,    // gain a small amount of health
+    HealthGainBig       // gain a big amount of health
 }

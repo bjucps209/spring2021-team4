@@ -11,7 +11,7 @@ import model.Level;
 // enemy entity that bounces off of obstacles and walls but has no tracking capabilities
 public class Bouncer extends EnemyObject {
 
-    public static int speed = 5;
+    public static int speed = 5;   //The moving speed of Bouncer
 
     public Bouncer(Level l) {
         super(l);
