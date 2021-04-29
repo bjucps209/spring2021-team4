@@ -796,6 +796,12 @@ public class MainWindow {
         vbox.getChildren().add(scrollPane);
     }
 
+    /**
+     * shows the credits of the creators of the project
+     * 
+     * @param none
+     * @return void
+     */
     @FXML
     public void onCreditsClicked() {
         VBox vbox = new VBox();
