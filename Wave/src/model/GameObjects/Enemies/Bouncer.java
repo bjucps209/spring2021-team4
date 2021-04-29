@@ -22,11 +22,7 @@ public class Bouncer extends EnemyObject {
                 checkWallCollision();
                 if (currentLevel.getObstacles() != null && checkCollision(currentLevel.getObstacles()) != null) {
                     hits.add(checkCollision(currentLevel.getObstacles()));
-                } 
-                //else if (checkCollision(currentLevel.getPowerUps()) != null) {
-                    //hits.add(checkCollision(currentLevel.getPowerUps()));
-                //}
-                
+                }
                 if (hits.size() != 0) {
                     processHit(hits.get(0), this, currentLevel.getPlayer());
                     hits.remove(hits.get(0));
@@ -36,7 +32,8 @@ public class Bouncer extends EnemyObject {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            } 
-        });;
+            }
+        });
+        ;
     }
 }

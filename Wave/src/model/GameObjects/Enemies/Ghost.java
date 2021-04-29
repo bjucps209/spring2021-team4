@@ -17,5 +17,5 @@ public class Ghost extends EnemyObject {
         super(l);
         this.setWidth(50);
         this.setHeight(50);
-    } 
+    }
 }

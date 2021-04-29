@@ -19,8 +19,7 @@ public class HighScore implements Comparable<HighScore> {
     // will modify the Collections.sort method to sort by score
     @Override
     public int compareTo(HighScore o) {
-        return (this.getScore() < o.getScore() ? -1 : 
-                (this.getScore() == o.getScore() ? 0 : 1));
+        return (this.getScore() < o.getScore() ? -1 : (this.getScore() == o.getScore() ? 0 : 1));
     }
 
     public String getName() {
@@ -39,11 +38,11 @@ public class HighScore implements Comparable<HighScore> {
         this.score = score;
     }
 
-    public String serialize(){
+    public String serialize() {
         return name + "-" + score + "\n";
     }
 
-    public void unSerialize(String line){
+    public void unSerialize(String line) {
         String[] info = line.split("-");
 
         name = info[0];

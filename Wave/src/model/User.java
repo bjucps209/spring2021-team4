@@ -6,7 +6,6 @@
 
 package model;
 
-
 import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
@@ -24,36 +23,41 @@ public class User {
     private boolean isValidUser;
 
     // This constructor should only be called in Load / Save user profile.
-    public User(){
+    public User() {
 
     }
-    
+
     public User(String name) {
         this.name = name;
         if (name.equals("")) {
             isValidUser = false;
-        }else{
+        } else {
             isValidUser = true;
         }
         ownedShipSkins.add(ShipSkins.SHIP1);
         ship = ShipSkins.SHIP1;
     }
-    
+
     /**
-     * This function will return a string value correspond to the saving format in serialization design
+     * This function will return a string value correspond to the saving format in
+     * serialization design
+     * 
      * @param none
      * @return String value
      */
-    public String serialization(){
-        return name+";"+coins+";"+ship.toString()+";"+ ownedShipSkins.toString().replace("[", "").replace("]", "").replaceAll(" ", "");
+    public String serialization() {
+        return name + ";" + coins + ";" + ship.toString() + ";"
+                + ownedShipSkins.toString().replace("[", "").replace("]", "").replaceAll(" ", "");
     }
+
     /**
      * 
-     * @param information- a String array consist of userName,coins, currentShip, ownedShipSkin
-     * @return true if successfully load the information into User
-     *          false if error occurs in loading or converting the information
+     * @param information- a String array consist of userName,coins, currentShip,
+     *                     ownedShipSkin
+     * @return true if successfully load the information into User false if error
+     *         occurs in loading or converting the information
      */
-    public boolean deserialization(String [] information){
+    public boolean deserialization(String[] information) {
         try {
             String userName = information[0];
             int coins = Integer.parseInt(information[1]);
@@ -70,17 +74,18 @@ public class User {
             this.ownedShipSkins = ownedSkins;
             return true;
         } catch (Exception e) {
-            //means error in converting file
+            // means error in converting file
             return false;
         }
-        
 
     }
 
     /**
      * method to load our list of default levels and return them in an arraylist
+     * 
      * @param skin the type of skin the user wants to buy
-     * @return true if the user has bought the skin, false if the user does not have enough coins
+     * @return true if the user has bought the skin, false if the user does not have
+     *         enough coins
      */
     public boolean buy(ShipSkins skin) {
         for (ShipSkins s : ownedShipSkins) {
@@ -94,8 +99,7 @@ public class User {
             coins -= 1000;
             ownedShipSkins.add(skin);
             return true;
-        }
-        else {
+        } else {
             var alert = new Alert(AlertType.ERROR, "You do not have enough coins.");
             alert.show();
             return false;
@@ -147,6 +151,7 @@ public class User {
     public void setIsValidUser(boolean isValidUser) {
         this.isValidUser = isValidUser;
     }
+
     public void setValidUser(boolean isValidUser) {
         this.isValidUser = isValidUser;
     }

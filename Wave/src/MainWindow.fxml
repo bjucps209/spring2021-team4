@@ -9,13 +9,13 @@
     <HBox spacing="10" alignment="TOP_RIGHT">
         <VBox spacing="5">
             <Button fx:id="btnLogIn" text="LOG IN" onAction="#onLogInScreenClicked" />
-            <Label text="Please sign in" fx:id="lblWelcome" alignment="CENTER_RIGHT"/>
+            <Label text="Please sign in" fx:id="lblWelcome" alignment="CENTER_RIGHT" />
         </VBox>
     </HBox>
 
 
     <HBox spacing="10" alignment="CENTER" prefHeight="200">
-       <ImageView>
+        <ImageView>
             <image>
                 <Image url="@./images/text.png" />
             </image>
@@ -25,7 +25,7 @@
     <HBox spacing="10" alignment="CENTER">
         <VBox spacing="10" alignment="CENTER">
             <Button text="NEW GAME" onAction="#onNewGameClicked" />
-            <Button text="RESUME GAME" onAction="#onResumeGameClicked"/>
+            <Button text="RESUME GAME" onAction="#onResumeGameClicked" />
             <Button text="CUSTOM GAME" onAction="#onLoadCustomGameClicked" />
             <Button text="SKIN SHOP" onAction="#onSkinShopClicked" />
         </VBox>

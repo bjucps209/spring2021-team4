@@ -34,15 +34,20 @@ import model.Enums.ShipSkins;
 
 // the controller for the main menu window where the user can log in, start games, or visit other auxiliary screens
 public class MainWindow {
+    // Singleton variable that holds all model information
     Wave w;
 
+    // List of highscores to be populated on high score screen
     HighScoreList highScoreList = new HighScoreList();
+
+    // Music
     AudioClip titleMusic;
     AudioClip battleMusic;
 
     // list to be given to game if the user wants to play their custom games
     static ArrayList<Level> customGameLevels = new ArrayList<>();
 
+    // boolean that is true if no custom levels are to be loaded
     public boolean defaultLevels = true;
 
     // Difficulty Buttons
@@ -55,6 +60,7 @@ public class MainWindow {
     @FXML
     Label lblWelcome;
 
+    // Vbox that holds the title
     @FXML
     VBox vboxTitle;
 
@@ -69,7 +75,6 @@ public class MainWindow {
     public void initialize() {
         w = Wave.getInstance();
         highScoreList.load();
-
 
         // play music
         titleMusic = new AudioClip(getClass().getResource("./Sound/scott-buckley-where-stars-fall.mp3").toString());
@@ -145,12 +150,10 @@ public class MainWindow {
 
                 }
             });
-        }
-        else {
+        } else {
             var alert = new Alert(AlertType.WARNING, "You must log in or create a user first.");
             alert.show();
         }
-
     }
 
     /**
@@ -164,13 +167,11 @@ public class MainWindow {
         if (w.getCurrentUser() == null) {
             var alert = new Alert(AlertType.WARNING, "You must log in to an existing account first.");
             alert.show();
-        }
-        else {
+        } else {
             w.setResumeGame(true);
             try {
                 onNewGameClicked();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 var alert = new Alert(AlertType.ERROR, "Failed in loading a saved game.");
                 alert.show();
             }
@@ -258,6 +259,7 @@ public class MainWindow {
 
     /**
      * uses the list of custom levels and starts a game out of it
+     * 
      * @param e allows btn.setOnAction(this::startCustomGame) to compile
      * @return none
      */
@@ -267,7 +269,7 @@ public class MainWindow {
             try {
                 defaultLevels = false;
                 onNewGameClicked();
-                defaultLevels = true;         
+                defaultLevels = true;
             } catch (IOException exception) {
 
             }
@@ -357,7 +359,8 @@ public class MainWindow {
             if (u.getName().equals(name)) {
                 w.setCurrentUser(u);
                 lblWelcome.setText("Welcome, " + u.getName());
-                // var alert = new Alert(AlertType.INFORMATION, "Current user has been set to '" + name + "'");
+                // var alert = new Alert(AlertType.INFORMATION, "Current user has been set to '"
+                // + name + "'");
                 // alert.show();
                 return;
             }
@@ -402,7 +405,8 @@ public class MainWindow {
 
         Wave.getInstance().saveCurrentUser();
         Wave.getInstance().saveAllUsers();
-        // var alert = new Alert(AlertType.INFORMATION, "New user created with name '" + userName + "'");
+        // var alert = new Alert(AlertType.INFORMATION, "New user created with name '" +
+        // userName + "'");
         // alert.show();
         lblWelcome.setText("Welcome, " + userName);
     }
@@ -557,10 +561,8 @@ public class MainWindow {
                 + "Log in or create a new user, then you can proceed to start a new game.\n"
                 + "You may also Resume a previous played game by clicking on RESUME GAME.\n"
                 + "Feel free to choose your prefered difficulty in the OPTIONS menu.\n"
-                + "Also, visit the skin shop if you have built up some points in the game and wish to \n" 
-                + "buy a new skin.\n"
-                + "\n"
-                + "When playing the game keep this in mind:\n" 
+                + "Also, visit the skin shop if you have built up some points in the game and wish to \n"
+                + "buy a new skin.\n" + "\n" + "When playing the game keep this in mind:\n"
                 + "- You will lose health if you are hit by an enemy.\n"
                 + "- You can run into powerups that will give you an advantage.\n"
                 + "- Press p to pause the game at anytime.";
@@ -602,7 +604,7 @@ public class MainWindow {
         hbox1.setPadding(new Insets(10));
         hbox1.setSpacing(10);
         hbox1.setAlignment(Pos.TOP_CENTER);
-        
+
         HBox hbox2 = new HBox();
         hbox2.setId("menu-background");
         hbox2.setPadding(new Insets(10));
@@ -625,7 +627,7 @@ public class MainWindow {
         downArrowImageView.setFitHeight(50);
         upArrowImageView.setFitWidth(50);
         upArrowImageView.setFitHeight(50);
-        
+
         Label lblLateral = new Label("Move Left and Right: ");
         Label lblVertical = new Label("Move up and down: ");
         Label lblPause = new Label("Press P to pause.");

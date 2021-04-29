@@ -23,11 +23,12 @@ public class HighScoreList {
     private ArrayList<HighScore> list = new ArrayList<HighScore>();
 
     public HighScoreList() {
-        
+
     }
 
     /**
      * Use Collections to properly sort the list of highscores
+     * 
      * @param none
      * @return list of sorted high scores
      */
@@ -40,23 +41,24 @@ public class HighScoreList {
     public ArrayList<HighScore> getList() {
         return list;
     }
-    
+
     public void setList(ArrayList<HighScore> list) {
         this.list = list;
     }
 
     /**
      * Save the name and score to scores.txt
+     * 
      * @param none
      * @return none
      */
     public void save() {
-        try (var writer = new PrintWriter(new FileOutputStream( new File("scores.txt"), true  ))) {
-            /*for (HighScore o : list) {
-                writer.write(o.serialize());
-            } */
+        try (var writer = new PrintWriter(new FileOutputStream(new File("scores.txt"), true))) {
+            /*
+             * for (HighScore o : list) { writer.write(o.serialize()); }
+             */
             writer.append("jack-123");
-            
+
         } catch (IOException e) {
             System.out.println("Error writing scores file");
         }
@@ -64,6 +66,7 @@ public class HighScoreList {
 
     /**
      * Update the list of highscores with information from the save file
+     * 
      * @param none
      * @return none
      */
@@ -80,6 +83,5 @@ public class HighScoreList {
             System.out.println("Error reading from scores file");
         }
     }
-
 
 }

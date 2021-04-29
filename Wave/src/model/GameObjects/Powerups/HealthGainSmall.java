@@ -20,14 +20,14 @@ public class HealthGainSmall extends PowerUp {
     this.type = PowerUps.HealthGainSmall;
     this.effectiveTime = 0;
     setWidth(25);
-    setHeight(25);  
+    setHeight(25);
   }
 
   @Override
   public void collisionWithPlayer(Player p) {
     if (this.isFinished == false) {
       p.setHealth(p.getHealth() + healthAddition);
-      if(p.getHealth()> 100){
+      if (p.getHealth() > 100) {
         p.setHealth(100);
       }
       this.isFinished = true;
