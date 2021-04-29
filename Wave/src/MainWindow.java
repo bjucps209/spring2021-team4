@@ -15,6 +15,8 @@ import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -746,9 +748,19 @@ public class MainWindow {
 
         scoreScene.getStylesheets().add("MainWindow.css");
 
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setFitToWidth(true);
+        scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+
+        VBox childVbox = new VBox();
+        childVbox.setId("menu-background");
+        childVbox.setPadding(new Insets(10));
+        childVbox.setSpacing(10);
+        childVbox.setAlignment(Pos.CENTER);
+
         Label label = new Label();
         label.setText("HIGH SCORES");
-        vbox.getChildren().add(label);
+        childVbox.getChildren().add(label);
 
         highScoreList.sort();
         for (HighScore items : highScoreList.getList()) {
@@ -769,7 +781,10 @@ public class MainWindow {
             scores.setText(String.valueOf(items.getScore()));
             Scorehbox.getChildren().add(scores);
 
-            vbox.getChildren().add(Scorehbox);
+            childVbox.getChildren().add(Scorehbox);
         }
+
+        scrollPane.setContent(childVbox);
+        vbox.getChildren().add(scrollPane);
     }
 }
