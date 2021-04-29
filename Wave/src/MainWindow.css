@@ -12,6 +12,10 @@
     -fx-font-size: 15px;
 }
 
+.scroll-pane{
+    -fx-background-color:transparent;
+}
+
 .label {
     -fx-font-size: 20px;
     -fx-text-fill: white;
