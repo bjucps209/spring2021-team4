@@ -33,6 +33,9 @@ Level Builder: https://youtu.be/YvMd14HE1-A
 ### Release Candidate
 https://www.youtube.com/watch?v=HdpzzOT1x_A
 
+### Release
+https://youtu.be/EkG1_AehXWU
+
 ## Expenses
 | Name | Github Username | Ownership Area | Hours Invested | Hours Remaining | Journal Link |
 | ---- | --------------- | -------------- | -------------- | --------------- | ------------ |
