@@ -49,9 +49,7 @@ public class Game {
         this.levels = levels;
         currentLevel = levels.get(levelNum);
 
-        // TODO: set the difficulty here
         difficulty = new Difficulty(Wave.getInstance().getUserChoiceDifficulty());
-
     }
 
     /**
@@ -261,8 +259,6 @@ public class Game {
             Wave.getInstance().setCoins(score);
             String difficult = rd.readLine();
             this.difficulty.deserialization(difficult);
-
-            boolean result = currentLevel.deserialization(rd);
 
             String nextLine = rd.readLine();
             if (nextLine.equals("ENDL#") == false) {

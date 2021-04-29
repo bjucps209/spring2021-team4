@@ -170,8 +170,6 @@ public class GameTest {
     }
     assertTrue(game.load("Example4Serialization"));
 
-    Level currentLevel = game.getCurrentLevel();
-
     assertTrue(game.getLevelNum() == 0); // first level of game
     // assertTrue(currentLevel.getRemainingTime() == 60); // no more remaing time
   }

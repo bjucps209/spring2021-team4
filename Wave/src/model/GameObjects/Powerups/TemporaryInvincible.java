@@ -6,7 +6,6 @@
 
 package model.GameObjects.Powerups;
 
-import javafx.util.Duration;
 import model.Level;
 import model.Enums.PowerUps;
 import model.GameObjects.Player;

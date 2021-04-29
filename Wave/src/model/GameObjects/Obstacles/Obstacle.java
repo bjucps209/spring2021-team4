@@ -49,15 +49,9 @@ public class Obstacle extends GameObject {
             break;
         case NARROW:
             obstacle = new Narrow(l);
-            // TODO: set width and height
             break;
-        // case CORNER:
-        // obstacle = new Corner(l);
-        // //TODO: set width and height
-        // break;
         case LARGE:
             obstacle = new Large(l);
-            // TODO: set width and height
             break;
         default:
             obstacle = null;
@@ -68,14 +62,11 @@ public class Obstacle extends GameObject {
 
     @Override
     public void update() {
-
         // Obstacles will not move
     }
 
     @Override
     public String serialize() {
-        // TODO: do we have different type of obstacles
-
         return "Obstacle;" + type.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get() + ";" + height.get()
                 + ";" + dx.get() + ";" + dy.get() + ";" + appearTime;
     }
@@ -84,7 +75,6 @@ public class Obstacle extends GameObject {
     public boolean deserialize(String info) {
         // info contains
         // x,y,width,height,dx,dy,special effect
-        // TODO handle special effects
         try {
             String[] restInfo = info.split(";");
             // x;y;dx;dy;special effect
