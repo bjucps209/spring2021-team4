@@ -92,6 +92,7 @@ public class GameWindow {
             g = w.getGame();
             loadSuccess = g.load(Wave.getInstance().getCurrentUser().getName());
             if (loadSuccess) {
+            
                 g.startHitDetection();
 
             } else {

@@ -251,11 +251,12 @@ public class Game {
             levels.add(w.loadCustomLevel("level3"));
             levels.add(w.loadCustomLevel("level4"));
 
+
             String firstLine = rd.readLine();
             if (firstLine.equals("###END###")) {
                 // means already end of game
                 // let it to start a new game
-
+                this.currentLevel = levels.get(0);
                 return true;
             }
 
