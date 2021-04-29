@@ -565,7 +565,13 @@ public class MainWindow {
                 + "buy a new skin.\n" + "\n" + "When playing the game keep this in mind:\n"
                 + "- You will lose health if you are hit by an enemy.\n"
                 + "- You can run into powerups that will give you an advantage.\n"
-                + "- Press p to pause the game at anytime.";
+                + "- Press p to pause the game at anytime.\n" + "\n"
+                + "Asset Credits\n" 
+                + "https://www.kenney.nl/assets/space-shooter-redux\n"
+                + "https://www.kenney.nl/assets/sci-fi-sounds\n"
+                + "https://www.free-stock-music.com/scott-buckley-where-stars-fall.html\n"
+                + "https://www.free-stock-music.com/alexander-nakarada-ussr.html\n"
+                + "https://www.kenney.nl/assets/rolling-ball-assets";
 
         Label lblInfo = new Label(INFO);
         vbox.getChildren().add(lblInfo);
