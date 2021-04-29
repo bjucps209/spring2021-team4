@@ -1,15 +1,1 @@
-3
-0
-20
-Easy
-1
-###user
-r;720;0;90;SHIP1;484;694;50;50;0;0
-3
-###gameobject
-Obstacle;SQUARE;475;372;50;50;0;0;60
-###gameobject
-EnemyObject;BOUNCER;674;529;50;50;5;-5;60
-###gameobject
-EnemyObject;BOUNCER;791;649;50;50;-5;5;60
-ENDL#
+###END###

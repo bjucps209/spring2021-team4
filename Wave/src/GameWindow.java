@@ -165,46 +165,6 @@ public class GameWindow {
 
         // Getting the game to update at 16.7ms or ~60fps
         timer = new Timeline(new KeyFrame(Duration.millis(16.7), e -> {
-            g.update();
-            Node nodeToRemove = null;
-            for (Node n : pane.getChildren()) {
-                if (n.getUserData() instanceof EnemyObject
-                        && !g.getCurrentLevel().getEnemies().contains(n.getUserData())) {
-                    nodeToRemove = n;
-                }
-            }
-            if (nodeToRemove != null) {
-                pane.getChildren().remove(nodeToRemove);
-            }
-            for (Node n : pane.getChildren()) {
-                if (n.getUserData() instanceof PowerUp
-                        && !g.getCurrentLevel().getPowerUps().contains(n.getUserData())) {
-                    nodeToRemove = n;
-                }
-            }
-            if (nodeToRemove != null) {
-                pane.getChildren().remove(nodeToRemove);
-            }
-
-            // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL
-            // g.getCurrentLevel().setFinished(true);
-            if (g.getCurrentLevel().getRemainingTime() <= 0) {
-                countDown.stop();
-                g.getCurrentLevel().setFinished(true);
-            }
-            if (g.getCurrentLevel().isFinished()) {
-                stopLevel();
-            }
-            if (g.getCurrentLevel().getPlayer().moveOn) {
-                startLevel();
-            }
-            var s = pane.getChildren();
-
-            // Checks to see if player died
-            if (healthBar.getProgress() == 0) {
-                endGameOnHealth();
-            }
-
             if (g.isWon()) {
                 timer.stop();
                 countDown.stop();
@@ -232,6 +192,46 @@ public class GameWindow {
                 Label label2 = new Label("Please return to the title screen");
                 vboxEnd.getChildren().add(label);
                 vboxEnd.getChildren().add(label2);
+            } else {
+                g.update();
+                Node nodeToRemove = null;
+                for (Node n : pane.getChildren()) {
+                    if (n.getUserData() instanceof EnemyObject
+                            && !g.getCurrentLevel().getEnemies().contains(n.getUserData())) {
+                        nodeToRemove = n;
+                    }
+                }
+                if (nodeToRemove != null) {
+                    pane.getChildren().remove(nodeToRemove);
+                }
+                for (Node n : pane.getChildren()) {
+                    if (n.getUserData() instanceof PowerUp
+                            && !g.getCurrentLevel().getPowerUps().contains(n.getUserData())) {
+                        nodeToRemove = n;
+                    }
+                }
+                if (nodeToRemove != null) {
+                    pane.getChildren().remove(nodeToRemove);
+                }
+    
+                // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL
+                // g.getCurrentLevel().setFinished(true);
+                if (g.getCurrentLevel().getRemainingTime() <= 0) {
+                    countDown.stop();
+                    g.getCurrentLevel().setFinished(true);
+                }
+                if (g.getCurrentLevel().isFinished()) {
+                    stopLevel();
+                }
+                if (g.getCurrentLevel().getPlayer().moveOn) {
+                    startLevel();
+                }
+                var s = pane.getChildren();
+    
+                // Checks to see if player died
+                if (healthBar.getProgress() == 0) {
+                    endGameOnHealth();
+                }
             }
         }));
         timer.setCycleCount(Timeline.INDEFINITE);
