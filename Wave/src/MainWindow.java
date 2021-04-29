@@ -766,6 +766,8 @@ public class MainWindow {
         childVbox.setSpacing(10);
         childVbox.setAlignment(Pos.CENTER);
 
+        childVbox.getChildren().removeAll(childVbox.getChildren());
+
         Label label = new Label();
         label.setText("HIGH SCORES");
         childVbox.getChildren().add(label);
