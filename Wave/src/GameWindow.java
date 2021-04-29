@@ -95,10 +95,11 @@ public class GameWindow {
                 g.startHitDetection();
 
             } else {
-                var alert = new Alert(AlertType.ERROR, "Error occurs while loading the file, start a new game instead!");
-               
+                var alert = new Alert(AlertType.ERROR,
+                        "Error occurs while loading the file, start a new game instead!");
+
                 alert.show();
-            
+
                 // start new game
                 w.setCoins(0);
                 ArrayList<Level> levels = w.getDefaultLevels();
@@ -178,16 +179,16 @@ public class GameWindow {
                 vboxEnd.setPadding(new Insets(10));
                 vboxEnd.setSpacing(10);
                 vboxEnd.setAlignment(Pos.CENTER);
-        
+
                 var endScene = new Scene(vboxEnd, 800, 600);
                 Stage endStage = new Stage();
                 endStage.setScene(endScene); // set the scene
                 endStage.setTitle("End Screen");
                 endStage.setAlwaysOnTop(true);
                 endStage.show();
-        
+
                 endScene.getStylesheets().add("GameWindow.css");
-        
+
                 Label label = new Label("YOU WIN!");
                 Label label2 = new Label("Please return to the title screen");
                 vboxEnd.getChildren().add(label);
@@ -213,7 +214,7 @@ public class GameWindow {
                 if (nodeToRemove != null) {
                     pane.getChildren().remove(nodeToRemove);
                 }
-    
+
                 // CHECK IF TIMER IS DONE TO 0, STOP THE TIMER AT 0, THEN CALL
                 // g.getCurrentLevel().setFinished(true);
                 if (g.getCurrentLevel().getRemainingTime() <= 0) {
@@ -227,7 +228,7 @@ public class GameWindow {
                     startLevel();
                 }
                 var s = pane.getChildren();
-    
+
                 // Checks to see if player died
                 if (healthBar.getProgress() == 0) {
                     endGameOnHealth();
@@ -289,7 +290,12 @@ public class GameWindow {
             p.setHealth(health);
             healthBar.progressProperty()
                     .bind(Bindings.createDoubleBinding(() -> (double) p.getHealth() / 100, p.healthProperty()));
-            g.startHitDetection();
+            try {
+                g.startHitDetection();
+            } catch (Exception e) {
+                
+            }
+            
             lblTimer.textProperty().bind(g.getCurrentLevel().remainingTimeProperty().asString());
 
             pane.getChildren().remove(rightArrowImageView);
@@ -456,26 +462,7 @@ public class GameWindow {
                 ghostImageView.layoutXProperty().bind(o.xProperty());
                 ghostImageView.layoutYProperty().bind(o.yProperty());
                 ghostImageView.setUserData(o);
-                break;
-            case LASER:
-                Image laserImage = new Image("./Images/cockpitGreen_0.png");
-                ImageView laserImageView = new ImageView(laserImage);
-                laserImageView.setFitWidth(o.getWidth());
-                laserImageView.setFitHeight(o.getHeight());
-                pane.getChildren().add(laserImageView);
-                laserImageView.layoutXProperty().bind(o.xProperty());
-                laserImageView.layoutYProperty().bind(o.yProperty());
-                laserImageView.setUserData(o);
-                break;
-            case SHAPESHIFTER:
-                Image shapeshifterImage = new Image("./Images/enemyBlack4.png");
-                ImageView shapeshifterImageView = new ImageView(shapeshifterImage);
-                shapeshifterImageView.setFitWidth(o.getWidth());
-                shapeshifterImageView.setFitHeight(o.getHeight());
-                pane.getChildren().add(shapeshifterImageView);
-                shapeshifterImageView.layoutXProperty().bind(o.xProperty());
-                shapeshifterImageView.layoutYProperty().bind(o.yProperty());
-                shapeshifterImageView.setUserData(o);
+                ghostImageView.setOpacity(0.25);
                 break;
             case TRACKER:
                 Image trackerImage = new Image("./Images/enemyBlack1.png");

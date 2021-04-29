@@ -15,15 +15,15 @@ import org.junit.Test;
 
 // class that houses unit tests for the highscore class
 public class HighScoreTest {
-    
+
     ArrayList<HighScore> list = new ArrayList<HighScore>();
-    
 
     HighScore user1 = new HighScore("Bob", 100);
     HighScore user2 = new HighScore("Amanda", 300);
     HighScore user3 = new HighScore("Tim", 200);
 
-    // Initializes the list and objects in that list that I will use for further methods
+    // Initializes the list and objects in that list that I will use for further
+    // methods
     public void initialize() {
 
         list.add(user1);

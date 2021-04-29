@@ -10,7 +10,7 @@ import model.Level;
 import model.Enums.ObstacleTypes;
 
 // long and narrow obstacle. has no method of movement
-public class Narrow extends Obstacle{
+public class Narrow extends Obstacle {
 
   public Narrow(Level l) {
     super(l);
@@ -18,5 +18,5 @@ public class Narrow extends Obstacle{
     setWidth(25);
     setHeight(100);
   }
-  
+
 }

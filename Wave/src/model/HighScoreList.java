@@ -23,11 +23,12 @@ public class HighScoreList {
     private ArrayList<HighScore> list = new ArrayList<HighScore>();
 
     public HighScoreList() {
-        
+
     }
 
     /**
      * Use Collections to properly sort the list of highscores
+     * 
      * @param none
      * @return list of sorted high scores
      */
@@ -40,13 +41,14 @@ public class HighScoreList {
     public ArrayList<HighScore> getList() {
         return list;
     }
-    
+
     public void setList(ArrayList<HighScore> list) {
         this.list = list;
     }
 
     /**
      * Save the name and score to scores.txt
+     * 
      * @param none
      * @return none
      */
@@ -63,6 +65,7 @@ public class HighScoreList {
 
     /**
      * Update the list of highscores with information from the save file
+     * 
      * @param none
      * @return none
      */
@@ -79,6 +82,5 @@ public class HighScoreList {
             System.out.println("Error reading from scores file");
         }
     }
-
 
 }

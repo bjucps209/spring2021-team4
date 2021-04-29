@@ -6,11 +6,8 @@
 
 package model.Enums;
 
-
 public enum DifficultyLevel {
-  Easy,
-  Medium,
+  Easy, 
+  Medium, 
   Hard;
-
-
 }

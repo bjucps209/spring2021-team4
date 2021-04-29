@@ -15,7 +15,6 @@ import model.Enums.ShipSkins;
 import model.GameObjects.Powerups.Freeze;
 import model.GameObjects.Powerups.PowerUp;
 import model.GameObjects.Powerups.TemporaryInvincible;
-import model.GameObjects.SpeedPanels.SpeedPanel;
 
 // contains info for a Player during the game
 public class Player extends GameObject {
@@ -31,7 +30,6 @@ public class Player extends GameObject {
     public boolean getTemporaryInvincible() {
         return this.temporaryInvincible;
     }
-
 
     public boolean isWinState() {
         return this.winState;
@@ -56,55 +54,54 @@ public class Player extends GameObject {
     public void setMoveOn(boolean moveOn) {
         this.moveOn = moveOn;
     }
+
     public boolean moveOn = false;
-    
 
     /**
      * creates a new thread for the attribute hit detection
+     * 
      * @param none
      * @return a new hit detection thread
      */
-    public Thread changeThread(){
+    public Thread changeThread() {
         return hitDetection = new Thread(() -> {
             while (true) {
                 checkWallCollision();
                 var collisionEnemy = checkCollision(currentLevel.getEnemies());
                 if (currentLevel.getEnemies() != null && collisionEnemy != null) {
                     hits.add(collisionEnemy);
-                } 
-                
-                //System.out.println(currentLevel.getObstacles());
+                }
+
+                // System.out.println(currentLevel.getObstacles());
                 var collisionObstacle = checkCollision(currentLevel.getObstacles());
-                if (currentLevel.getObstacles() != null && collisionObstacle!= null) {
+                if (currentLevel.getObstacles() != null && collisionObstacle != null) {
                     hits.add(collisionObstacle);
                 }
 
                 var collisionPowerUp = checkCollision(currentLevel.getPowerUps());
-                if (currentLevel.getPowerUps()!= null && collisionPowerUp != null ) {
+                if (currentLevel.getPowerUps() != null && collisionPowerUp != null) {
                     hits.add(collisionPowerUp);
                     this.currentLevel.getPowerUps().remove(collisionPowerUp);
-                    //this.currentLevel.getAllObjects().remove(collisionPowerUp);
-                    
-                    
+                    // this.currentLevel.getAllObjects().remove(collisionPowerUp);
+
                 }
                 int i = 0;
                 while (hits.size() != 0 && i < hits.size()) {
 
-                    
-                    if( processHit(hits.get(0), this, this)){
-                        if(hits.get(0) instanceof PowerUp){
-                            //this.currentLevel.getPowerUps().remove(hits.get(0));
+                    if (processHit(hits.get(0), this, this)) {
+                        if (hits.get(0) instanceof PowerUp) {
+                            // this.currentLevel.getPowerUps().remove(hits.get(0));
                             this.currentLevel.getAllObjects().remove(hits.get(0));
                         }
-                        hits.remove(hits.get(0)); 
+                        hits.remove(hits.get(0));
                     }
-                    //processHit(hits.get(0), this, this);
-                    
-                    hits.removeIf( (GameObject o) -> (o instanceof PowerUp) == false ); 
-                   i++;
+                    // processHit(hits.get(0), this, this);
+
+                    hits.removeIf((GameObject o) -> (o instanceof PowerUp) == false);
+                    i++;
                 }
-                
-                //for(GameObject)
+
+                // for(GameObject)
 
                 try {
                     Thread.sleep(33);
@@ -125,8 +122,7 @@ public class Player extends GameObject {
         setHeight(50);
         try {
             this.currentShipSkins = Wave.getInstance().getCurrentUser().getShip();
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             this.currentShipSkins = ShipSkins.SHIP1;
         }
         hitDetection = new Thread(() -> {
@@ -135,48 +131,40 @@ public class Player extends GameObject {
                 var collisionEnemy = checkCollision(currentLevel.getEnemies());
                 if (currentLevel.getEnemies() != null && collisionEnemy != null) {
                     hits.add(collisionEnemy);
-                } 
-                
-                //System.out.println(currentLevel.getObstacles());
+                }
+
+                // System.out.println(currentLevel.getObstacles());
                 var collisionObstacle = checkCollision(currentLevel.getObstacles());
-                if (currentLevel.getObstacles() != null && collisionObstacle!= null) {
+                if (currentLevel.getObstacles() != null && collisionObstacle != null) {
                     hits.add(collisionObstacle);
                 }
 
                 var collisionPowerUp = checkCollision(currentLevel.getPowerUps());
-                if (currentLevel.getPowerUps()!= null && collisionPowerUp != null ) {
+                if (currentLevel.getPowerUps() != null && collisionPowerUp != null) {
                     hits.add(collisionPowerUp);
                     this.currentLevel.getPowerUps().remove(collisionPowerUp);
 
                     // TODO remove GUI
-                    //this.currentLevel.getAllObjects().remove(collisionPowerUp);
-                    
-                    
-                }
+                    // this.currentLevel.getAllObjects().remove(collisionPowerUp);
 
-                var speedPanel = checkCollision(currentLevel.getSpeedPanels());
-                if(currentLevel.getSpeedPanels() != null && speedPanel != null ){
-                    this.hits.removeIf( (GameObject o) -> o instanceof SpeedPanel);// remove all other speedPanels in affect
-                    this.hits.add(speedPanel);
                 }
                 int i = 0;
                 while (hits.size() != 0 && i < hits.size()) {
 
-                    
-                    if( processHit(hits.get(0), this, this)){
-                        if(hits.get(0) instanceof PowerUp){
-                            //this.currentLevel.getPowerUps().remove(hits.get(0));
+                    if (processHit(hits.get(0), this, this)) {
+                        if (hits.get(0) instanceof PowerUp) {
+                            // this.currentLevel.getPowerUps().remove(hits.get(0));
                             this.currentLevel.getAllObjects().remove(hits.get(0));
                         }
-                        hits.remove(hits.get(0)); 
+                        hits.remove(hits.get(0));
                     }
-                    //processHit(hits.get(0), this, this);
-                    
-                    hits.removeIf( (GameObject o) -> ((o instanceof PowerUp) == false ) ); 
-                   i++;
+                    // processHit(hits.get(0), this, this);
+
+                    hits.removeIf((GameObject o) -> ((o instanceof PowerUp) == false));
+                    i++;
                 }
-                
-                //for(GameObject)
+
+                // for(GameObject)
 
                 try {
                     Thread.sleep(33);
@@ -190,6 +178,7 @@ public class Player extends GameObject {
 
     /**
      * method that stops wall hit detection
+     * 
      * @param none
      * @return none
      */
@@ -199,6 +188,7 @@ public class Player extends GameObject {
 
     /**
      * method that checks if the player has run into a wall
+     * 
      * @param none
      * @return none
      */
@@ -241,16 +231,18 @@ public class Player extends GameObject {
 
     /**
      * method through which the player takes damage
+     * 
      * @param damage the value for which the player is damaged
      * @return none
      */
-    public void takeDamage(int damage){
+    public void takeDamage(int damage) {
 
-        if(this.temporaryInvincible == false){
+        if (this.temporaryInvincible == false) {
             this.health.set(this.health.get() - damage);
         }
-        
+
     }
+
     public void moveUp() {
         setDy(-speed);
     }
@@ -328,15 +320,16 @@ public class Player extends GameObject {
     public String serialize() {
         // TODO Auto-generated method stub
         // TODO still needs to add in special effects !!!
-        String returns = health.get() + ";" + currentShipSkins.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get()
-                + ";" + height.get() + ";" + dx.get() + ";" + dy.get();
+        String returns = health.get() + ";" + currentShipSkins.toString() + ";" + x.get() + ";" + y.get() + ";"
+                + width.get() + ";" + height.get() + ";" + dx.get() + ";" + dy.get();
 
         for (GameObject affObject : this.hits) {
             // need to give its affect type, enum type, remaining time
             String data = "";
             if (affObject instanceof PowerUp) {
                 PowerUp ob = (PowerUp) affObject;
-                data += "PowerUp," + ob.getType() + "," + ob.getEffectiveTime() + "," + ob.getPassedTime()+","+ob.getStartTime();
+                data += "PowerUp," + ob.getType() + "," + ob.getEffectiveTime() + "," + ob.getPassedTime() + ","
+                        + ob.getStartTime();
 
             } else {
                 // should be a panel
@@ -395,10 +388,8 @@ public class Player extends GameObject {
                 }
             }
 
+            this.hitDetection = changeThread();
 
-
-          this.hitDetection = changeThread();
-     
             return true;
         } catch (Exception e) {
             // means error in converting

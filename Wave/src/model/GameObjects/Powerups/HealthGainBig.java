@@ -27,7 +27,7 @@ public class HealthGainBig extends PowerUp {
     if (this.isFinished == false) {
 
       p.setHealth(p.getHealth() + healthAddition);
-      if(p.getHealth() > 100){
+      if (p.getHealth() > 100) {
         p.setHealth(100);
       }
       this.isFinished = true; // Indicate this powerup is finished of usingz

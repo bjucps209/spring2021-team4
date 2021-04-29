@@ -15,19 +15,20 @@ import model.Enums.PowerUps;
 public abstract class PowerUp extends GameObject {
 
   // Note: powerups will be position by the level editors.
- 
+
   protected PowerUps type;
   protected boolean isFinished = false;
   protected int effectiveTime;
   protected int passedTime = 0; // might not be a int depent on implementation of running clock
   protected int startTime = -1;
 
-    /**
-     * set the spawn time of this powerup?
-     * @param p ??
-     * @return none
-     */
-  public  void collisionWithPlayer(Player p){
+  /**
+   * set the spawn time of this powerup?
+   * 
+   * @param p ??
+   * @return none
+   */
+  public void collisionWithPlayer(Player p) {
     startTime = this.currentLevel.getRemainingTime();
   }
 
@@ -36,7 +37,7 @@ public abstract class PowerUp extends GameObject {
     this.dx.set(0);
     this.dy.set(0);
 
-    //TODO: allow customized when will powerup appear
+    // TODO: allow customized when will powerup appear
     // in the future
     this.appearTime = 60;
   }
@@ -44,21 +45,22 @@ public abstract class PowerUp extends GameObject {
   @Override
   public void update() {
     // powerups will not move during the game
-  
+
   }
 
   @Override
   public String serialize() {
     // TODO: type for different power ups
-    
-    return "PowerUp;"+type.toString()+";"+x.get()+";"+y.get()+";"+width.get()+";"+height.get()+";"+dx.get()+";"+dy.get()+";"+appearTime;
+
+    return "PowerUp;" + type.toString() + ";" + x.get() + ";" + y.get() + ";" + width.get() + ";" + height.get() + ";"
+        + dx.get() + ";" + dy.get() + ";" + appearTime;
   }
 
   public boolean deserialize(String info) {
 
     // Note: powerup and type has already been deserialzied at level base
-    try{
-      String [] infos = info.split(";");
+    try {
+      String[] infos = info.split(";");
       this.x.set(Integer.parseInt(infos[0]));
       this.y.set(Integer.parseInt(infos[1]));
       this.width.set(Integer.parseInt(infos[2]));
@@ -67,17 +69,18 @@ public abstract class PowerUp extends GameObject {
       this.dy.set(Integer.parseInt(infos[5]));
       this.appearTime = Integer.parseInt(infos[6]);
       return true;
-    }catch (Exception e){
+    } catch (Exception e) {
       return false;
     }
   }
 
-    /**
-     * A factory method for all powerups
-     * @param type the type of power up to be created
-     * @param l the level this powerup is being created for
-     * @return an instance of the respective power up type
-     */
+  /**
+   * A factory method for all powerups
+   * 
+   * @param type the type of power up to be created
+   * @param l    the level this powerup is being created for
+   * @return an instance of the respective power up type
+   */
   public static PowerUp create(PowerUps type, Level l) {
     PowerUp power;
     switch (type) {
@@ -156,8 +159,5 @@ public abstract class PowerUp extends GameObject {
   public void setStartTime(int startTime) {
     this.startTime = startTime;
   }
-
- 
-
 
 }

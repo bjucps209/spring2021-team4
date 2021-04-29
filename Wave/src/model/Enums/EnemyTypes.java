@@ -10,6 +10,4 @@ public enum EnemyTypes {
     BOUNCER,
     TRACKER,
     GHOST,
-    LASER,
-    SHAPESHIFTER
 }

@@ -10,15 +10,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 // class that launches MainWindow
-public class GUIApplication extends Application{
+public class GUIApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
 
         // Fix weird font issue in dialog boxes on Macs
-        // Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);        
+        // Application.setUserAgentStylesheet(Application.STYLESHEET_MODENA);
         // com.sun.javafx.css.StyleManager.getInstance().addUserAgentStylesheet("MainWindow.css");
-        
+
         var loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
         var scene = new Scene(loader.load());
 

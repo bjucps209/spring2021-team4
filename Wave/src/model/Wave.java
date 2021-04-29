@@ -17,7 +17,6 @@ import model.GameObjects.*;
 import model.GameObjects.Enemies.*;
 import model.GameObjects.Powerups.*;
 import model.GameObjects.Obstacles.*;
-import model.GameObjects.SpeedPanels.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -26,7 +25,6 @@ public class Wave {
 
     // indicate resume game
     private boolean resumeGame = false;
-   
 
     // Singleton variable
     private static Wave wave = null;
@@ -50,9 +48,8 @@ public class Wave {
     // Shop variables
     private ShipSkins currentShip;
 
-    private DifficultyLevel userChoiceDifficulty =DifficultyLevel.Easy;
+    private DifficultyLevel userChoiceDifficulty = DifficultyLevel.Easy;
     private boolean cheatMode = false;
-
 
     // Singleton constructor
     private Wave() {
@@ -65,6 +62,7 @@ public class Wave {
 
     /**
      * loads the game, does all calculations and populates the lists
+     * 
      * @param none
      * @return none
      */
@@ -77,16 +75,17 @@ public class Wave {
 
     /**
      * method to close the game, stop the game, and save all users
+     * 
      * @param none
      * @return none
      */
     public void onClosed() {
         game.stopHitDetection();
         game.stopPlayerHitDetection();
-        if(this.getGame().getCurrentLevel().getPlayer().getHealth() > 0){
-             game.save(this.currentUser.getName());
+        if (this.getGame().getCurrentLevel().getPlayer().getHealth() > 0) {
+            game.save(this.currentUser.getName());
         }
-       
+
         saveAllUsers();
     }
 
@@ -102,6 +101,7 @@ public class Wave {
 
     /**
      * method to load our list of default levels and return them in an arraylist
+     * 
      * @param none
      * @return our list of default levels
      */
@@ -155,6 +155,7 @@ public class Wave {
      * the list. If exist, will connect the reference of that User() to
      * this.currentUser Condition for exist: one of User() in this.users has the
      * same Name as this.currentUser
+     * 
      * @param none
      * @return none
      */
@@ -168,9 +169,9 @@ public class Wave {
             // means this is a new user that does not exist in the ArrayList
             this.users.add(this.currentUser);
         }
-        //TODO: add coins for different level
+        // TODO: add coins for different level
 
-        this.currentUser.setCoins(this.coins.get()/2 + this.currentUser.getCoins() );
+        this.currentUser.setCoins(this.coins.get() / 2 + this.currentUser.getCoins());
     }
 
     /**
@@ -350,6 +351,7 @@ public class Wave {
     public void setGame(Game game) {
         this.game = game;
     }
+
     public boolean isResumeGame() {
         return resumeGame;
     }
@@ -357,8 +359,11 @@ public class Wave {
     public void setResumeGame(boolean resumeGame) {
         this.resumeGame = resumeGame;
     }
+
     /**
-     * searches the current directory for a file, if it exists, it attempts to read it into a level
+     * searches the current directory for a file, if it exists, it attempts to read
+     * it into a level
+     * 
      * @param fileName name of the file to be read in
      * @return a level populated with all information read from file
      */
@@ -370,7 +375,7 @@ public class Wave {
         try (var stream = new FileInputStream(fileName);) {
             var f = new File(fileName);
             int lengthOfLevel = (int) f.length();
-            
+
             var level = new Level();
 
             byte[] levelInfoBytes = new byte[lengthOfLevel];
@@ -390,10 +395,6 @@ public class Wave {
                         object = EnemyObject.create(EnemyTypes.GHOST, level);
                     } else if (instanceInfo[0].equals("Tracker")) {
                         object = EnemyObject.create(EnemyTypes.TRACKER, level);
-                    } else if (instanceInfo[0].equals("ShapeShifter")) {
-                        object = EnemyObject.create(EnemyTypes.SHAPESHIFTER, level);
-                    } else if (instanceInfo[0].equals("Laser")) {
-                        object = EnemyObject.create(EnemyTypes.LASER, level);
                     }
                     // powerups
                     else if (instanceInfo[0].equals("DestroyShip")) {
@@ -410,22 +411,14 @@ public class Wave {
                         object = new Player(level);
                         // level.setPlayer((Player)object);
                     }
-
-                    else if (instanceInfo[0].equals("SpeedUpPanel")) {
-                        object = SpeedPanel.create(SpeedPanelTypes.speedUp, level);
-                    }
-                    else if (instanceInfo[0].equals("SpeedDownPanel")) {
-                        object = SpeedPanel.create(SpeedPanelTypes.speedDown, level);
-                    }
                     // obstacles
                     else if (instanceInfo[0].equals("Square")) {
                         object = Obstacle.create(ObstacleTypes.SQUARE, level);
-                    }
-                    else if (instanceInfo[0].equals("Narrow")) {
+                    } else if (instanceInfo[0].equals("Narrow")) {
                         object = Obstacle.create(ObstacleTypes.NARROW, level);
                     }
                     // else if (instanceInfo[0].equals("Corner")) {
-                    //     object = Obstacle.create(ObstacleTypes.CORNER, level);
+                    // object = Obstacle.create(ObstacleTypes.CORNER, level);
                     // }
                     else {
                         object = Obstacle.create(ObstacleTypes.LARGE, level);
@@ -438,14 +431,11 @@ public class Wave {
                     // add object to corresponding part of the level
                     if (object instanceof PowerUp) {
                         level.getPowerUps().add((PowerUp) object);
-                    } 
-                    else if (object instanceof Obstacle) {
+                    } else if (object instanceof Obstacle) {
                         level.getObstacles().add((Obstacle) object);
-                    } 
-                    else if (object instanceof EnemyObject) {
+                    } else if (object instanceof EnemyObject) {
                         level.getEnemies().add((EnemyObject) object);
-                    } 
-                    else if (object instanceof Player) {
+                    } else if (object instanceof Player) {
                         level.setPlayer((Player) object);
                     }
                 }
@@ -459,7 +449,9 @@ public class Wave {
     }
 
     /**
-     * searches through the current directory to ensure a file with the name represented by fileName exists
+     * searches through the current directory to ensure a file with the name
+     * represented by fileName exists
+     * 
      * @param fileName file to be searched for in the current directory
      * @return true if the file exists, false if it doe snot exist
      */
@@ -471,7 +463,7 @@ public class Wave {
         String basePath = file.getAbsolutePath();
         int dirIndex = basePath.indexOf("Wave.java");
         String dirString = basePath.substring(0, dirIndex);
-        
+
         File directory = new File(dirString);
         File[] listOfFiles = directory.listFiles();
         for (File f : listOfFiles) {
@@ -489,6 +481,7 @@ public class Wave {
     public void setUserChoiceDifficulty(DifficultyLevel userChoiceDifficulty) {
         this.userChoiceDifficulty = userChoiceDifficulty;
     }
+
     public boolean isCheatMode() {
         return cheatMode;
     }

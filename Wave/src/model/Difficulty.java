@@ -11,14 +11,16 @@ import model.Enums.DifficultyLevel;
 // class that computes certain aspects of the game instance based on the selected difficulty level
 public class Difficulty {
 
-  protected DifficultyLevel difficulty ;
+  protected DifficultyLevel difficulty;
 
   public Difficulty(DifficultyLevel choice) {
     this.difficulty = choice;
   }
 
   /**
-   * method to reward a player with a number of coins based on the difficulty level
+   * method to reward a player with a number of coins based on the difficulty
+   * level
+   * 
    * @param none
    * @return the number of coins to be rewarded
    */
@@ -37,6 +39,7 @@ public class Difficulty {
 
   /**
    * method to calculate a damage multiplier based on the difficulty of the game
+   * 
    * @param none
    * @return a multiplier representing the extra damage to be done to the player
    */
@@ -54,13 +57,14 @@ public class Difficulty {
     }
   }
 
-  public String serialization(){
+  public String serialization() {
     return this.difficulty.toString();
   }
 
-  public void deserialization(String value){
+  public void deserialization(String value) {
     this.difficulty = DifficultyLevel.valueOf(value);
   }
+
   public DifficultyLevel getDifficulty() {
     return difficulty;
   }

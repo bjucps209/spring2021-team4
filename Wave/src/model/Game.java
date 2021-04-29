@@ -11,7 +11,6 @@ import java.io.*;
 import model.GameObjects.GameObject;
 import model.GameObjects.Obstacles.*;
 import model.GameObjects.Powerups.PowerUp;
-import model.GameObjects.SpeedPanels.SpeedPanel;
 import model.Enums.DifficultyLevel;
 import model.GameObjects.*;
 import model.GameObjects.Enemies.EnemyObject;
@@ -33,34 +32,36 @@ public class Game {
     private Level currentLevel;
     private int levelNum = 0;
 
-    //This constructor should only be use for unit test
-    public Game(){
+    // This constructor should only be use for unit test
+    public Game() {
         w = Wave.getInstance();
         gameWidth = 1000;
         gameHeight = 1000;
         this.levels = new ArrayList<Level>();
         this.difficulty = new Difficulty(DifficultyLevel.Easy);
     }
+
     // Constructor
     public Game(int width, int height, ArrayList<Level> levels) {
         w = Wave.getInstance();
         gameWidth = width;
         gameHeight = height;
         // try {
-        //     createLevels();
+        // createLevels();
         // } catch (IOException e) {
-        //     e.printStackTrace();
+        // e.printStackTrace();
         // }
         this.levels = levels;
         currentLevel = levels.get(levelNum);
 
-        //TODO: set the difficulty here
+        // TODO: set the difficulty here
         difficulty = new Difficulty(Wave.getInstance().getUserChoiceDifficulty());
-        
+
     }
 
     /**
      * method to set the difficulty of the game
+     * 
      * @param none
      * @return none
      */
@@ -76,6 +77,7 @@ public class Game {
 
     /**
      * Main game method to update each object
+     * 
      * @param none
      * @return none
      */
@@ -91,6 +93,7 @@ public class Game {
 
     /**
      * method to start hit detection of each object in the game
+     * 
      * @param none
      * @return none
      */
@@ -98,12 +101,13 @@ public class Game {
         for (GameObject g : levels.get(levelNum).getAllObjects()) {
             if (!(g instanceof Obstacle)) {
                 g.startHitDetection();
-            }    
+            }
         }
     }
 
     /**
      * method to stop hit detection of each object in the game
+     * 
      * @param none
      * @return none
      */
@@ -112,7 +116,7 @@ public class Game {
             try {
                 if (!(g instanceof Obstacle) && !(g instanceof Player)) {
                     g.stopHitDetection();
-                } 
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -121,6 +125,7 @@ public class Game {
 
     /**
      * method to stop the player's hit detection only
+     * 
      * @param none
      * @return none
      */
@@ -134,41 +139,43 @@ public class Game {
 
     /**
      * method to load 5 default levels
+     * 
      * @param none
      * @return none
      */
     public void createLevels() throws IOException {
         Level l = w.loadCustomLevel("testPowerUp");
-        
+
         // add speed panels
         // level 1-5, 3 panels
         // level 6-10, 5 panels
 
-        
         levels.add(l);
     }
 
     /**
      * method called to progress to the next level in the game
+     * 
      * @param none
      * @return none
      */
     public void nextLevel() {
         if (levelNum != levels.size() - 1) {
-            // save all coins  
-            int coins = Wave.getInstance().getCoins()/2;
-            Wave.getInstance().getCurrentUser().setCoins( Wave.getInstance().getCurrentUser().getCoins() + coins + Wave.getInstance().getGame().getDifficultyLevel().rewardCoins());
-            //this.currentLevel.getPlayer().getHits().clear();
-            //this.currentLevel.getAllObjects().clear();
-            //this.currentLevel.getPlayer().setTemporaryInvincible(false);
-            //this.currentLevel.getPlayer().get
+            // save all coins
+            int coins = Wave.getInstance().getCoins() / 2;
+            Wave.getInstance().getCurrentUser().setCoins(Wave.getInstance().getCurrentUser().getCoins() + coins
+                    + Wave.getInstance().getGame().getDifficultyLevel().rewardCoins());
+            // this.currentLevel.getPlayer().getHits().clear();
+            // this.currentLevel.getAllObjects().clear();
+            // this.currentLevel.getPlayer().setTemporaryInvincible(false);
+            // this.currentLevel.getPlayer().get
             levelNum++;
             currentLevel = levels.get(levelNum);
         } else {
             // TODO: COMPLETED ALL LEVELS
             setIsWon(true);
         }
-        
+
     }
 
     // --- setters ---
@@ -236,9 +243,8 @@ public class Game {
         try (BufferedReader rd = new BufferedReader(new FileReader(userName + ".txt"))) {
             // load data here
 
-
             this.levels = new ArrayList<Level>();
- 
+
             levels.add(w.loadCustomLevel("level0"));
             levels.add(w.loadCustomLevel("level1"));
             levels.add(w.loadCustomLevel("level2"));
@@ -249,8 +255,7 @@ public class Game {
             if (firstLine.equals("###END###")) {
                 // means already end of game
                 // let it to start a new game
-            
-                
+
                 return true;
             }
 
@@ -265,13 +270,12 @@ public class Game {
             this.currentLevel.setEnemies(new ArrayList<EnemyObject>());
             this.currentLevel.setObstacles(new ArrayList<Obstacle>());
             this.currentLevel.setPowerUps(new ArrayList<PowerUp>());
-            this.currentLevel.setSpeedPanels(new ArrayList<SpeedPanel>());
 
             int score = Integer.parseInt(rd.readLine());
             Wave.getInstance().setCoins(score);
             String difficult = rd.readLine();
-           this.difficulty.deserialization( difficult);
-            
+            this.difficulty.deserialization(difficult);
+
             boolean result = currentLevel.deserialization(rd);
 
             String nextLine = rd.readLine();
@@ -315,11 +319,9 @@ public class Game {
                 // means save during the game
                 wd.println(remainingTime);
                 wd.println(this.levelNum);
-                wd.println(w.getCoins());  // save current score
+                wd.println(w.getCoins()); // save current score
             }
 
-            
-            
             wd.println(this.difficulty.serialization());
 
             for (String s : currentLevel.serialization().split("/n")) {
